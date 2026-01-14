@@ -431,6 +431,7 @@ public class MTESteamWasher extends MTESteamMultiBase<MTESteamWasher> implements
         super.saveNBTData(aNBT);
         aNBT.setInteger("tierMachine", tierMachine);
         aNBT.setInteger("mMode", machineMode);
+        aNBT.setInteger("tierMachineCasing", tierMachineCasing);
     }
 
     @Override
@@ -438,6 +439,7 @@ public class MTESteamWasher extends MTESteamMultiBase<MTESteamWasher> implements
         super.loadNBTData(aNBT);
         tierMachine = aNBT.getInteger("tierMachine");
         machineMode = aNBT.getInteger("mMode");
+        tierMachineCasing = aNBT.getInteger("tierMachineCasing");
     }
 
     @Override
