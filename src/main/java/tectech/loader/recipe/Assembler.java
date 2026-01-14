@@ -8,6 +8,7 @@ import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
+import static gtPlusPlus.core.material.MaterialsElements.STANDALONE.HYPOGEN;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -632,6 +633,87 @@ public class Assembler implements Runnable {
                     .itemOutputs(CustomItemList.eM_dynamoMulti64_UXV.get(1))
                     .fluidInputs(Materials.Tungsten.getMolten(1 * STACKS))
                     .duration(20 * SECONDS)
+                    .eut((int) TierEU.RECIPE_UMV)
+                    .addTo(assemblerRecipes);
+
+                // Dynamo UV 256A
+                GTValues.RA.stdBuilder()
+                    .itemInputs(
+                        ItemList.WetTransformer_UHV_UV.get(4),
+                        CustomItemList.eM_dynamoMulti64_UV.get(1),
+                        GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.NaquadahAlloy, 2),
+                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.Osmium, 8))
+                    .itemOutputs(CustomItemList.eM_dynamoMulti256_UV.get(1))
+                    .fluidInputs(Materials.Trinium.getMolten(256 * INGOTS))
+                    .duration(40 * SECONDS)
+                    .eut(TierEU.RECIPE_ZPM)
+                    .addTo(assemblerRecipes);
+                // Dynamo UHV 256A
+                GTValues.RA.stdBuilder()
+                    .itemInputs(
+                        ItemList.WetTransformer_UEV_UHV.get(4),
+                        CustomItemList.eM_dynamoMulti64_UHV.get(1),
+                        GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.SuperconductorUHV, 2),
+                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.Neutronium, 8))
+                    .itemOutputs(CustomItemList.eM_dynamoMulti256_UHV.get(1))
+                    .fluidInputs(Materials.ElectrumFlux.getMolten(256 * INGOTS))
+                    .duration(40 * SECONDS)
+                    .eut(TierEU.RECIPE_UV)
+                    .addTo(assemblerRecipes);
+                // Dynamo UEV 256A
+                GTValues.RA.stdBuilder()
+                    .itemInputs(
+                        ItemList.WetTransformer_UIV_UEV.get(4),
+                        CustomItemList.eM_dynamoMulti64_UEV.get(1),
+                        GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.Draconium, 2),
+                        GTOreDictUnificator.get(
+                            OrePrefixes.plate,
+                            BaseRecipeLoader.getOrDefault("Bedrockium", Materials.Neutronium),
+                            8))
+                    .itemOutputs(CustomItemList.eM_dynamoMulti256_UEV.get(1))
+                    .fluidInputs(Materials.DraconiumAwakened.getMolten(256 * INGOTS))
+                    .duration(40 * SECONDS)
+                    .eut(TierEU.RECIPE_UHV)
+                    .addTo(assemblerRecipes);
+                // Dynamo UIV 256A
+                GTValues.RA.stdBuilder()
+                    .itemInputs(
+                        ItemList.WetTransformer_UMV_UIV.get(4),
+                        CustomItemList.eM_dynamoMulti64_UIV.get(1),
+                        GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.NetherStar, 2),
+                        GTOreDictUnificator.get(
+                            OrePrefixes.plate,
+                            BaseRecipeLoader.getOrDefault("BlackPlutonium", Materials.Neutronium),
+                            8))
+                    .itemOutputs(CustomItemList.eM_dynamoMulti256_UIV.get(1))
+                    .fluidInputs(Materials.Infinity.getMolten(256 * INGOTS))
+                    .duration(40 * SECONDS)
+                    .eut(TierEU.RECIPE_UEV)
+                    .addTo(assemblerRecipes);
+                // Dynamo UMV 256A
+                GTValues.RA.stdBuilder()
+                    .itemInputs(
+                        ItemList.WetTransformer_UXV_UMV.get(4),
+                        CustomItemList.eM_dynamoMulti64_UMV.get(1),
+                        GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.Quantium, 2),
+                        GTOreDictUnificator.get(OrePrefixes.plate, MaterialsUEVplus.SpaceTime, 8))
+                    .itemOutputs(CustomItemList.eM_dynamoMulti256_UMV.get(1))
+                    .fluidInputs(HYPOGEN.getFluidStack(256 * INGOTS))
+                    .duration(40 * SECONDS)
+                    .eut(TierEU.RECIPE_UIV)
+                    .addTo(assemblerRecipes);
+                // Dynamo UXV 256A
+                GTValues.RA.stdBuilder()
+                    .itemInputs(
+                        ItemList.WetTransformer_MAX_UXV.get(4),
+                        CustomItemList.eM_dynamoMulti64_UXV.get(1),
+                        GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.BlackPlutonium, 2),
+                        GTOreDictUnificator
+                            .get(OrePrefixes.plate, MaterialsUEVplus.MagnetohydrodynamicallyConstrainedStarMatter, 4),
+                        GTOreDictUnificator.get(OrePrefixes.plate, MaterialsUEVplus.MagMatter, 4L))
+                    .itemOutputs(CustomItemList.eM_dynamoMulti256_UXV.get(1))
+                    .fluidInputs(MaterialsUEVplus.SpaceTime.getMolten(256 * INGOTS))
+                    .duration(40 * SECONDS)
                     .eut((int) TierEU.RECIPE_UMV)
                     .addTo(assemblerRecipes);
 
