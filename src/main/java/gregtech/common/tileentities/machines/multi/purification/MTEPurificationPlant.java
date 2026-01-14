@@ -411,6 +411,7 @@ public class MTEPurificationPlant extends MTEExtendedPowerMultiBlockBase<MTEPuri
                         if (unit.isActive()) {
                             unit.metaTileEntity()
                                 .stopMachine(ShutDownReasonRegistry.POWER_LOSS);
+                            unit.setActive(false);
                         }
                     }
                 }
