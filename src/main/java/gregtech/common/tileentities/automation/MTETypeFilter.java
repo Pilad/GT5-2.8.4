@@ -182,8 +182,7 @@ public class MTETypeFilter extends MTESpecialFilter {
         return (itemTooltip) -> {
             List<String> replacementTooltip = new ArrayList<>();
             replacementTooltip.add(
-                StatCollector
-                    .translateToLocalFormatted("GT5U.tooltip.typefilter.set_to", mPrefix.getDefaultLocalName()));
+                StatCollector.translateToLocalFormatted("GT5U.tooltip.typefilter.set_to", mPrefix.mRegularLocalName));
             replacementTooltip.add(
                 StatCollector.translateToLocalFormatted("GT5U.tooltip.typefilter.ore_prefix", "§e" + mPrefix + "§r"));
             replacementTooltip.add(
