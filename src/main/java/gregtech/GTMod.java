@@ -558,6 +558,7 @@ public class GTMod {
         }
 
         GTPostLoad.addSolidFakeLargeBoilerFuels();
+        GTPostLoad.addCauldronRecipe();
         GTPostLoad.identifyAnySteam();
 
         achievements = new GTAchievements();
