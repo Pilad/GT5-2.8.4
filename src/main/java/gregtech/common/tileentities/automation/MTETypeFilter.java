@@ -10,6 +10,7 @@ import java.util.function.Function;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 import com.google.common.collect.ImmutableList;
 import com.gtnewhorizons.modularui.api.screen.ModularWindow;
@@ -180,9 +181,15 @@ public class MTETypeFilter extends MTESpecialFilter {
     protected Function<List<String>, List<String>> getItemStackReplacementTooltip() {
         return (itemTooltip) -> {
             List<String> replacementTooltip = new ArrayList<>();
-            replacementTooltip.add("Filter set to " + mPrefix.mRegularLocalName);
-            replacementTooltip.add("Ore prefix: §e" + mPrefix + "§r");
-            replacementTooltip.add("Filter size: §e" + mPrefix.mPrefixedItems.size() + "§r");
+            replacementTooltip.add(
+                StatCollector
+                    .translateToLocalFormatted("GT5U.tooltip.typefilter.set_to", mPrefix.getDefaultLocalName()));
+            replacementTooltip.add(
+                StatCollector.translateToLocalFormatted("GT5U.tooltip.typefilter.ore_prefix", "§e" + mPrefix + "§r"));
+            replacementTooltip.add(
+                StatCollector.translateToLocalFormatted(
+                    "GT5U.tooltip.typefilter.size",
+                    "§e" + mPrefix.mPrefixedItems.size() + "§r"));
             replacementTooltip.addAll(mTooltipCache.getData(REPRESENTATION_SLOT_TOOLTIP).text);
             return replacementTooltip;
         };
