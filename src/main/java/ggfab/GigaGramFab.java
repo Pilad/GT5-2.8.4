@@ -43,6 +43,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe;
+import gregtech.api.util.ProcessingArrayManager;
 
 @Mod(
     modid = GGConstants.MODID,
@@ -150,7 +151,7 @@ public class GigaGramFab {
                 INSTANCE.mToolStats.get((short) SCREWDRIVER.ID),
                 2 * rod);
             GigaGramFabAPI.addSingleUseToolType(craftingToolSaw, INSTANCE.mToolStats.get((short) SAW.ID), 2 * plate);
-
+            ProcessingArrayManager.addRecipeMapToPA("ggfab.toolcast", GGFabRecipeMaps.toolCastRecipes);
         });
         GregTechAPI.sBeforeGTPostload.add(new ComponentRecipeLoader());
         GregTechAPI.sBeforeGTPostload.add(new SingleUseToolRecipeLoader());

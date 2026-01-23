@@ -1623,6 +1623,7 @@ public enum ItemList implements IItemContainer {
     MagicEnergyAbsorber_HV,
     MagicEnergyAbsorber_EV,
 
+    Processing_Array,
     Distillation_Tower,
     Energy_LapotronicOrb2,
     Ore_Processor,
