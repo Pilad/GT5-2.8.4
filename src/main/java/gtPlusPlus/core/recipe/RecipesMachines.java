@@ -2866,6 +2866,24 @@ public class RecipesMachines {
             GregtechItemList.Industrial_Mixer.get(1));
 
         final ItemStack staballoyPlate = MaterialsAlloy.STABALLOY.getPlate(1);
+        ItemStack o_Compressor = ItemList.Machine_IV_Compressor.get(1);
+        ItemStack o_Lathe = ItemList.Machine_IV_Lathe.get(1);
+        ItemStack o_Electromagnet = ItemList.Machine_IV_Polarizer.get(1);
+        ItemStack o_Fermenter = ItemList.Machine_IV_Fermenter.get(1);
+        ItemStack o_Distillery = ItemList.Machine_IV_FluidExtractor.get(1);
+        ItemStack o_Extractor = ItemList.Machine_IV_Extractor.get(1);
+
+        RecipeUtils.addShapedRecipe(
+            o_Compressor,
+            o_Lathe,
+            o_Electromagnet,
+            staballoyPlate,
+            GregtechItemList.GT4_Electric_Auto_Workbench_IV.get(1),
+            staballoyPlate,
+            o_Fermenter,
+            o_Distillery,
+            o_Extractor,
+            GregtechItemList.Industrial_MultiMachine.get(1));
 
         RecipeUtils.addShapedRecipe(
             staballoyPlate,
