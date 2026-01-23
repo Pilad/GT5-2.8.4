@@ -256,6 +256,8 @@ public enum GregtechItemList implements IGregtechItemContainer {
     Industrial_Extruder,
     Casing_Extruder,
 
+    // Multi-Machine
+    Industrial_MultiMachine,
     Casing_Multi_Use,
 
     // Bedrock Mining Platforms

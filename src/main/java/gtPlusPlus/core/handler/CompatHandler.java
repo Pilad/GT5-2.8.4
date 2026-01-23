@@ -69,6 +69,7 @@ import gtPlusPlus.xmod.gregtech.registration.gregtech.GregtechIndustrialFuelRefi
 import gtPlusPlus.xmod.gregtech.registration.gregtech.GregtechIndustrialMacerator;
 import gtPlusPlus.xmod.gregtech.registration.gregtech.GregtechIndustrialMassFabricator;
 import gtPlusPlus.xmod.gregtech.registration.gregtech.GregtechIndustrialMixer;
+import gtPlusPlus.xmod.gregtech.registration.gregtech.GregtechIndustrialMultiMachine;
 import gtPlusPlus.xmod.gregtech.registration.gregtech.GregtechIndustrialPlatePress;
 import gtPlusPlus.xmod.gregtech.registration.gregtech.GregtechIndustrialRockBreaker;
 import gtPlusPlus.xmod.gregtech.registration.gregtech.GregtechIndustrialSifter;
@@ -174,6 +175,7 @@ public class CompatHandler {
         GregtechIndustrialCuttingFactory.run();
         GregtechIndustrialFishPond.run();
         GregtechIndustrialExtruder.run();
+        GregtechIndustrialMultiMachine.run();
         GregtechBufferDynamos.run();
         GregtechAmazonWarehouse.run();
         GregtechFactoryGradeReplacementMultis.run();

@@ -576,6 +576,7 @@ public enum MetaTileEntityIDs {
     Industrial_ThermalCentrifuge(849),
     Industrial_WashPlant(850),
     Industrial_Extruder(859),
+    Industrial_MultiMachine(860),
     Hatch_Air_Intake(861),
     Industrial_Arc_Furnace(862),
     Industrial_Solar_Tower(863),
