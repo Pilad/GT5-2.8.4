@@ -91,6 +91,7 @@ import gregtech.common.config.MachineStats;
 import gregtech.common.config.OPStuff;
 import gregtech.common.config.Other;
 import gregtech.common.config.Worldgen;
+import gregtech.common.items.flinttools.FlintTools;
 import gregtech.common.misc.GTCommand;
 import gregtech.common.misc.GTPowerfailCommand;
 import gregtech.common.misc.GTStructureChannels;
@@ -343,6 +344,10 @@ public class GTMod {
         if (FMLCommonHandler.instance()
             .getEffectiveSide()
             .isServer()) AssemblyLineServer.fillMap(event);
+        // Flint tool setup.
+        FlintTools.registerTools();
+        FlintTools.registerPosteaTransformations();
+        FlintTools.registerRecipes();
     }
 
     @Mod.EventHandler

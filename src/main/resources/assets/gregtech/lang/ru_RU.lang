@@ -2606,6 +2606,12 @@ gt.solar.system.mercury=Меркурий
 gt.solar.system.titan=Титан
 gt.solar.system.phobos=Фобос
 
+item.flintSword.name=Кремневый меч
+item.flintAxe.name=Кремневый топор
+item.flintShovel.name=Кремневая лопата
+item.flintPickaxe.name=Кремневая кирка
+item.flintHoe.name=Кремневая мотыга
+
 gt.multiBlock.controller.cokeOven=Коксовая печь
 
 gt.locker.waila_armor_slot_none=Слот %s: §7Никакой
