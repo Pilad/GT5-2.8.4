@@ -229,14 +229,12 @@ public class RecipesGregTech {
 
         // Produce Th232
         GTValues.RA.stdBuilder()
-            .itemInputs(GTUtility.getIntegratedCircuit(22), MaterialsElements.getInstance().THORIUM.getDust(16))
+            .itemInputs(GTUtility.getIntegratedCircuit(22), MaterialsElements.getInstance().THORIUM.getDust(4))
             .itemOutputs(
-                MaterialsElements.getInstance().THORIUM.getSmallDust(32),
-                MaterialsElements.getInstance().THORIUM232.getDust(2),
-                MaterialsElements.getInstance().THORIUM232.getSmallDust(2),
-                MaterialsElements.getInstance().URANIUM232.getDust(1))
-            .fluidInputs(GTModHandler.getDistilledWater(2_000), FluidUtils.getFluidStack("boricacid", 1_500))
-            .duration(5 * MINUTES)
+                WerkstoffLoader.Thorianit.get(OrePrefixes.dust, 3),
+                MaterialsElements.getInstance().THORIUM232.getDust(1))
+            .fluidInputs(GTModHandler.getDistilledWater(2_000), FluidUtils.getFluidStack("boricacid", 500))
+            .duration(100 * SECONDS)
             .eut(TierEU.RECIPE_EV)
             .metadata(CHEMPLANT_CASING_TIER, 4)
             .addTo(chemicalPlantRecipes);
