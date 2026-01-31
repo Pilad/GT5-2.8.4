@@ -37,6 +37,9 @@ GT5U.gui.text.EIG_seedOverflow=Внутри слишком много семян
 GT5U.gui.text.EIG_missingwater=Нет воды!
 GT5U.gui.text.EIG_ic2glass=Недостаточный тир стекла!
 
+kubatech.gui.text.usage_line=Usage: %s EU/t
+kubatech.gui.text.time_line=Time: %s secs
+
 # info data
 ## general
 kubatech.infodata.running_mode=Работает в режиме:

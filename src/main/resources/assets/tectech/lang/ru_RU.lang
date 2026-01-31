@@ -1128,8 +1128,8 @@ gt.blockmachines.multimachine.FOG.fuelinfo.4=This factor also determines the bas
 gt.blockmachines.multimachine.FOG.fuelinfo.5=Upgrades can influence these formulas, the changes are listed in the respective upgrades' descriptions.
 gt.blockmachines.multimachine.FOG.fueltype=Click to Select Fuel Type
 gt.blockmachines.multimachine.FOG.fuelusage=Потребление топлива
-gt.blockmachines.multimachine.FOG.plasmamultistep=Многоступенчатая плазма
-gt.blockmachines.multimachine.FOG.plasmarecipetier=Fusion Tier
+gt.blockmachines.multimachine.FOG.plasmamultistep=Multi-Step plasma: %s
+gt.blockmachines.multimachine.FOG.plasmarecipetier=Fusion Tier: %s
 gt.blockmachines.multimachine.FOG.storedfuel=Количество хранимого топлива:
 gt.blockmachines.multimachine.FOG.storedstartupfuel=Количество звездного топлива:
 gt.blockmachines.multimachine.FOG.batteryinfo=Set battery size
@@ -1386,6 +1386,11 @@ GT5U.gui.text.waiting_for_inputs=§7Waiting for inputs
 GT5U.gui.text.computation_loss=§4Выключен из-за потери вычислительных данных.
 GT5U.gui.text.researching_item=§fИсследование: §b%s
 GT5U.gui.text.research_progress=§fВычислительной мощности: %d/%d (%s%%)
+GT5U.gui.text.at_eu_transferred=§8EU Transferred:
+GT5U.gui.text.at_past_5secs.header=§7Past 5 seconds:
+GT5U.gui.text.at_past_30secs.header=§7Past 30 seconds:
+GT5U.gui.text.at_past_min.header=§7Past minute:
+GT5U.gui.text.at_history.values=  %s EU/t  (%sA %s)
 
 # RecipeMaps
 gt.recipe.eyeofharmony=Глаз гармонии
