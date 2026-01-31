@@ -120,13 +120,14 @@ public class BehaviourSprayColorInfinite extends BehaviourSprayColor {
 
         aList.add(StatCollector.translateToLocal("gt.behaviour.paintspray.infinite.tooltip.infinite"));
         aList.add(mTooltipChain);
+        aList.add(mTooltipUnstackable);
         aList.add(" ");
 
         if (!statuses.isEmpty()) {
             aList.add(String.join(" :: ", statuses));
         }
         aList.add(StatCollector.translateToLocal("gt.behaviour.paintspray.infinite.tooltip.more_info"));
-        aList.add(AuthorQuerns);
+        aList.add(StatCollector.translateToLocal("gt.behaviour.paintspray.infinite.tooltip.author_byline"));
         return aList;
     }
 
