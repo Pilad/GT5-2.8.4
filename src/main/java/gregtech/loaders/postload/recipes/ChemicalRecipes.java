@@ -149,10 +149,12 @@ public class ChemicalRecipes implements Runnable {
             .addTo(UniversalChemical);
 
         GTValues.RA.stdBuilder()
-            .itemInputs(new ItemStack(Items.sugar), GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.Plastic, 1))
-            .itemOutputs(ItemList.GelledToluene.get(2))
-            .fluidInputs(new FluidStack(ItemList.sToluene, 133))
-            .duration(7 * SECONDS)
+            .itemInputs(
+                new ItemStack(Items.sugar, 8),
+                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Plastic, 1))
+            .itemOutputs(ItemList.GelledToluene.get(16))
+            .fluidInputs(new FluidStack(ItemList.sToluene, 1_000))
+            .duration(56 * SECONDS)
             .eut(192)
             .addTo(UniversalChemical);
 
