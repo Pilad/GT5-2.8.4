@@ -38,7 +38,11 @@ public class CoverTabButton extends ButtonWidget<CoverTabButton> {
             .onMousePressed(mouseButton -> {
                 if (coverable.getCoverAtSide(side)
                     .hasCoverGUI()) {
-                    panel.openPanel();
+                    if (panel.isPanelOpen()) {
+                        panel.closePanel();
+                    } else {
+                        panel.openPanel();
+                    }
                 }
                 return true;
             })
