@@ -3,6 +3,8 @@ package tectech.thing.cover;
 import java.util.UUID;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -10,7 +12,6 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 
-import eu.usrv.yamcore.auxiliary.PlayerChatHelper;
 import gregtech.api.covers.CoverContext;
 import gregtech.api.gui.modularui.CoverUIBuildContext;
 import gregtech.api.interfaces.tileentity.ICoverable;
@@ -116,11 +117,11 @@ public class CoverEnderFluidLink extends CoverLegacyData {
     @Override
     public void onCoverScrewdriverClick(EntityPlayer aPlayer, float aX, float aY, float aZ) {
         this.coverData = toggleBit(this.coverData, IMPORT_EXPORT_MASK);
-
-        if (testBit(this.coverData, IMPORT_EXPORT_MASK)) {
-            PlayerChatHelper.SendInfo(aPlayer, "Ender Suction Engaged!"); // TODO Translation support
-        } else {
-            PlayerChatHelper.SendInfo(aPlayer, "Ender Filling Engaged!");
+        if (aPlayer instanceof EntityPlayerMP) {
+            aPlayer.addChatMessage(
+                new ChatComponentTranslation(
+                    testBit(this.coverData, IMPORT_EXPORT_MASK) ? "tt.cover.ender_fluid_link.fill"
+                        : "tt.cover.ender_fluid_link.suck"));
         }
     }
 

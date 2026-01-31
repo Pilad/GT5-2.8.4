@@ -1510,11 +1510,11 @@ tt.keyphrase.Running_interdimensional_scan=Производится межпро
 tt.keyphrase.Running_local_dimension_scan=Производится внутрипространственное сканирование
 tt.keyphrase.Overdrive_disengaged=Режим перегрузки выключен
 tt.keyphrase.Overdrive_engaged=Режим перегрузки включен
-tt.keyphrase.Hysteresis_high_set_to=Верхний порог гистерезиса установлен на
-tt.keyphrase.Hysteresis_low_set_to=Нижний порог гистерезиса установлен на
-tt.keyphrase.Tesla_radius_set_to=Радиус Башни Теслы установлен на
-tt.keyphrase.Sending_power=Sending power
-tt.keyphrase.Receiving_power=Receiving power
+tt.keyphrase.Hysteresis_high_set_to=Hysteresis high set to %s%%
+tt.keyphrase.Hysteresis_low_set_to=Hysteresis low set to %s%%
+tt.keyphrase.Tesla_radius_set_to=Tesla radius set to %sm
+tt.keyphrase.Sending_power=Sending power!
+tt.keyphrase.Receiving_power=Receiving power!
 tt.keyphrase.Stored_energy=Энергии накоплено
 tt.keyphrase.Stored_EU=EU хранится
 tt.keyphrase.Average_IO=Средний Вход/Выход
@@ -1523,6 +1523,14 @@ tt.keyphrase.Average_IO_max=Вольтаж I/O макс.
 tt.keyphrase.Amperage_IO_(max)=Ампераж I/O (макс.)
 tt.keyphrase.Side_capabilities=Дополнительные возможности
 tt.keyphrase.Ass_line_recipe=Рецепты Сборочной линии
+
+tt.cover.ender_fluid_link.fill=Ender Filling Engaged!
+tt.cover.ender_fluid_link.suck=Ender Suction Engaged!
+
+tt.block.world_accelerator.set_speed=Machine acceleration changed to x%s
+tt.block.world_accelerator.set_range=Machine range changed to %s blocks
+tt.block.world_accelerator.set_range_fail=Can't change range; Machine is in Tile Entity mode!
+tt.block.world_accelerator.set_mode=Switched mode to: %s
 
 #OpenTurrets compatibility
 tile.turretHeadEM.name=Турель элементальной материи
