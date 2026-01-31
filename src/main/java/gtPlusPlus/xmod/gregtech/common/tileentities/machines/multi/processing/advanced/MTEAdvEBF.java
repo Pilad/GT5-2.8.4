@@ -291,7 +291,7 @@ public class MTEAdvEBF extends GTPPMultiBlockBase<MTEAdvEBF> implements ISurviva
         inputSeparation = !inputSeparation;
         aPlayer.addChatMessage(
             new ChatComponentTranslation(
-                inputSeparation ? "interaction.separateBusses.enabled" : "interaction.separateBusses.disabled"));
+                inputSeparation ? "interaction.separateBuses.enabled" : "interaction.separateBuses.disabled"));
     }
 
     @Override
