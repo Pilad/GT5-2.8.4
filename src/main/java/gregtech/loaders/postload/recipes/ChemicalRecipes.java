@@ -2748,7 +2748,7 @@ public class ChemicalRecipes implements Runnable {
         // 2NO2 = N2O4
 
         GTValues.RA.stdBuilder()
-            .itemInputs(GTUtility.getIntegratedCircuit(2))
+            .itemInputs(GTUtility.getIntegratedCircuit(6))
             .fluidInputs(Materials.NitrogenDioxide.getGas(2_000))
             .fluidOutputs(Materials.DinitrogenTetroxide.getGas(1_000))
             .duration(32 * SECONDS)
@@ -5557,8 +5557,8 @@ public class ChemicalRecipes implements Runnable {
             .itemInputs(GTUtility.getIntegratedCircuit(3))
             .itemOutputs(Materials.RawStyreneButadieneRubber.getDust(3))
             .fluidInputs(
-                Materials.Styrene.getFluid(36),
-                Materials.Butadiene.getGas(108),
+                Materials.Styrene.getFluid(72),
+                Materials.Butadiene.getGas(216),
                 Materials.Oxygen.getGas(2_000))
             .duration(8 * SECONDS)
             .eut(TierEU.RECIPE_MV)

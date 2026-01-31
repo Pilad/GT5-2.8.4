@@ -68,6 +68,8 @@ public class MTEAlgaePondBase extends GTPPMultiBlockBase<MTEAlgaePondBase> imple
     private int mCasing;
     private static IStructureDefinition<MTEAlgaePondBase> STRUCTURE_DEFINITION = null;
     private int checkMeta;
+    private static final int MINIMUM_CASINGS = 64;
+
     private static final Class<?> cofhWater;
 
     static {
@@ -110,7 +112,7 @@ public class MTEAlgaePondBase extends GTPPMultiBlockBase<MTEAlgaePondBase> imple
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(9, 3, 9, true)
             .addController("Front Center")
-            .addCasingInfoMin("Machine Casings", 64, true)
+            .addCasingInfoMin("Machine Casings", MINIMUM_CASINGS, true)
             .addCasingInfoMin("Sterile Farm Casings", 64, false)
             .addInputBus("Any Casing", 1)
             .addOutputBus("Any Casing", 1)
