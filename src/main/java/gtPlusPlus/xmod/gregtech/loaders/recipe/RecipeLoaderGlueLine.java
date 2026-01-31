@@ -300,7 +300,7 @@ public class RecipeLoaderGlueLine {
                 Materials.Graphite.getDust(64),
                 ItemList.Circuit_Silicon_Wafer4.get(1L),
                 GTUtility.getIntegratedCircuit(2))
-            .itemOutputs(ItemUtils.getItemStackOfAmountFromOreDict("dustGraphene", 128))
+            .itemOutputs(GTUtility.copyAmountUnsafe(128, Materials.Graphene.getDust(1)))
             .fluidInputs(MaterialMisc.ETHYL_CYANOACRYLATE.getFluidStack(500))
             .duration(10 * SECONDS)
             .eut(TierEU.RECIPE_LuV)
@@ -316,7 +316,7 @@ public class RecipeLoaderGlueLine {
                 Materials.Graphite.getDust(64),
                 Materials.Graphite.getDust(64),
                 Materials.Graphite.getDust(64))
-            .itemOutputs(ItemUtils.getItemStackOfAmountFromOreDict("dustGraphene", 512))
+            .itemOutputs(GTUtility.copyAmountUnsafe(512, Materials.Graphene.getDust(1)))
             .fluidInputs(MaterialMisc.ETHYL_CYANOACRYLATE.getFluidStack(250))
             .duration(5 * SECONDS)
             .eut(TierEU.RECIPE_ZPM)
