@@ -408,8 +408,8 @@ public class MTEBlackHoleCompressor extends MTEExtendedPowerMultiBlockBase<MTEBl
             .addTecTechHatchInfo()
             .addInfo(
                 EnumChatFormatting.RED
-                    + "Recipe tier is limited to hatch tier + 1. Will not perform overclocks above the hatch tier.")
-            .addInfo(EnumChatFormatting.RED + "Limit to one energy hatch if using a Multi-Amp or Laser hatch.")
+                    + "Recipe tier is limited to hatch tier + 1. Will not perform overclocks above the hatch tier")
+            .addInfo(EnumChatFormatting.RED + "Limited to one energy hatch if using a Multi-Amp or Laser hatch")
             .beginStructureBlock(35, 33, 35, false)
             .addCasingInfoMin("Background Radiation Absorbent Casing", 950, false)
             .addCasingInfoExactly("Extreme Density Space-Bending Casing", 3667, false)
@@ -498,16 +498,21 @@ public class MTEBlackHoleCompressor extends MTEExtendedPowerMultiBlockBase<MTEBl
                 + tag.getInteger("parallels"));
         if (tag.getByte("blackHoleStatus") != 1) {
             if (tag.getFloat("blackHoleStability") > 0) {
-                currentTip.add(EnumChatFormatting.DARK_PURPLE + "Black Hole Active");
                 currentTip.add(
-                    EnumChatFormatting.DARK_PURPLE + "Stability: "
-                        + EnumChatFormatting.BOLD
-                        + Math.round(tag.getFloat("blackHoleStability"))
-                        + "%");
+                    EnumChatFormatting.DARK_PURPLE
+                        + StatCollector.translateToLocal("GT5U.waila.black_hole_compressor.active"));
+                currentTip.add(
+                    EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocalFormatted(
+                        "GT5U.waila.black_hole_compressor.stability",
+                        "" + EnumChatFormatting.BOLD + Math.round(tag.getFloat("blackHoleStability"))));
             } else {
-                currentTip.add(EnumChatFormatting.RED + "BLACK HOLE UNSTABLE");
+                currentTip.add(
+                    EnumChatFormatting.RED
+                        + StatCollector.translateToLocal("GT5U.waila.black_hole_compressor.unstable"));
             }
-        } else currentTip.add(EnumChatFormatting.DARK_PURPLE + "Black Hole Offline");
+        } else currentTip.add(
+            EnumChatFormatting.DARK_PURPLE
+                + StatCollector.translateToLocal("GT5U.waila.black_hole_compressor.offline"));
     }
 
     private int getModeFromCircuit(ItemStack[] t) {
