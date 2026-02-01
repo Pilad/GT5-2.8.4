@@ -43,11 +43,6 @@ public class NEIGTPPConfig implements IConfigureNEI {
             GregtechItemList.Controller_Vacuum_Furnace.get(1),
             GTPPRecipeMaps.chemicalDehydratorRecipes.unlocalizedName);
 
-        // ULV simple washer
-        API.removeRecipeCatalyst(
-            GregtechItemList.SimpleDustWasher_ULV.get(1),
-            GTPPRecipeMaps.simpleWasherRecipes.unlocalizedName);
-
         API.removeRecipeCatalyst(
             GregtechItemList.Controller_IndustrialRockBreaker.get(1),
             RecipeMaps.rockBreakerFakeRecipes.unlocalizedName);
