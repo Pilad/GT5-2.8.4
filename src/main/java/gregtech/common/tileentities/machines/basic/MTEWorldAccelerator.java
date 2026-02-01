@@ -127,12 +127,12 @@ public class MTEWorldAccelerator extends MTETieredMachineBlock {
             "Max Speed Bonus " + EnumChatFormatting.GREEN + String.format("x%d", mAccelerateStatic[mTier]),
             EnumChatFormatting.GOLD + "Blocks Mode: "
                 + EnumChatFormatting.RESET
-                + String.format("Radius 1-%d | Amps \u2264%s", mTier, AMPERAGE_NORMAL),
+                + String.format("Range: 1-%d blocks to each side | Amps \u2264%s", mTier, AMPERAGE_NORMAL),
             EnumChatFormatting.GOLD + "TileEntity Mode: "
                 + EnumChatFormatting.RESET
-                + String.format("Radius 1 | Amps \u2264%s", AMPERAGE_TE),
-            "Use a screwdriver to change mode, sneak to change radius", "Use a wrench to change speed",
-            "Power consumption increases with speed/radius" };
+                + String.format("Adjacent blocks only | Amps \u2264%s", AMPERAGE_TE),
+            "Use a screwdriver to change mode, sneak to change range", "Use a wrench to change speed",
+            "Power consumption increases with speed/range" };
     }
 
     @Override
