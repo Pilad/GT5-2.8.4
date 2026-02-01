@@ -1000,18 +1000,6 @@ public class RecipesMachines {
             .duration(10 * MINUTES)
             .eut(TierEU.RECIPE_IV)
             .addTo(assemblerRecipes);
-        // Super Jukebox
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.Hull_LV.get(1),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.LV, 4),
-                ItemUtils.getItemStackOfAmountFromOreDict("plateTumbaga", 8),
-                new ItemStack(Blocks.jukebox))
-            .itemOutputs(new ItemStack(ModBlocks.blockCustomJukebox))
-            .fluidInputs(MaterialsElements.getInstance().COPPER.getFluidStack(2 * INGOTS))
-            .duration(30 * SECONDS)
-            .eut(TierEU.RECIPE_LV)
-            .addTo(assemblerRecipes);
         // Poo Collector
         GTValues.RA.stdBuilder()
             .itemInputs(
