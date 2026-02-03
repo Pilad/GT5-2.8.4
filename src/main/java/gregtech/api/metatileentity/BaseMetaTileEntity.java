@@ -66,6 +66,7 @@ import gregtech.api.interfaces.tileentity.IDebugableTileEntity;
 import gregtech.api.interfaces.tileentity.IEnergyConnected;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.IGregtechWailaProvider;
+import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 import gregtech.api.net.GTPacketTileEntity;
 import gregtech.api.objects.blockupdate.BlockUpdateHandler;
@@ -76,6 +77,7 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.shutdown.ShutDownReason;
 import gregtech.api.util.shutdown.ShutDownReasonRegistry;
 import gregtech.common.covers.Cover;
+import gregtech.common.items.behaviors.BehaviourSoftMallet;
 import gregtech.common.pollution.Pollution;
 import gregtech.mixin.interfaces.accessors.EntityItemAccessor;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTESteamMultiBase;
@@ -1426,24 +1428,36 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
 
                     if (GTUtility.isStackInList(tCurrentItem, GregTechAPI.sSoftMalletList)) {
                         if (GTModHandler.damageOrDechargeItem(tCurrentItem, 1, 1000, aPlayer)) {
-                            if (mWorks) disableWorking();
-                            else {
-                                if (this.getLastShutDownReason() == ShutDownReasonRegistry.POWER_LOSS) {
-                                    GTMod.proxy.powerfailTracker.removePowerfailEvents(this);
+
+                            final int mode = MetaGeneratedTool.getToolMode(tCurrentItem);
+                            final boolean shouldEnable = switch (mode) {
+                                case BehaviourSoftMallet.MODE_ACTIVATE -> true;
+                                case BehaviourSoftMallet.MODE_DEACTIVATE -> false;
+                                default -> !mWorks;
+                            };
+
+                            if (shouldEnable) {
+                                if (!mWorks) {
+                                    if (this.getLastShutDownReason() == ShutDownReasonRegistry.POWER_LOSS) {
+                                        GTMod.proxy.powerfailTracker.removePowerfailEvents(this);
+                                    }
+                                    enableWorking();
                                 }
-                                enableWorking();
+                            } else if (mWorks) {
+                                disableWorking();
                             }
-                            {
-                                String tChat = GTUtility.trans("090", "Machine Processing: ")
-                                    + (isAllowedToWork() ? GTUtility.trans("088", "Enabled")
-                                        : GTUtility.trans("087", "Disabled"));
-                                if (getMetaTileEntity() != null && getMetaTileEntity().hasAlternativeModeText())
-                                    tChat = getMetaTileEntity().getAlternativeModeText();
-                                GTUtility.sendChatToPlayer(aPlayer, tChat);
+                            if (getMetaTileEntity() != null && getMetaTileEntity().hasAlternativeModeText()) {
+                                GTUtility.sendChatToPlayer(aPlayer, getMetaTileEntity().getAlternativeModeText());
+                            } else {
+                                GTUtility.sendChatToPlayer(
+                                    aPlayer,
+                                    isAllowedToWork() ? "GT5U.chat.machine.processing.enable"
+                                        : "GT5U.chat.machine.processing.disable");
                             }
                             sendSoundToPlayers(SoundResource.GTCEU_OP_SOFT_HAMMER, 1.0F, 1);
-                            if (tCurrentItem.stackSize == 0)
+                            if (tCurrentItem.stackSize == 0) {
                                 ForgeEventFactory.onPlayerDestroyItem(aPlayer, tCurrentItem);
+                            }
                         }
                         return true;
                     }
