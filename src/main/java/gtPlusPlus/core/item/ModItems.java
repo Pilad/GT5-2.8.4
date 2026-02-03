@@ -84,7 +84,6 @@ import gtPlusPlus.core.util.minecraft.FluidUtils;
 import gtPlusPlus.core.util.minecraft.ItemUtils;
 import gtPlusPlus.core.util.minecraft.MaterialUtils;
 import gtPlusPlus.plugin.agrichem.item.algae.ItemAgrichemBase;
-import gtPlusPlus.plugin.agrichem.item.algae.ItemAlgaeBase;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.gregtech.common.helpers.VolumetricFlaskHelper;
 import gtPlusPlus.xmod.gregtech.common.items.MetaGeneratedGregtechItems;
@@ -800,8 +799,6 @@ public final class ModItems {
         GregtechItemList.DriedEarthDust.set(dirt[0]);
         GregtechItemList.SmallDriedEarthDust.set(dirt[1]);
         GregtechItemList.TinyDriedEarthDust.set(dirt[2]);
-
-        GregtechItemList.Algae.set(new ItemAlgaeBase());
 
         // TODO Remove after 2.8
         Item bioSelector = new GTPPIntegratedCircuitItem("BioRecipeSelector", "bioscience/BioCircuit");
