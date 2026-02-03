@@ -19,6 +19,7 @@ import gregtech.api.enums.Dyes;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.StringUtils;
+import gregtech.common.config.Client;
 import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.core.config.Configuration;
 import gtPlusPlus.core.lib.GTPPCore;
@@ -142,11 +143,15 @@ public class BaseItemDustUnique extends Item {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void addInformation(final ItemStack stack, final EntityPlayer aPlayer, final List list, final boolean bool) {
-        if (this.sRadiation > 0) {
-            list.add(GTPPCore.GT_Tooltip_Radioactive.get());
+        if (Client.tooltip.showRadioactiveText) {
+            if (this.sRadiation > 0) {
+                list.add(GTPPCore.GT_Tooltip_Radioactive.get());
+            }
         }
-        if (!this.chemicalNotation.isEmpty() && !chemicalNotation.equals("NullFormula")) {
-            list.add(this.chemicalNotation);
+        if (Client.tooltip.showFormula) {
+            if (!this.chemicalNotation.isEmpty() && !chemicalNotation.equals("NullFormula")) {
+                list.add(this.chemicalNotation);
+            }
         }
         super.addInformation(stack, aPlayer, list, bool);
     }

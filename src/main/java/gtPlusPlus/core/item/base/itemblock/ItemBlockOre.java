@@ -14,6 +14,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import gregtech.common.config.Client;
 import gtPlusPlus.core.block.base.BlockBaseOre;
 import gtPlusPlus.core.lib.GTPPCore;
 import gtPlusPlus.core.material.Material;
@@ -71,62 +72,69 @@ public class ItemBlockOre extends ItemBlock {
             mInitOres_Everglades = true;
         }
 
-        if (this.mThisMaterial != null) {
-            list.add(this.mThisMaterial.vChemicalFormula);
+        if (Client.tooltip.showFormula) {
+            if (this.mThisMaterial != null) {
+                list.add(this.mThisMaterial.vChemicalFormula);
+            }
         }
 
-        // Radioactive?
-        if (this.mThisRadiation > 0) {
-            list.add(GTPPCore.GT_Tooltip_Radioactive.get());
+        if (Client.tooltip.showRadioactiveText) {
+            // Radioactive?
+            if (this.mThisRadiation > 0) {
+                list.add(GTPPCore.GT_Tooltip_Radioactive.get());
+            }
         }
 
-        if (this.mThisMaterial != null) {
-            list.add(StatCollector.translateToLocal("GTPP.tooltip.ore.contains"));
-            if (mThisMaterial.getComposites()
-                .isEmpty()) {
-                list.add("- " + mThisMaterial.getLocalizedName());
+        if (Client.tooltip.showOreContainsText) {
+            if (this.mThisMaterial != null) {
+                list.add(StatCollector.translateToLocal("GTPP.tooltip.ore.contains"));
+                if (mThisMaterial.getComposites()
+                    .isEmpty()) {
+                    list.add("- " + mThisMaterial.getLocalizedName());
+                } else {
+                    for (MaterialStack m : mThisMaterial.getComposites()) {
+                        list.add(
+                            "- " + m.getStackMaterial()
+                                .getLocalizedName() + " x" + m.getPartsPerOneHundred());
+                    }
+                }
+            }
+        }
+
+        if (Client.tooltip.showCtrlText) {
+            if (KeyboardUtils.isCtrlKeyDown()) {
+
+                Block b = Block.getBlockFromItem(stack.getItem());
+                if (b != null) {
+                    int aMiningLevel1 = b.getHarvestLevel(stack.getItemDamage());
+                    if (aMiningLevel1 != 0) {
+                        list.add(
+                            StatCollector.translateToLocalFormatted(
+                                "GTPP.tooltip.ore.mining_level",
+                                Math.min(Math.max(aMiningLevel1, 0), 5)));
+                    }
+                }
+
+                if (mDimsForThisOre.isEmpty()) {
+                    HashSet<String> A = mMapOreBlockItemToDimName.get(
+                        this.mThisMaterial.getUnlocalizedName()
+                            .toLowerCase());
+                    if (A != null) {
+                        mDimsForThisOre = A;
+                    }
+                }
+                list.add(StatCollector.translateToLocal("GTPP.tooltip.ore.found"));
+                if (!mDimsForThisOre.isEmpty()) {
+                    for (String m : mDimsForThisOre) {
+                        list.add("- " + m);
+                    }
+                } else {
+                    list.add(StatCollector.translateToLocal("GTPP.tooltip.ore.unknown"));
+                }
+
             } else {
-                for (MaterialStack m : mThisMaterial.getComposites()) {
-                    list.add(
-                        "- " + m.getStackMaterial()
-                            .getLocalizedName() + " x" + m.getPartsPerOneHundred());
-                }
+                list.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal("GTPP.tooltip.hold_ctrl"));
             }
-        }
-
-        if (KeyboardUtils.isCtrlKeyDown()) {
-
-            Block b = Block.getBlockFromItem(stack.getItem());
-            if (b != null) {
-                int aMiningLevel1 = b.getHarvestLevel(stack.getItemDamage());
-                if (aMiningLevel1 != 0) {
-                    list.add(
-                        StatCollector.translateToLocalFormatted(
-                            "GTPP.tooltip.ore.mining_level",
-                            Math.min(Math.max(aMiningLevel1, 0), 5)));
-                }
-            }
-
-            if (mDimsForThisOre.isEmpty()) {
-                HashSet<String> A = mMapOreBlockItemToDimName.get(
-                    this.mThisMaterial.getUnlocalizedName()
-                        .toLowerCase());
-                if (A != null) {
-                    mDimsForThisOre = A;
-                }
-            }
-
-            list.add(StatCollector.translateToLocal("GTPP.tooltip.ore.found"));
-            if (!mDimsForThisOre.isEmpty()) {
-                for (String m : mDimsForThisOre) {
-                    list.add("- " + m);
-                }
-            } else {
-                list.add(StatCollector.translateToLocal("GTPP.tooltip.ore.unknown"));
-            }
-
-        } else {
-            list.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal("GTPP.tooltip.hold_ctrl"));
         }
 
         super.addInformation(stack, aPlayer, list, bool);

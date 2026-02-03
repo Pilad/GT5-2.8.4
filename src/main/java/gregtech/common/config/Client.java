@@ -36,6 +36,9 @@ public class Client {
     @Config.Comment("Chat message section")
     public static final Chat chat = new Chat();
 
+    @Config.Comment("Tooltip section")
+    public static final Tooltip tooltip = new Tooltip();
+
     public static void save() {
         ConfigurationManager.save(Client.class);
     }
@@ -337,5 +340,39 @@ public class Client {
         @Config.DefaultBoolean(true)
         @Config.Name("Print Powerfail Help Text")
         public boolean printPowerfailHelpText;
+    }
+
+    @Config.LangKey("GT5U.gui.config.client.tooltip")
+    public static class Tooltip {
+
+        @Config.Comment("Enabled show Formula")
+        @Config.DefaultBoolean(true)
+        @Config.Name("Show Formula")
+        public boolean showFormula;
+
+        @Config.Comment("Enabled show GT++ Radioactive Text")
+        @Config.DefaultBoolean(true)
+        @Config.Name("Show GT++ Radioactive Text")
+        public boolean showRadioactiveText;
+
+        @Config.Comment("Enabled show GT++ Hot Ingot Text")
+        @Config.DefaultBoolean(true)
+        @Config.Name("Show GT++ Hot Ingot Text")
+        public boolean showHotIngotText;
+
+        @Config.Comment("Enabled show GT++ Ctrl Text")
+        @Config.DefaultBoolean(true)
+        @Config.Name("Show GT++ Ctrl Text")
+        public boolean showCtrlText;
+
+        @Config.Comment("Enabled show GT++ Ore contains Text")
+        @Config.DefaultBoolean(true)
+        @Config.Name("Show GT++ Ore contains Text")
+        public boolean showOreContainsText;
+
+        @Config.Comment("Enabled show GT++ Mining Level Text")
+        @Config.DefaultBoolean(true)
+        @Config.Name("Show GT++ Mining Level Text")
+        public boolean showMiningLevelText;
     }
 }
