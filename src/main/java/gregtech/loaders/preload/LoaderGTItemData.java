@@ -370,18 +370,21 @@ public class LoaderGTItemData implements Runnable {
         GTOreDictUnificator.addItemData(
             new ItemStack(Blocks.dropper, 1, 32767),
             new ItemData(Materials.Stone, 25401600L, new MaterialStack(Materials.Redstone, 3628800L)));
-        GTOreDictUnificator.addItemData(
-            GTModHandler.getModItem(Thaumcraft.ID, "ItemNuggetChicken", 1L, 32767),
-            new ItemData(Materials.MeatCooked, 403200L));
-        GTOreDictUnificator.addItemData(
-            GTModHandler.getModItem(Thaumcraft.ID, "ItemNuggetBeef", 1L, 32767),
-            new ItemData(Materials.MeatCooked, 403200L));
-        GTOreDictUnificator.addItemData(
-            GTModHandler.getModItem(Thaumcraft.ID, "ItemNuggetPork", 1L, 32767),
-            new ItemData(Materials.MeatCooked, 403200L));
-        GTOreDictUnificator.addItemData(
-            GTModHandler.getModItem(Thaumcraft.ID, "ItemNuggetFish", 1L, 32767),
-            new ItemData(Materials.MeatCooked, 403200L));
+
+        if (Thaumcraft.isModLoaded()) {
+            GTOreDictUnificator.addItemData(
+                GTModHandler.getModItem(Thaumcraft.ID, "ItemNuggetChicken", 1L, 32767),
+                new ItemData(Materials.MeatCooked, 403200L));
+            GTOreDictUnificator.addItemData(
+                GTModHandler.getModItem(Thaumcraft.ID, "ItemNuggetBeef", 1L, 32767),
+                new ItemData(Materials.MeatCooked, 403200L));
+            GTOreDictUnificator.addItemData(
+                GTModHandler.getModItem(Thaumcraft.ID, "ItemNuggetPork", 1L, 32767),
+                new ItemData(Materials.MeatCooked, 403200L));
+            GTOreDictUnificator.addItemData(
+                GTModHandler.getModItem(Thaumcraft.ID, "ItemNuggetFish", 1L, 32767),
+                new ItemData(Materials.MeatCooked, 403200L));
+        }
 
         for (ItemStack tItem : new ItemStack[] { GTModHandler.getModItem(TwilightForest.ID, "item.meefRaw", 1L, 0),
             GTModHandler.getModItem(TwilightForest.ID, "item.venisonRaw", 1L, 0),

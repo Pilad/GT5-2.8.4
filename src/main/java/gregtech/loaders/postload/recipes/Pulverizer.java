@@ -114,12 +114,14 @@ public class Pulverizer implements Runnable {
                 .addTo(maceratorRecipes);
         }
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(getModItem(Thaumcraft.ID, "ItemResource", 1, 18))
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.Gold, 1))
-            .duration(1 * SECONDS + 1 * TICKS)
-            .eut(4)
-            .addTo(maceratorRecipes);
+        if (Thaumcraft.isModLoaded()) {
+            GTValues.RA.stdBuilder()
+                .itemInputs(getModItem(Thaumcraft.ID, "ItemResource", 1, 18))
+                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.Gold, 1))
+                .duration(1 * SECONDS + 1 * TICKS)
+                .eut(4)
+                .addTo(maceratorRecipes);
+        }
 
         GTValues.RA.stdBuilder()
             .itemInputs(new ItemStack(Items.reeds, 1))

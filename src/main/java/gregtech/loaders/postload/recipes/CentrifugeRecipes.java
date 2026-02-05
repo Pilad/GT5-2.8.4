@@ -33,17 +33,19 @@ public class CentrifugeRecipes implements Runnable {
     @Override
     public void run() {
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.InfusedGold, 1))
-            .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Gold, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Gold, 1),
-                getModItem(Thaumcraft.ID, "ItemResource", 2L, 14))
-            .outputChances(10000, 10000, 9000)
-            .fluidInputs(Materials.Mercury.getFluid(200))
-            .duration(20 * SECONDS)
-            .eut((int) TierEU.RECIPE_MV)
-            .addTo(centrifugeRecipes);
+        if (Thaumcraft.isModLoaded()) {
+            GTValues.RA.stdBuilder()
+                .itemInputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.InfusedGold, 1))
+                .itemOutputs(
+                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Gold, 1),
+                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Gold, 1),
+                    getModItem(Thaumcraft.ID, "ItemResource", 2L, 14))
+                .outputChances(10000, 10000, 9000)
+                .fluidInputs(Materials.Mercury.getFluid(200))
+                .duration(20 * SECONDS)
+                .eut((int) TierEU.RECIPE_MV)
+                .addTo(centrifugeRecipes);
+        }
 
         GTValues.RA.stdBuilder()
             .itemInputs(ItemList.Cell_Empty.get(1))

@@ -145,8 +145,10 @@ public class LoaderGTOreDictionary implements Runnable {
         GTOreDictUnificator
             .registerOre(OrePrefixes.stone, Materials.Glowstone, new ItemStack(Blocks.glowstone, 1, 32767));
 
-        GTOreDictUnificator
-            .registerOre("paperResearchFragment", GTModHandler.getModItem(Thaumcraft.ID, "ItemResource", 1L, 9));
+        if (Thaumcraft.isModLoaded()) {
+            GTOreDictUnificator
+                .registerOre("paperResearchFragment", GTModHandler.getModItem(Thaumcraft.ID, "ItemResource", 1L, 9));
+        }
         GTOreDictUnificator.registerOre(
             "itemCertusQuartz",
             GTModHandler.getModItem(AppliedEnergistics2.ID, "item.ItemMultiMaterial", 1L, 1));
