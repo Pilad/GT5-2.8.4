@@ -75,14 +75,14 @@ public class ElectrolyzerRecipes implements Runnable {
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Oxygen, 1L))
             .fluidOutputs(Materials.Hydrogen.getGas(2_000))
             .duration(1 * SECONDS + 10 * TICKS)
-            .eut(30)
+            .eut(TierEU.RECIPE_LV)
             .addTo(electrolyzerRecipes);
 
         GTValues.RA.stdBuilder()
             .itemInputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Water, 1L))
             .itemOutputs(GTModHandler.getIC2Item("electrolyzedWaterCell", 1L))
             .duration(1 * MINUTES + 13 * SECONDS + 10 * TICKS)
-            .eut(30)
+            .eut(TierEU.RECIPE_LV)
             .addTo(electrolyzerRecipes);
 
         GTValues.RA.stdBuilder()

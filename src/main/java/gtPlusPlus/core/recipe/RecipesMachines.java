@@ -827,7 +827,7 @@ public class RecipesMachines {
             .itemInputs(GregtechItemList.AlgaeBiomass.get(32))
             .itemOutputs(GregtechItemList.GreenAlgaeBiomass.get(4))
             .duration(15 * SECONDS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(distilleryRecipes);
 
         GTValues.RA.stdBuilder()
@@ -981,7 +981,7 @@ public class RecipesMachines {
                 .itemOutputs(new ItemStack(ModBlocks.blockDecayablesChest))
                 .fluidInputs(MaterialsElements.getInstance().LEAD.getFluidStack(16 * INGOTS))
                 .duration(1 * MINUTES + 30 * SECONDS)
-                .eut(60)
+                .eut(TierEU.RECIPE_MV / 2)
                 .addTo(assemblerRecipes);
 
         }
@@ -1222,7 +1222,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialCentrifugeCasing)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Industrial Coke Oven
@@ -1264,7 +1264,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialCokeOvenFrame)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Sturdy Aluminium Machine Casing
@@ -1275,7 +1275,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(2))
             .itemOutputs(GregtechItemList.Casing_Machine_Custom_2.get(2))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Coke Oven Coil 1
@@ -1328,7 +1328,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialElectrolyzerFrame)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Industrial Electrolyzer
@@ -1369,7 +1369,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialMaterialPressFrame)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Industrial Material Press
@@ -1410,7 +1410,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialMacerationStackFrame)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Industrial Maceration stack
@@ -1462,7 +1462,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialWireFactoryFrame)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Industrial Wire Factory
@@ -1718,7 +1718,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialBlastSmelterFrame)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Blast Smelter Coil
@@ -1741,7 +1741,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialBlastSmelterCoil)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         GTValues.RA.stdBuilder()
@@ -1808,7 +1808,7 @@ public class RecipesMachines {
                 MaterialsAlloy.INCONEL_690.getFrameBox(1))
             .itemOutputs(RECIPE_IndustrialMatterFabFrame)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Matter Fabricator Coil
@@ -1832,7 +1832,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialMatterFabCoil)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Industrial Sieve
@@ -1871,7 +1871,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialSieveFrame)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Industrial Sieve Grate
@@ -1893,7 +1893,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(RECIPE_IndustrialSieveGrate)
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Industrial Tree Farmer
@@ -1923,7 +1923,7 @@ public class RecipesMachines {
             .itemOutputs(RECIPE_TreeFarmFrame)
             .fluidInputs(GTModHandler.getDistilledWater(2_000))
             .duration(10 * SECONDS)
-            .eut(64)
+            .eut(TierEU.RECIPE_MV / 2)
             .addTo(assemblerRecipes);
 
         // Tesseracts
@@ -2498,7 +2498,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(GregtechItemList.Casing_ThermalCentrifuge.get(1L))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         RecipeUtils.addShapedRecipe(
@@ -2532,7 +2532,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(GregtechItemList.Casing_WashPlant.get(1L))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         RecipeUtils.addShapedRecipe(
@@ -2606,7 +2606,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(GregtechItemList.Casing_CuttingFactoryFrame.get(1L))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         RecipeUtils.addShapedRecipe(
@@ -2642,7 +2642,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(GregtechItemList.Casing_Extruder.get(1L))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         RecipeUtils.addShapedRecipe(
@@ -2677,7 +2677,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(GregtechItemList.Casing_FishPond.get(1L))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         RecipeUtils.addShapedRecipe(
@@ -2763,7 +2763,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(GregtechItemList.Hatch_Input_Pyrotheum.get(1L))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
         // Casing_Adv_BlastFurnace
         GTValues.RA.stdBuilder()
@@ -2777,7 +2777,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(GregtechItemList.Casing_Adv_BlastFurnace.get(1L))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Advanced Implosion Compressor
@@ -2825,7 +2825,7 @@ public class RecipesMachines {
                 ItemList.Conveyor_Module_HV.get(1))
             .itemOutputs(GregtechItemList.Casing_AmazonWarehouse.get(1L))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         RecipeUtils.addShapedRecipe(
@@ -2893,7 +2893,7 @@ public class RecipesMachines {
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(GregtechItemList.Casing_Multi_Use.get(1L))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
         // Drilling Platform Casings

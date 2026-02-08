@@ -121,7 +121,7 @@ public class RecipeLoaderNuclear {
             .outputChances(chances)
             .fluidInputs(FluidUtils.getFluidStack("chlorine", 4_000))
             .duration(30 * SECONDS)
-            .eut(1024)
+            .eut(TierEU.RECIPE_EV / 2)
             .addTo(chemicalBathRecipes);
 
         GTValues.RA.stdBuilder()
@@ -324,7 +324,7 @@ public class RecipeLoaderNuclear {
         GTValues.RA.stdBuilder()
             .itemOutputs(ItemUtils.getItemStackOfAmountFromOreDict("dustLithiumHydroxide", 1))
             .fluidInputs(FluidUtils.getFluidStack("lithiumhydroxide", 1 * INGOTS))
-            .eut(64)
+            .eut(TierEU.RECIPE_MV / 2)
             .duration(1 * SECONDS)
             .addTo(chemicalDehydratorRecipes);
 
@@ -361,7 +361,7 @@ public class RecipeLoaderNuclear {
             .itemOutputs(ItemUtils.getItemStackOfAmountFromOreDict("cellWater", 2))
             .fluidInputs(MaterialsFluorides.AMMONIUM_BIFLUORIDE.getFluidStack(8 * INGOTS))
             .fluidOutputs(MaterialsFluorides.AMMONIUM_TETRAFLUOROBERYLLATE.getFluidStack(1_000))
-            .eut(64)
+            .eut(TierEU.RECIPE_MV / 2)
             .duration(6 * SECONDS)
             .addTo(chemicalDehydratorRecipes);
 

@@ -57,7 +57,7 @@ public class GregtechIndustrialMassFabricator {
             .itemInputs(GTUtility.getIntegratedCircuit(1))
             .fluidOutputs(Materials.UUMatter.getFluid(1 * NUGGETS))
             .duration(2 * MINUTES + 40 * SECONDS)
-            .eut(4096)
+            .eut(TierEU.RECIPE_IV / 2)
             .addTo(multiblockMassFabricatorRecipes);
 
         // Basic UUM
@@ -66,7 +66,7 @@ public class GregtechIndustrialMassFabricator {
             .fluidInputs(Materials.UUAmplifier.getFluid(1 * NUGGETS))
             .fluidOutputs(Materials.UUMatter.getFluid(1 * NUGGETS))
             .duration(40 * SECONDS)
-            .eut(4096)
+            .eut(TierEU.RECIPE_IV / 2)
             .addTo(multiblockMassFabricatorRecipes);
 
         // Advanced UUM

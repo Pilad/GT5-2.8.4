@@ -93,7 +93,7 @@ public class ProcessingGem implements gregtech.api.interfaces.IOreRecipeRegistra
                                 .itemInputs(aStack)
                                 .itemOutputs(GTOreDictUnificator.get(OrePrefixes.gemFlawed, aMaterial, 2L))
                                 .duration(3 * SECONDS + 4 * TICKS)
-                                .eut(16)
+                                .eut(TierEU.RECIPE_LV / 2)
                                 .addTo(hammerRecipes);
                         }
                     }
@@ -308,7 +308,7 @@ public class ProcessingGem implements gregtech.api.interfaces.IOreRecipeRegistra
                         .itemInputs(GTUtility.copyAmount(3, aStack), is)
                         .itemOutputs(GTOreDictUnificator.get(OrePrefixes.gemFlawed, aMaterial, 1L))
                         .duration(30 * SECONDS)
-                        .eut(30)
+                        .eut(TierEU.RECIPE_LV)
                         .addTo(laserEngraverRecipes);
 
                 }
@@ -343,7 +343,7 @@ public class ProcessingGem implements gregtech.api.interfaces.IOreRecipeRegistra
                         .itemInputs(aStack)
                         .itemOutputs(GTOreDictUnificator.get(OrePrefixes.gemFlawless, aMaterial, 2L))
                         .duration(3 * SECONDS + 4 * TICKS)
-                        .eut(16)
+                        .eut(TierEU.RECIPE_LV / 2)
                         .addTo(hammerRecipes);
                 }
             }
@@ -406,7 +406,7 @@ public class ProcessingGem implements gregtech.api.interfaces.IOreRecipeRegistra
                     .itemInputs(aStack)
                     .itemOutputs(GTOreDictUnificator.get(OrePrefixes.gemChipped, aMaterial, 2L))
                     .duration(3 * SECONDS + 4 * TICKS)
-                    .eut(16)
+                    .eut(TierEU.RECIPE_LV / 2)
                     .addTo(hammerRecipes);
 
                 for (ItemStack is : OreDictionary.getOres("craftingLens" + aMaterial.mColor.mName.replace(" ", ""))) { // Engraver
@@ -445,7 +445,7 @@ public class ProcessingGem implements gregtech.api.interfaces.IOreRecipeRegistra
                                     aMaterial,
                                     aPrefix.mMaterialAmount - OrePrefixes.stickLong.mMaterialAmount))
                             .duration(((int) Math.max(aMaterialMass * 5L, 1L)) * TICKS)
-                            .eut(16)
+                            .eut(TierEU.RECIPE_LV / 2)
                             .addTo(latheRecipes);
                     }
 
@@ -484,7 +484,7 @@ public class ProcessingGem implements gregtech.api.interfaces.IOreRecipeRegistra
                     .itemInputs(aStack)
                     .itemOutputs(GTOreDictUnificator.get(OrePrefixes.gem, aMaterial, 2L))
                     .duration(3 * SECONDS + 4 * TICKS)
-                    .eut(16)
+                    .eut(TierEU.RECIPE_LV / 2)
                     .addTo(hammerRecipes);
 
                 for (ItemStack is : OreDictionary.getOres("craftingLens" + aMaterial.mColor.mName.replace(" ", ""))) { // Engraver

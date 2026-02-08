@@ -387,7 +387,7 @@ public class PlatinumSludgeOverHaul {
                 Materials.NitrogenDioxide.getGas(2_000),
                 Materials.HydrochloricAcid.getFluid(6_000))
             .duration(1200)
-            .eut(30)
+            .eut(TierEU.RECIPE_LV)
             .addTo(multiblockChemicalReactorRecipes);
 
         GTValues.RA.stdBuilder()
@@ -399,7 +399,7 @@ public class PlatinumSludgeOverHaul {
                 Materials.NitrogenDioxide.getGas(9_000),
                 Materials.HydrochloricAcid.getFluid(27_000))
             .duration(700)
-            .eut(480)
+            .eut(TierEU.RECIPE_HV)
             .addTo(multiblockChemicalReactorRecipes);
 
         GTValues.RA.stdBuilder()
@@ -690,7 +690,7 @@ public class PlatinumSludgeOverHaul {
             .fluidInputs(Materials.NitricAcid.getFluid(1_000))
             .fluidOutputs(Materials.Hydrogen.getGas(1_000))
             .duration(8 * TICKS)
-            .eut(60)
+            .eut(TierEU.RECIPE_MV / 2)
             .addTo(UniversalChemical);
 
         GTValues.RA.stdBuilder()

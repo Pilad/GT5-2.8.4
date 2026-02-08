@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.TierEU;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gtPlusPlus.core.item.base.BaseItemBurnable;
@@ -121,7 +122,7 @@ public class HandlerRailcraft {
             .itemInputs(plant, GTUtility.getIntegratedCircuit(3))
             .itemOutputs(charcoal)
             .fluidOutputs(Materials.Creosote.getFluid(100))
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .duration(1 * SECONDS)
             .addTo(cokeOvenRecipes);
 
@@ -130,7 +131,7 @@ public class HandlerRailcraft {
             .itemOutputs(charcoal)
             .fluidInputs(Materials.Nitrogen.getGas(100))
             .fluidOutputs(Materials.CharcoalByproducts.getGas(200))
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .duration(10 * TICKS)
             .addTo(cokeOvenRecipes);
 
@@ -138,7 +139,7 @@ public class HandlerRailcraft {
             .itemInputs(charcoal, GTUtility.getIntegratedCircuit(3))
             .itemOutputs(coke)
             .fluidOutputs(Materials.Creosote.getFluid(200))
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .duration(2 * SECONDS)
             .addTo(cokeOvenRecipes);
 
@@ -147,7 +148,7 @@ public class HandlerRailcraft {
             .itemOutputs(coke)
             .fluidInputs(Materials.Nitrogen.getGas(50))
             .fluidOutputs(Materials.CharcoalByproducts.getGas(100))
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .duration(1 * SECONDS)
             .addTo(cokeOvenRecipes);
 
@@ -157,7 +158,7 @@ public class HandlerRailcraft {
             .itemOutputs(Materials.Ash.getDustSmall(1))
             .fluidInputs(Materials.Steam.getGas(100))
             .fluidOutputs(Materials.WoodTar.getFluid(200))
-            .eut(240)
+            .eut(TierEU.RECIPE_HV / 2)
             .duration(3 * SECONDS)
             .addTo(cokeOvenRecipes);
 
@@ -166,7 +167,7 @@ public class HandlerRailcraft {
             .itemOutputs(Materials.Ash.getDustSmall(1))
             .fluidInputs(Materials.Steam.getGas(100))
             .fluidOutputs(Materials.WoodGas.getGas(300))
-            .eut(240)
+            .eut(TierEU.RECIPE_HV / 2)
             .duration(3 * SECONDS)
             .addTo(cokeOvenRecipes);
 
@@ -177,7 +178,7 @@ public class HandlerRailcraft {
             .outputChances(1000)
             .fluidOutputs(Materials.WoodTar.getFluid(50L))
             .duration(1 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(fluidExtractionRecipes);
 
         // Processing the Charcoals with Oxygen to get CO and CO2

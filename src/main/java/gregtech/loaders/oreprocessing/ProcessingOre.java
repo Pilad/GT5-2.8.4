@@ -212,7 +212,7 @@ public class ProcessingOre implements gregtech.api.interfaces.IOreRecipeRegistra
                 .itemInputs(aOreStack)
                 .itemOutputs(GTUtility.copy(GTUtility.copyAmount(tCrushed.stackSize, tGem), tCrushed))
                 .duration(10)
-                .eut(16)
+                .eut(TierEU.RECIPE_LV / 2)
                 .addTo(hammerRecipes);
 
             int chanceOre2 = tPrimaryByProduct == null ? 0

@@ -3721,7 +3721,7 @@ public class MTERecipeLoader implements Runnable {
                 GTUtility.getIntegratedCircuit(5))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.pipeMedium, Materials.Ultimate, 1L))
             .duration(20 * SECONDS)
-            .eut(4096)
+            .eut(TierEU.RECIPE_IV / 2)
             .addTo(assemblerRecipes);
         GTValues.RA.stdBuilder()
             .itemInputs(

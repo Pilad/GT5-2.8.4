@@ -19,6 +19,7 @@ import gregtech.api.enums.Dyes;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.TierEU;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.StringUtils;
@@ -535,7 +536,7 @@ public class FluidUtils {
                     .itemInputs(dustStack)
                     .fluidOutputs(FluidUtils.getFluidStack(gtFluid, amountPerItem))
                     .duration(1 * SECONDS)
-                    .eut(16)
+                    .eut(TierEU.RECIPE_LV / 2)
                     .addTo(fluidExtractionRecipes);
             }
             if (dustStack2 != null) {
@@ -543,7 +544,7 @@ public class FluidUtils {
                     .itemInputs(dustStack2)
                     .fluidOutputs(FluidUtils.getFluidStack(gtFluid, amountPerItem))
                     .duration(1 * SECONDS)
-                    .eut(16)
+                    .eut(TierEU.RECIPE_LV / 2)
                     .addTo(fluidExtractionRecipes);
             }
 

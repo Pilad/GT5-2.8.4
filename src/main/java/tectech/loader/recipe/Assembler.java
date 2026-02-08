@@ -138,7 +138,7 @@ public class Assembler implements Runnable {
                 GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.NickelZincFerrite, 1))
             .itemOutputs(CustomItemList.tM_TeslaBase.get(1))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
         // Tesla Toroid
         GTValues.RA.stdBuilder()
@@ -147,7 +147,7 @@ public class Assembler implements Runnable {
                 GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Aluminium, 1))
             .itemOutputs(CustomItemList.tM_TeslaToroid.get(1))
             .duration(2 * SECONDS + 10 * TICKS)
-            .eut(16)
+            .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
         // Tesla Secondary Windings
         GTValues.RA.stdBuilder()

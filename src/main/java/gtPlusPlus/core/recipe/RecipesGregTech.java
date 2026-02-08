@@ -185,7 +185,7 @@ public class RecipesGregTech {
                 MaterialsFluorides.FLUORITE.getOre(4))
             .fluidInputs(Materials.NitricAcid.getFluid(4_000), Materials.Air.getGas(8_000))
             .duration(10 * SECONDS)
-            .eut(1024)
+            .eut(TierEU.RECIPE_EV / 2)
             .metadata(CHEMPLANT_CASING_TIER, 5)
             .addTo(chemicalPlantRecipes);
         // Advanced recipe for Fluorine Production
@@ -202,7 +202,7 @@ public class RecipesGregTech {
                 MaterialsFluorides.FLUORITE.getOre(2))
             .fluidInputs(Materials.NitricAcid.getFluid(5_000), Materials.Air.getGas(12_000))
             .duration(10 * SECONDS)
-            .eut(1024)
+            .eut(TierEU.RECIPE_EV / 2)
             .metadata(CHEMPLANT_CASING_TIER, 5)
             .addTo(chemicalPlantRecipes);
 
@@ -245,7 +245,7 @@ public class RecipesGregTech {
             .itemOutputs(new ItemStack(BOPBlockRegistrator.sapling_Pine, 16))
             .fluidInputs(FluidUtils.getFluidStack("fluid.geneticmutagen", 2_000), GTModHandler.getDistilledWater(8_000))
             .duration(120 * SECONDS)
-            .eut(64)
+            .eut(TierEU.RECIPE_MV / 2)
             .metadata(CHEMPLANT_CASING_TIER, 2)
             .addTo(chemicalPlantRecipes);
 
