@@ -1922,6 +1922,16 @@ public class ChemicalRecipes implements Runnable {
             .eut(8)
             .addTo(UniversalChemical);
 
+        // NaOH + 2 (HCl)(H2O) = 2 H2O + 2 NaCl
+        GTValues.RA.stdBuilder()
+            .itemInputs(Materials.SodiumHydroxide.getDust(3), GTUtility.getIntegratedCircuit(1))
+            .itemOutputs(Materials.Salt.getDust(2))
+            .fluidInputs(Materials.DilutedHydrochloricAcid.getFluid(2_000))
+            .fluidOutputs(Materials.Water.getFluid(2000))
+            .duration(10 * SECONDS)
+            .eut(TierEU.RECIPE_HV / 2)
+            .addTo(UniversalChemical);
+
         // C3H6 + 2Cl = HCl + C3H5Cl
 
         GTValues.RA.stdBuilder()
