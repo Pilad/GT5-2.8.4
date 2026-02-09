@@ -85,7 +85,7 @@ public class MTEVacuumFreezer extends MTEExtendedPowerMultiBlockBase<MTEVacuumFr
                     buildHatchAdder(MTEVacuumFreezer.class)
                         .atLeast(InputHatch, OutputHatch, InputBus, OutputBus, Maintenance, Energy)
                         .casingIndex(Casings.FrostProofMachineCasing.textureId)
-                        .hint(1)
+                        .dot(1)
                         .buildAndChain(onElementPass(x -> ++x.mCasing, Casings.FrostProofMachineCasing.asElement())))
                 .build();
         }

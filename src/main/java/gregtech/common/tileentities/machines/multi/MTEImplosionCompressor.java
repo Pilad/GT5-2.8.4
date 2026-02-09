@@ -86,7 +86,7 @@ public class MTEImplosionCompressor extends MTEExtendedPowerMultiBlockBase<MTEIm
                     buildHatchAdder(MTEImplosionCompressor.class)
                         .atLeast(InputBus, OutputBus, Maintenance, Energy, Muffler)
                         .casingIndex(Casings.SolidSteelMachineCasing.textureId)
-                        .hint(1)
+                        .dot(1)
                         .buildAndChain(onElementPass(x -> ++x.mCasing, Casings.SolidSteelMachineCasing.asElement())))
                 .build();
         }
