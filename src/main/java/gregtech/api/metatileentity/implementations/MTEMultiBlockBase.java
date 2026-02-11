@@ -532,6 +532,18 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         }
     }
 
+    protected void doStructureValidation() {
+        structureErrors = EnumSet.noneOf(StructureError.class);
+        structureErrorContext = new NBTTagCompound();
+
+        // only run validation when the structure check passes, so that we don't confuse people
+        if (mMachine) {
+            validateStructure(structureErrors, structureErrorContext);
+
+            if (hasStructureErrors()) mMachine = false;
+        }
+    }
+
     /**
      * Validates this multi's structure (hatch/casing counts mainly) for any errors. The multi will not form if any
      * errors are added to {@code errors}. Only runs when {@link #checkMachine} is successful.
