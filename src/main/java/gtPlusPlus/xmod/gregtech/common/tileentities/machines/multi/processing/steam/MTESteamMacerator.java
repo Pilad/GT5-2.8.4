@@ -239,7 +239,7 @@ public class MTESteamMacerator extends MTESteamMultiBase<MTESteamMacerator> impl
 
     @Override
     public int getItemOutputLimit() {
-        return 1;
+        return 2;
     }
 
     @Override
