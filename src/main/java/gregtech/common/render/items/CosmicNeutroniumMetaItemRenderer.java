@@ -14,6 +14,7 @@ import com.gtnewhorizons.modularui.api.math.Pos2d;
 
 import gregtech.api.enums.Textures;
 import gregtech.api.items.MetaGeneratedItem;
+import gregtech.common.config.Client;
 import gregtech.common.render.GTRenderUtil;
 
 public class CosmicNeutroniumMetaItemRenderer implements IItemRenderer {
@@ -29,9 +30,10 @@ public class CosmicNeutroniumMetaItemRenderer implements IItemRenderer {
 
     @Override
     public boolean handleRenderType(final ItemStack item, final ItemRenderType type) {
-        return type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON
-            || type == ItemRenderType.INVENTORY
-            || type == ItemRenderType.ENTITY;
+        return Client.render.renderCosmicNeutroniumFancy
+            && (type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON
+                || type == ItemRenderType.INVENTORY
+                || type == ItemRenderType.ENTITY);
 
     }
 

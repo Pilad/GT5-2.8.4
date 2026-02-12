@@ -11,6 +11,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
 import gregtech.api.items.MetaGeneratedItem;
+import gregtech.common.config.Client;
 import gregtech.common.render.GTRenderUtil;
 
 public class GlitchEffectMetaItemRenderer implements IItemRenderer {
@@ -29,9 +30,10 @@ public class GlitchEffectMetaItemRenderer implements IItemRenderer {
 
     @Override
     public boolean handleRenderType(final ItemStack item, final ItemRenderType type) {
-        return type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON
-            || type == ItemRenderType.INVENTORY
-            || type == ItemRenderType.ENTITY;
+        return Client.render.renderGlitchFancy
+            && (type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON
+                || type == ItemRenderType.INVENTORY
+                || type == ItemRenderType.ENTITY);
 
     }
 

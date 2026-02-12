@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL12;
 import com.gtnewhorizons.modularui.api.math.Pos2d;
 
 import gregtech.api.enums.Textures;
+import gregtech.common.config.Client;
 import gregtech.common.render.GTRenderUtil;
 
 public class CosmicNeutroniumRenderer extends GeneratedMaterialRenderer {
@@ -67,6 +68,12 @@ public class CosmicNeutroniumRenderer extends GeneratedMaterialRenderer {
 
     @Override
     protected void renderRegularItem(ItemRenderType type, ItemStack item, IIcon icon, boolean shouldModulateColor, int pass, Object... data) {
+
+        if (!Client.render.renderCosmicNeutroniumFancy) {
+            super.renderRegularItem(type, item, icon, shouldModulateColor);
+            return;
+        }
+
         RenderItem r = RenderItem.getInstance();
 
         GL11.glPushMatrix();
