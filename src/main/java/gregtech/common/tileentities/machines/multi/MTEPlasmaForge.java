@@ -86,6 +86,7 @@ import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
 import gregtech.api.util.ParallelHelper;
 import tectech.thing.gui.TecTechUITextures;
+import gregtech.common.misc.GTStructureChannels;
 
 public class MTEPlasmaForge extends MTEExtendedPowerMultiBlockBase<MTEPlasmaForge> implements ISurvivalConstructable {
 
@@ -549,7 +550,10 @@ public class MTEPlasmaForge extends MTEExtendedPowerMultiBlockBase<MTEPlasmaForg
     private static final IStructureDefinition<MTEPlasmaForge> STRUCTURE_DEFINITION = StructureDefinition
         .<MTEPlasmaForge>builder()
         .addShape(STRUCTURE_PIECE_MAIN, structure_string)
-        .addElement('C', activeCoils(ofCoil(MTEPlasmaForge::setCoilLevel, MTEPlasmaForge::getCoilLevel)))
+        .addElement(
+            'C',
+            GTStructureChannels.HEATING_COIL
+                .use(activeCoils(ofCoil(MTEPlasmaForge::setCoilLevel, MTEPlasmaForge::getCoilLevel))))
         .addElement(
             'b',
             buildHatchAdder(MTEPlasmaForge.class)
@@ -679,6 +683,7 @@ public class MTEPlasmaForge extends MTEExtendedPowerMultiBlockBase<MTEPlasmaForg
                     + EnumChatFormatting.GRAY
                     + " output buses")
             .addStructureInfo("")
+            .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
             .toolTipFinisher(AuthorColen);
         return tt;
     }
