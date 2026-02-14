@@ -85,8 +85,8 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
 import gregtech.api.util.ParallelHelper;
-import tectech.thing.gui.TecTechUITextures;
 import gregtech.common.misc.GTStructureChannels;
+import tectech.thing.gui.TecTechUITextures;
 
 public class MTEPlasmaForge extends MTEExtendedPowerMultiBlockBase<MTEPlasmaForge> implements ISurvivalConstructable {
 
