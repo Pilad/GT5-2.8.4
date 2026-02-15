@@ -512,33 +512,6 @@ public enum Casings implements ICasing {
         (() -> GregTechAPI.sBlockCasings13, 8, gt(16, 6, 8)),
     NaniteReplicationFramework
         (() -> GregTechAPI.sBlockCasings13, 9, gt(16, 6, 9)),
-    // Block Casings Foundry
-    PrimaryExoFoundryCasing
-        (() -> GregTechAPI.sBlockCasingsFoundry, 0, gt(8, 5, 0)),
-    InfiniteMagneticChassis
-        (() -> GregTechAPI.sBlockCasingsFoundry, 1, gt(8, 5, 1)),
-    EternalMagneticChassis
-        (() -> GregTechAPI.sBlockCasingsFoundry, 2, gt(8, 5, 2)),
-    CelestialMagneticChassis
-        (() -> GregTechAPI.sBlockCasingsFoundry, 3, gt(8, 5, 3)),
-    UniversalCollapserCasing
-        (() -> GregTechAPI.sBlockCasingsFoundry, 4, gt(8, 5, 4)),
-    SentientOverclockerCasing
-        (() -> GregTechAPI.sBlockCasingsFoundry, 5, gt(8, 5, 5)),
-    ProtoVoltStabilizerCasing
-        (() -> GregTechAPI.sBlockCasingsFoundry, 6, gt(8, 5, 6)),
-    HeliocastReinforcementCasing
-        (() -> GregTechAPI.sBlockCasingsFoundry, 7, gt(8, 5, 7)),
-    SuperdenseCastingBasinCasing
-        (() -> GregTechAPI.sBlockCasingsFoundry, 8, gt(8, 5, 8)),
-    HypercoolerCasing
-        (() -> GregTechAPI.sBlockCasingsFoundry, 9, gt(8, 5, 9)),
-    StreamlinedCastingCasing
-        (() -> GregTechAPI.sBlockCasingsFoundry, 10, gt(8, 5, 10)),
-    InnerExoFoundrySiphonCasing
-        (() -> GregTechAPI.sBlockCasingsFoundry, 11, gt(8, 5, 11)),
-    CentralCasingExoFoundryCasing
-        (() -> GregTechAPI.sBlockCasingsFoundry, 12, gt(8, 5, 12)),
 
     // Block Casings NH
     AirFilterTurbineCasing
