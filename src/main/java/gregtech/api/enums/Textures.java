@@ -1948,6 +1948,10 @@ public class Textures {
         NANITE_CORE,
         NANITE_SHIELDING_FRAME,
 
+        OVERLAY_FRONT_MEGA_CHEMICAL_REACTOR,
+        OVERLAY_FRONT_MEGA_CHEMICAL_REACTOR_GLOW,
+        OVERLAY_FRONT_MEGA_CHEMICAL_REACTOR_ACTIVE,
+        OVERLAY_FRONT_MEGA_CHEMICAL_REACTOR_ACTIVE_GLOW,
         // semicolon after the comment to reduce merge conflicts
         ;
 

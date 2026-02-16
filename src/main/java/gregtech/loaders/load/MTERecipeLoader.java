@@ -13,7 +13,9 @@ import static gregtech.api.util.GTModHandler.RecipeBits.BUFFERED;
 import static gregtech.api.util.GTModHandler.RecipeBits.DISMANTLEABLE;
 import static gregtech.api.util.GTModHandler.RecipeBits.NOT_REMOVABLE;
 import static gregtech.api.util.GTModHandler.RecipeBits.REVERSIBLE;
+import static gregtech.api.util.GTRecipeBuilder.HOURS;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
+import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
 import net.minecraft.init.Blocks;
@@ -22,6 +24,7 @@ import net.minecraft.item.ItemStack;
 
 import com.jaquadro.minecraft.storagedrawers.StorageDrawers;
 
+import bartworks.common.loaders.ItemRegistry;
 import codechicken.nei.api.API;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
@@ -1631,6 +1634,34 @@ public class MTERecipeLoader implements Runnable {
                 MTEBasicMachineWithRecipe.X.WIRE, 'G', OrePrefixes.dust.get(Materials.Glowstone) },
             5);
 
+    }
+
+    // This method is for all the structure rework multi recipes
+    // Maybe after some point in time, it can be moved to coremod as well.
+    private static void registerReworkMTERecipes() {
+
+        // Mega Chemical Reactor
+        // todo: tweak this recipe
+        GTValues.RA.stdBuilder()
+            .itemInputs(ItemList.Machine_Multi_LargeChemicalReactor.get(64), GTUtility.getIntegratedCircuit(1))
+            .itemOutputs(ItemList.MegaChemicalReactor.get(1))
+            .fluidInputs(Materials.Polytetrafluoroethylene.getMolten(1 * STACKS))
+            .duration(1 * HOURS)
+            .eut(TierEU.RECIPE_HV)
+            .addTo(assemblerRecipes);
+
+    }
+
+    // This method is for all the structure rework shapeless crafing migration recipes
+    // for the 2.9 -> next major version cycle
+    // Maybe after some point in time, it can be moved to coremod as well.
+    // TODO delete after the next major version after 2.9
+    private static void registerReworkMigrationRecipes() {
+
+        // Mega Chemical Reactor
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.MegaChemicalReactor.get(1),
+            new Object[] { ItemRegistry.megaMachines[3] });
     }
 
     private static void registerSifter() {
@@ -4190,5 +4221,7 @@ public class MTERecipeLoader implements Runnable {
         registerMachineTypes();
         PCBFactoryMaterialLoader.load();
         run4();
+        registerReworkMigrationRecipes();
+        registerReworkMTERecipes();
     }
 }

@@ -52,16 +52,16 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.common.misc.GTStructureChannels;
 
-public class MTEMegaChemicalReactor extends MegaMultiBlockBase<MTEMegaChemicalReactor>
+public class MTEMegaChemicalReactorBW extends MegaMultiBlockBase<MTEMegaChemicalReactorBW>
     implements ISurvivalConstructable {
 
     private int glassTier = -1;
 
-    public MTEMegaChemicalReactor(int aID, String aName, String aNameRegional) {
+    public MTEMegaChemicalReactorBW(int aID, String aName, String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTEMegaChemicalReactor(String aName) {
+    public MTEMegaChemicalReactorBW(String aName) {
         super(aName);
     }
 
@@ -96,7 +96,7 @@ public class MTEMegaChemicalReactor extends MegaMultiBlockBase<MTEMegaChemicalRe
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new MTEMegaChemicalReactor(this.mName);
+        return new MTEMegaChemicalReactorBW(this.mName);
     }
 
     @Override
@@ -218,8 +218,8 @@ public class MTEMegaChemicalReactor extends MegaMultiBlockBase<MTEMegaChemicalRe
 
     private static final int CASING_INDEX = 176;
     private static final String STRUCTURE_PIECE_MAIN = "main";
-    private static final IStructureDefinition<MTEMegaChemicalReactor> STRUCTURE_DEFINITION = StructureDefinition
-        .<MTEMegaChemicalReactor>builder()
+    private static final IStructureDefinition<MTEMegaChemicalReactorBW> STRUCTURE_DEFINITION = StructureDefinition
+        .<MTEMegaChemicalReactorBW>builder()
         .addShape(
             STRUCTURE_PIECE_MAIN,
             transpose(
@@ -232,14 +232,14 @@ public class MTEMegaChemicalReactor extends MegaMultiBlockBase<MTEMegaChemicalRe
         .addElement('t', ofBlock(GregTechAPI.sBlockCasings8, 0))
         .addElement(
             'd',
-            buildHatchAdder(MTEMegaChemicalReactor.class).atLeast(InputBus, InputHatch, OutputBus, OutputHatch)
+            buildHatchAdder(MTEMegaChemicalReactorBW.class).atLeast(InputBus, InputHatch, OutputBus, OutputHatch)
                 .casingIndex(CASING_INDEX)
                 .dot(1)
                 .buildAndChain(GregTechAPI.sBlockCasings8, 0))
         .addElement('r', Maintenance.newAny(CASING_INDEX, 2))
         .addElement(
             'e',
-            buildHatchAdder(MTEMegaChemicalReactor.class)
+            buildHatchAdder(MTEMegaChemicalReactorBW.class)
                 .atLeast(Energy.or(ExoticEnergy), InputHatch, InputBus, OutputHatch, OutputBus)
                 .casingIndex(CASING_INDEX)
                 .dot(3)
@@ -249,7 +249,7 @@ public class MTEMegaChemicalReactor extends MegaMultiBlockBase<MTEMegaChemicalRe
         .build();
 
     @Override
-    public IStructureDefinition<MTEMegaChemicalReactor> getStructureDefinition() {
+    public IStructureDefinition<MTEMegaChemicalReactorBW> getStructureDefinition() {
         return STRUCTURE_DEFINITION;
     }
 

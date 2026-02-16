@@ -2719,6 +2719,7 @@ public enum ItemList implements IItemContainer {
 
     MagLevHarness,
 
+    MegaChemicalReactor,
     // semicolon after the comment to reduce merge conflicts
     ;
 
