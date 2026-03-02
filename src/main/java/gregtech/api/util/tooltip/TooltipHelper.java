@@ -26,6 +26,7 @@ public class TooltipHelper {
     public static final EnumChatFormatting CAP_COLOR = EnumChatFormatting.GOLD;
     public static final EnumChatFormatting AMP_COLOR = EnumChatFormatting.AQUA;
     public static final EnumChatFormatting CABLE_LOSS_COLOR = EnumChatFormatting.RED;
+    public static final EnumChatFormatting L_COLOR = EnumChatFormatting.WHITE;
     public static final DecimalFormat percentageFormat = new DecimalFormat("0.##%");
 
     /**
@@ -194,5 +195,21 @@ public class TooltipHelper {
             + " "
             + EnumChatFormatting.GRAY
             + StatCollector.translateToLocal("GT5U.item.cable.eu_volt");
+    }
+
+    /**
+     * @return The given number of L, formatted.
+     */
+    public static String fluidText(long liters) {
+        String text = GTUtility.formatNumbers(liters) + GTUtility.translate("gt.unit.liter");
+        return coloredText(text, L_COLOR);
+    }
+
+    /**
+     * @return The given number of L per sec, formatted.
+     */
+    public static String fluidRateText(long litersPerSecond) {
+        String text = GTUtility.formatNumbers(litersPerSecond) + GTUtility.translate("gt.unit.liter_per_second");
+        return coloredText(text, L_COLOR);
     }
 }

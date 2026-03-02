@@ -1186,21 +1186,15 @@ public class RecipesMachines {
             .addTo(assemblerRecipes);
 
         // Industrial Centrifuge
-        RECIPE_IndustrialCentrifugeController = GregtechItemList.Industrial_Centrifuge.get(1);
         RECIPE_IndustrialCentrifugeCasing = GregtechItemList.Casing_Centrifuge1.get(1);
 
         // Industrial Centrifuge
-        RecipeUtils.addShapedGregtechRecipe(
-            "circuitData",
-            pipeHugeStainlessSteel,
-            "circuitData",
-            CI.component_Plate[6],
-            EV_MACHINE_Centrifuge,
-            CI.component_Plate[6],
-            CI.component_Plate[8],
-            ItemList.Casing_EV.get(1),
-            CI.component_Plate[8],
-            RECIPE_IndustrialCentrifugeController);
+        GTModHandler.addCraftingRecipe(
+            GregtechItemList.Industrial_Centrifuge.get(1),
+            new Object[] { "EBE", "CDC", "AFA", 'A', "circuitData", 'B',
+                OrePrefixes.pipeHuge.get(Materials.StainlessSteel), 'C', MaterialsAlloy.MARAGING250.getPlate(1), 'D',
+                ItemList.Machine_EV_Centrifuge, 'E', MaterialsAlloy.INCONEL_792.getPlate(1), 'F', ItemList.Casing_EV });
+
         // Centrifuge Casing
         RecipeUtils.addShapedGregtechRecipe(
             CI.component_Plate[6],
@@ -1439,7 +1433,6 @@ public class RecipesMachines {
             GregtechItemList.Maceration_Upgrade_Chip.get(1));
 
         // Industrial Wire Factory
-        RECIPE_IndustrialWireFactoryController = GregtechItemList.Industrial_WireFactory.get(1);
         RECIPE_IndustrialWireFactoryFrame = GregtechItemList.Casing_WireFactory.get(1);
 
         // Wire Factory Frame Casing
@@ -1466,17 +1459,10 @@ public class RecipesMachines {
             .addTo(assemblerRecipes);
 
         // Industrial Wire Factory
-        RecipeUtils.addShapedGregtechRecipe(
-            "plateBlueSteel",
-            ItemList.Casing_IV.get(1L),
-            "plateBlueSteel",
-            "circuitElite",
-            ItemList.Machine_IV_Wiremill.get(1L),
-            "circuitElite",
-            "plateBlueSteel",
-            ItemList.Casing_IV.get(1L),
-            "plateBlueSteel",
-            RECIPE_IndustrialWireFactoryController);
+        GTModHandler.addCraftingRecipe(
+            GregtechItemList.Industrial_WireFactory.get(1),
+            new Object[] { "PCP", "HMH", "PCP", 'P', OrePrefixes.plate.get(Materials.BlueSteel), 'H',
+                ItemList.Casing_IV, 'C', "circuitElite", 'M', ItemList.Machine_IV_Wiremill });
 
         // Tiered Tanks
         CI.component_Plate[1] = "plateTin";
@@ -2816,7 +2802,7 @@ public class RecipesMachines {
             plate,
             cell1,
             plate,
-            GregtechItemList.Casing_AmazonWarehouse.get(1));
+            casingAmazon);
         GTValues.RA.stdBuilder()
             .itemInputs(
                 MaterialsAlloy.TUNGSTEN_CARBIDE.getFrameBox(1),
@@ -2828,17 +2814,11 @@ public class RecipesMachines {
             .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
 
-        RecipeUtils.addShapedRecipe(
-            casingAmazon,
-            "circuitElite",
-            casingAmazon,
-            ItemList.Electric_Piston_IV.get(1),
-            ItemList.Machine_IV_Boxinator.get(1),
-            ItemList.Electric_Piston_IV.get(1),
-            ItemList.Conveyor_Module_IV.get(1),
-            casingAmazon,
-            ItemList.Conveyor_Module_IV.get(1),
-            GregtechItemList.Amazon_Warehouse_Controller.get(1));
+        // Amazon Warehousing Depot
+        GTModHandler.addCraftingRecipe(
+            GregtechItemList.Amazon_Warehouse_Controller.get(1),
+            new Object[] { "DDD", "PMP", "OCO", 'D', casingAmazon, 'C', "circuitElite", 'P',
+                ItemList.Electric_Piston_IV, 'M', ItemList.Machine_IV_Boxinator, 'O', ItemList.Conveyor_Module_IV });
 
         // Industrial Mixing Machine
         RecipeUtils.addShapedRecipe(

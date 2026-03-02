@@ -195,7 +195,7 @@ public class BlockFrameBox extends BlockContainer {
 
     @Override
     public int getHarvestLevel(int aMeta) {
-        return 3;
+        return 2;
     }
 
     @Override

@@ -5,71 +5,73 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElement
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
+import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TAE;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.common.pollution.PollutionConfig;
-import gtPlusPlus.api.recipe.GTPPRecipeMaps;
 import gtPlusPlus.core.block.ModBlocks;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 
-public class MTEndustrialElectrolyzer extends GTPPMultiBlockBase<MTEndustrialElectrolyzer>
+public class MTEIndustrialWireMillLegacy extends GTPPMultiBlockBase<MTEIndustrialWireMillLegacy>
     implements ISurvivalConstructable {
 
     private int mCasing;
-    private static IStructureDefinition<MTEndustrialElectrolyzer> STRUCTURE_DEFINITION = null;
+    private static IStructureDefinition<MTEIndustrialWireMillLegacy> STRUCTURE_DEFINITION = null;
 
-    public MTEndustrialElectrolyzer(final int aID, final String aName, final String aNameRegional) {
+    public MTEIndustrialWireMillLegacy(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTEndustrialElectrolyzer(final String aName) {
+    public MTEIndustrialWireMillLegacy(final String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(final IGregTechTileEntity aTileEntity) {
-        return new MTEndustrialElectrolyzer(this.mName);
+        return new MTEIndustrialWireMillLegacy(this.mName);
     }
 
     @Override
     public String getMachineType() {
-        return "Electrolyzer";
+        return "Wiremill, IWF";
     }
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
         MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
         tt.addMachineType(getMachineType())
-            .addBulkMachineInfo(2, 2.8f, 0.9f)
+            .addBulkMachineInfo(4, 3f, 0.75f)
             .addPollutionAmount(getPollutionPerSecond(null))
-            .beginStructureBlock(3, 3, 3, true)
+            .beginStructureBlock(3, 3, 5, true)
             .addController("Front Center")
-            .addCasingInfoMin("Electrolyzer Casings", 6, false)
+            .addCasingInfoMin("Wire Factory Casings", 14, false)
             .addInputBus("Any Casing", 1)
             .addOutputBus("Any Casing", 1)
-            .addInputHatch("Any Casing", 1)
-            .addOutputHatch("Any Casing", 1)
             .addEnergyHatch("Any Casing", 1)
             .addMaintenanceHatch("Any Casing", 1)
             .addMufflerHatch("Any Casing", 1)
@@ -78,20 +80,21 @@ public class MTEndustrialElectrolyzer extends GTPPMultiBlockBase<MTEndustrialEle
     }
 
     @Override
-    public IStructureDefinition<MTEndustrialElectrolyzer> getStructureDefinition() {
+    public IStructureDefinition<MTEIndustrialWireMillLegacy> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
-            STRUCTURE_DEFINITION = StructureDefinition.<MTEndustrialElectrolyzer>builder()
+            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialWireMillLegacy>builder()
                 .addShape(
                     mName,
                     transpose(
-                        new String[][] { { "CCC", "CCC", "CCC" }, { "C~C", "C-C", "CCC" }, { "CCC", "CCC", "CCC" }, }))
+                        new String[][] { { "CCC", "CCC", "CCC", "CCC", "CCC" }, { "C~C", "C-C", "C-C", "C-C", "CCC" },
+                            { "CCC", "CCC", "CCC", "CCC", "CCC" }, }))
                 .addElement(
                     'C',
-                    buildHatchAdder(MTEndustrialElectrolyzer.class)
-                        .atLeast(InputBus, OutputBus, Maintenance, Energy, Muffler, InputHatch, OutputHatch)
-                        .casingIndex(TAE.GTPP_INDEX(5))
+                    buildHatchAdder(MTEIndustrialWireMillLegacy.class)
+                        .atLeast(InputBus, OutputBus, Maintenance, Energy, Muffler)
+                        .casingIndex(getCasingTextureIndex())
                         .dot(1)
-                        .buildAndChain(onElementPass(x -> ++x.mCasing, ofBlock(ModBlocks.blockCasingsMisc, 5))))
+                        .buildAndChain(onElementPass(x -> ++x.mCasing, ofBlock(getCasingBlock(), getCasingMeta()))))
                 .build();
         }
         return STRUCTURE_DEFINITION;
@@ -111,54 +114,96 @@ public class MTEndustrialElectrolyzer extends GTPPMultiBlockBase<MTEndustrialEle
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         mCasing = 0;
-        return checkPiece(mName, 1, 1, 0) && mCasing >= 6 && checkHatch();
+        return checkPiece(mName, 1, 1, 0) && mCasing >= 14 && checkHatch();
+    }
+
+    @Override
+    protected SoundResource getProcessStartSound() {
+        return SoundResource.GTCEU_LOOP_MOTOR;
     }
 
     @Override
     protected IIconContainer getActiveOverlay() {
-        return TexturesGtBlock.oMCDIndustrialElectrolyzerActive;
+        return TexturesGtBlock.oMCDIndustrialWireMillActive;
     }
 
     @Override
     protected IIconContainer getActiveGlowOverlay() {
-        return TexturesGtBlock.oMCDIndustrialElectrolyzerActiveGlow;
+        return TexturesGtBlock.oMCDIndustrialWireMillActiveGlow;
     }
 
     @Override
     protected IIconContainer getInactiveOverlay() {
-        return TexturesGtBlock.oMCDIndustrialElectrolyzer;
+        return TexturesGtBlock.oMCDIndustrialWireMill;
     }
 
     @Override
     protected IIconContainer getInactiveGlowOverlay() {
-        return TexturesGtBlock.oMCDIndustrialElectrolyzerGlow;
+        return TexturesGtBlock.oMCDIndustrialWireMillGlow;
     }
 
     @Override
     protected int getCasingTextureId() {
-        return TAE.GTPP_INDEX(5);
+        return TAE.GTPP_INDEX(6);
     }
 
     @Override
     public RecipeMap<?> getRecipeMap() {
-        return GTPPRecipeMaps.electrolyzerNonCellRecipes;
+        return RecipeMaps.wiremillRecipes;
+    }
+
+    @Override
+    public int getRecipeCatalystPriority() {
+        return -1;
     }
 
     @Override
     protected ProcessingLogic createProcessingLogic() {
-        return new ProcessingLogic().noRecipeCaching()
-            .setSpeedBonus(1F / 2.8F)
-            .setEuModifier(0.9F)
+        return new ProcessingLogic().setSpeedBonus(1F / 3F)
+            .setEuModifier(0.75F)
             .setMaxParallelSupplier(this::getTrueParallel);
     }
 
     @Override
-    public int getPollutionPerSecond(final ItemStack aStack) {
-        return PollutionConfig.pollutionPerSecondMultiIndustrialElectrolyzer;
+    public void onModeChangeByScrewdriver(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ) {
+        inputSeparation = !inputSeparation;
+        aPlayer.addChatMessage(
+            new ChatComponentTranslation(
+                inputSeparation ? "interaction.separateBuses.enabled" : "interaction.separateBuses.disabled"));
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound aNBT) {
+        super.loadNBTData(aNBT);
+        if (!aNBT.hasKey(INPUT_SEPARATION_NBT_KEY)) {
+            inputSeparation = aNBT.getBoolean("isBussesSeparate");
+        }
     }
 
     @Override
     public int getMaxParallelRecipes() {
-        return 2 * GTUtility.getTier(this.getMaxInputVoltage());
+        return (4 * GTUtility.getTier(this.getMaxInputVoltage()));
+    }
+
+    @Override
+    public int getPollutionPerSecond(final ItemStack aStack) {
+        return PollutionConfig.pollutionPerSecondMultiIndustrialWireMill;
+    }
+
+    public Block getCasingBlock() {
+        return ModBlocks.blockCasingsMisc;
+    }
+
+    public byte getCasingMeta() {
+        return 6;
+    }
+
+    public byte getCasingTextureIndex() {
+        return (byte) TAE.GTPP_INDEX(6);
+    }
+
+    @Override
+    public boolean supportsInputSeparation() {
+        return true;
     }
 }

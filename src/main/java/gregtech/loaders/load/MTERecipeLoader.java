@@ -43,6 +43,8 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.loaders.postload.PCBFactoryMaterialLoader;
 import gregtech.loaders.postload.ProcessingArrayRecipeLoader;
+import gtPlusPlus.core.material.MaterialsAlloy;
+import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import ic2.core.Ic2Items;
 
 public class MTERecipeLoader implements Runnable {
@@ -1640,6 +1642,31 @@ public class MTERecipeLoader implements Runnable {
     // Maybe after some point in time, it can be moved to coremod as well.
     private static void registerReworkMTERecipes() {
 
+        // Industrial Centrifuge
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialCentrifuge.get(1),
+            new Object[] { "ABA", "CDC", "EFE", 'A', "circuitData", 'B',
+                OrePrefixes.pipeHuge.get(Materials.StainlessSteel), 'C', MaterialsAlloy.MARAGING250.getPlate(1), 'D',
+                ItemList.Machine_EV_Centrifuge, 'E', MaterialsAlloy.INCONEL_792.getPlate(1), 'F', ItemList.Casing_EV });
+
+        // Amazon Warehousing Depot
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialPackager.get(1),
+            new Object[] { "ODO", "PMP", "DCD", 'D', GregtechItemList.Casing_AmazonWarehouse.get(1), 'C',
+                "circuitElite", 'P', ItemList.Electric_Piston_IV, 'M', ItemList.Machine_IV_Boxinator, 'O',
+                ItemList.Conveyor_Module_IV });
+
+        // Industrial Wire Factory
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialWireFactory.get(1),
+            new Object[] { "PHP", "CMC", "PHP", 'P', OrePrefixes.plate.get(Materials.BlueSteel), 'H',
+                ItemList.Casing_IV, 'C', "circuitElite", 'M', ItemList.Machine_IV_Wiremill });
+
+        // Industrial Electrolyzer
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialElectrolyzer.get(1),
+            new Object[] { "PRP", "HMH", "PCP", 'P', MaterialsAlloy.STELLITE.getPlate(1), 'C', "circuitElite", 'H',
+                ItemList.Casing_IV, 'M', ItemList.Machine_IV_Electrolyzer, 'R', MaterialsAlloy.STELLITE.getRotor(1) });
         // Mega Chemical Reactor
         // todo: tweak this recipe
         GTValues.RA.stdBuilder()
@@ -1658,7 +1685,27 @@ public class MTERecipeLoader implements Runnable {
     // TODO delete after the next major version after 2.9
     private static void registerReworkMigrationRecipes() {
 
-        // Mega Chemical Reactor
+        // Industrial Wire Factory Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IndustrialWireFactory.get(1),
+            new Object[] { GregtechItemList.Industrial_WireFactory.get(1) });
+
+        // Amazon Packager Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IndustrialPackager.get(1),
+            new Object[] { GregtechItemList.Amazon_Warehouse_Controller.get(1) });
+
+        // Industrial Centrifuge Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IndustrialCentrifuge.get(1),
+            new Object[] { GregtechItemList.Industrial_Centrifuge.get(1) });
+
+        // Industrial Electrolyzer Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IndustrialElectrolyzer.get(1),
+            new Object[] { GregtechItemList.Industrial_Electrolyzer.get(1) });
+
+        // Mega Chemical Reactor Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.MegaChemicalReactor.get(1),
             new Object[] { ItemRegistry.megaMachines[3] });

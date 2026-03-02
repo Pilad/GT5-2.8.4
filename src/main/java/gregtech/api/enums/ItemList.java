@@ -2719,6 +2719,11 @@ public enum ItemList implements IItemContainer {
 
     MagLevHarness,
 
+    IndustrialWireFactory,
+    IndustrialPackager,
+    IndustrialCentrifuge,
+    IndustrialElectrolyzer,
+
     MegaChemicalReactor,
     // semicolon after the comment to reduce merge conflicts
     ;
