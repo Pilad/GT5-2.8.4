@@ -4236,15 +4236,7 @@ public class GTUtility {
             if (aFluid != null) tData.append(aFluid.amount)
                 .append(",")
                 .append(aFluid.getLocalizedName())
-                .append(","); // TODO
-            // CHECK
-            // IF
-            // THAT
-            // /5000
-            // is
-            // needed
-            // (Not
-            // needed)
+                .append(",");
             for (String tString : aOres) {
                 tData.append(tString)
                     .append(",");
