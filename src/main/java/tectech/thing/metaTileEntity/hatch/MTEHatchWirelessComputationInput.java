@@ -35,6 +35,7 @@ import gregtech.api.util.GTUtility;
 import gregtech.common.WirelessComputationPacket;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
+import tectech.mechanics.dataTransport.QuantumDataPacket;
 import tectech.thing.gui.TecTechUITextures;
 
 public class MTEHatchWirelessComputationInput extends MTEHatchDataInput
@@ -78,11 +79,17 @@ public class MTEHatchWirelessComputationInput extends MTEHatchDataInput
     public void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         super.onPreTick(aBaseMetaTileEntity, aTick);
         if (aBaseMetaTileEntity.isServerSide() && q == null) {
-            q = WirelessComputationPacket.downloadData(
+            long received = WirelessComputationPacket.downloadData(
                 aBaseMetaTileEntity.getOwnerUuid(),
                 requiredComputation,
                 MinecraftServer.getServer()
                     .getTickCounter());
+            if (received > 0) {
+                q = new QuantumDataPacket(received);
+                updateComputationHistory(received);
+            } else {
+                updateComputationHistory(0);
+            }
         }
 
     }
@@ -172,7 +179,7 @@ public class MTEHatchWirelessComputationInput extends MTEHatchDataInput
         IWailaConfigHandler config) {
         super.getWailaBody(itemStack, currenttip, accessor, config);
         currenttip.add(
-            translateToLocal("GT5U.machines.computation_hatch.computation") + ": "
+            translateToLocal("GT5U.machines.computation_hatch.computation.amount") + ": "
                 + EnumChatFormatting.YELLOW
                 + GTUtility.formatNumbers(
                     accessor.getNBTData()
