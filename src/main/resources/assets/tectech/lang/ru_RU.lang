@@ -395,7 +395,6 @@ gt.blockmachines.hatch.energytunnel6.tier.13.name=UXV 262,144A/t Приёмни�
 gt.blockmachines.hatch.energytunnel7.tier.13.name=UXV 1,048,576A/t Приёмник лазера
 gt.blockmachines.hatch.energytunnel.tier.14.name=Легендарный приёмник лазера
 gt.blockmachines.hatch.energytunnel.desc.0=Терминал подачи энергии для мультиблоков
-gt.blockmachines.hatch.energytunnel.desc.1=Пропускная способность
 
 gt.blockmachines.hatch.dynamomulti04.tier.05.name=IV 4A Энерговывод
 gt.blockmachines.hatch.dynamomulti16.tier.05.name=IV 16A Энерговывод
@@ -492,7 +491,6 @@ gt.blockmachines.hatch.dynamotunnel6.tier.13.name=UXV 262,144A/t Источни�
 gt.blockmachines.hatch.dynamotunnel7.tier.13.name=UXV 1,048,576A/t Источник лазера
 gt.blockmachines.hatch.dynamotunnel.tier.14.name=Легендарный источник лазера
 gt.blockmachines.hatch.dynamotunnel.desc.0=Терминал вывода энергии из мультиблоков
-gt.blockmachines.hatch.dynamotunnel.desc.1=Пропускная способность
 gt.blockmachines.hatch.screwdrivertooltip=Используйте отвёртку для регулировки ампеража
 
 gt.blockmachines.emin.tier.08.name=UV Элементный входной шлюз

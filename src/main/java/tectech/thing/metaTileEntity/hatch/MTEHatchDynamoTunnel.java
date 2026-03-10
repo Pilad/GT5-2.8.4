@@ -6,7 +6,6 @@ import static net.minecraft.util.StatCollector.translateToLocal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizons.modularui.api.math.Alignment;
@@ -22,7 +21,7 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.util.GTUtility;
+import gregtech.api.metatileentity.implementations.MTEHatch;
 import tectech.mechanics.pipe.IConnectsToEnergyTunnel;
 import tectech.thing.metaTileEntity.pipe.MTEPipeLaser;
 import tectech.thing.metaTileEntity.pipe.MTEPipeLaserMirror;
@@ -40,14 +39,12 @@ public class MTEHatchDynamoTunnel extends MTEHatchDynamoMulti implements IConnec
             localisedName,
             tier,
             0,
-            new String[] { CommonValues.TEC_MARK_GENERAL,
+            MTEHatch.formatEnergyInfoDesc(
+                true,
+                tier,
+                amps,
                 translateToLocal("gt.blockmachines.hatch.dynamotunnel.desc.0"),
-                translateToLocal("gt.blockmachines.hatch.screwdrivertooltip"),
-                translateToLocal("gt.blockmachines.hatch.dynamotunnel.desc.1") + ": "
-                    + EnumChatFormatting.YELLOW
-                    + GTUtility.formatNumbers(amps * V[tier])
-                    + EnumChatFormatting.RESET
-                    + " EU/t" },
+                translateToLocal("gt.blockmachines.hatch.screwdrivertooltip")),
             amps);
     }
 

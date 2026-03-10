@@ -2,12 +2,16 @@ package gregtech.api.metatileentity.implementations;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import appeng.api.crafting.ICraftingIconProvider;
+import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.util.GTUtility;
+import gregtech.api.util.tooltip.TooltipHelper;
 
 /**
  * Handles texture changes internally. No special calls are necessary other than updateTexture in add***ToMachineList.
@@ -195,5 +199,28 @@ public abstract class MTEHatch extends MTEBasicTank implements ICraftingIconProv
 
     public int getCircuitSlot() {
         return -1;
+    }
+
+    public static String[] formatEnergyInfoDesc(boolean isDynamo, int tier, int amp, String... lines) {
+        return MTEHatch.formatEnergyInfoDesc(null, isDynamo, tier, amp, lines);
+    }
+
+    public static String[] formatEnergyInfoDesc(String author, boolean isDynamo, int tier, int amp, String... lines) {
+        final boolean hasAuthor = author != null;
+        final String[] desc = new String[lines.length + 3 + (hasAuthor ? 1 : 0)];
+        System.arraycopy(lines, 0, desc, 0, lines.length);
+        desc[lines.length] = GTUtility.translate(
+            "gt.tileentity.throughput",
+            EnumChatFormatting.YELLOW + GTUtility.formatNumbers(amp * GTValues.V[tier])
+                + EnumChatFormatting.RESET
+                + " EU/t");
+        desc[lines.length + 1] = GTUtility.translate(
+            isDynamo ? "gt.tileentity.eup_out" : "gt.tileentity.eup_in",
+            TooltipHelper.voltageText(GTValues.V[tier]));
+        desc[lines.length + 2] = GTUtility.translate("gt.tileentity.amperage", TooltipHelper.ampText(amp));
+        if (hasAuthor) {
+            desc[lines.length + 3] = author;
+        }
+        return desc;
     }
 }

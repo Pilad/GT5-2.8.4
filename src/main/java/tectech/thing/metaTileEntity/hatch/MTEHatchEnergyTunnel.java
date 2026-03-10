@@ -6,7 +6,6 @@ import static net.minecraft.util.StatCollector.translateToLocal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizons.modularui.api.math.Alignment;
@@ -21,7 +20,7 @@ import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.util.GTUtility;
+import gregtech.api.metatileentity.implementations.MTEHatch;
 import tectech.mechanics.pipe.IConnectsToEnergyTunnel;
 import tectech.util.CommonValues;
 
@@ -37,14 +36,12 @@ public class MTEHatchEnergyTunnel extends MTEHatchEnergyMulti implements IConnec
             aNameRegional,
             aTier,
             0,
-            new String[] { CommonValues.TEC_MARK_GENERAL,
+            MTEHatch.formatEnergyInfoDesc(
+                false,
+                aTier,
+                aAmp,
                 translateToLocal("gt.blockmachines.hatch.energytunnel.desc.0"),
-                translateToLocal("gt.blockmachines.hatch.screwdrivertooltip"),
-                translateToLocal("gt.blockmachines.hatch.energytunnel.desc.1") + ": "
-                    + EnumChatFormatting.YELLOW
-                    + GTUtility.formatNumbers(aAmp * V[aTier])
-                    + EnumChatFormatting.RESET
-                    + " EU/t", },
+                translateToLocal("gt.blockmachines.hatch.screwdrivertooltip")),
             aAmp); // Energy injecting terminal for Multiblocks
     }
 
