@@ -164,7 +164,9 @@ public class MTEHatchDynamoMulti extends MTEHatch implements IHideTooltipEnergyI
     public String[] getInfoData() {
         return new String[] { GTUtility.translate(
             "gt.tileentity.throughput",
-            EnumChatFormatting.YELLOW + formatNumber(Amperes * V[mTier]) + EnumChatFormatting.RESET + " EU/t") };
+            EnumChatFormatting.YELLOW + GTUtility.formatNumbers(Amperes * V[mTier])
+                + EnumChatFormatting.RESET
+                + " EU/t") };
     }
 
     @Override
