@@ -183,7 +183,7 @@ public class ArtificialMicaLine {
                     GTUtility.getIntegratedCircuit(1))
                 .itemOutputs(GTModHandler.getModItem(NewHorizonsCoreMod.ID, "item.MicaInsulatorFoil", 4))
                 .duration(10 * TICKS)
-                .eut(600)
+                .eut(TierEU.RECIPE_HV)
                 .addTo(benderRecipes);
 
         }
