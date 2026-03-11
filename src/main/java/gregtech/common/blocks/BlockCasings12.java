@@ -12,15 +12,17 @@ import gregtech.common.misc.GTStructureChannels;
 /**
  * The casings are split into separate files because they are registered as regular blocks, and a regular block can have
  * 16 subtypes at most.
+ * This class is for registration. For use inside MTE's, use {@link gregtech.api.casing.Casings#asElement()}
+ * Make sure to also register each new Casing inside of {@link gregtech.api.casing.Casings}
  */
 public class BlockCasings12 extends BlockCasingsAbstract {
 
     public BlockCasings12() {
         super(ItemCasings.class, "gt.blockcasings12", MaterialCasings.INSTANCE, 16);
 
-        register(10, ItemList.CasingThaumium, "Alchemically Resistant Thaumium Casing");
-        register(11, ItemList.CasingVoid, "Alchemically Inert Void Casing");
-        register(12, ItemList.CasingIchorium, "Alchemically Immune Ichorium Casing");
+        register(10, ItemList.CasingThaumium);
+        register(11, ItemList.CasingVoid);
+        register(12, ItemList.CasingIchorium);
         for (int i = 0; i < 3; i++) {
             GTStructureChannels.METAL_MACHINE_CASING.registerAsIndicator(new ItemStack(this, 1, i + 10), i + 1);
         }

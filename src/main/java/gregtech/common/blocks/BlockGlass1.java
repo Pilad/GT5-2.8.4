@@ -18,6 +18,8 @@ import gregtech.api.enums.Textures;
  * subtypes at most.
  * <p>
  * This class hosts various special types of tiered glass with not many tiers.
+ * This class is for registration. For use inside MTE's, use {@link gregtech.api.casing.Casings#asElement()}
+ * Make sure to also register each new Casing inside of {@link gregtech.api.casing.Casings}
  */
 public class BlockGlass1 extends BlockCasingsAbstract {
 
@@ -25,16 +27,12 @@ public class BlockGlass1 extends BlockCasingsAbstract {
         super(ItemCasings.class, "gt.blockglass1", Material.glass, 4);
         this.opaque = false;
 
-        register(0, ItemList.GlassPHResistant, "Chemical Grade Glass", translatedText("gt.casing.chemical-resistant"));
-        register(1, ItemList.GlassUVResistant, "Electron-Permeable Neutronium Coated Glass");
-        register(2, ItemList.GlassOmniPurposeInfinityFused, "Omni-Purpose Infinity Fused Glass");
-        register(3, ItemList.GlassQuarkContainment, "Non-Photonic Matter Exclusion Glass");
-        register(
-            4,
-            ItemList.Hawking_Glass,
-            "Hawking Radiation Realignment Focus",
-            translatedText("gt.casing.hawking-focus"));
-        register(5, ItemList.NaniteShieldingGlass, "Nanite Shielding Glass");
+        register(0, ItemList.GlassPHResistant, translatedText("gt.casing.chemical-resistant"));
+        register(1, ItemList.GlassUVResistant);
+        register(2, ItemList.GlassOmniPurposeInfinityFused);
+        register(3, ItemList.GlassQuarkContainment);
+        register(4, ItemList.Hawking_Glass, translatedText("gt.casing.hawking-focus"));
+        register(5, ItemList.NaniteShieldingGlass);
 
     }
 
