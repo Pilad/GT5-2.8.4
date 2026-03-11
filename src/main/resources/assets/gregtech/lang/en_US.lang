@@ -889,6 +889,9 @@ gt.multiblock.DieselEngine.muffler_hatch=Top middle back, above the rear Gear Bo
 gt.multiblock.DieselEngine.diesel_fuel=Diesel Fuel, next to a Gear Box
 gt.multiblock.DieselEngine.lubricant=Lubricant, next to a Gear Box
 gt.multiblock.DieselEngine.oxygen_optional=Oxygen, optional, next to a Gear Box
+gt.blockcasings4.Casing_StableTitanium=Stable Titanium Machine Casing
+gt.blockcasings2.Casing_Gearbox_Titanium=Titanium Gear Box Machine Casing
+gt.blockcasings4.Casing_EngineIntake=Engine Intake Machine Casing
 
 GT5U.MBTT.subchannel=Uses sub channel §6%s§r§7 for §6%s
 
