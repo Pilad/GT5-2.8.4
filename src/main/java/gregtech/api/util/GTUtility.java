@@ -126,8 +126,10 @@ import org.jetbrains.annotations.Contract;
 import org.joml.Vector3i;
 
 import com.google.auto.value.AutoValue;
+import com.google.common.base.Splitter;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.common.collect.SetMultimap;
@@ -239,6 +241,7 @@ public class GTUtility {
     private static int sBookCount = 0;
     public static UUID defaultUuid = null; // maybe default non-null?
     // UUID.fromString("00000000-0000-0000-0000-000000000000");
+    private static final Splitter NEWLINE_SPLITTER = Splitter.on("\\n");
 
     static {
         GregTechAPI.sItemStackMappings.add(sFilledContainerToData);
@@ -4010,13 +4013,68 @@ public class GTUtility {
         }
     }
 
+    /**
+     * Translates a localization key to a localized string.
+     *
+     * @param key the localization key to translate
+     * @return the translated string
+     */
     public static String translate(String key) {
         return StatCollector.translateToLocal(key);
     }
 
+    /**
+     * Translates a localization key to a localized string.
+     * If parameters are provided, they are substituted into the translated string via
+     * {@link StatCollector#translateToLocalFormatted(String, Object...)}.
+     *
+     * @param key        the localization key to translate
+     * @param parameters optional substitution arguments for the translated string
+     * @return the translated string
+     */
     public static String translate(String key, Object... parameters) {
         return parameters.length == 0 ? StatCollector.translateToLocal(key)
             : StatCollector.translateToLocalFormatted(key, parameters);
+    }
+
+    /**
+     * Translates a localization key and splits the result into multiple lines.
+     * Lines are split on the literal {@code \n} sequence (backslash + n),
+     * as used in Minecraft lang files.
+     *
+     * @param key        the localization key to translate
+     * @param parameters optional substitution arguments for the translated string
+     * @return an array of lines from the translated string
+     * @see #translate(String, Object...)
+     */
+    public static String[] translateMultiline(String key, Object... parameters) {
+        return Iterables.toArray(NEWLINE_SPLITTER.split(translate(key, parameters)), String.class);
+    }
+
+    /**
+     * Translates a localization key, splits the result into multiple lines,
+     * and adds each line directly into the provided collection.
+     * Lines are split on the literal {@code \n} sequence (backslash + n),
+     * as used in Minecraft lang files.
+     *
+     * <p>
+     * This overload avoids allocating an intermediate array and is preferred
+     * when the caller already holds a {@link Collection}, such as the tooltip
+     * list in {@code addInformation}.
+     *
+     * <p>
+     * Note: the literal text {@code \n} cannot appear in tooltip lines,
+     * as it is used as the line separator.
+     *
+     * @param tooltip the collection to add translated lines into
+     * @param key     the localization key to translate
+     * @param args    optional substitution arguments for the translated string
+     * @see #translateMultiline(String, Object...)
+     */
+    public static void translateMultiline(Collection<String> tooltip, String key, Object... args) {
+        for (String line : NEWLINE_SPLITTER.split(translate(key, args))) {
+            tooltip.add(line);
+        }
     }
 
     /*
@@ -5132,9 +5190,13 @@ public class GTUtility {
     }
 
     public static String[] breakLines(String... lines) {
-        return Arrays.stream(lines)
-            .flatMap(s -> Arrays.stream(s.split("\\\\n")))
-            .toArray(String[]::new);
+        List<String> result = new ArrayList<>();
+        for (String line : lines) {
+            for (String part : NEWLINE_SPLITTER.split(line)) {
+                result.add(part);
+            }
+        }
+        return result.toArray(new String[0]);
     }
 
     @AutoValue
