@@ -136,7 +136,9 @@ public class ItemHealingDevice extends Item implements IElectricItem, IElectricI
         list.add(EnumChatFormatting.GREEN + aString1 + EnumChatFormatting.GRAY);
         list.add(
             EnumChatFormatting.GREEN + aString2
+                + " "
                 + GTUtility.formatNumbers(EUPerOperation)
+                + " "
                 + aString3
                 + EnumChatFormatting.GRAY);
         list.add(EnumChatFormatting.GREEN + aString4 + EnumChatFormatting.GRAY);
