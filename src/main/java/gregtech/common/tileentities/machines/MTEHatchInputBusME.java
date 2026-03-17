@@ -996,6 +996,7 @@ public class MTEHatchInputBusME extends MTEHatchInputBus
 
     protected static String[] getDescriptionArray(boolean autoPullAvailable) {
         List<String> strings = new ArrayList<>(8);
+        strings.add(StatCollector.translateToLocal("GT5U.MBTT.MachineType") + ": " + EnumChatFormatting.YELLOW + "SIB");
         strings.add("Next-gen item input for Multiblocks");
         strings.add("Hatch Tier: " + TIER_COLORS[autoPullAvailable ? 6 : 3] + VN[autoPullAvailable ? 6 : 3]);
         strings.add("Retrieves directly from ME");

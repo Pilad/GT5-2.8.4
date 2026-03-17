@@ -1332,7 +1332,7 @@ public enum OrePrefixes {
                 if (name().startsWith("nugget")) return mLocalizedMaterialPre + "%material" + " Chip";
                 if (name().startsWith("plate")) return mLocalizedMaterialPre + "%material" + " Plank";
             }
-            case "Plastic", "Rubber", "Polyethylene", "Epoxid", "EpoxidFiberReinforced", "Polydimethylsiloxane", "Silicone", "Polysiloxane", "Polycaprolactam", "Polytetrafluoroethylene", "PolyvinylChloride", "Polystyrene", "StyreneButadieneRubber" -> {
+            case "Plastic", "Rubber", "Polyethylene", "Epoxid", "EpoxidFiberReinforced", "Polydimethylsiloxane", "Silicone", "Polysiloxane", "Polycaprolactam", "Polytetrafluoroethylene", "PolyvinylChloride", "Polystyrene", "StyreneButadieneRubber", "Polybenzimidazole", "RadoxPoly", "PolyphenyleneSulfide" -> {
                 if (name().startsWith("dust")) return mLocalizedMaterialPre + "%material" + " Pulp";
                 if (name().startsWith("plate")) return mLocalizedMaterialPre + "%material" + " Sheet";
                 if (name().startsWith("ingot")) return mLocalizedMaterialPre + "%material" + " Bar";
