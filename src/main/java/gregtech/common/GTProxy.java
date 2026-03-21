@@ -690,6 +690,7 @@ public class GTProxy implements IFuelHandler {
     public TetherManager tetherManager;
 
     public SyncedKeybind TOOL_MODE_SWITCH_KEYBIND;
+    public SyncedKeybind CTRL_KEYBIND;
 
     static {
         oreDictBurnTimes.put("dustTinyWood", 11);
@@ -1044,6 +1045,7 @@ public class GTProxy implements IFuelHandler {
         TOOL_MODE_SWITCH_KEYBIND = SyncedKeybind
             .createConfigurable("key.gt.tool_mode_switch", "Gregtech", Keyboard.KEY_PERIOD)
             .registerGlobalListener(MetaGeneratedTool::switchToolMode);
+        CTRL_KEYBIND = SyncedKeybind.create(Keyboard.KEY_LCONTROL);
 
         GregTechAPI.sLoadStarted = true;
         for (FluidContainerRegistry.FluidContainerData tData : FluidContainerRegistry
