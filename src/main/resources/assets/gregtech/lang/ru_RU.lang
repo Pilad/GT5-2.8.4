@@ -1723,6 +1723,14 @@ GT5U.multiblock.coilLevel=Тир нагревательной катушки
 GT5U.multiblock.preciseassemblercasing=Вольтаж ограничен тиром корпуса: %s
 GT5U.multiblock.runningMode=§eРежим работы:
 
+GT5U.multiblock.scanner.pollution=Загрязнение снижено до: §a%s§r%%
+GT5U.multiblock.scanner.energy=Энергии накоплено: §a%s §rEU / §e%s §rEU
+GT5U.multiblock.scanner.Progress=Прогресс: §a%s §rs / §e%s §rs
+GT5U.multiblock.scanner.efficiency=Эффективность: §e%s§r%%
+GT5U.multiblock.scanner.problems=Проблемы: §c%s
+GT5U.multiblock.scanner.mei=Max Energy Input: §e%s §rEU/t (*2A) Tier: §e%s
+GT5U.multiblock.scanner.usage=Сейчас используется: §c%s §rEU/t
+
 # NEI recipe handlers
 GT5U.nei.heat_capacity=Теплоёмкость: %s K (%s)
 GT5U.nei.tier=Тир: %s

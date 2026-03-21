@@ -2256,8 +2256,23 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
             maxEnergy += baseMetaTileEntity.getEUCapacity();
         }
 
+        if (getBaseMetaTileEntity() != null) {
+            IGregTechTileEntity te = getBaseMetaTileEntity();
+
+            info.add(GTUtility.translateToLocal("GT5U.multiblock.scanner.owned_by", te.getOwnerName()));
+
+            if (te.getMetaTileEntity() != null) {
+                info.add(
+                    GTUtility.translateToLocal("GT5U.multiblock.scanner.meta_tile_entity", te.getMetaTileID()) + " "
+                        + GTUtility.translateToLocal(
+                            te.canAccessData() ? "GT5U.multiblock.scanner.valid" : "GT5U.multiblock.scanner.invalid"));
+            } else {
+                info.add(GTUtility.translateToLocal("GT5U.multiblock.scanner.is_meta_tile_entity"));
+            }
+        }
+
         return new String[] {
-            /* 1 */ translateToLocal("GT5U.multiblock.Progress") + ": "
+            /* 1 */ translateToLocal("GT5U.multiblock.scanner.Progress") + ": "
                 + EnumChatFormatting.GREEN
                 + formatNumbers(mProgresstime / 20)
                 + EnumChatFormatting.RESET
@@ -2266,7 +2281,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
                 + formatNumbers(mMaxProgresstime / 20)
                 + EnumChatFormatting.RESET
                 + " s",
-            /* 2 */ translateToLocal("GT5U.multiblock.energy") + ": "
+            /* 2 */ translateToLocal("GT5U.multiblock.scanner.energy") + ": "
                 + EnumChatFormatting.GREEN
                 + formatNumbers(storedEnergy)
                 + EnumChatFormatting.RESET
@@ -2275,12 +2290,12 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
                 + formatNumbers(maxEnergy)
                 + EnumChatFormatting.RESET
                 + " EU",
-            /* 3 */ translateToLocal("GT5U.multiblock.usage") + ": "
+            /* 3 */ translateToLocal("GT5U.multiblock.scanner.usage") + ": "
                 + EnumChatFormatting.RED
                 + formatNumbers(getActualEnergyUsage())
                 + EnumChatFormatting.RESET
                 + " EU/t",
-            /* 4 */ translateToLocal("GT5U.multiblock.mei") + ": "
+            /* 4 */ translateToLocal("GT5U.multiblock.scanner.mei") + ": "
                 + EnumChatFormatting.YELLOW
                 + formatNumbers(getMaxInputVoltage())
                 + EnumChatFormatting.RESET
@@ -2290,18 +2305,18 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
                 + EnumChatFormatting.YELLOW
                 + VN[GTUtility.getTier(getMaxInputVoltage())]
                 + EnumChatFormatting.RESET,
-            /* 5 */ translateToLocal("GT5U.multiblock.problems") + ": "
+            /* 5 */ translateToLocal("GT5U.multiblock.scanner.problems") + ": "
                 + EnumChatFormatting.RED
                 + (getIdealStatus() - getRepairStatus())
                 + EnumChatFormatting.RESET
                 + " "
-                + translateToLocal("GT5U.multiblock.efficiency")
+                + translateToLocal("GT5U.multiblock.scanner.efficiency")
                 + ": "
                 + EnumChatFormatting.YELLOW
                 + mEfficiency / 100.0F
                 + EnumChatFormatting.RESET
                 + " %",
-            /* 6 */ translateToLocal("GT5U.multiblock.pollution") + ": "
+            /* 6 */ translateToLocal("GT5U.multiblock.scanner.pollution") + ": "
                 + EnumChatFormatting.GREEN
                 + getAveragePollutionPercentage()
                 + EnumChatFormatting.RESET
