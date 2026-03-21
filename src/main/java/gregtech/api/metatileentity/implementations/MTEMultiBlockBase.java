@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.LongConsumer;
 import java.util.stream.Collectors;
@@ -2273,17 +2274,16 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         }
 
         if (getBaseMetaTileEntity() != null) {
-            IGregTechTileEntity te = getBaseMetaTileEntity();
-
-            info.add(GTUtility.translateToLocal("GT5U.multiblock.scanner.owned_by", te.getOwnerName()));
-
-            if (te.getMetaTileEntity() != null) {
-                info.add(
-                    GTUtility.translateToLocal("GT5U.multiblock.scanner.meta_tile_entity", te.getMetaTileID()) + " "
-                        + GTUtility.translateToLocal(
-                            te.canAccessData() ? "GT5U.multiblock.scanner.valid" : "GT5U.multiblock.scanner.invalid"));
+            IGregTechTileEntity baseMetaTileEntity = getBaseMetaTileEntity();
+            String ownedBy = GTUtility.translate("GT5U.multiblock.scanner.owned_by", te.getOwnerName());
+            if (baseMetaTileEntity.getMetaTileEntity() != null) {
+                String result = GTUtility.translate("GT5U.multiblock.scanner.meta_tile_entity", te.getMetaTileID())
+                    + " "
+                    + GTUtility.translate(
+                        baseMetaTileEntity.canAccessData() ? "GT5U.multiblock.scanner.valid"
+                            : "GT5U.multiblock.scanner.invalid");
             } else {
-                info.add(GTUtility.translateToLocal("GT5U.multiblock.scanner.is_meta_tile_entity"));
+                String isMeta = GTUtility.translate("GT5U.multiblock.scanner.is_meta_tile_entity");
             }
         }
 
@@ -2337,7 +2337,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
                 + getAveragePollutionPercentage()
                 + EnumChatFormatting.RESET
                 + " %",
-            /* 7 */ translateToLocal(timeKey, timeValue) };
+            /* 7 */ GTUtility.translate(timeKey, timeValue) };
     }
 
     @Override
