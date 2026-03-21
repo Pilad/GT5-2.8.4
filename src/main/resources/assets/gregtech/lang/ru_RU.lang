@@ -1730,6 +1730,15 @@ GT5U.multiblock.scanner.efficiency=Эффективность: §e%s§r%%
 GT5U.multiblock.scanner.problems=Проблемы: §c%s
 GT5U.multiblock.scanner.mei=Max Energy Input: §e%s §rEU/t (*2A) Tier: §e%s
 GT5U.multiblock.scanner.usage=Сейчас используется: §c%s §rEU/t
+GT5U.multiblock.scanner.totalRunHours=Total runtime: §6%s§r hours
+GT5U.multiblock.scanner.totalRunMinutes=Total runtime: §6%s§r minutes
+GT5U.multiblock.scanner.totalRunSeconds=Total runtime: §6%s§r seconds
+GT5U.multiblock.scanner.totalRunTicks=Total runtime: §6%s§r ticks
+GT5U.multiblock.scanner.owned_by=Owned by: §6%s
+GT5U.multiblock.scanner.meta_tile_entity=Meta-ID: §6%s
+GT5U.multiblock.scanner.valid=§avalid
+GT5U.multiblock.scanner.invalid=§cinvalid
+GT5U.multiblock.scanner.is_meta_tile_entity=§cMetaTileEntity == null!
 
 # NEI recipe handlers
 GT5U.nei.heat_capacity=Теплоёмкость: %s K (%s)

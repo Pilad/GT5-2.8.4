@@ -2250,10 +2250,26 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
     public String[] getInfoData() {
         long storedEnergy = 0;
         long maxEnergy = 0;
+        int hatchCount = 0;
+        long seconds = (this.mTotalRunTime / 20);
+        long minutes = TimeUnit.SECONDS.toMinutes(seconds);
+        long hours = TimeUnit.SECONDS.toHours(seconds);
+
+        // spotless:off
+        String timeValue = hours > 0 ? String.valueOf(hours)
+            : minutes > 0 ? String.valueOf(minutes)
+                : seconds > 0 ? String.valueOf(seconds) : String.valueOf(this.mTotalRunTime);
+        String timeKey = hours > 0 ? "GT5U.multiblock.scanner.totalRunHours"
+            : minutes > 0 ? "GT5U.multiblock.scanner.totalRunMinutes"
+                : seconds > 0 ? "GT5U.multiblock.scanner.totalRunSeconds" : "GT5U.multiblock.scanner.totalRunTicks";
+
         for (MTEHatchEnergy tHatch : validMTEList(mEnergyHatches)) {
             final IGregTechTileEntity baseMetaTileEntity = tHatch.getBaseMetaTileEntity();
-            storedEnergy += baseMetaTileEntity.getStoredEU();
-            maxEnergy += baseMetaTileEntity.getEUCapacity();
+            if (baseMetaTileEntity != null) {
+                storedEnergy += baseMetaTileEntity.getStoredEU();
+                maxEnergy += baseMetaTileEntity.getEUCapacity();
+                hatchCount++;
+            }
         }
 
         if (getBaseMetaTileEntity() != null) {
@@ -2320,7 +2336,8 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
                 + EnumChatFormatting.GREEN
                 + getAveragePollutionPercentage()
                 + EnumChatFormatting.RESET
-                + " %" };
+                + " %",
+            /* 7 */ translateToLocal(timeKey, timeValue) };
     }
 
     @Override
