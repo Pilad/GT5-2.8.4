@@ -2275,10 +2275,10 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
 
         if (getBaseMetaTileEntity() != null) {
             IGregTechTileEntity baseMetaTileEntity = getBaseMetaTileEntity();
-            String ownedBy = GTUtility.translate("GT5U.multiblock.scanner.owned_by", te.getOwnerName());
+            String ownedBy = GTUtility.translate("GT5U.multiblock.scanner.owned_by", baseMetaTileEntity.getOwnerName());
             if (baseMetaTileEntity.getMetaTileEntity() != null) {
-                String result = GTUtility.translate("GT5U.multiblock.scanner.meta_tile_entity", te.getMetaTileID())
-                    + " "
+                String result = GTUtility
+                    .translate("GT5U.multiblock.scanner.meta_tile_entity", baseMetaTileEntity.getMetaTileID()) + " "
                     + GTUtility.translate(
                         baseMetaTileEntity.canAccessData() ? "GT5U.multiblock.scanner.valid"
                             : "GT5U.multiblock.scanner.invalid");
