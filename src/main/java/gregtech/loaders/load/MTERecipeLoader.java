@@ -1678,7 +1678,6 @@ public class MTERecipeLoader implements Runnable {
             .duration(1 * HOURS)
             .eut(TierEU.RECIPE_HV)
             .addTo(assemblerRecipes);
-
     }
 
     // This method is for all the structure rework shapeless crafing migration recipes
@@ -1711,6 +1710,11 @@ public class MTERecipeLoader implements Runnable {
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.MegaChemicalReactor.get(1),
             new Object[] { ItemRegistry.megaMachines[3] });
+
+        // Integrated Ore Factory Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IntegratedOreFactory.get(1),
+            new Object[] { ItemList.Ore_Processor.get(1) });
     }
 
     private static void registerSifter() {

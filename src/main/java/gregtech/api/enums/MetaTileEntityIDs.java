@@ -1751,6 +1751,7 @@ public enum MetaTileEntityIDs {
     IndustrialPackager(15513),
     IndustrialElectrolyzer(15514),
     MegaChemicalReactor(15515),
+    IntegratedOreFactory(15564),
     ENTROPIC_PROCESSOR(15750),
     DECAY_WAREHOUSE(15751),
     BasicTeslaTransceiver1by1(16000),
