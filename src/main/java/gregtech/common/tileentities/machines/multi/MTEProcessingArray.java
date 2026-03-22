@@ -352,9 +352,9 @@ public class MTEProcessingArray extends MTEExtendedPowerMultiBlockBase<MTEProces
             super.onScrewdriverRightClick(side, aPlayer, aX, aY, aZ, aTool);
         } else {
             inputSeparation = !inputSeparation;
-        GTUtility.sendChatTrans(
-            aPlayer,
-            inputSeparation ? "GT5U.machines.separatebus.true" : "GT5U.machines.separatebus.false");
+            GTUtility.sendChatTrans(
+                aPlayer,
+                inputSeparation ? "GT5U.machines.separatebus.true" : "GT5U.machines.separatebus.false");
         }
     }
 

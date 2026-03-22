@@ -63,9 +63,7 @@ public abstract class CoverRedstoneWirelessBase extends CoverLegacyData {
                 this.coverData = (this.coverData & (PRIVATE_MASK | CHECKBOX_MASK)) | tPublicChannel;
             }
         }
-        GTUtility.sendChatTrans(
-            aPlayer,
-            "gt.interact.desc.freq_format", this.coverData & PUBLIC_MASK);
+        GTUtility.sendChatTrans(aPlayer, "gt.interact.desc.freq_format", this.coverData & PUBLIC_MASK);
     }
 
     @Override

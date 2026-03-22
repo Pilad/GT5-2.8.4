@@ -343,9 +343,7 @@ public abstract class MTEBuffer extends MTETieredMachineBlock implements IAddUIW
             if (mTargetStackSize == 0) {
                 GTUtility.sendChatTrans(aPlayer, "GT5U.chat.buffer.not_regulate");
             } else {
-                GTUtility.sendChatTrans(
-                    aPlayer,
-                    "GT5U.chat.buffer.regulate" + mTargetStackSize);
+                GTUtility.sendChatTrans(aPlayer, "GT5U.chat.buffer.regulate" + mTargetStackSize);
             }
         }
     }
