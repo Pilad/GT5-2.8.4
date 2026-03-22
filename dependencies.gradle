@@ -125,16 +125,11 @@ dependencies {
     // runtimeOnlyNonPublishable rfg.deobf("curse.maven:extra-utilities-225561:2264384")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Mobs-Info:0.5.6-GTNH:dev")
 
-    testImplementation(platform('org.junit:junit-bom:5.9.2'))
+    testImplementation(platform('org.junit:junit-bom:5.14.1'))
     testImplementation('org.junit.jupiter:junit-jupiter')
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("org.mockito:mockito-core:5.+")
     testImplementation("com.github.GTNewHorizons:Chisel:2.16.13-GTNH:dev") { transitive = false }
-
-    functionalTestImplementation(platform('org.junit:junit-bom:5.9.2'))
-    functionalTestImplementation('org.junit.jupiter:junit-jupiter')
-    functionalTestImplementation('org.junit.platform:junit-platform-engine')
-    functionalTestImplementation('org.junit.platform:junit-platform-launcher')
-    functionalTestImplementation('org.junit.platform:junit-platform-reporting')
 
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:DuraDisplay:1.3.4:dev")
     runtimeOnlyNonPublishable('com.github.GTNewHorizons:EnderIO:2.9.26:dev')
@@ -146,17 +141,16 @@ dependencies {
     runtimeOnlyNonPublishable('com.github.GTNewHorizons:Angelica:1.0.0-beta62:dev') { transitive = false }
 
     // Speeds up mod identification and loading in dev
-    runtimeOnlyNonPublishable(rfg.deobf("CoreTweaks:CoreTweaks:0.3.3.2"))
+    runtimeOnlyNonPublishable(rfg.deobf("com.github.GTNewHorizons:CoreTweaks:0.3.4.0-GTNH"))
 }
 
-// deps may transitively add Baubles, so we replace it
-project.getConfigurations()
-    .all(c -> {
-        final DependencySubstitutions ds = c.getResolutionStrategy()
-            .getDependencySubstitution();
-        ds.substitute(ds.module("com.github.GTNewHorizons:Baubles"))
-            .using(ds.module("com.github.GTNewHorizons:Baubles-Expanded:2.1.15-GTNH"))
-            .withClassifier("dev")
-            .because("Baubles-Expanded replaces Baubles");
-    });
-
+afterEvaluate {
+    dependencies {
+        functionalTestImplementation(platform('org.junit:junit-bom:5.14.1'))
+        functionalTestImplementation('org.junit.jupiter:junit-jupiter')
+        functionalTestRuntimeOnly("org.junit.platform:junit-platform-launcher")
+        functionalTestImplementation('org.junit.platform:junit-platform-engine')
+        functionalTestImplementation('org.junit.platform:junit-platform-launcher')
+        functionalTestImplementation('org.junit.platform:junit-platform-reporting')
+    }
+}
