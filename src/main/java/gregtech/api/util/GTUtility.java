@@ -46,8 +46,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -207,6 +205,11 @@ public class GTUtility {
      * Formats a number with group separator and at most 2 fraction digits.
      */
     private static final Map<Locale, DecimalFormat> decimalFormatters = new HashMap<>();
+    private static final Map<Locale, DecimalFormat> scientificFormatters = new HashMap<>();
+
+    private static final BigInteger THRESHOLD_BI = BigInteger.valueOf(1_000_000);
+    private static final long THRESHOLD_LONG = 1_000_000L;
+    private static final double THRESHOLD_DOUBLE = 1_000_000.0;
 
     /*
      * Forge screwed the Fluid Registry up again, so I make my own, which is also much more efficient than the stupid
@@ -244,13 +247,6 @@ public class GTUtility {
     public static UUID defaultUuid = null; // maybe default non-null?
     // UUID.fromString("00000000-0000-0000-0000-000000000000");
     private static final Splitter NEWLINE_SPLITTER = Splitter.on("\\n");
-
-    private static final ConcurrentMap<Locale, DecimalFormat> decimalFormatters = new ConcurrentHashMap<>();
-    private static final ConcurrentMap<Locale, DecimalFormat> scientificFormatters = new ConcurrentHashMap<>();
-
-    private static final BigInteger THRESHOLD_BI = BigInteger.valueOf(1_000_000);
-    private static final long THRESHOLD_LONG = 1_000_000L;
-    private static final double THRESHOLD_DOUBLE = 1_000_000.0;
 
     static {
         GregTechAPI.sItemStackMappings.add(sFilledContainerToData);
