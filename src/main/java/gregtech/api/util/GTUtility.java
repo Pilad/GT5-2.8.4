@@ -515,6 +515,18 @@ public class GTUtility {
         return "(" + color + GTValues.VN[tier] + EnumChatFormatting.RESET + ")";
     }
 
+    public static String getForgeDirectionNameKey(ForgeDirection side) {
+        return switch (side) {
+            case DOWN -> "GT5U.waila.facing.down";
+            case UP -> "GT5U.waila.facing.up";
+            case NORTH -> "GT5U.waila.facing.north";
+            case SOUTH -> "GT5U.waila.facing.south";
+            case WEST -> "GT5U.waila.facing.west";
+            case EAST -> "GT5U.waila.facing.east";
+            case UNKNOWN -> "GT5U.waila.facing.unknown";
+        };
+    }
+
     public static void sendChatToPlayer(EntityPlayer player, String message) {
         if (message != null) {
             message = processFormatStacks(message);
@@ -653,6 +665,18 @@ public class GTUtility {
         }
 
         return out.toString();
+    }
+
+    public static String wrapStack(String message) {
+        return FORMAT_PUSH_STACK + message + FORMAT_POP_STACK;
+    }
+
+    public static final String[] COVER_DIRECTION_NAMES = new String[] { "GT5U.interface.coverTabs.down",
+        "GT5U.interface.coverTabs.up", "GT5U.interface.coverTabs.north", "GT5U.interface.coverTabs.south",
+        "GT5U.interface.coverTabs.west", "GT5U.interface.coverTabs.east" };
+
+    public static String getUnlocalizedSideName(ForgeDirection side) {
+        return GTUtility.COVER_DIRECTION_NAMES[side.ordinal()];
     }
 
     public static void checkAvailabilities() {

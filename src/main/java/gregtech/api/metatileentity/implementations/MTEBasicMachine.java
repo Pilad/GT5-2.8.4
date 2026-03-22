@@ -460,7 +460,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
                 return true;
             }
         }
-        GTUtility.sendChatToPlayer(aPlayer, "No free Side!");
+        GTUtility.sendChatTrans(aPlayer, "GT5U.chat.machine.no_free_side");
         return true;
     }
 
@@ -918,13 +918,13 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         if (side == getBaseMetaTileEntity().getFrontFacing() || side == mMainFacing) {
             if (aPlayer.isSneaking()) {
                 mDisableFilter = !mDisableFilter;
-                GTUtility.sendChatToPlayer(aPlayer, translateToLocal("GT5U.hatch.disableFilter." + mDisableFilter));
+                GTUtility.sendChatTrans(aPlayer, "GT5U.hatch.disableFilter." + mDisableFilter);
             } else {
                 mAllowInputFromOutputSide = !mAllowInputFromOutputSide;
-                GTUtility.sendChatToPlayer(
+                GTUtility.sendChatTrans(
                     aPlayer,
-                    mAllowInputFromOutputSide ? translateToLocal("gt.interact.desc.input_from_output_on")
-                        : translateToLocal("gt.interact.desc.input_from_output_off"));
+                    mAllowInputFromOutputSide ? "gt.interact.desc.input_from_output_on"
+                        : "gt.interact.desc.input_from_output_off");
             }
         }
     }
@@ -935,8 +935,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         if (!entityPlayer.isSneaking() || wrenchingSide != mMainFacing)
             return super.onSolderingToolRightClick(side, wrenchingSide, entityPlayer, aX, aY, aZ, aTool);
         mDisableMultiStack = !mDisableMultiStack;
-        GTUtility
-            .sendChatToPlayer(entityPlayer, translateToLocal("GT5U.hatch.disableMultiStack." + mDisableMultiStack));
+        GTUtility.sendChatTrans(entityPlayer, "GT5U.hatch.disableMultiStack." + mDisableMultiStack);
         return true;
     }
 

@@ -1,7 +1,5 @@
 package gregtech.common.covers;
 
-import static net.minecraft.util.StatCollector.translateToLocal;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -144,18 +142,17 @@ public class CoverItemMeter extends Cover {
         if (aPlayer.isSneaking()) {
             if (inverted) {
                 inverted = false;
-                GTUtility.sendChatToPlayer(aPlayer, translateToLocal("gt.interact.desc.normal"));
+                GTUtility.sendChatTrans(aPlayer, "gt.interact.desc.normal");
             } else {
                 inverted = true;
-                GTUtility.sendChatToPlayer(aPlayer, translateToLocal("gt.interact.desc.inverted"));
+                GTUtility.sendChatTrans(aPlayer, "gt.interact.desc.inverted");
             }
         } else {
             slot++;
             if (slot > coverable.getSizeInventory()) slot = -1;
 
-            if (slot == -1)
-                GTUtility.sendChatToPlayer(aPlayer, GTUtility.trans("053", "Slot: ") + GTUtility.trans("ALL", "All"));
-            else GTUtility.sendChatToPlayer(aPlayer, GTUtility.trans("053", "Slot: ") + slot);
+            if (slot == -1) GTUtility.sendChatTrans(aPlayer, "GT5U.chat.cover.slot.all");
+            else GTUtility.sendChatTrans(aPlayer, "GT5U.chat.cover.slot", slot);
         }
     }
 

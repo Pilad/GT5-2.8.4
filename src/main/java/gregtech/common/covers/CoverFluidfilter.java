@@ -166,16 +166,20 @@ public class CoverFluidfilter extends Cover {
     }
 
     public String getFilterMode(int aFilterMode) {
+        return translateToLocal(getFilterModeKey(aFilterMode));
+    }
+
+    public String getFilterModeKey(int aFilterMode) {
         return switch (aFilterMode) {
-            case FILTER_INPUT_DENY_OUTPUT -> translateToLocal("gt.interact.desc.filter_i_deny_o");
-            case INVERT_INPUT_DENY_OUTPUT -> translateToLocal("gt.interact.desc.invert_i_deny_o");
-            case FILTER_INPUT_ANY_OUTPUT -> translateToLocal("gt.interact.desc.filter_i_any_o");
-            case INVERT_INPUT_ANY_OUTPUT -> translateToLocal("gt.interact.desc.invert_i_any_o");
-            case DENY_INPUT_FILTER_OUTPUT -> translateToLocal("gt.interact.desc.deny_i_filter_o");
-            case DENY_INPUT_INVERT_OUTPUT -> translateToLocal("gt.interact.desc.deny_i_invert_o");
-            case ANY_INPUT_FILTER_OUTPUT -> translateToLocal("gt.interact.desc.any_i_filter_o");
-            case ANY_INPUT_INVERT_OUTPUT -> translateToLocal("gt.interact.desc.any_i_invert_o");
-            default -> translateToLocal("gt.interact.desc.unknown");
+            case FILTER_INPUT_DENY_OUTPUT -> "gt.interact.desc.filter_i_deny_o";
+            case INVERT_INPUT_DENY_OUTPUT -> "gt.interact.desc.invert_i_deny_o";
+            case FILTER_INPUT_ANY_OUTPUT -> "gt.interact.desc.filter_i_any_o";
+            case INVERT_INPUT_ANY_OUTPUT -> "gt.interact.desc.invert_i_any_o";
+            case DENY_INPUT_FILTER_OUTPUT -> "gt.interact.desc.deny_i_filter_o";
+            case DENY_INPUT_INVERT_OUTPUT -> "gt.interact.desc.deny_i_invert_o";
+            case ANY_INPUT_FILTER_OUTPUT -> "gt.interact.desc.any_i_filter_o";
+            case ANY_INPUT_INVERT_OUTPUT -> "gt.interact.desc.any_i_invert_o";
+            default -> "gt.interact.desc.unknown";
         };
     }
 
@@ -186,7 +190,7 @@ public class CoverFluidfilter extends Cover {
             mFilterMode = 7;
         }
 
-        GTUtility.sendChatToPlayer(aPlayer, getFilterMode(mFilterMode));
+        GTUtility.sendChatTrans(aPlayer, getFilterModeKey(mFilterMode));
     }
 
     @Override
