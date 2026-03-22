@@ -46,6 +46,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -242,6 +244,13 @@ public class GTUtility {
     public static UUID defaultUuid = null; // maybe default non-null?
     // UUID.fromString("00000000-0000-0000-0000-000000000000");
     private static final Splitter NEWLINE_SPLITTER = Splitter.on("\\n");
+
+    private static final ConcurrentMap<Locale, DecimalFormat> decimalFormatters = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<Locale, DecimalFormat> scientificFormatters = new ConcurrentHashMap<>();
+
+    private static final BigInteger THRESHOLD_BI = BigInteger.valueOf(1_000_000);
+    private static final long THRESHOLD_LONG = 1_000_000L;
+    private static final double THRESHOLD_DOUBLE = 1_000_000.0;
 
     static {
         GregTechAPI.sItemStackMappings.add(sFilledContainerToData);
@@ -3986,26 +3995,48 @@ public class GTUtility {
 
     private static DecimalFormat getDecimalFormat() {
         return decimalFormatters.computeIfAbsent(Locale.getDefault(Locale.Category.FORMAT), locale -> {
-            DecimalFormat numberFormat = new DecimalFormat(); // uses the necessary locale inside anyway
+            DecimalFormat numberFormat = new DecimalFormat();
             numberFormat.setGroupingUsed(true);
             numberFormat.setMaximumFractionDigits(2);
             numberFormat.setRoundingMode(RoundingMode.HALF_UP);
             DecimalFormatSymbols decimalFormatSymbols = numberFormat.getDecimalFormatSymbols();
-            decimalFormatSymbols.setGroupingSeparator(','); // Use sensible separator for best clarity.
+            decimalFormatSymbols.setGroupingSeparator(',');
             numberFormat.setDecimalFormatSymbols(decimalFormatSymbols);
             return numberFormat;
         });
     }
 
+    private static DecimalFormat getScientificDecimalFormat() {
+        return scientificFormatters.computeIfAbsent(Locale.getDefault(Locale.Category.FORMAT), locale -> {
+            DecimalFormat numberFormat = new DecimalFormat("0.##E0");
+            numberFormat.setRoundingMode(RoundingMode.HALF_UP);
+            numberFormat.setMaximumFractionDigits(2);
+            DecimalFormatSymbols symbols = numberFormat.getDecimalFormatSymbols();
+            symbols.setExponentSeparator("e");
+            numberFormat.setDecimalFormatSymbols(symbols);
+            return numberFormat;
+        });
+    }
+
     public static String formatNumbers(BigInteger aNumber) {
+        if (aNumber.abs()
+            .compareTo(THRESHOLD_BI) >= 0) {
+            return getScientificDecimalFormat().format(aNumber);
+        }
         return getDecimalFormat().format(aNumber);
     }
 
     public static String formatNumbers(long aNumber) {
+        if (Math.abs(aNumber) >= THRESHOLD_LONG) {
+            return getScientificDecimalFormat().format(aNumber);
+        }
         return getDecimalFormat().format(aNumber);
     }
 
     public static String formatNumbers(double aNumber) {
+        if (!Double.isInfinite(aNumber) && !Double.isNaN(aNumber) && Math.abs(aNumber) >= THRESHOLD_DOUBLE) {
+            return getScientificDecimalFormat().format(aNumber);
+        }
         return getDecimalFormat().format(aNumber);
     }
 
