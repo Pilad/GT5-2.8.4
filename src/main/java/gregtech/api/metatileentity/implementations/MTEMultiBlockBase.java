@@ -268,9 +268,9 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         if (supportsSingleRecipeLocking()) {
             mLockedToSingleRecipe = !mLockedToSingleRecipe;
             if (mLockedToSingleRecipe) {
-                GTUtility.sendChatToPlayer(aPlayer, translateToLocal("gt.interact.desc.mb.locking_on"));
+                GTUtility.sendChatTrans(aPlayer, "gt.interact.desc.mb.locking_on");
             } else {
-                GTUtility.sendChatToPlayer(aPlayer, translateToLocal("gt.interact.desc.mb.locking_off"));
+                GTUtility.sendChatTrans(aPlayer, "gt.interact.desc.mb.locking_off");
                 mSingleRecipeCheck = null;
             }
         }
@@ -2989,6 +2989,23 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
     @Override
     public Pos2d getMachineModeSwitchButtonPos() {
         return new Pos2d(80, 91);
+    }
+
+    @Override
+    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
+        float aX, float aY, float aZ, ItemStack aTool) {
+        if (this.supportsBatchMode()) {
+            if (aPlayer.isSneaking()) {
+                batchMode = !batchMode;
+                if (batchMode) {
+                    GTUtility.sendChatTrans(aPlayer, "GT5U.chat.machine.batch_mode.enable");
+                } else {
+                    GTUtility.sendChatTrans(aPlayer, "GT5U.chat.machine.batch_mode.disable");
+                }
+                return true;
+            }
+        }
+        return super.onWireCutterRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, aTool);
     }
 
     @Override

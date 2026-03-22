@@ -145,7 +145,7 @@ public class CoverItemFilter extends Cover {
         final ItemStack tStack = aPlayer.inventory.getCurrentItem();
         if (tStack != null) {
             filter.setStackInSlot(0, tStack);
-            GTUtility.sendChatToPlayer(aPlayer, GTUtility.trans("299", "Item Filter: ") + tStack.getDisplayName());
+            GTUtility.sendChatTrans(aPlayer, "GT5U.chat.cover.item_filter" + tStack.getDisplayName());
         } else {
             filter.setStackInSlot(0, null);
             GTUtility.sendChatTrans(aPlayer, "GT5U.chat.cover.item_filter.cleared");

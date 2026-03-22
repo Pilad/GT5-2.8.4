@@ -227,18 +227,12 @@ public class MTEMegaBlastFurnace extends MegaMultiBlockBase<MTEMegaBlastFurnace>
         float aX, float aY, float aZ, ItemStack aTool) {
         if (!aPlayer.isSneaking()) {
             this.inputSeparation = !this.inputSeparation;
-            GTUtility.sendChatToPlayer(
+            GTUtility.sendChatTrans(
                 aPlayer,
-                StatCollector.translateToLocal("GT5U.machines.separatebus") + " " + this.inputSeparation);
+                this.inputSeparation ? "GT5U.machines.separatebus.true" : "GT5U.machines.separatebus.false");
             return true;
         }
-        this.batchMode = !this.batchMode;
-        if (this.batchMode) {
-            GTUtility.sendChatToPlayer(aPlayer, StatCollector.translateToLocal("misc.BatchModeTextOn"));
-        } else {
-            GTUtility.sendChatToPlayer(aPlayer, StatCollector.translateToLocal("misc.BatchModeTextOff"));
-        }
-        return true;
+        return super.onWireCutterRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, aTool);
     }
 
     @Override

@@ -31,7 +31,7 @@ public abstract class CoverRedstoneWirelessBase extends CoverLegacyData {
             GregTechAPI.sWirelessRedstone.put(coverData, (byte) 0);
             coverData = (coverData & (PRIVATE_MASK | CHECKBOX_MASK))
                 | (((Integer) GTUtility.stackToInt(aPlayer.inventory.getCurrentItem())).hashCode() & PUBLIC_MASK);
-            GTUtility.sendChatToPlayer(aPlayer, translateToLocalFormatted("gt.interact.desc.freq_format", coverData));
+            GTUtility.sendChatTrans(aPlayer, "gt.interact.desc.freq_format", coverData);
             return true;
         }
         return false;
@@ -63,9 +63,9 @@ public abstract class CoverRedstoneWirelessBase extends CoverLegacyData {
                 this.coverData = (this.coverData & (PRIVATE_MASK | CHECKBOX_MASK)) | tPublicChannel;
             }
         }
-        GTUtility.sendChatToPlayer(
+        GTUtility.sendChatTrans(
             aPlayer,
-            translateToLocalFormatted("gt.interact.desc.freq_format", this.coverData & PUBLIC_MASK));
+            "gt.interact.desc.freq_format", this.coverData & PUBLIC_MASK);
     }
 
     @Override

@@ -557,13 +557,11 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
                 mOutputFluid = val;
                 if (isServer) {
                     if (!mOutputFluid) {
-                        GTUtility.sendChatToPlayer(
-                            buildContext.getPlayer(),
-                            GTUtility.trans("262", "Fluid Auto Output Disabled"));
+                        GTUtility
+                            .sendChatTrans(buildContext.getPlayer(), "GT5U.machines.digitaltank.autooutput.disabled");
                     } else {
-                        GTUtility.sendChatToPlayer(
-                            buildContext.getPlayer(),
-                            GTUtility.trans("263", "Fluid Auto Output Enabled"));
+                        GTUtility
+                            .sendChatTrans(buildContext.getPlayer(), "GT5U.machines.digitaltank.autooutput.enabled");
                     }
                 }
             })

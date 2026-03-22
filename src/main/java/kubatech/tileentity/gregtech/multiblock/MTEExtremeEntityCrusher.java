@@ -459,33 +459,27 @@ public class MTEExtremeEntityCrusher extends KubaTechGTMultiBlockBase<MTEExtreme
     public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
         ItemStack aTool) {
         if (this.mMaxProgresstime > 0) {
-            GTUtility
-                .sendChatToPlayer(aPlayer, StatCollector.translateToLocal("kubatech.chat.forbidden_while_running"));
+            GTUtility.sendChatTrans(aPlayer, "kubatech.chat.forbidden_while_running");
             return;
         }
         if (aPlayer.isSneaking()) {
             if (!InfernalMobs.isModLoaded()) return;
             mIsProducingInfernalDrops = !mIsProducingInfernalDrops;
-            GTUtility.sendChatToPlayer(
+            GTUtility.sendChatTrans(
                 aPlayer,
-                StatCollector.translateToLocal(
-                    "kubatech.chat.eec.infernal_drops_" + (mIsProducingInfernalDrops ? "enabled" : "disabled")));
+                "kubatech.chat.eec.infernal_drops_" + (mIsProducingInfernalDrops ? "enabled" : "disabled"));
         } else {
             if (!BloodMagic.isModLoaded()) return;
             isInRitualMode = !isInRitualMode;
             checkRitualConnection();
 
             if (!isInRitualMode) {
-                GTUtility.sendChatToPlayer(
-                    aPlayer,
-                    StatCollector.translateToLocal("kubatech.chat.eec.ritual_mode_disabled"));
+                GTUtility.sendChatTrans(aPlayer, "kubatech.chat.eec.ritual_mode_disabled");
             } else {
-                GTUtility
-                    .sendChatToPlayer(aPlayer, StatCollector.translateToLocal("kubatech.chat.eec.ritual_mode_enabled"));
-                GTUtility.sendChatToPlayer(
+                GTUtility.sendChatTrans(aPlayer, "kubatech.chat.eec.ritual_mode_enabled");
+                GTUtility.sendChatTrans(
                     aPlayer,
-                    StatCollector
-                        .translateToLocal("kubatech.chat.eec.ritual_mode_" + (mIsRitualValid ? "connected" : "error")));
+                    "kubatech.chat.eec.ritual_mode_" + (mIsRitualValid ? "connected" : "error"));
             }
         }
     }
@@ -498,14 +492,6 @@ public class MTEExtremeEntityCrusher extends KubaTechGTMultiBlockBase<MTEExtreme
             GTUtility.sendChatToPlayer(aPlayer, "Animations are " + (mAnimationEnabled ? "enabled" : "disabled"));
             return true;
         } else return super.onSolderingToolRightClick(side, wrenchingSide, aPlayer, aX, aY, aZ, aTool);
-    }
-
-    @Override
-    public boolean onWireCutterRightClick(ForgeDirection side, ForgeDirection wrenchingSide, EntityPlayer aPlayer,
-        float aX, float aY, float aZ, ItemStack aTool) {
-        this.batchMode = !this.batchMode;
-        GTUtility.sendChatToPlayer(aPlayer, "Batch Mode: " + (this.batchMode ? "Enabled" : "Disabled"));
-        return true;
     }
 
     // We place the event handler in an inner
