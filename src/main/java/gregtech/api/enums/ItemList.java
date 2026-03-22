@@ -2727,6 +2727,10 @@ public enum ItemList implements IItemContainer {
     IndustrialCentrifuge,
     IndustrialElectrolyzer,
 
+    CokeOvenController,
+    CokeOvenCasing,
+    CokeOvenHatch,
+
     MegaChemicalReactor,
     // semicolon after the comment to reduce merge conflicts
     ;

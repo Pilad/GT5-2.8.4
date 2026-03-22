@@ -5,7 +5,9 @@ import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.enums.Mods.GalacticraftCore;
 import static gregtech.api.enums.Mods.Gendustry;
 import static gregtech.api.enums.Mods.IndustrialCraft2;
+import static gregtech.api.enums.Mods.Minecraft;
 import static gregtech.api.enums.Mods.NotEnoughItems;
+import static gregtech.api.enums.Mods.Railcraft;
 import static gregtech.api.enums.Mods.StorageDrawers;
 import static gregtech.api.enums.Mods.Thaumcraft;
 import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
@@ -3658,6 +3660,32 @@ public class MTERecipeLoader implements Runnable {
             GTModHandler.RecipeBits.BITS,
             new Object[] { "CCC", "CHC", "CMC", 'C', ItemList.EV_Coil, 'H', ItemList.Hull_EV, 'M',
                 OrePrefixes.block.get(Materials.NeodymiumMagnetic) });
+
+        // Coke Oven
+        // Recycle deprecated Railcraft casings
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.Firebrick.get(4),
+            GTModHandler.RecipeBits.BITS,
+            new Object[] { GTModHandler.getModItem(Railcraft.ID, "machine.alpha", 1, 7) });
+
+        GTModHandler.addCraftingRecipe(
+            ItemList.CokeOvenCasing.get(1),
+            GTModHandler.RecipeBits.BITS,
+            new Object[] { "BB ", "BB ", "   ", 'B', ItemList.Firebrick.get(1) });
+
+        GTModHandler.addCraftingRecipe(
+            ItemList.CokeOvenController.get(1),
+            GTModHandler.RecipeBits.BITS,
+            new Object[] { "BBB", "BFB", "BBB", 'B', ItemList.Firebrick.get(1), 'F',
+                GTModHandler.getModItem(Minecraft.ID, "furnace", 1, 0) });
+
+        GTModHandler.addCraftingRecipe(
+            ItemList.CokeOvenHatch.get(1),
+            GTModHandler.RecipeBits.BITS,
+            new Object[] { "BHB", "BCB", "BPB", 'B', ItemList.Firebrick.get(1), 'H',
+                GTModHandler.getModItem(Minecraft.ID, "hopper", 1, 0), 'C',
+                GTModHandler.getModItem(Minecraft.ID, "chest", 1, 0), 'P',
+                OrePrefixes.pipeMedium.get(Materials.Bronze) });
     }
 
     private static void registerShapelessCraftingRecipes() {
