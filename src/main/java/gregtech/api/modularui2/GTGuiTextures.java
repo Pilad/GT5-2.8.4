@@ -583,6 +583,27 @@ public final class GTGuiTextures {
         GregTech.ID,
         "gui/overlay_button/machine_mode_dehp_steam");
 
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_FORGE = fullImage(
+        GregTech.ID,
+        "gui/overlay_button/machine_mode_iof_forge");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_MACERATOR = fullImage(
+        GregTech.ID,
+        "gui/overlay_button/machine_mode_iof_macerator");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_WASHER = fullImage(
+        GregTech.ID,
+        "gui/overlay_button/machine_mode_iof_washer");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_SIFTER = fullImage(
+        GregTech.ID,
+        "gui/overlay_button/machine_mode_iof_sifter");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_THERMAL = fullImage(
+        GregTech.ID,
+        "gui/overlay_button/machine_mode_iof_thermal");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_CENTRIFUGE = fullImage(
+        GregTech.ID,
+        "gui/overlay_button/machine_mode_iof_centrifuge");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_BATH = fullImage(
+        GregTech.ID,
+        "gui/overlay_button/machine_mode_iof_bath");
     public static final UITexture OVERLAY_COKE_OVEN_FLUID_SLOT_GAUGE = fullImageColorableGT(
         "overlay_slot/overlay_coke_oven_fluid_slot_gauge");
     public static final UITexture BACKGROUND_COKE_OVEN_FLUID_SLOT = fullImageColorableGT(
