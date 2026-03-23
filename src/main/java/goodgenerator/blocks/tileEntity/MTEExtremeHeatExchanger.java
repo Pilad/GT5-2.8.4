@@ -309,7 +309,7 @@ public class MTEExtremeHeatExchanger extends MTETooltipMultiBlockBaseEM
                 }
                 addOutput(new FluidStack(tReadySteam, steamToOutput));
             } else {
-                GTLog.exp.println(this.mName + " had no more Distilled water!");
+                GTLog.writeExplosionLog(this, "had no more distilled water!");
                 mHotFluidHatch.getBaseMetaTileEntity()
                     .doExplosion(V[8]);
                 return false;

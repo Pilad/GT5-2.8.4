@@ -1407,19 +1407,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
 
     public void explodeMultiblock() {
 
-        GTLog.exp.println(
-            "MultiBlockExplosion at: " + this.getBaseMetaTileEntity()
-                .getXCoord()
-                + " | "
-                + this.getBaseMetaTileEntity()
-                    .getYCoord()
-                + " | "
-                + this.getBaseMetaTileEntity()
-                    .getZCoord()
-                + " DIMID: "
-                + this.getBaseMetaTileEntity()
-                    .getWorld().provider.dimensionId
-                + ".");
+        GTLog.writeExplosionLog(this, "MultiBlockExplosion");
 
         Pollution.addPollution(getBaseMetaTileEntity(), GTMod.proxy.mPollutionOnExplosion);
         mInventory[1] = null;
