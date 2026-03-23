@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -57,10 +58,16 @@ public class PurificationUnitPhAdjustmentFrontend extends PurificationUnitRecipe
         GTNEIDefaultHandler.CachedDefaultRecipe neiCachedRecipe) {
         // Add pH adjustment values
         if (stack.isItemEqual(Materials.SodiumHydroxide.getDust(1))) {
-            currentTip.add("+" + MTEPurificationUnitPhAdjustment.PH_PER_ALKALINE_DUST * 64 + " pH/stack");
+            currentTip.add(
+                StatCollector.translateToLocalFormatted(
+                    "GT5U.nei.purified_water.grade_4.0",
+                    MTEPurificationUnitPhAdjustment.PH_PER_ALKALINE_DUST * 64));
         } else
             if (stack.isItemEqual(GTUtility.getFluidDisplayStack(Materials.HydrochloricAcid.getFluid(1_000), false))) {
-                currentTip.add(MTEPurificationUnitPhAdjustment.PH_PER_10_ACID_LITER * 100 + " pH/1000L");
+                currentTip.add(
+                    StatCollector.translateToLocalFormatted(
+                        "GT5U.nei.purified_water.grade_4.1",
+                        MTEPurificationUnitPhAdjustment.PH_PER_10_ACID_LITER * 100));
             }
         return super.handleNEIItemTooltip(stack, currentTip, neiCachedRecipe);
     }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -62,15 +63,15 @@ public class PurificationUnitFlocculatorFrontend extends PurificationUnitRecipeM
     public List<String> handleNEIItemTooltip(ItemStack stack, List<String> currentTip,
         GTNEIDefaultHandler.CachedDefaultRecipe neiCachedRecipe) {
         if (stack.isItemEqual(GTUtility.getFluidDisplayStack(Materials.PolyAluminiumChloride.getFluid(1_000), false))) {
-            currentTip.add("Consumed during operation");
+            currentTip.add(StatCollector.translateToLocal("GT5U.nei.purified_water.grade_3.0"));
             currentTip.add(
-                "+" + MTEPurificationUnitFlocculation.SUCCESS_PER_LEVEL
-                    + "%/"
-                    + MTEPurificationUnitFlocculation.INPUT_CHEMICAL_PER_LEVEL
-                    + "L");
+                StatCollector.translateToLocalFormatted(
+                    "GT5U.nei.purified_water.grade_3.1",
+                    MTEPurificationUnitFlocculation.SUCCESS_PER_LEVEL,
+                    MTEPurificationUnitFlocculation.INPUT_CHEMICAL_PER_LEVEL));
         } else if (stack
             .isItemEqual(GTUtility.getFluidDisplayStack(Materials.FlocculationWasteLiquid.getFluid(1_000), false))) {
-                currentTip.add("Returned in amount equivalent to consumed flocculant.");
+                currentTip.add(StatCollector.translateToLocal("GT5U.nei.purified_water.grade_3.2"));
             }
         return super.handleNEIItemTooltip(stack, currentTip, neiCachedRecipe);
     }
