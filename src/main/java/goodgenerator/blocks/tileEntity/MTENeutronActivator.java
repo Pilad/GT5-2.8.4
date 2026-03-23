@@ -35,6 +35,7 @@ import com.gtnewhorizons.modularui.common.widget.TextWidget;
 import goodgenerator.api.recipe.GoodGeneratorRecipeMaps;
 import goodgenerator.blocks.tileEntity.GTMetaTileEntity.MTENeutronAccelerator;
 import goodgenerator.blocks.tileEntity.GTMetaTileEntity.MTENeutronSensor;
+import goodgenerator.blocks.tileEntity.base.MTETooltipMultiBlockBaseEM;
 import goodgenerator.loader.Loaders;
 import goodgenerator.util.DescTextLocalization;
 import goodgenerator.util.ItemRefer;
@@ -61,9 +62,8 @@ import tectech.thing.metaTileEntity.multi.base.INameFunction;
 import tectech.thing.metaTileEntity.multi.base.IStatusFunction;
 import tectech.thing.metaTileEntity.multi.base.LedStatus;
 import tectech.thing.metaTileEntity.multi.base.Parameters;
-import tectech.thing.metaTileEntity.multi.base.TTMultiblockBase;
 
-public class MTENeutronActivator extends TTMultiblockBase implements IConstructable, ISurvivalConstructable {
+public class MTENeutronActivator extends MTETooltipMultiBlockBaseEM implements IConstructable, ISurvivalConstructable {
 
     public Parameters.Group.ParameterIn batchSetting;
 

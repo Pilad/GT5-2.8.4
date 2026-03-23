@@ -25,6 +25,7 @@ import com.gtnewhorizon.structurelib.structure.ITierConverter;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
 import goodgenerator.api.recipe.GoodGeneratorRecipeMaps;
+import goodgenerator.blocks.tileEntity.base.MTETooltipMultiBlockBaseEM;
 import goodgenerator.loader.Loaders;
 import goodgenerator.util.DescTextLocalization;
 import gregtech.api.enums.Textures;
@@ -39,9 +40,8 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
-import tectech.thing.metaTileEntity.multi.base.TTMultiblockBase;
 
-public class MTEFuelRefineFactory extends TTMultiblockBase implements IConstructable, ISurvivalConstructable {
+public class MTEFuelRefineFactory extends MTETooltipMultiBlockBaseEM implements IConstructable, ISurvivalConstructable {
 
     private IStructureDefinition<MTEFuelRefineFactory> multiDefinition = null;
     private int tier = -1;

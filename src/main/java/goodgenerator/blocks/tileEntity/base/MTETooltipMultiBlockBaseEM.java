@@ -1,26 +1,21 @@
-package gregtech.api.metatileentity.implementations;
+package goodgenerator.blocks.tileEntity.base;
 
-import java.util.concurrent.atomic.AtomicReferenceArray;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import org.lwjgl.input.Keyboard;
-
-import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.ISecondaryDescribable;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import tectech.thing.metaTileEntity.multi.base.TTMultiblockBase;
 
-/**
- * A multiblock with tooltip {@link MultiblockTooltipBuilder}
- */
-public abstract class MTETooltipMultiBlockBase extends MTEMultiBlockBase implements ISecondaryDescribable {
+public abstract class MTETooltipMultiBlockBaseEM extends TTMultiblockBase implements ISecondaryDescribable {
 
-    private static final AtomicReferenceArray<MultiblockTooltipBuilder> tooltips = new AtomicReferenceArray<>(
-        GregTechAPI.METATILEENTITIES.length);
+    private static final Map<Integer, MultiblockTooltipBuilder> tooltips = new ConcurrentHashMap<>();
 
-    public MTETooltipMultiBlockBase(int aID, String aName, String aNameRegional) {
+    protected MTETooltipMultiBlockBaseEM(int aID, String aName, String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTETooltipMultiBlockBase(String aName) {
+    protected MTETooltipMultiBlockBaseEM(String aName) {
         super(aName);
     }
 
@@ -29,7 +24,7 @@ public abstract class MTETooltipMultiBlockBase extends MTEMultiBlockBase impleme
         MultiblockTooltipBuilder tooltip = tooltips.get(tId);
         if (tooltip == null) {
             tooltip = createTooltip();
-            tooltips.set(tId, tooltip);
+            tooltips.put(tId, tooltip);
         }
         return tooltip;
     }
@@ -39,11 +34,6 @@ public abstract class MTETooltipMultiBlockBase extends MTEMultiBlockBase impleme
     @Override
     public String[] getDescription() {
         return getCurrentDescription();
-    }
-
-    @Override
-    public boolean isDisplaySecondaryDescription() {
-        return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
     }
 
     public String[] getPrimaryDescription() {
