@@ -50,7 +50,7 @@ public class CoverWirelessItemDetector extends CoverAdvancedRedstoneTransmitterB
         return this.threshold;
     }
 
-    public CoverWirelessItemDetector setThresdhold(int threshold) {
+    public CoverWirelessItemDetector setThreshold(int threshold) {
         this.threshold = threshold;
         return this;
     }

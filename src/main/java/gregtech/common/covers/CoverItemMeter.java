@@ -60,7 +60,7 @@ public class CoverItemMeter extends Cover {
         return this.threshold;
     }
 
-    public CoverItemMeter setThresdhold(int threshold) {
+    public CoverItemMeter setThreshold(int threshold) {
         this.threshold = threshold;
         return this;
     }
