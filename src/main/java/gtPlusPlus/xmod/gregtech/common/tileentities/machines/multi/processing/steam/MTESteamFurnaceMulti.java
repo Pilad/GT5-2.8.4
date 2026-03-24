@@ -11,7 +11,6 @@ import static gregtech.api.enums.Mods.Railcraft;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static net.minecraft.util.StatCollector.translateToLocal;
-import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +27,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -416,7 +416,7 @@ public class MTESteamFurnaceMulti extends MTESteamMultiBase<MTESteamFurnaceMulti
 
     @Override
     public String getMachineModeName() {
-        return translateToLocal("GT5U.GTPP_MULTI_STEAM_FURNACE.mode." + machineMode);
+        return "GT5U.GTPP_MULTI_STEAM_FURNACE.mode." + machineMode;
     }
 
     @Override
@@ -537,7 +537,7 @@ public class MTESteamFurnaceMulti extends MTESteamMultiBase<MTESteamFurnaceMulti
     public void onModeChangeByScrewdriver(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ) {
         setMachineMode(nextMachineMode());
         GTUtility
-            .sendChatToPlayer(aPlayer, translateToLocalFormatted("GT5U.MULTI_MACHINE_CHANGE", getMachineModeName()));
+            .sendChatTrans(aPlayer, "GT5U.MULTI_MACHINE_CHANGE", new ChatComponentTranslation(getMachineModeName()));
     }
 
     @SideOnly(Side.CLIENT)

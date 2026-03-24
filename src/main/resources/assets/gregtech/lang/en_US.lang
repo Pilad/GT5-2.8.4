@@ -1127,7 +1127,9 @@ gt.recipe.category.tic_bolt_molding=TiC Bolt Molding
 
 GT5U.machines.tier=Tier
 GT5U.machines.workarea=Work Area
-GT5U.machines.workareaset=Work Area set to
+GT5U.machines.workareaset.s=Work Area set to %sx%s
+GT5U.machines.workareaset.chunks=Work Area set to %sx%s Chunks
+GT5U.machines.workareaset.blocks=Work Area set to %sx%s Chunks (%sx%s Blocks)
 GT5U.machines.workarea_fail=Can't adjust work area while running
 GT5U.machines.autoretract.enabled=Auto retract enabled
 GT5U.machines.autoretract.disabled=Auto retract disabled
@@ -1248,6 +1250,9 @@ GT5U.GTPP_MULTI_PRECISE_ASSEMBLER.mode.0=Precise
 GT5U.GTPP_MULTI_PRECISE_ASSEMBLER.mode.1=Normal
 GT5U.GTPP_MULTI_PACKAGER.mode.0=Packager
 GT5U.GTPP_MULTI_PACKAGER.mode.1=Unpackager
+GT5U.DECAY_WAREHOUSE.mode.normal=Normal
+GT5U.DECAY_WAREHOUSE.mode.exporting=Exporting
+GT5U.MULTI_MACHINE_MODE.unknown=Unknown Mode
 GT5U.MULTI_MACHINE_CHANGE=Now running in %s mode
 GT5U.MULTI_MACHINE_CONFIG.SAVE=Saved Multiblock Hatch Configuration
 GT5U.MULTI_MACHINE_CONFIG.LOAD=Loaded Multiblock Hatch Configuration
@@ -1820,6 +1825,11 @@ GT5U.chat.wet_transformer.half_mode.disable=Transformer is now running at 16A:64
 GT5U.chat.soldering_iron.not_enough=Not enough soldering material!
 GT5U.chat.ore.set_ore_natural_flag=Set ore natural flag to %s
 
+GT5U.chat.rendering.off=Rendering off
+GT5U.chat.rendering.on=Rendering on
+GT5U.chat.auto_place.done=§aAuto placing done!
+GT5U.chat.auto_place.done.water=§aAuto placing done! Now go place the water yourself!
+
 GT5U.chat.cover.decorative.redstone=Redstone
 GT5U.chat.cover.decorative.energy=Energy
 GT5U.chat.cover.decorative.fluids=Fluids
@@ -1856,6 +1866,14 @@ GT5U.chat.cover.shutter.input.allowed=Only Input allowed
 GT5U.chat.cover.solar_panel.cleaned=Cleaned solar panel from %s%% dirt
 GT5U.chat.cover.solar_panel.cleaned.require=You need water bucket in inventory to clean the panel.
 GT5U.chat.cover.wireless_controller.shutdown_at=%s at (%s, %s, %s) shut down.
+
+GT5U.chat.distributor.items_per_side=Items per side: %s
+GT5U.chat.driller_base.chunk_loading.enable=Mining chunk loading enabled
+GT5U.chat.driller_base.chunk_loading.disabled=Mining chunk loading disabled
+GT5U.chat.laser.engraver.toggling_realism=Toggling realism!
+GT5U.chat.ore_drilling_plant_base.replace_with_cobblestone=Replace with cobblestone %s
+GT5U.chat.spinmatron.texture.static=Using Static Turbine Texture.
+GT5U.chat.spinmatron.texture.animated=Using Animated Turbine Texture.
 # Note to translators: this translation entry is supposed to be a number indicating how many taunts you define here
 # Game will randomly display one of them
 GT5U.item.programmed_circuit.no_screwdriver.count=3
