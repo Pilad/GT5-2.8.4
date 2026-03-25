@@ -2499,6 +2499,12 @@ public class RecipesMachines {
             "plateRedSteel",
             GregtechItemList.Industrial_ThermalCentrifuge.get(1));
 
+        GTModHandler.addCraftingRecipe(
+            ItemList.LargeThermalRefinery.get(1),
+            new Object[] { "PGP", "RMR", "PCP", 'P', OrePrefixes.plate.get(Materials.RedSteel), 'C', "circuitData", 'R',
+                MaterialsAlloy.TALONITE.getRod(1), 'M', ItemList.Machine_EV_ThermalCentrifuge, 'G',
+                MaterialsAlloy.TALONITE.getGear(1) });
+
         RecipeUtils.addShapedRecipe(
             "plateGrisium",
             ToolDictNames.craftingToolHardHammer.name(),
