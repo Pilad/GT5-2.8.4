@@ -212,6 +212,7 @@ public class MTELargeEssentiaSmeltery extends MTETooltipMultiBlockBaseEM
             .addInfo("You can find more information about this machine in the Thaumonomicon")
             .addTecTechHatchInfo()
             .addPollutionAmount(getPollutionPerSecond(null))
+            .beginVariableStructureBlock(5, 5, 5, 5, 5, 8, true)
             .addController("Front center")
             .addCasingInfoMin("Magic Casing", 24, false)
             .addMaintenanceHatch("Hint block with dot 1")
