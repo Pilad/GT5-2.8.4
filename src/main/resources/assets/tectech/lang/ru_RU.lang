@@ -655,6 +655,9 @@ gt.blockcasingsBA0.7.desc.1=Костюмы Фарадея в комплект н
 gt.blockcasingsBA0.8.name=Вторичная обмотка Башни Теслы
 gt.blockcasingsBA0.8.desc.0=Снимает энергию с первичной обмотки.
 gt.blockcasingsBA0.8.desc.1=Смертельно опасно!
+gt.blockcasingsBA0.10.name=Reinforced Temporal Structure Casing
+gt.blockcasingsBA0.11.name=Reinforced Spatial Structure Casing
+gt.blockcasingsBA0.12.name=Infinite Spacetime Energy Boundary Casing
 
 #Multiblocks
 gt.blockmachines.multimachine.em.transformer.name=Активный трансформатор
@@ -862,6 +865,9 @@ gt.blockmachines.multimachine.em.blackholegenerator.hint.0=1 - Энергово�
 gt.blockmachines.multimachine.em.blackholegenerator.hint.1=2 - Элементные шлюзы или Молекулярный корпус
 gt.blockmachines.multimachine.em.blackholegenerator.desc.0=Блок-контроллер генератора чёрных дыр
 gt.blockmachines.multimachine.em.blackholegenerator.desc.1=Генерация энергии из сингулярности
+
+gt.blockmachines.pipe.energystream.block.name=Laser Vacuum Pipe Casing
+gt.blockmachines.pipe.datastream.block.name=Optical Fiber Cable Casing
 
 # Eye of Harmony
 achievement.gt.blockmachines.multimachine.em.eye_of_harmony=Контроллер глаза гармонии
@@ -2054,3 +2060,13 @@ tt.infodata.fog.connected=Подключено модулей: %s
 ## Base factory pipe
 tt.infodata.pipe.active=Активен
 tt.infodata.pipe.inactive=Неактивен
+
+gt.godforgecasing.0.name=Singularity Reinforced Stellar Shielding Casing
+gt.godforgecasing.1.name=Celestial Matter Guidance Casing
+gt.godforgecasing.2.name=Boundless Gravitationally Severed Structure Casing
+gt.godforgecasing.3.name=Transcendentally Amplified Magnetic Confinement Casing
+gt.godforgecasing.4.name=Stellar Energy Siphon Casing
+gt.godforgecasing.5.name=Remote Graviton Flow Modulator
+gt.godforgecasing.6.name=Medial Graviton Flow Modulator
+gt.godforgecasing.7.name=Central Graviton Flow Modulator
+gt.godforgecasing.8.name=Harmonic Phonon Transmission Conduit
