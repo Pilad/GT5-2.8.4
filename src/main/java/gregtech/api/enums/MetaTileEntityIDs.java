@@ -1753,6 +1753,7 @@ public enum MetaTileEntityIDs {
     MegaChemicalReactor(15515),
     LargeThermalRefinery(15538),
     MolecularTransformer(15558),
+    FlotationCell(15560),
     IntegratedOreFactory(15564),
     ENTROPIC_PROCESSOR(15750),
     DECAY_WAREHOUSE(15751),

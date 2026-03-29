@@ -2728,6 +2728,7 @@ public enum ItemList implements IItemContainer {
     IndustrialElectrolyzer,
     LargeThermalRefinery,
     MolecularTransformer,
+    FlotationCell,
     IntegratedOreFactory,
 
     CokeOvenController,
