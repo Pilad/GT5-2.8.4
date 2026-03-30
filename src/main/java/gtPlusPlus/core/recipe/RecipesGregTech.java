@@ -979,8 +979,8 @@ public class RecipesGregTech {
                 Materials.Molybdenum.getDust(2),
                 Materials.Aluminium.getDust(1))
             .fluidOutputs(GGMaterial.incoloy903.getMolten(37 * INGOTS))
-            .eut(TierEU.RECIPE_IV)
-            .duration(1 * MINUTES)
+            .eut(TierEU.RECIPE_EV)
+            .duration(2 * MINUTES)
             .addTo(alloyBlastSmelterRecipes);
     }
 
