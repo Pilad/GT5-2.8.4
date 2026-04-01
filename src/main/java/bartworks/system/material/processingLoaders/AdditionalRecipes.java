@@ -272,7 +272,7 @@ public class AdditionalRecipes {
         GTValues.RA.stdBuilder()
             .itemInputs(GTOreDictUnificator.get(OrePrefixes.cellMolten, Materials.Redstone, 1))
             .itemOutputs(Materials.Empty.getCells(1))
-            .metadata(FUEL_VALUE, 10)
+            .metadata(FUEL_VALUE, 40)
             .addTo(BartWorksRecipeMaps.acidGenFuels);
     }
 
