@@ -186,12 +186,12 @@ public class MTEMegaBlastFurnace extends MegaMultiBlockBase<MTEMegaBlastFurnace>
                     + EnumChatFormatting.LIGHT_PURPLE
                     + "Perfect Overclock")
             .addTecTechHatchInfo()
-            .addGlassEnergyLimitInfo()
+            .addGlassEnergyLimitInfo(VoltageIndex.UMV)
             .addMinGlassForLaser(VoltageIndex.UV)
             .addUnlimitedTierSkips()
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(15, 20, 15, true)
-            .addController("3rd layer center")
+            .addController("Front center, 3rd layer")
             .addCasingInfoRange("Heat Proof Machine Casing", 0, 447, false)
             .addCasingInfoExactly("Heating Coils", 864, true)
             .addCasingInfoExactly("Any Tiered Glass", 1007, true)
@@ -350,7 +350,11 @@ public class MTEMegaBlastFurnace extends MegaMultiBlockBase<MTEMegaBlastFurnace>
                 if (hatch.getConnectionType() == MTEHatch.ConnectionType.LASER) {
                     return false;
                 }
-                if (this.glassTier < hatch.mTier) {
+            }
+        }
+        if (this.glassTier < VoltageIndex.UMV) {
+            for (MTEHatch mEnergyHatch : this.mExoticEnergyHatches) {
+                if (this.glassTier < mEnergyHatch.mTier) {
                     return false;
                 }
             }
