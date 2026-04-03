@@ -195,7 +195,7 @@ public class MTEDroneCentre extends MTEExtendedPowerMultiBlockBase<MTEDroneCentr
             .addInfo("Chance is determined by drone tier: T1-1/28800, T2-1/172800, T3-0")
             .addInfo("If machine is too far, remote control would not available")
             .beginStructureBlock(5, 4, 9, false)
-            .addController("Front center")
+            .addController("Front center, 3rd layer")
             .addCasingInfoRange("Stable Titanium Machine Casing", CASINGS_MIN, 91, false)
             .addCasingInfoExactly("Heat Proof Machine Casing", 8, false)
             .addCasingInfoExactly("Robust Tungstensteel Machine Casing", 1, false)

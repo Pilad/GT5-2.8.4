@@ -159,7 +159,7 @@ public class MTEMegaOilCracker extends MegaMultiBlockBase<MTEMegaOilCracker> imp
             .addMinGlassForLaser(VoltageIndex.UV)
             .addUnlimitedTierSkips()
             .beginStructureBlock(13, 7, 9, true)
-            .addController("Front bottom")
+            .addController("Front bottom center")
             .addCasingInfoExactly("Clean Stainless Steel Machine Casing", 197, false)
             .addCasingInfoExactly("Coil", 92, true)
             .addCasingInfoExactly("Any Tiered Glass", 196, true)

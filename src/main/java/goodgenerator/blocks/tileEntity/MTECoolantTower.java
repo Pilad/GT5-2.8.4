@@ -107,7 +107,7 @@ public class MTECoolantTower extends MTETooltipMultiBlockBaseEM implements ICons
         final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
         tt.addMachineType("Coolant Tower")
             .addInfo("Turn Steam back to Distilled Water")
-            .addController("Front middle of the second layer")
+            .addController("Front center, 2nd layer")
             .addCasingInfoExactly("Light Concrete", 277, false)
             .addCasingInfoExactly("Tungstencarbide Frame Box", 28, false)
             .addInputHatch("Any Light Concrete of the second layer", 1)
