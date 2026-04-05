@@ -139,7 +139,7 @@ public class MTEFrothFlotationCell extends MTEExtendedPowerMultiBlockBase<MTEFro
                     buildHatchAdder(MTEFrothFlotationCell.class)
                         .atLeast(InputBus, InputHatch, OutputHatch, Maintenance, Energy)
                         .casingIndex(Casings.InconelReinforcedCasing.textureId)
-                        .hint(1)
+                        .dot(1)
                         .buildAndChain(
                             onElementPass(x -> ++x.casingAmount, Casings.InconelReinforcedCasing.asElement())))
                 .addElement('D', Casings.FlotationCellCasings.asElement())
