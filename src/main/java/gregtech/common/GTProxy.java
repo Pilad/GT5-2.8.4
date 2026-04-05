@@ -1261,6 +1261,8 @@ public class GTProxy implements IFuelHandler {
         GTCapesLoader.clearSelectedCapes();
         PowerGogglesEventHandler.getInstance()
             .onServerStopped(event);
+        GTChunkManager.instance.onServerStopped();
+        dimensionWisePollution.clear();
     }
 
     /**
