@@ -553,6 +553,7 @@ public class MTETeslaTower extends TTMultiblockBase implements ISurvivalConstruc
             // the Tesla Capacitor
             .addTecTechHatchInfo()
             .beginStructureBlock(7, 17, 7, false)
+            .addController("Front bottom center")
             .addOtherStructurePart(
                 translateToLocal("gt.blockmachines.hatch.capacitor.tier.03.name"),
                 translateToLocal("tt.keyword.Structure.AnyTeslaBaseCasingOuter"),

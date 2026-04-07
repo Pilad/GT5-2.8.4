@@ -2865,6 +2865,7 @@ public class MTEForgeOfGods extends TTMultiblockBase implements IConstructable, 
                     + ",")
             .addInfo("explaining everything there is to know about this multiblock")
             .beginStructureBlock(127, 29, 186, false)
+            .addController("Front center")
             .addStructureInfo("Total blocks needed for the structure with " + getRingText("1", "2", "3") + "rings:")
             .addStructureInfo(
                 getRingText("3943", "7279", "11005") + "Transcendentally Amplified Magnetic Confinement Casing")

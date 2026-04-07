@@ -911,6 +911,7 @@ public class MTEPCBFactory extends MTEExtendedPowerMultiBlockBase<MTEPCBFactory>
             .addInfo("Trace size can be changed to modify the material usage and machine speed")
             .addTecTechHatchInfo()
             .beginStructureBlock(30, 38, 13, false)
+            .addController("Front bottom center")
             .addMaintenanceHatch(EnumChatFormatting.GOLD + "1", 1)
             .addEnergyHatch(
                 EnumChatFormatting.GOLD + "1"

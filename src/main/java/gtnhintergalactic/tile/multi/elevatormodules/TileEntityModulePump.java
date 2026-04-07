@@ -417,6 +417,7 @@ public abstract class TileEntityModulePump extends TileEntityModuleBase {
                 .addInfo(GTUtility.translate("gt.blockmachines.multimachine.project.ig.pump.t1.desc5"))
                 .addInfo(GTUtility.translate("gt.blockmachines.multimachine.project.ig.motorT2"))
                 .beginStructureBlock(1, 5, 2, false)
+                .addController("Front, 4th layer")
                 .addCasingInfoRange(GTUtility.translate("gt.blockcasings.ig.0.name"), 0, 9, false)
                 .addOutputHatch(GTUtility.translate("ig.elevator.structure.AnyBaseCasingWith1Dot"), 1)
                 .toolTipFinisher();
