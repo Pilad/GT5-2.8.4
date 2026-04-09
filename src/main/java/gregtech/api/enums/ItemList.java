@@ -2735,6 +2735,7 @@ public enum ItemList implements IItemContainer {
     UniversalChemicalFuelEngine,
     LargeThermalRefinery,
     MacerationStack,
+    PyrolyzeOven,
     AdvancedImplosionCompressor,
     Boldarnator,
     MolecularTransformer,

@@ -1759,6 +1759,7 @@ public enum MetaTileEntityIDs {
     UniversalChemicalFuelEngine(15535),
     LargeThermalRefinery(15538),
     MacerationStack(15539),
+    PyrolyzeOven(15546),
     AdvancedImplosionCompressor(15547),
     Boldarnator(15556),
     MolecularTransformer(15558),
