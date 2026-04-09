@@ -46,23 +46,23 @@ import gtPlusPlus.core.block.ModBlocks;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 
-public class MTEIndustrialRockBreaker extends GTPPMultiBlockBase<MTEIndustrialRockBreaker>
+public class MTEIndustrialRockBreakerLegacy extends GTPPMultiBlockBase<MTEIndustrialRockBreakerLegacy>
     implements ISurvivalConstructable {
 
     private int mCasing;
-    private static IStructureDefinition<MTEIndustrialRockBreaker> STRUCTURE_DEFINITION = null;
+    private static IStructureDefinition<MTEIndustrialRockBreakerLegacy> STRUCTURE_DEFINITION = null;
 
-    public MTEIndustrialRockBreaker(final int aID, final String aName, final String aNameRegional) {
+    public MTEIndustrialRockBreakerLegacy(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTEIndustrialRockBreaker(final String aName) {
+    public MTEIndustrialRockBreakerLegacy(final String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(final IGregTechTileEntity aTileEntity) {
-        return new MTEIndustrialRockBreaker(this.mName);
+        return new MTEIndustrialRockBreakerLegacy(this.mName);
     }
 
     @Override
@@ -101,9 +101,9 @@ public class MTEIndustrialRockBreaker extends GTPPMultiBlockBase<MTEIndustrialRo
     }
 
     @Override
-    public IStructureDefinition<MTEIndustrialRockBreaker> getStructureDefinition() {
+    public IStructureDefinition<MTEIndustrialRockBreakerLegacy> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
-            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialRockBreaker>builder()
+            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialRockBreakerLegacy>builder()
                 .addShape(
                     mName,
                     transpose(
@@ -111,7 +111,7 @@ public class MTEIndustrialRockBreaker extends GTPPMultiBlockBase<MTEIndustrialRo
                             { "C~C", "CCC", "CCC" }, }))
                 .addElement(
                     'C',
-                    buildHatchAdder(MTEIndustrialRockBreaker.class)
+                    buildHatchAdder(MTEIndustrialRockBreakerLegacy.class)
                         .atLeast(InputBus, InputHatch, OutputBus, Maintenance, Energy, Muffler)
                         .casingIndex(TAE.GTPP_INDEX(16))
                         .dot(1)
