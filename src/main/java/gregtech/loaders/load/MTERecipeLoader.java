@@ -1739,6 +1739,20 @@ public class MTERecipeLoader implements Runnable {
             ItemList.FlotationCell.get(1),
             new Object[] { GregtechItemList.Controller_Flotation_Cell.get(1) });
 
+        // Large Boilers Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.BronzeBoilerLarge.get(1),
+            new Object[] { ItemList.Machine_Multi_LargeBoiler_Bronze.get(1) });
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.SteelBoilerLarge.get(1),
+            new Object[] { ItemList.Machine_Multi_LargeBoiler_Steel.get(1) });
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.TitaniumBoilerLarge.get(1),
+            new Object[] { ItemList.Machine_Multi_LargeBoiler_Titanium.get(1) });
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.TungstensteelBoilerLarge.get(1),
+            new Object[] { ItemList.Machine_Multi_LargeBoiler_TungstenSteel.get(1) });
+
         // Maceration Stack conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.MacerationStack.get(1),
