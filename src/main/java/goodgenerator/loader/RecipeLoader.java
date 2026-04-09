@@ -961,6 +961,15 @@ public class RecipeLoader {
                 ItemList.Hull_LuV, 'W', GTOreDictUnificator.get(OrePrefixes.cableGt01, Materials.Naquadah, 1), 'G',
                 GTOreDictUnificator.get(OrePrefixes.gearGt, Materials.Osmium, 1), });
 
+        GTModHandler.addCraftingRecipe(
+            ItemList.UniversalChemicalFuelEngine.get(1),
+            GTModHandler.RecipeBits.DISMANTLEABLE | GTModHandler.RecipeBits.REVERSIBLE,
+            new Object[] { "WZW", "ALB", "TGT", 'T',
+                GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.Titanium, 1), 'Z', "circuitUltimate", 'A',
+                ItemList.Machine_Multi_DieselEngine.get(1), 'B', ItemList.Machine_Multi_ExtremeDieselEngine.get(1), 'L',
+                ItemList.Hull_LuV, 'W', GTOreDictUnificator.get(OrePrefixes.cableGt01, Materials.Naquadah, 1), 'G',
+                GTOreDictUnificator.get(OrePrefixes.gearGt, Materials.Osmium, 1), });
+
         // neutron activator
         GTValues.RA.stdBuilder()
             .itemInputs(

@@ -37,7 +37,7 @@ import goodgenerator.blocks.tileEntity.MTEMultiNqGenerator;
 import goodgenerator.blocks.tileEntity.MTENeutronActivator;
 import goodgenerator.blocks.tileEntity.MTEPreciseAssembler;
 import goodgenerator.blocks.tileEntity.MTESupercriticalFluidTurbine;
-import goodgenerator.blocks.tileEntity.MTEUniversalChemicalFuelEngine;
+import goodgenerator.blocks.tileEntity.MTEUniversalChemicalFuelEngineLegacy;
 import goodgenerator.blocks.tileEntity.MTEYottaFluidTank;
 import goodgenerator.blocks.tileEntity.render.TileAntimatter;
 import goodgenerator.crossmod.ic2.CropsLoader;
@@ -285,8 +285,8 @@ public class Loaders {
             .getStackForm(1L);
         Loaders.FRF = new MTEFuelRefineFactory(MetaTileEntityIDs.FuelRefineFactory.ID, "FRF", "Naquadah Fuel Refinery")
             .getStackForm(1L);
-        Loaders.UCFE = new MTEUniversalChemicalFuelEngine(
-            MetaTileEntityIDs.UniversalChemicalFuelEngine.ID,
+        Loaders.UCFE = new MTEUniversalChemicalFuelEngineLegacy(
+            MetaTileEntityIDs.LegacyUniversalChemicalFuelEngine.ID,
             "UniversalChemicalFuelEngine",
             "Universal Chemical Fuel Engine").getStackForm(1L);
         int[] neutronAcceleratorIDs = new int[] { MetaTileEntityIDs.NeutronAcceleratorULV.ID,

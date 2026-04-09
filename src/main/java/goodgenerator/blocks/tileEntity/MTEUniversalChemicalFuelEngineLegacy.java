@@ -51,7 +51,7 @@ import gregtech.api.util.shutdown.ShutDownReasonRegistry;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
 import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti;
 
-public class MTEUniversalChemicalFuelEngine extends MTETooltipMultiBlockBaseEM
+public class MTEUniversalChemicalFuelEngineLegacy extends MTETooltipMultiBlockBaseEM
     implements IConstructable, ISurvivalConstructable {
 
     protected final double DIESEL_EFFICIENCY_COEFFICIENT = 0.04D;
@@ -64,14 +64,14 @@ public class MTEUniversalChemicalFuelEngine extends MTETooltipMultiBlockBaseEM
     private int heatingTicks;
     private boolean isStoppingSafe;
 
-    private IStructureDefinition<MTEUniversalChemicalFuelEngine> multiDefinition = null;
+    private IStructureDefinition<MTEUniversalChemicalFuelEngineLegacy> multiDefinition = null;
 
-    public MTEUniversalChemicalFuelEngine(String name) {
+    public MTEUniversalChemicalFuelEngineLegacy(String name) {
         super(name);
         super.useLongPower = true;
     }
 
-    public MTEUniversalChemicalFuelEngine(int id, String name, String nameRegional) {
+    public MTEUniversalChemicalFuelEngineLegacy(int id, String name, String nameRegional) {
         super(id, name, nameRegional);
         super.useLongPower = true;
     }
@@ -106,9 +106,9 @@ public class MTEUniversalChemicalFuelEngine extends MTETooltipMultiBlockBaseEM
     }
 
     @Override
-    public IStructureDefinition<MTEUniversalChemicalFuelEngine> getStructure_EM() {
+    public IStructureDefinition<MTEUniversalChemicalFuelEngineLegacy> getStructure_EM() {
         if (multiDefinition == null) {
-            multiDefinition = StructureDefinition.<MTEUniversalChemicalFuelEngine>builder()
+            multiDefinition = StructureDefinition.<MTEUniversalChemicalFuelEngineLegacy>builder()
                 .addShape(
                     mName,
                     transpose(
@@ -370,7 +370,7 @@ public class MTEUniversalChemicalFuelEngine extends MTETooltipMultiBlockBaseEM
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new MTEUniversalChemicalFuelEngine(this.mName);
+        return new MTEUniversalChemicalFuelEngineLegacy(this.mName);
     }
 
     @Override
