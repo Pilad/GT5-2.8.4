@@ -336,7 +336,8 @@ ig.nei.siphon.planet=Планета
 ig.nei.siphon.depth=Глубина
 
 # Structure and Tooltip
-ig.siphon.structure.ControllerPos=Спереди внизу
+ig.siphon.structure.ControllerPos=Front center of the middle structure
+ig.siphon.structure.ControllerPos2=Спереди внизу
 ig.siphon.structure.AnySiphonCasing=Любой блок Корпуса планетарного сифона
 ig.siphon.structure.PillarMiddle=1x4x1 столб посередине
 ig.siphon.structure.Sides=По бокам каждой колонны и 1x3x1 сверху
@@ -344,6 +345,7 @@ ig.siphon.structure.Base=Основа 3x1x3 (полый)
 ig.siphon.structure.SiphonCasing=Корпус планетарного сифона
 ig.siphon.structure.FrameTungstensteel=Каркас из вольфрамовой стали
 ig.siphon.structure.ReboltedRhodiumPalladiumCasing=Переболтованный корпус из родированного палладия
+ig.siphon.structure.ReboltedStainlessSteelCasing=Rebolted Stainless Steel Casing
 ig.elevator.structure.ProjectModule=Проектный модуль
 ig.elevator.structure.Motor=Мотор космического лифта
 ig.elevator.structure.FrameNeutronium=Нейтрониевый каркас

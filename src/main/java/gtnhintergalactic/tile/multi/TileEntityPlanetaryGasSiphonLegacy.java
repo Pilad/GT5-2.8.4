@@ -63,7 +63,7 @@ import micdoodle8.mods.galacticraft.api.world.IOrbitDimension;
  *
  * @author glowredman
  */
-public class TileEntityPlanetaryGasSiphon extends MTEEnhancedMultiBlockBase<TileEntityPlanetaryGasSiphon>
+public class TileEntityPlanetaryGasSiphonLegacy extends MTEEnhancedMultiBlockBase<TileEntityPlanetaryGasSiphonLegacy>
     implements IChunkLoader, ISurvivalConstructable {
 
     /** Main structure of the machine */
@@ -71,8 +71,8 @@ public class TileEntityPlanetaryGasSiphon extends MTEEnhancedMultiBlockBase<Tile
     /** Cached value of log10(4) */
     private static final double LOG4 = Math.log10(4);
     /** Structure definition of the machine */
-    private static final IStructureDefinition<TileEntityPlanetaryGasSiphon> STRUCTURE_DEFINITION = StructureDefinition
-        .<TileEntityPlanetaryGasSiphon>builder()
+    private static final IStructureDefinition<TileEntityPlanetaryGasSiphonLegacy> STRUCTURE_DEFINITION = StructureDefinition
+        .<TileEntityPlanetaryGasSiphonLegacy>builder()
         .addShape(
             STRUCTURE_PIECE_MAIN,
             StructureUtility.transpose(
@@ -85,7 +85,7 @@ public class TileEntityPlanetaryGasSiphon extends MTEEnhancedMultiBlockBase<Tile
             StructureUtility.ofBlock(WerkstoffLoader.BWBlockCasingsAdvanced, WerkstoffLoader.LuVTierMaterial.getmID()))
         .addElement(
             'b',
-            GTStructureUtility.buildHatchAdder(TileEntityPlanetaryGasSiphon.class)
+            GTStructureUtility.buildHatchAdder(TileEntityPlanetaryGasSiphonLegacy.class)
                 .atLeast(Maintenance, InputBus, OutputHatch, Energy)
                 .dot(1)
                 .casingIndex(IGTextures.CASING_INDEX_SIPHON)
@@ -99,7 +99,7 @@ public class TileEntityPlanetaryGasSiphon extends MTEEnhancedMultiBlockBase<Tile
      * @param name         Unlocalized name of the multiblock
      * @param regionalName Localized (english) name of the multiblock
      */
-    public TileEntityPlanetaryGasSiphon(int id, String name, String regionalName) {
+    public TileEntityPlanetaryGasSiphonLegacy(int id, String name, String regionalName) {
         super(id, name, regionalName);
     }
 
@@ -108,7 +108,7 @@ public class TileEntityPlanetaryGasSiphon extends MTEEnhancedMultiBlockBase<Tile
      *
      * @param name Unlocalized name of the multiblock
      */
-    public TileEntityPlanetaryGasSiphon(String name) {
+    public TileEntityPlanetaryGasSiphonLegacy(String name) {
         super(name);
     }
 
@@ -153,7 +153,7 @@ public class TileEntityPlanetaryGasSiphon extends MTEEnhancedMultiBlockBase<Tile
      */
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity tileEntity) {
-        return new TileEntityPlanetaryGasSiphon(this.mName);
+        return new TileEntityPlanetaryGasSiphonLegacy(this.mName);
     }
 
     /**
@@ -170,7 +170,7 @@ public class TileEntityPlanetaryGasSiphon extends MTEEnhancedMultiBlockBase<Tile
             .addInfo(GTUtility.translate("gt.blockmachines.multimachine.ig.siphon.desc4"))
             .addInfo(GTUtility.translate("gt.blockmachines.multimachine.ig.siphon.desc5"))
             .beginStructureBlock(3, 7, 3, false)
-            .addController(GTUtility.translate("ig.siphon.structure.ControllerPos"))
+            .addController(GTUtility.translate("ig.siphon.structure.ControllerPos2"))
             .addOtherStructurePart(
                 GTUtility.translate("ig.siphon.structure.SiphonCasing"),
                 GTUtility.translate("ig.siphon.structure.Base"))
@@ -192,7 +192,7 @@ public class TileEntityPlanetaryGasSiphon extends MTEEnhancedMultiBlockBase<Tile
      * @return Structure definition for this machine
      */
     @Override
-    public IStructureDefinition<TileEntityPlanetaryGasSiphon> getStructureDefinition() {
+    public IStructureDefinition<TileEntityPlanetaryGasSiphonLegacy> getStructureDefinition() {
         return STRUCTURE_DEFINITION;
     }
 

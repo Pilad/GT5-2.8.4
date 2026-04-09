@@ -1744,6 +1744,11 @@ public class MTERecipeLoader implements Runnable {
             ItemList.MacerationStack.get(1),
             new Object[] { GregtechItemList.Industrial_MacerationStack.get(1) });
 
+        // Planetary Gas Siphon Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.PlanetarySiphon.get(1),
+            new Object[] { ItemList.PlanetaryGasSiphonController.get(1) });
+
         // Mega Chemical Reactor Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.MegaChemicalReactor.get(1),

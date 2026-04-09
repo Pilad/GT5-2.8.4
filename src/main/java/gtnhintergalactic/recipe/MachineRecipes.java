@@ -63,6 +63,13 @@ public class MachineRecipes implements Runnable {
         // Planetary Gas Siphon Controller
         RecipeUtil.addRecipe(
             ItemList.PlanetaryGasSiphonController.get(1),
+            new Object[] { "HPH", "CTC", "MTM", 'M', ItemList.Electric_Motor_IV.get(1), 'P',
+                ItemList.Electric_Pump_IV.get(1), 'C', "circuitElite", 'T',
+                GTOreDictUnificator.get(OrePrefixes.pipeMedium, Materials.TungstenSteel, 1), 'H',
+                ItemList.Hull_IV.get(1) });
+
+        RecipeUtil.addRecipe(
+            ItemList.PlanetarySiphon.get(1),
             new Object[] { "MPM", "CTC", "HTH", 'M', ItemList.Electric_Motor_IV.get(1), 'P',
                 ItemList.Electric_Pump_IV.get(1), 'C', "circuitElite", 'T',
                 GTOreDictUnificator.get(OrePrefixes.pipeMedium, Materials.TungstenSteel, 1), 'H',

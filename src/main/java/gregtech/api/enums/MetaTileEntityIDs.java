@@ -1757,6 +1757,7 @@ public enum MetaTileEntityIDs {
     AdvancedImplosionCompressor(15547),
     Boldarnator(15556),
     MolecularTransformer(15558),
+    PlanetarySiphon(15559),
     FlotationCell(15560),
     IntegratedOreFactory(15564),
     IndustrialMixer(15566),
