@@ -362,6 +362,8 @@ public enum Casings implements ICasing {
         (() -> GregTechAPI.sBlockCasings12, 3, gt(16, 5, 3)),
     AlchemicallyImmuneIchoriumCasing
         (() -> GregTechAPI.sBlockCasings12, 4, gt(16, 5, 4)),
+    MixerCasing
+        (() -> GregTechAPI.sBlockCasings12, 13, gt(16, 5, 13)),
     AlchemicalCasing(() -> GregTechAPI.sBlockCasings12, 10, gt(16, 5, 10)) {
         @Override
         public String getLocalizedName() {

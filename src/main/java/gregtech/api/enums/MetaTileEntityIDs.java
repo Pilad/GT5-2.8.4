@@ -1756,6 +1756,7 @@ public enum MetaTileEntityIDs {
     MolecularTransformer(15558),
     FlotationCell(15560),
     IntegratedOreFactory(15564),
+    IndustrialMixer(15566),
     ENTROPIC_PROCESSOR(15750),
     DECAY_WAREHOUSE(15751),
     BasicTeslaTransceiver1by1(16000),

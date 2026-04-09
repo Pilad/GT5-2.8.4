@@ -401,6 +401,8 @@ public class Textures {
         MACHINE_CASING_VOID,
         MACHINE_CASING_ICHORIUM,
 
+        MIXING_CASING,
+
         DECAY_WAREHOUSE_BACKGROUND,
         DECAY_WAREHOUSE_GLOW,
 
