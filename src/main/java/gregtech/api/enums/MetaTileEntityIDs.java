@@ -1754,6 +1754,7 @@ public enum MetaTileEntityIDs {
     MegaChemicalReactor(15515),
     LargeThermalRefinery(15538),
     MacerationStack(15539),
+    AdvancedImplosionCompressor(15547),
     Boldarnator(15556),
     MolecularTransformer(15558),
     FlotationCell(15560),
