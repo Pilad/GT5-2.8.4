@@ -1761,6 +1761,7 @@ public enum MetaTileEntityIDs {
     MacerationStack(15539),
     PyrolyzeOven(15546),
     AdvancedImplosionCompressor(15547),
+    IndustrialExtruder(15549),
     Boldarnator(15556),
     MolecularTransformer(15558),
     PlanetarySiphon(15559),
