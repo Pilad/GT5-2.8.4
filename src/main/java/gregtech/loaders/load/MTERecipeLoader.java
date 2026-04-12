@@ -1793,6 +1793,11 @@ public class MTERecipeLoader implements Runnable {
             ItemList.IntegratedOreFactory.get(1),
             new Object[] { ItemList.Ore_Processor.get(1) });
 
+        // Large Combustion Engine Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.LargeCombustionEngine.get(1),
+            new Object[] { ItemList.Machine_Multi_DieselEngine.get(1) });
+
         // Electric Implosion Compressor Conversion Recipe
         GTModHandler
             .addShapelessCraftingRecipe(ItemList.ElectricImplosionCompressor.get(1), new Object[] { ItemRegistry.eic });
@@ -3654,6 +3659,13 @@ public class MTERecipeLoader implements Runnable {
             new Object[] { "PCP", "EME", "GWG", 'M', ItemList.Hull_EV, 'P', ItemList.Electric_Piston_EV, 'E',
                 ItemList.Electric_Motor_EV, 'C', OrePrefixes.circuit.get(Materials.IV), 'W',
                 OrePrefixes.cableGt01.get(Materials.TungstenSteel), 'G', OrePrefixes.gearGt.get(Materials.Titanium) });
+        GTModHandler.addCraftingRecipe(
+            ItemList.LargeCombustionEngine.get(1L),
+            GTModHandler.RecipeBits.BITSD,
+            new Object[] { "GCG", "EME", "PWP", 'M', ItemList.Hull_EV, 'P', ItemList.Electric_Piston_EV, 'E',
+                ItemList.Electric_Motor_EV, 'C', OrePrefixes.circuit.get(Materials.IV), 'W',
+                OrePrefixes.cableGt01.get(Materials.TungstenSteel), 'G', OrePrefixes.gearGt.get(Materials.Titanium) });
+
         GTModHandler.addCraftingRecipe(
             ItemList.Casing_EngineIntake.get(4L),
             GTModHandler.RecipeBits.BITSD,

@@ -2733,6 +2733,7 @@ public enum ItemList implements IItemContainer {
     SteelBoilerLarge,
     TitaniumBoilerLarge,
     TungstensteelBoilerLarge,
+    LargeCombustionEngine,
     UniversalChemicalFuelEngine,
     LargeThermalRefinery,
     MacerationStack,

@@ -52,14 +52,15 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.tooltip.TooltipHelper;
 
-public class MTEDieselEngine extends MTEEnhancedMultiBlockBase<MTEDieselEngine> implements ISurvivalConstructable {
+public class MTEDieselEngineLegacy extends MTEEnhancedMultiBlockBase<MTEDieselEngineLegacy>
+    implements ISurvivalConstructable {
 
     private static final String STRUCTURE_PIECE_MAIN = "main";
-    private static final ClassValue<IStructureDefinition<MTEDieselEngine>> STRUCTURE_DEFINITION = new ClassValue<>() {
+    private static final ClassValue<IStructureDefinition<MTEDieselEngineLegacy>> STRUCTURE_DEFINITION = new ClassValue<>() {
 
         @Override
-        protected IStructureDefinition<MTEDieselEngine> computeValue(Class<?> type) {
-            return StructureDefinition.<MTEDieselEngine>builder()
+        protected IStructureDefinition<MTEDieselEngineLegacy> computeValue(Class<?> type) {
+            return StructureDefinition.<MTEDieselEngineLegacy>builder()
                 .addShape(
                     STRUCTURE_PIECE_MAIN,
                     transpose(
@@ -72,7 +73,7 @@ public class MTEDieselEngine extends MTEEnhancedMultiBlockBase<MTEDieselEngine> 
                 .addElement(
                     'h',
                     lazy(
-                        t -> buildHatchAdder(MTEDieselEngine.class)
+                        t -> buildHatchAdder(MTEDieselEngineLegacy.class)
                             .atLeast(InputHatch, InputHatch, InputHatch, Muffler, Maintenance)
                             .casingIndex(t.getCasingTextureIndex())
                             .dot(1)
@@ -85,11 +86,11 @@ public class MTEDieselEngine extends MTEEnhancedMultiBlockBase<MTEDieselEngine> 
     protected int fuelRemaining = 0;
     protected boolean boostEu = false;
 
-    public MTEDieselEngine(int aID, String aName, String aNameRegional) {
+    public MTEDieselEngineLegacy(int aID, String aName, String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTEDieselEngine(String aName) {
+    public MTEDieselEngineLegacy(String aName) {
         super(aName);
     }
 
@@ -277,7 +278,7 @@ public class MTEDieselEngine extends MTEEnhancedMultiBlockBase<MTEDieselEngine> 
     }
 
     @Override
-    public IStructureDefinition<MTEDieselEngine> getStructureDefinition() {
+    public IStructureDefinition<MTEDieselEngineLegacy> getStructureDefinition() {
         return STRUCTURE_DEFINITION.get(getClass());
     }
 
@@ -317,7 +318,7 @@ public class MTEDieselEngine extends MTEEnhancedMultiBlockBase<MTEDieselEngine> 
 
     @Override
     public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new MTEDieselEngine(this.mName);
+        return new MTEDieselEngineLegacy(this.mName);
     }
 
     @Override
