@@ -159,6 +159,7 @@ import gregtech.common.tileentities.machines.multi.MTEIndustrialElectrolyzer;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialElectromagneticSeparator;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialExtractor;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialExtruder;
+import gregtech.common.tileentities.machines.multi.MTEIndustrialFishingPond;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialLaserEngraver;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialMacerator;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialMixer;
@@ -690,6 +691,12 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 MolecularTransformer.ID,
                 "moleculartransformer.controller.tier.single",
                 "Molecular Transformer").getStackForm(1L));
+
+        ItemList.FishingPort.set(
+            new MTEIndustrialFishingPond(
+                FishingPort.ID,
+                "industrial.fishpond.controller.tier.single",
+                "Zhuhai - Fishing Port").getStackForm(1L));
 
         ItemList.IndustrialExtruder.set(
             new MTEIndustrialExtruder(

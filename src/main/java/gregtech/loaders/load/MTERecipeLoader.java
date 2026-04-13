@@ -1793,6 +1793,11 @@ public class MTERecipeLoader implements Runnable {
             ItemList.IndustrialMixer.get(1),
             new Object[] { GregtechItemList.Industrial_Mixer.get(1) });
 
+        // Fishing Port Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.FishingPort.get(1),
+            new Object[] { GregtechItemList.Industrial_FishingPond.get(1) });
+
         // Integrated Ore Factory Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.IntegratedOreFactory.get(1),
