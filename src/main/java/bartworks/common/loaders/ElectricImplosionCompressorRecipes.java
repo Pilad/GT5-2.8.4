@@ -112,7 +112,7 @@ public class ElectricImplosionCompressorRecipes implements Runnable {
             .itemInputs(MaterialsUEVplus.Eternity.getNanite(1), MaterialsUEVplus.Universium.getNanite(1))
             .fluidInputs(MaterialsUEVplus.RawStarMatter.getFluid(2 * STACKS))
             .fluidOutputs(MaterialsUEVplus.MagnetohydrodynamicallyConstrainedStarMatter.getMolten(32 * INGOTS))
-            .duration(4 * SECONDS)
+            .duration(1 * SECONDS)
             .eut(TierEU.RECIPE_MAX)
             .addTo(electricImplosionCompressorRecipes);
 

@@ -860,6 +860,11 @@ gt.blockcasings4.Casing_StableTitanium=Stable Titanium Machine Casing
 gt.blockcasings2.Casing_Gearbox_Titanium=Titanium Gear Box Machine Casing
 gt.blockcasings4.Casing_EngineIntake=Engine Intake Machine Casing
 
+gt.multiblock.ThermalBoiler.desc1=Uses the heat from §chot fluids§7 to evaporate water into §rsteam
+gt.multiblock.ThermalBoiler.desc2=Filters raw materials from §clava§7 and §cpahoehoe lava
+gt.multiblock.ThermalBoiler.desc3=Requires a Lava Filter in the controller slot for byproducts
+gt.multiblock.ThermalBoiler.desc4=Explodes after 10s if it runs out of water
+
 GT5U.MBTT.PCB.Tier=Тир завода печатных плат
 GT5U.MBTT.PCB.Bio=Биокамера
 GT5U.MBTT.PCB.RotBio=Разворот биокамеры
