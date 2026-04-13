@@ -2734,6 +2734,7 @@ public enum ItemList implements IItemContainer {
     TitaniumBoilerLarge,
     TungstensteelBoilerLarge,
     LargeCombustionEngine,
+    ExtremeCombustionEngine,
     UniversalChemicalFuelEngine,
     NaquadahFuelRefinery,
     LargeThermalRefinery,

@@ -1757,6 +1757,7 @@ public enum MetaTileEntityIDs {
     TitaniumBoilerLarge(15531),
     TungstensteelBoilerLarge(15532),
     LargeCombustionEngine(15533),
+    ExtremeCombustionEngine(15534),
     UniversalChemicalFuelEngine(15535),
     NaquadahFuelRefinery(15536),
     LargeThermalRefinery(15538),

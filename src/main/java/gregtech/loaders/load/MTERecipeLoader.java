@@ -1740,6 +1740,11 @@ public class MTERecipeLoader implements Runnable {
             ItemList.IndustrialCentrifuge.get(1),
             new Object[] { GregtechItemList.Industrial_Centrifuge.get(1) });
 
+        // Extreme Combustion Engine Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.ExtremeCombustionEngine.get(1),
+            new Object[] { ItemList.Machine_Multi_ExtremeDieselEngine.get(1) });
+
         // Industrial Electrolyzer Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.IndustrialElectrolyzer.get(1),
@@ -3686,6 +3691,12 @@ public class MTERecipeLoader implements Runnable {
             ItemList.Machine_Multi_ExtremeDieselEngine.get(1L),
             GTModHandler.RecipeBits.BITSD,
             new Object[] { "PCP", "EME", "GWG", 'M', ItemList.Hull_IV, 'P', ItemList.Electric_Piston_IV, 'E',
+                ItemList.Electric_Motor_IV, 'C', OrePrefixes.circuit.get(Materials.LuV), 'W',
+                OrePrefixes.cableGt01.get(Materials.HSSG), 'G', OrePrefixes.gearGt.get(Materials.TungstenSteel) });
+        GTModHandler.addCraftingRecipe(
+            ItemList.ExtremeCombustionEngine.get(1L),
+            GTModHandler.RecipeBits.BITSD,
+            new Object[] { "GCG", "EME", "PWP", 'M', ItemList.Hull_IV, 'P', ItemList.Electric_Piston_IV, 'E',
                 ItemList.Electric_Motor_IV, 'C', OrePrefixes.circuit.get(Materials.LuV), 'W',
                 OrePrefixes.cableGt01.get(Materials.HSSG), 'G', OrePrefixes.gearGt.get(Materials.TungstenSteel) });
         GTModHandler.addCraftingRecipe(
