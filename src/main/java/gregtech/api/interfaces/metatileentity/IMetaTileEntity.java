@@ -48,13 +48,21 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
     /**
      * This determines the BaseMetaTileEntity belonging to this MetaTileEntity by using the Meta ID of the Block itself.
      * <p/>
-     * 0 = BaseMetaTileEntity, Wrench lvl 0 to dismantle 1 = BaseMetaTileEntity, Wrench lvl 1 to dismantle 2 =
-     * BaseMetaTileEntity, Wrench lvl 2 to dismantle 3 = BaseMetaTileEntity, Wrench lvl 3 to dismantle 4 =
-     * BaseMetaPipeEntity, Wrench lvl 0 to dismantle 5 = BaseMetaPipeEntity, Wrench lvl 1 to dismantle 6 =
-     * BaseMetaPipeEntity, Wrench lvl 2 to dismantle 7 = BaseMetaPipeEntity, Wrench lvl 3 to dismantle 8 =
-     * BaseMetaPipeEntity, Cutter lvl 0 to dismantle 9 = BaseMetaPipeEntity, Cutter lvl 1 to dismantle 10 =
-     * BaseMetaPipeEntity, Cutter lvl 2 to dismantle 11 = BaseMetaPipeEntity, Cutter lvl 3 to dismantle 12 = GT++ 13 =
-     * GT++ 14 = GT++ 15 = GT++
+     * // spotless:off
+     * 0 = BaseMetaTileEntity, Wrench lvl 0 to dismantle
+     * 1 = BaseMetaTileEntity, Wrench lvl 1 to dismantle
+     * 2 = BaseMetaTileEntity, Wrench lvl 2 to dismantle
+     * 3 = BaseMetaTileEntity, Wrench lvl 3 to dismantle
+     * 4 = BaseMetaPipeEntity, Wrench lvl 0 to dismantle
+     * 5 = BaseMetaPipeEntity, Wrench lvl 1 to dismantle
+     * 6 = BaseMetaPipeEntity, Wrench lvl 2 to dismantle
+     * 7 = BaseMetaPipeEntity, Wrench lvl 3 to dismantle
+     * 8 = BaseMetaPipeEntity, Cutter lvl 0 to dismantle
+     * 9 = BaseMetaPipeEntity, Cutter lvl 1 to dismantle
+     * 10 = BaseMetaPipeEntity, Cutter lvl 2 to dismantle
+     * 11 = BaseMetaPipeEntity, Cutter lvl 3 to dismantle
+     * 12 = GT++ 13 = GT++ 14 = GT++ 15 = GT++
+     * // spotless:on
      */
     byte getTileEntityBaseType();
 
@@ -317,9 +325,46 @@ public interface IMetaTileEntity extends ISidedInventory, IFluidTank, IFluidHand
         ArrayList<String> aList);
 
     /**
-     * get a small Description
+     * Get the description for the TileEntity.
+     * <p>
+     * The behavior of this method depends on whether the class is annotated with {@link SkipGenerateDescription}:
+     * </p>
+     * <ul>
+     * <li>When the class is annotated with {@link SkipGenerateDescription}, the returned value is displayed directly in
+     * the game.</li>
+     * <li>When the class is not annotated with {@link SkipGenerateDescription}, the returned value is automatically
+     * added to <code>GregTech.lang</code>, and display the value from <code>GregTech.lang</code> in the game</li>
+     * </ul>
+     * <p>
+     * Additional notes when the class is not annotated with {@link SkipGenerateDescription}:
+     * </p>
+     * <ul>
+     * <li>To use the %s format specifier, you can use the {@link #addFormattedString(String)}</li>
+     * <li>Only static text is supported(because of <code>GregTech.lang</code>); dynamic text (e.g. display different
+     * random text each time) should also use the {@link #addFormattedString(String)}</li>
+     * </ul>
+     *
+     * @return the description, will display in the tooltips
+     * @see SkipGenerateDescription
+     * @see #addFormattedString(String)
      */
     String[] getDescription();
+
+    /**
+     * Add a formatting marker for automatic parameter substitution.
+     * <p>
+     * This can also be used to display raw text.
+     *
+     * @param formattedStr the String to be formatted with parameter substitution markers.
+     * @return the special formatting markers for automatic parsing.
+     * @apiNote This method should NOT be used when the class is annotated with {@link SkipGenerateDescription},
+     *          otherwise the game will display the format used for marking.<br>
+     *          When use this method, please replace all "(number)%" with "(number)%%".
+     * @see #getDescription()
+     */
+    default String addFormattedString(String formattedStr) {
+        return "%%%" + formattedStr + "%%%";
+    }
 
     /**
      * In case the Output Voltage varies.

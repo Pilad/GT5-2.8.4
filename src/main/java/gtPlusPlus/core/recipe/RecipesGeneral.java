@@ -174,7 +174,7 @@ public class RecipesGeneral {
             .itemOutputs(GregtechItemList.MagicFeather.get(1))
             .fluidInputs(Materials.Silver.getMolten(32 * INGOTS))
             .duration(2 * MINUTES)
-            .eut(TierEU.RECIPE_EV)
+            .eut(TierEU.RECIPE_HV)
             .addTo(assemblerRecipes);
 
         // Pest Killer

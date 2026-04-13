@@ -117,6 +117,7 @@ public class TileEntityPlanetaryGasSiphonLegacy extends MTEEnhancedMultiBlockBas
     /** Cached fluid stack using for displaying the pumped fluid */
     private FluidStack fluid = new FluidStack(FluidRegistry.WATER, 0) {
 
+        @Override
         public String getLocalizedName() {
             return "None";
         }
@@ -163,7 +164,7 @@ public class TileEntityPlanetaryGasSiphonLegacy extends MTEEnhancedMultiBlockBas
     protected MultiblockTooltipBuilder createTooltip() {
         final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
         tt.addMachineType(GTUtility.translate("gt.blockmachines.multimachine.ig.siphon.type"));
-        if (TooltipUtil.siphonLoreText != null) tt.addInfo(ITALIC + TooltipUtil.siphonLoreText);
+        if (TooltipUtil.siphonLoreText != null) tt.addInfo(ITALIC + addFormattedString(TooltipUtil.siphonLoreText));
         tt.addInfo(GTUtility.translate("gt.blockmachines.multimachine.ig.siphon.desc1"))
             .addInfo(GTUtility.translate("gt.blockmachines.multimachine.ig.siphon.desc2"))
             .addInfo(GTUtility.translate("gt.blockmachines.multimachine.ig.siphon.desc3"))
