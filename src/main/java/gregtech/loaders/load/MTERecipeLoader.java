@@ -1720,6 +1720,11 @@ public class MTERecipeLoader implements Runnable {
             ItemList.LargeThermalRefinery.get(1),
             new Object[] { GregtechItemList.Industrial_ThermalCentrifuge.get(1) });
 
+        // Naquadah Fuel Refinery Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.NaquadahFuelRefinery.get(1),
+            new Object[] { ItemRefer.Naquadah_Fuel_Refinery.get(1) });
+
         // Amazon Packager Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.IndustrialPackager.get(1),
