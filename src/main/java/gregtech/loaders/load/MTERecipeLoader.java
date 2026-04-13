@@ -1760,6 +1760,30 @@ public class MTERecipeLoader implements Runnable {
             ItemList.FlotationCell.get(1),
             new Object[] { GregtechItemList.Controller_Flotation_Cell.get(1) });
 
+        // Bending Machine Conversion Recipe
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialBendingMachine.get(1),
+            new Object[] { "B  ", "   ", "   ", 'B', GregtechItemList.Industrial_PlatePress.get(1) });
+
+        // Forming Press Conversion Recipe
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialFormingPress.get(1),
+            new Object[] { " B ", "   ", "   ", 'B', GregtechItemList.Industrial_PlatePress.get(1) });
+
+        // Industrial Bending Machine
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialBendingMachine.get(1),
+            new Object[] { "PGP", "MFM", "PRP", 'P', OrePrefixes.plate.get(Materials.Titanium), 'G',
+                OrePrefixes.gearGt.get(Materials.Titanium), 'R', MaterialsAlloy.TANTALLOY_60.getGear(1), 'F',
+                OrePrefixes.frameGt.get(Materials.Titanium), 'M', ItemList.Machine_EV_Bender });
+
+        // Industrial Forming Press
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialFormingPress.get(1),
+            new Object[] { "PGP", "MFM", "PRP", 'P', OrePrefixes.plate.get(Materials.Titanium), 'G',
+                OrePrefixes.gearGt.get(Materials.Titanium), 'R', MaterialsAlloy.TANTALLOY_60.getGear(1), 'F',
+                OrePrefixes.frameGt.get(Materials.Titanium), 'M', ItemList.Machine_EV_Press });
+
         // Large Boilers Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.BronzeBoilerLarge.get(1),
