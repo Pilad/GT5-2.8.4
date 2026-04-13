@@ -1718,7 +1718,12 @@ public class MTERecipeLoader implements Runnable {
         // Large Thermal Refinery Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.LargeThermalRefinery.get(1),
-            new Object[] { GregtechItemList.Industrial_ThermalCentrifuge.get(1) });
+            new Object[] { GregtechItemList.Industrial_ThermalCentrifuge.get(1) }); 
+
+        // Boldarnator Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.Boldarnator.get(1),
+            new Object[] { GregtechItemList.Controller_IndustrialRockBreaker.get(1) }); 
 
         // Naquadah Fuel Refinery Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
