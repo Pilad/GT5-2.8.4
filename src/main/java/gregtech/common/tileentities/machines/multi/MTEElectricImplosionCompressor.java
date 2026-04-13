@@ -40,7 +40,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.casing.Casings;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
-import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -77,22 +76,6 @@ public class MTEElectricImplosionCompressor extends MTEExtendedPowerMultiBlockBa
         return new MTEElectricImplosionCompressor(this.mName);
     }
 
-    private static final String[][] shape = new String[][] {
-        { "               ", "F F         F F", "F F         F F", "F F         F F", "F F         F F",
-            "F F         F F", "               " },
-        { "F F         F F", "F F   FFF   F F", "FBF  FFAFF  FBF", "FBF  AAAAA  FBF", "FBF  FFAFF  FBF",
-            "F F   F~F   F F", "F F         F F" },
-        { "F F         F F", "FBF  FFCFF  FBF", "F FFFEEEEEFFF F", "F FAA     AAF F", "F FFFEEEEEFFF F",
-            "FBF  FFCFF  FBF", "F F         F F" },
-        { "F F         F F", "FBFFFFCCCFFFFBF", "F FBBBEDEBBBF F", "F F         F F", "F FBBBEDEBBBF F",
-            "FBFFFFCCCFFFFBF", "F F         F F" },
-        { "F F         F F", "FBF  FFCFF  FBF", "F FFFEEEEEFFF F", "F FAA     AAF F", "F FFFEEEEEFFF F",
-            "FBF  FFCFF  FBF", "F F         F F" },
-        { "F F         F F", "F F   FFF   F F", "FBF  FFAFF  FBF", "FBF  AAAAA  FBF", "FBF  FFAFF  FBF",
-            "F F   FFF   F F", "F F         F F" },
-        { "               ", "F F         F F", "F F         F F", "F F         F F", "F F         F F",
-            "F F         F F", "               " } };
-
     public static ImmutableList<Pair<Block, Integer>> getTierBlockList() {
         ImmutableList.Builder<Pair<Block, Integer>> builder = ImmutableList.builder();
 
@@ -127,32 +110,46 @@ public class MTEElectricImplosionCompressor extends MTEExtendedPowerMultiBlockBa
         return null;
     }
 
-    @Override
-    public IStructureDefinition<MTEElectricImplosionCompressor> getStructureDefinition() {
-        return StructureDefinition.<MTEElectricImplosionCompressor>builder()
-            .addShape(STRUCTURE_PIECE_MAIN, shape)
-            .addElement('A', chainAllGlasses(-1, (te, t) -> te.glassTier = t, te -> te.glassTier))
-            .addElement('B', Casings.RobustTungstenSteelMachineCasing.asElement())
-            .addElement('C', Casings.PTFEPipeCasing.asElement())
-            .addElement('D', ofFrame(Materials.Naquadah))
-            .addElement(
-                'E',
-                GTStructureChannels.EIC_PISTON.use(
-                    StructureUtility.ofBlocksTiered(
-                        MTEElectricImplosionCompressor::getTierBlock,
-                        getTierBlockList(),
-                        -1,
-                        (t, m) -> t.pistonTier = m,
-                        t -> t.pistonTier)))
-            .addElement(
-                'F',
-                buildHatchAdder(MTEElectricImplosionCompressor.class)
-                    .atLeast(Energy.or(ExoticEnergy), InputBus, OutputBus, Maintenance, InputHatch, OutputHatch)
-                    .casingIndex(Casings.NaquadahReinforcedBlock.textureId)
-                    .dot(1)
-                    .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.NaquadahReinforcedBlock.asElement())))
-            .build();
-    }
+    private static final IStructureDefinition<MTEElectricImplosionCompressor> STRUCTURE_DEFINITION = StructureDefinition
+        .<MTEElectricImplosionCompressor>builder()
+        .addShape(
+            STRUCTURE_PIECE_MAIN,
+            new String[][] {
+                { "               ", "F F         F F", "F F         F F", "F F         F F", "F F         F F",
+                    "F F         F F", "               " },
+                { "F F         F F", "F F   FFF   F F", "FBF  FFAFF  FBF", "FBF  AAAAA  FBF", "FBF  FFAFF  FBF",
+                    "F F   F~F   F F", "F F         F F" },
+                { "F F         F F", "FBF  FFCFF  FBF", "F FFFEEEEEFFF F", "F FAA     AAF F", "F FFFEEEEEFFF F",
+                    "FBF  FFCFF  FBF", "F F         F F" },
+                { "F F         F F", "FBFFFFCCCFFFFBF", "F FBBBEDEBBBF F", "F F         F F", "F FBBBEDEBBBF F",
+                    "FBFFFFCCCFFFFBF", "F F         F F" },
+                { "F F         F F", "FBF  FFCFF  FBF", "F FFFEEEEEFFF F", "F FAA     AAF F", "F FFFEEEEEFFF F",
+                    "FBF  FFCFF  FBF", "F F         F F" },
+                { "F F         F F", "F F   FFF   F F", "FBF  FFAFF  FBF", "FBF  AAAAA  FBF", "FBF  FFAFF  FBF",
+                    "F F   FFF   F F", "F F         F F" },
+                { "               ", "F F         F F", "F F         F F", "F F         F F", "F F         F F",
+                    "F F         F F", "               " } })
+        .addElement('A', chainAllGlasses(-1, (te, t) -> te.glassTier = t, te -> te.glassTier))
+        .addElement('B', Casings.RobustTungstenSteelMachineCasing.asElement())
+        .addElement('C', Casings.PTFEPipeCasing.asElement())
+        .addElement('D', ofFrame(Materials.Naquadah))
+        .addElement(
+            'E',
+            GTStructureChannels.EIC_PISTON.use(
+                StructureUtility.ofBlocksTiered(
+                    MTEElectricImplosionCompressor::getTierBlock,
+                    getTierBlockList(),
+                    -1,
+                    (t, m) -> t.pistonTier = m,
+                    t -> t.pistonTier)))
+        .addElement(
+            'F',
+            buildHatchAdder(MTEElectricImplosionCompressor.class)
+                .atLeast(Energy.or(ExoticEnergy), InputBus, OutputBus, Maintenance, InputHatch, OutputHatch)
+                .casingIndex(Casings.NaquadahReinforcedBlock.textureId)
+                .dot(1)
+                .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.NaquadahReinforcedBlock.asElement())))
+        .build();
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
@@ -195,6 +192,11 @@ public class MTEElectricImplosionCompressor extends MTEExtendedPowerMultiBlockBa
     }
 
     @Override
+    public IStructureDefinition<MTEElectricImplosionCompressor> getStructureDefinition() {
+        return STRUCTURE_DEFINITION;
+    }
+
+    @Override
     public RecipeMap<?> getRecipeMap() {
         return BartWorksRecipeMaps.electricImplosionCompressorRecipes;
     }
@@ -233,8 +235,7 @@ public class MTEElectricImplosionCompressor extends MTEExtendedPowerMultiBlockBa
     public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection facing,
         int aColorIndex, boolean aActive, boolean aRedstone) {
         if (side == facing) {
-            if (aActive) return new ITexture[] {
-                Textures.BlockIcons.getCasingTextureForId(Casings.NaquadahReinforcedBlock.textureId),
+            if (aActive) return new ITexture[] { Casings.NaquadahReinforcedBlock.getCasingTexture(),
                 TextureFactory.builder()
                     .addIcon(OVERLAY_FRONT_IMPLOSION_COMPRESSOR_ACTIVE)
                     .extFacing()
@@ -244,19 +245,17 @@ public class MTEElectricImplosionCompressor extends MTEExtendedPowerMultiBlockBa
                     .extFacing()
                     .glow()
                     .build() };
-            return new ITexture[] {
-                Textures.BlockIcons.getCasingTextureForId(Casings.NaquadahReinforcedBlock.textureId),
-                TextureFactory.builder()
-                    .addIcon(OVERLAY_FRONT_IMPLOSION_COMPRESSOR)
-                    .extFacing()
-                    .build(),
+            return new ITexture[] { Casings.NaquadahReinforcedBlock.getCasingTexture(), TextureFactory.builder()
+                .addIcon(OVERLAY_FRONT_IMPLOSION_COMPRESSOR)
+                .extFacing()
+                .build(),
                 TextureFactory.builder()
                     .addIcon(OVERLAY_FRONT_IMPLOSION_COMPRESSOR_GLOW)
                     .extFacing()
                     .glow()
                     .build() };
         }
-        return new ITexture[] { Textures.BlockIcons.getCasingTextureForId(Casings.NaquadahReinforcedBlock.textureId) };
+        return new ITexture[] { Casings.NaquadahReinforcedBlock.getCasingTexture() };
     }
 
     @Override
