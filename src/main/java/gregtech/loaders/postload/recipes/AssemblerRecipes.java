@@ -29,6 +29,8 @@ import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.loaders.postload.MachineRecipeLoader.solderingMats;
 import static gtPlusPlus.core.material.MaterialsAlloy.INCONEL_690;
+import static gtPlusPlus.core.material.MaterialsAlloy.MARAGING250;
+import static gtPlusPlus.core.material.MaterialsAlloy.MARAGING300;
 import static kekztech.common.Blocks.lscLapotronicEnergyUnit;
 
 import net.minecraft.init.Blocks;
@@ -2721,6 +2723,29 @@ public class AssemblerRecipes implements Runnable {
                 GTOreDictUnificator.get(OrePrefixes.plate, Materials.StainlessSteel, 6),
                 GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.StainlessSteel, 1))
             .itemOutputs(ItemList.Casing_CleanStainlessSteel.get(1))
+            .duration(2 * SECONDS + 10 * TICKS)
+            .eut(TierEU.RECIPE_LV / 2)
+            .addTo(assemblerRecipes);
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTOreDictUnificator.get(OrePrefixes.plate, Materials.StainlessSteel, 4),
+                GTOreDictUnificator.get(OrePrefixes.plate, Materials.Steel, 2),
+                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.StainlessSteel, 1),
+                GTUtility.getIntegratedCircuit(1))
+            .itemOutputs(ItemList.FormingCore.get(1))
+            .duration(2 * SECONDS + 10 * TICKS)
+            .eut(TierEU.RECIPE_LV / 2)
+            .addTo(assemblerRecipes);
+
+        // Mixer Casing
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Polytetrafluoroethylene, 1),
+                MARAGING300.getPlate(4),
+                MARAGING250.getPlate(2),
+                GTUtility.getIntegratedCircuit(1))
+            .itemOutputs(ItemList.CasingMixer.get(1))
             .duration(2 * SECONDS + 10 * TICKS)
             .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
