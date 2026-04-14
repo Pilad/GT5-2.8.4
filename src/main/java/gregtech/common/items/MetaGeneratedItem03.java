@@ -203,6 +203,7 @@ import static gregtech.common.items.IDMetaItem03.Intensely_Bonded_Netherite_Nano
 import static gregtech.common.items.IDMetaItem03.KevlarFiber;
 import static gregtech.common.items.IDMetaItem03.LV_Coil;
 import static gregtech.common.items.IDMetaItem03.LuV_Coil;
+import static gregtech.common.items.IDMetaItem03.MAX_Coil;
 import static gregtech.common.items.IDMetaItem03.MV_Coil;
 import static gregtech.common.items.IDMetaItem03.NandChip;
 import static gregtech.common.items.IDMetaItem03.Naquarite_Universal_Insulator_Foil;
@@ -230,9 +231,13 @@ import static gregtech.common.items.IDMetaItem03.Thermal_Superconductor;
 import static gregtech.common.items.IDMetaItem03.Timepiece;
 import static gregtech.common.items.IDMetaItem03.Transdimensional_Alignment_Matrix;
 import static gregtech.common.items.IDMetaItem03.Tube_Wires;
+import static gregtech.common.items.IDMetaItem03.UEV_Coil;
 import static gregtech.common.items.IDMetaItem03.UHV_Coil;
+import static gregtech.common.items.IDMetaItem03.UIV_Coil;
 import static gregtech.common.items.IDMetaItem03.ULV_Coil;
+import static gregtech.common.items.IDMetaItem03.UMV_Coil;
 import static gregtech.common.items.IDMetaItem03.UV_Coil;
+import static gregtech.common.items.IDMetaItem03.UXV_Coil;
 import static gregtech.common.items.IDMetaItem03.WovenKevlar;
 import static gregtech.common.items.IDMetaItem03.ZPM_Coil;
 
@@ -252,6 +257,7 @@ import gregtech.api.items.MetaGeneratedItemX32;
 import gregtech.api.objects.ItemData;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GTUtility;
 import gregtech.common.covers.CoverMetricsTransmitter;
 import gregtech.common.covers.CoverSolarPanel;
 import gregtech.common.powergoggles.ItemPowerGoggles;
@@ -917,16 +923,96 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
                 new TCAspects.TC_AspectStack(TCAspects.POTENTIA, 512L),
                 new TCAspects.TC_AspectStack(TCAspects.TENEBRAE, 512L)));
 
-        ItemList.ULV_Coil.set(addItem(ULV_Coil.ID, "Ultra Low Voltage Coil", "Primitive Coil", o));
-        ItemList.LV_Coil.set(addItem(LV_Coil.ID, "Low Voltage Coil", "Basic Coil", o));
-        ItemList.MV_Coil.set(addItem(MV_Coil.ID, "Medium Voltage Coil", "Good Coil", o));
-        ItemList.HV_Coil.set(addItem(HV_Coil.ID, "High Voltage Coil", "Advanced Coil", o));
-        ItemList.EV_Coil.set(addItem(EV_Coil.ID, "Extreme Voltage Coil", "Extreme Coil", o));
-        ItemList.IV_Coil.set(addItem(IV_Coil.ID, "Insane Voltage Coil", "Elite Coil", o));
-        ItemList.LuV_Coil.set(addItem(LuV_Coil.ID, "Ludicrous Voltage Coil", "Master Coil", o));
-        ItemList.ZPM_Coil.set(addItem(ZPM_Coil.ID, "ZPM Voltage Coil", "Ultimate Coil", o));
-        ItemList.UV_Coil.set(addItem(UV_Coil.ID, "Ultimate Voltage Coil", "Super Coil", o));
-        ItemList.UHV_Coil.set(addItem(UHV_Coil.ID, "Highly Ultimate Voltage Coil", "Infinite Coil", o));
+        ItemList.ULV_Coil.set(
+            addItem(
+                ULV_Coil.ID,
+                GTUtility.translate("gt.item.coil.ulv.name"),
+                GTUtility.translate("gt.item.coil.ulv.tooltip"),
+                o));
+        ItemList.LV_Coil.set(
+            addItem(
+                LV_Coil.ID,
+                GTUtility.translate("gt.item.coil.lv.name"),
+                GTUtility.translate("gt.item.coil.lv.tooltip"),
+                o));
+        ItemList.MV_Coil.set(
+            addItem(
+                MV_Coil.ID,
+                GTUtility.translate("gt.item.coil.mv.name"),
+                GTUtility.translate("gt.item.coil.mv.tooltip"),
+                o));
+        ItemList.HV_Coil.set(
+            addItem(
+                HV_Coil.ID,
+                GTUtility.translate("gt.item.coil.hv.name"),
+                GTUtility.translate("gt.item.coil.hv.tooltip"),
+                o));
+        ItemList.EV_Coil.set(
+            addItem(
+                EV_Coil.ID,
+                GTUtility.translate("gt.item.coil.ev.name"),
+                GTUtility.translate("gt.item.coil.ev.tooltip"),
+                o));
+        ItemList.IV_Coil.set(
+            addItem(
+                IV_Coil.ID,
+                GTUtility.translate("gt.item.coil.iv.name"),
+                GTUtility.translate("gt.item.coil.iv.tooltip"),
+                o));
+        ItemList.LuV_Coil.set(
+            addItem(
+                LuV_Coil.ID,
+                GTUtility.translate("gt.item.coil.luv.name"),
+                GTUtility.translate("gt.item.coil.luv.tooltip"),
+                o));
+        ItemList.ZPM_Coil.set(
+            addItem(
+                ZPM_Coil.ID,
+                GTUtility.translate("gt.item.coil.zpm.name"),
+                GTUtility.translate("gt.item.coil.zpm.tooltip"),
+                o));
+        ItemList.UV_Coil.set(
+            addItem(
+                UV_Coil.ID,
+                GTUtility.translate("gt.item.coil.uv.name"),
+                GTUtility.translate("gt.item.coil.uv.tooltip"),
+                o));
+        ItemList.UHV_Coil.set(
+            addItem(
+                UHV_Coil.ID,
+                GTUtility.translate("gt.item.coil.uhv.name"),
+                GTUtility.translate("gt.item.coil.uhv.tooltip"),
+                o));
+        ItemList.UEV_Coil.set(
+            addItem(
+                UEV_Coil.ID,
+                GTUtility.translate("gt.item.coil.uev.name"),
+                GTUtility.translate("gt.item.coil.uev.tooltip"),
+                o));
+        ItemList.UIV_Coil.set(
+            addItem(
+                UIV_Coil.ID,
+                GTUtility.translate("gt.item.coil.uiv.name"),
+                GTUtility.translate("gt.item.coil.uiv.tooltip"),
+                o));
+        ItemList.UMV_Coil.set(
+            addItem(
+                UMV_Coil.ID,
+                GTUtility.translate("gt.item.coil.umv.name"),
+                GTUtility.translate("gt.item.coil.umv.tooltip"),
+                o));
+        ItemList.UXV_Coil.set(
+            addItem(
+                UXV_Coil.ID,
+                GTUtility.translate("gt.item.coil.uxv.name"),
+                GTUtility.translate("gt.item.coil.uxv.tooltip"),
+                o));
+        ItemList.MAX_Coil.set(
+            addItem(
+                MAX_Coil.ID,
+                GTUtility.translate("gt.item.coil.max.name"),
+                GTUtility.translate("gt.item.coil.max.tooltip"),
+                o));
 
         ItemList.GalliumArsenideCrystal
             .set(addItem(GalliumArsenideCrystal.ID, "Gallium Arsenide Crystal", "For making boules", o));

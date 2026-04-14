@@ -57,6 +57,7 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gtPlusPlus.core.material.MaterialsAlloy;
+import gtPlusPlus.core.material.MaterialsElements;
 import tectech.thing.CustomItemList;
 
 public class AssemblerRecipes implements Runnable {
@@ -2272,6 +2273,46 @@ public class AssemblerRecipes implements Runnable {
             .itemOutputs(ItemList.UHV_Coil.get(1))
             .duration(10 * SECONDS)
             .eut(TierEU.RECIPE_UHV)
+            .addTo(assemblerRecipes);
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTOreDictUnificator.get(OrePrefixes.stick, Materials.TengamAttuned, 1),
+                MaterialsElements.STANDALONE.CELESTIAL_TUNGSTEN.getFineWire(16),
+                GTUtility.getIntegratedCircuit(1))
+            .itemOutputs(ItemList.UEV_Coil.get(1))
+            .duration(10 * SECONDS)
+            .eut(TierEU.RECIPE_UEV)
+            .addTo(assemblerRecipes);
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTOreDictUnificator.get(OrePrefixes.stick, Materials.TengamAttuned, 1),
+                MaterialsElements.STANDALONE.RHUGNOR.getFineWire(16),
+                GTUtility.getIntegratedCircuit(1))
+            .itemOutputs(ItemList.UIV_Coil.get(1))
+            .duration(10 * SECONDS)
+            .eut(TierEU.RECIPE_UIV)
+            .addTo(assemblerRecipes);
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTOreDictUnificator.get(OrePrefixes.stick, Materials.TengamAttuned, 1),
+                MaterialsElements.STANDALONE.DRAGON_METAL.getFineWire(16),
+                GTUtility.getIntegratedCircuit(1))
+            .itemOutputs(ItemList.UMV_Coil.get(1))
+            .duration(10 * SECONDS)
+            .eut(TierEU.RECIPE_UMV)
+            .addTo(assemblerRecipes);
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTOreDictUnificator.get(OrePrefixes.stick, MaterialsUEVplus.MagMatter, 1),
+                GTOreDictUnificator.get(OrePrefixes.wireFine, MaterialsUEVplus.Universium, 16),
+                GTUtility.getIntegratedCircuit(1))
+            .itemOutputs(ItemList.UXV_Coil.get(1))
+            .duration(10 * SECONDS)
+            .eut(TierEU.RECIPE_UXV)
             .addTo(assemblerRecipes);
 
         GTValues.RA.stdBuilder()
