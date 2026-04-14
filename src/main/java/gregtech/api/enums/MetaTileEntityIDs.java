@@ -1760,6 +1760,7 @@ public enum MetaTileEntityIDs {
     ExtremeCombustionEngine(15534),
     UniversalChemicalFuelEngine(15535),
     NaquadahFuelRefinery(15536),
+    LargeNaquadahReactor(15537),
     LargeThermalRefinery(15538),
     MacerationStack(15539),
     FishingPort(15544),

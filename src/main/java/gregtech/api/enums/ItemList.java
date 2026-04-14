@@ -2737,6 +2737,7 @@ public enum ItemList implements IItemContainer {
     ExtremeCombustionEngine,
     UniversalChemicalFuelEngine,
     NaquadahFuelRefinery,
+    LargeNaquadahReactor,
     LargeThermalRefinery,
     MacerationStack,
     FishingPort,
