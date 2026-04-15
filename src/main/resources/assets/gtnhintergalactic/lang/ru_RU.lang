@@ -346,7 +346,6 @@ ig.siphon.structure.Base=Основа 3x1x3 (полый), нужно §63§7
 ig.siphon.structure.SiphonCasing=Корпус планетарного сифона
 ig.siphon.structure.FrameTungstensteel=Каркас из вольфрамовой стали
 ig.siphon.structure.ReboltedRhodiumPalladiumCasing=Переболтованный корпус из родированного палладия
-ig.siphon.structure.ReboltedStainlessSteelCasing=Rebolted Stainless Steel Casing
 ig.elevator.structure.ProjectModule=Проектный модуль
 ig.elevator.structure.Motor=Мотор космического лифта
 ig.elevator.structure.FrameNeutronium=Нейтрониевый каркас
