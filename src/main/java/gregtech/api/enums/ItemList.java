@@ -2749,6 +2749,8 @@ public enum ItemList implements IItemContainer {
     PyrolyzeOven,
     AdvancedImplosionCompressor,
     IndustrialExtruder,
+    IndustrialWasher,
+    IndustrialChemicalBath,
     IndustrialFormingPress,
     IndustrialBendingMachine,
     Boldarnator,

@@ -1746,6 +1746,28 @@ public class MTERecipeLoader implements Runnable {
             ItemList.MolecularTransformer.get(1),
             new Object[] { GregtechItemList.Controller_MolecularTransformer.get(1) });
 
+        // Industrial Washer Conversion Recipe
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialWasher.get(1),
+            new Object[] { "B  ", "   ", "   ", 'B', GregtechItemList.Industrial_WashPlant.get(1) });
+
+        // Industrial Chemical Bath Conversion Recipe
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialChemicalBath.get(1),
+            new Object[] { " B ", "   ", "   ", 'B', GregtechItemList.Industrial_WashPlant.get(1) });
+
+        // Industrial Washer
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialWasher.get(1),
+            new Object[] { "PPP", "TCT", "PAP", 'P', MaterialsAlloy.LEAGRISIUM.getPlate(1), 'A',
+                ItemList.Machine_EV_OreWasher, 'T', MaterialsAlloy.TALONITE.getPlate(1), 'C', "circuitData" });
+
+        // Industrial Chemical Plant
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialChemicalBath.get(1),
+            new Object[] { "PPP", "TCT", "PBP", 'P', MaterialsAlloy.LEAGRISIUM.getPlate(1), 'T',
+                MaterialsAlloy.TALONITE.getPlate(1), 'C', "circuitData", 'B', ItemList.Machine_EV_ChemicalBath });
+
         // Industrial Centrifuge Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.IndustrialCentrifuge.get(1),

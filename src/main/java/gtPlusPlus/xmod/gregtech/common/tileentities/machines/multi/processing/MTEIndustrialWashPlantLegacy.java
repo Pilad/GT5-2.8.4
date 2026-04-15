@@ -71,29 +71,29 @@ import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.gui.MTEIndust
 import ic2.core.init.BlocksItems;
 import ic2.core.init.InternalName;
 
-public class MTEIndustrialWashPlant extends GTPPMultiBlockBase<MTEIndustrialWashPlant>
+public class MTEIndustrialWashPlantLegacy extends GTPPMultiBlockBase<MTEIndustrialWashPlantLegacy>
     implements ISurvivalConstructable {
 
     private int mCasing;
 
-    private static IStructureDefinition<MTEIndustrialWashPlant> STRUCTURE_DEFINITION = null;
+    private static IStructureDefinition<MTEIndustrialWashPlantLegacy> STRUCTURE_DEFINITION = null;
 
     private static final int MACHINEMODE_OREWASH = 0;
     private static final int MACHINEMODE_SIMPLEWASH = 1;
     private static final int MACHINEMODE_CHEMBATH = 2;
     private static final Block DISTILLED_WATER_BLOCK = BlocksItems.getFluidBlock(InternalName.fluidDistilledWater);
 
-    public MTEIndustrialWashPlant(final int aID, final String aName, final String aNameRegional) {
+    public MTEIndustrialWashPlantLegacy(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTEIndustrialWashPlant(final String aName) {
+    public MTEIndustrialWashPlantLegacy(final String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(final IGregTechTileEntity aTileEntity) {
-        return new MTEIndustrialWashPlant(this.mName);
+        return new MTEIndustrialWashPlantLegacy(this.mName);
     }
 
     @Override
@@ -126,9 +126,9 @@ public class MTEIndustrialWashPlant extends GTPPMultiBlockBase<MTEIndustrialWash
     }
 
     @Override
-    public IStructureDefinition<MTEIndustrialWashPlant> getStructureDefinition() {
+    public IStructureDefinition<MTEIndustrialWashPlantLegacy> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
-            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialWashPlant>builder()
+            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialWashPlantLegacy>builder()
                 .addShape(
                     mName,
                     transpose(
@@ -137,7 +137,7 @@ public class MTEIndustrialWashPlant extends GTPPMultiBlockBase<MTEIndustrialWash
                             { "CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC" }, }))
                 .addElement(
                     'C',
-                    buildHatchAdder(MTEIndustrialWashPlant.class)
+                    buildHatchAdder(MTEIndustrialWashPlantLegacy.class)
                         .atLeast(InputBus, InputHatch, OutputHatch, OutputBus, Maintenance, Energy, Muffler)
                         .casingIndex(getCasingTextureIndex())
                         .dot(1)

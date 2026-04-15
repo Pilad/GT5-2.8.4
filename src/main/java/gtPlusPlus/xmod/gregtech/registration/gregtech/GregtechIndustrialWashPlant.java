@@ -4,7 +4,7 @@ import static gregtech.api.enums.MetaTileEntityIDs.Industrial_WashPlant;
 
 import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialWashPlant;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialWashPlantLegacy;
 
 public class GregtechIndustrialWashPlant {
 
@@ -15,7 +15,7 @@ public class GregtechIndustrialWashPlant {
 
     private static void run1() {
         GregtechItemList.Industrial_WashPlant.set(
-            new MTEIndustrialWashPlant(
+            new MTEIndustrialWashPlantLegacy(
                 Industrial_WashPlant.ID,
                 "industrialwashplant.controller.tier.single",
                 "Ore Washing Plant").getStackForm(1L));
