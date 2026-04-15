@@ -351,8 +351,8 @@ public class MTEIndustrialMultiMachine extends GTPPMultiBlockBase<MTEIndustrialM
     }
 
     @Override
-    public String getMachineModeName() {
-        return StatCollector.translateToLocal("GT5U.GTPP_MULTI_INDUSTRIAL_MULTI_MACHINE.mode." + machineMode);
+    public String getMachineModeKey() {
+        return "GT5U.GTPP_MULTI_INDUSTRIAL_MULTI_MACHINE.mode." + machineMode;
     }
 
     @Override

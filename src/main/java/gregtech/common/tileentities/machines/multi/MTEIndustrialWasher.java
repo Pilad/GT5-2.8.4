@@ -344,7 +344,7 @@ public class MTEIndustrialWasher extends MTEExtendedPowerMultiBlockBase<MTEIndus
     }
 
     @Override
-    public String getMachineModeName() {
+    public String getMachineModeKey() {
         return "GT5U.GTPP_MULTI_WASH_PLANT.mode." + machineMode;
     }
 

@@ -416,7 +416,7 @@ public class MTESteamFurnaceMulti extends MTESteamMultiBase<MTESteamFurnaceMulti
     }
 
     @Override
-    public String getMachineModeName() {
+    public String getMachineModeKey() {
         return "GT5U.GTPP_MULTI_STEAM_FURNACE.mode." + machineMode;
     }
 
@@ -538,7 +538,7 @@ public class MTESteamFurnaceMulti extends MTESteamMultiBase<MTESteamFurnaceMulti
     public void onModeChangeByScrewdriver(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ) {
         setMachineMode(nextMachineMode());
         GTUtility
-            .sendChatTrans(aPlayer, "GT5U.MULTI_MACHINE_CHANGE", new ChatComponentTranslation(getMachineModeName()));
+            .sendChatTrans(aPlayer, "GT5U.MULTI_MACHINE_CHANGE", new ChatComponentTranslation(getMachineModeKey()));
     }
 
     @SideOnly(Side.CLIENT)

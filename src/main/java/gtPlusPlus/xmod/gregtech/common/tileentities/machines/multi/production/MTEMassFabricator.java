@@ -11,7 +11,6 @@ import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
-import static net.minecraft.util.StatCollector.translateToLocal;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -342,7 +341,7 @@ public class MTEMassFabricator extends GTPPMultiBlockBase<MTEMassFabricator> imp
     }
 
     @Override
-    public String getMachineModeName() {
-        return translateToLocal("GT5U.GTPP_MULTI_MASS_FABRICATOR.mode." + mMode);
+    public String getMachineModeKey() {
+        return "GT5U.GTPP_MULTI_MASS_FABRICATOR.mode." + mMode;
     }
 }

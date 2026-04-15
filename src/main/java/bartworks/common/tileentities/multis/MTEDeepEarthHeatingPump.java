@@ -161,7 +161,7 @@ public class MTEDeepEarthHeatingPump extends MTEDrillerBase {
     }
 
     @Override
-    public String getMachineModeName() {
+    public String getMachineModeKey() {
         return "GT5U.DEHP.mode." + machineMode;
     }
 
@@ -221,7 +221,7 @@ public class MTEDeepEarthHeatingPump extends MTEDrillerBase {
         ItemStack aTool) {
         setMachineMode(nextMachineMode());
         GTUtility
-            .sendChatTrans(aPlayer, "GT5U.MULTI_MACHINE_CHANGE", new ChatComponentTranslation(getMachineModeName()));
+            .sendChatTrans(aPlayer, "GT5U.MULTI_MACHINE_CHANGE", new ChatComponentTranslation(getMachineModeKey()));
     }
 
     @Override

@@ -777,7 +777,7 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
     }
 
     @Override
-    public String getMachineModeName() {
+    public String getMachineModeKey() {
         return String.join("\n", getDisplayMode(mode));
     }
 

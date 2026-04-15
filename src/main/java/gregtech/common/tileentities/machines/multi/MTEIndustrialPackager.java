@@ -261,7 +261,7 @@ public class MTEIndustrialPackager extends MTEExtendedPowerMultiBlockBase<MTEInd
     }
 
     @Override
-    public String getMachineModeName() {
+    public String getMachineModeKey() {
         return "GT5U.GTPP_MULTI_PACKAGER.mode." + machineMode;
     }
 
@@ -281,7 +281,7 @@ public class MTEIndustrialPackager extends MTEExtendedPowerMultiBlockBase<MTEInd
         ItemStack aTool) {
         setMachineMode(nextMachineMode());
         GTUtility
-            .sendChatTrans(aPlayer, "GT5U.MULTI_MACHINE_CHANGE", new ChatComponentTranslation(getMachineModeName()));
+            .sendChatTrans(aPlayer, "GT5U.MULTI_MACHINE_CHANGE", new ChatComponentTranslation(getMachineModeKey()));
     }
 
     @Override

@@ -331,7 +331,7 @@ public class MTEIndustrialElectromagneticSeparator
         ItemStack aTool) {
         setMachineMode(nextMachineMode());
         GTUtility
-            .sendChatTrans(aPlayer, "GT5U.MULTI_MACHINE_CHANGE", new ChatComponentTranslation(getMachineModeName()));
+            .sendChatTrans(aPlayer, "GT5U.MULTI_MACHINE_CHANGE", new ChatComponentTranslation(getMachineModeKey()));
     }
 
     @Override
@@ -341,7 +341,7 @@ public class MTEIndustrialElectromagneticSeparator
     }
 
     @Override
-    public String getMachineModeName() {
+    public String getMachineModeKey() {
         return "GT5U.INDUSTRIAL_ELECTROMAGNETIC_SEPARATOR.mode." + machineMode;
     }
 

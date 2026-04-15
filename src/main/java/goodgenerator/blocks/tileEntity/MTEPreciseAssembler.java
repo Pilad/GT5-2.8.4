@@ -497,7 +497,7 @@ public class MTEPreciseAssembler extends MTEExtendedPowerMultiBlockBase<MTEPreci
     }
 
     @Override
-    public String getMachineModeName() {
+    public String getMachineModeKey() {
         return "GT5U.GTPP_MULTI_PRECISE_ASSEMBLER.mode." + mode;
     }
 

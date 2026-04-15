@@ -23,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -333,8 +332,8 @@ public class MTEIndustrialArcFurnace extends GTPPMultiBlockBase<MTEIndustrialArc
     }
 
     @Override
-    public String getMachineModeName() {
-        return StatCollector.translateToLocal("GT5U.GTPP_MULTI_ARC_FURNACE.mode." + (mPlasmaMode ? 1 : 0));
+    public String getMachineModeKey() {
+        return "GT5U.GTPP_MULTI_ARC_FURNACE.mode." + (mPlasmaMode ? 1 : 0);
     }
 
     @Override
