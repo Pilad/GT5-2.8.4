@@ -4,9 +4,9 @@ import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.api.metatileentity.implementations.gui.MTEMultiBlockBaseGui;
 import gregtech.api.modularui2.GTGuiTextures;
 
-public class MTEIndustrialWasherGui extends MTEMultiBlockBaseGui {
+public class MTEOreWashingPlantGui extends MTEMultiBlockBaseGui {
 
-    public MTEIndustrialWasherGui(MTEMultiBlockBase base) {
+    public MTEOreWashingPlantGui(MTEMultiBlockBase base) {
         super(base);
     }
 

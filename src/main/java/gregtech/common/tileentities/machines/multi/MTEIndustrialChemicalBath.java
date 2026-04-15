@@ -75,6 +75,9 @@ public class MTEIndustrialChemicalBath extends MTEExtendedPowerMultiBlockBase<MT
         { "  B  ", "EFDFE", "EFDFE", "EEEEE" }, { "     ", "EFFFE", "EFFFE", "EEEEE" },
         { "  B  ", "EFCFE", "EFCFE", "EEEEE" }, { "AABAA", "AEEEA", "AEEEA", "AEEEA" } };
 
+    // Lazy allocation since ofFrame requires late-registering GTPP MaterialsAlloy
+    private static IStructureDefinition<MTEIndustrialChemicalBath> STRUCTURE_DEFINITION = null;
+
     public MTEIndustrialChemicalBath(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
@@ -118,22 +121,23 @@ public class MTEIndustrialChemicalBath extends MTEExtendedPowerMultiBlockBase<MT
 
     @Override
     public IStructureDefinition<MTEIndustrialChemicalBath> getStructureDefinition() {
-        IStructureDefinition<MTEIndustrialChemicalBath> STRUCTURE_DEFINITION = StructureDefinition
-            .<MTEIndustrialChemicalBath>builder()
-            .addShape(STRUCTURE_PIECE_MAIN, structure)
-            .addElement('A', ofFrame(MaterialsAlloy.AQUATIC_STEEL))
-            .addElement('B', Casings.ChemicallyInertMachineCasing.asElement())
-            .addElement('C', ofBlock(GregTechAPI.sBlockMetal2, 7))
-            .addElement('D', ofBlock(GregTechAPI.sBlockMetal8, 6))
-            .addElement(
-                'E',
-                buildHatchAdder(MTEIndustrialChemicalBath.class)
-                    .atLeast(InputBus, InputHatch, OutputHatch, OutputBus, Maintenance, Energy, Muffler)
-                    .casingIndex(Casings.WashPlantCasing.textureId)
-                    .dot(1)
-                    .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.WashPlantCasing.asElement())))
-            .addElement('F', ofChain(isAir(), ofAnyWater(true)))
-            .build();
+        if (STRUCTURE_DEFINITION == null) {
+            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialChemicalBath>builder()
+                .addShape(STRUCTURE_PIECE_MAIN, structure)
+                .addElement('A', ofFrame(MaterialsAlloy.AQUATIC_STEEL))
+                .addElement('B', Casings.ChemicallyInertMachineCasing.asElement())
+                .addElement('C', ofBlock(GregTechAPI.sBlockMetal2, 7))
+                .addElement('D', ofBlock(GregTechAPI.sBlockMetal8, 6))
+                .addElement(
+                    'E',
+                    buildHatchAdder(MTEIndustrialChemicalBath.class)
+                        .atLeast(InputBus, InputHatch, OutputHatch, OutputBus, Maintenance, Energy, Muffler)
+                        .casingIndex(Casings.WashPlantCasing.textureId)
+                        .dot(1)
+                        .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.WashPlantCasing.asElement())))
+                .addElement('F', ofChain(isAir(), ofAnyWater(true)))
+                .build();
+        }
         return STRUCTURE_DEFINITION;
     }
 

@@ -1767,7 +1767,7 @@ public enum MetaTileEntityIDs {
     PyrolyzeOven(15546),
     AdvancedImplosionCompressor(15547),
     IndustrialExtruder(15549),
-    IndustrialWasher(15550),
+    OreWashingPlant(15550),
     IndustrialChemicalBath(15551),
     IndustrialFormingPress(15552),
     IndustrialBendingMachine(15553),

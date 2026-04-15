@@ -63,13 +63,13 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.common.pollution.PollutionConfig;
-import gregtech.common.tileentities.machines.multi.gui.MTEIndustrialWasherGui;
+import gregtech.common.tileentities.machines.multi.gui.MTEOreWashingPlantGui;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 import ic2.core.init.BlocksItems;
 import ic2.core.init.InternalName;
 
-public class MTEIndustrialWasher extends MTEExtendedPowerMultiBlockBase<MTEIndustrialWasher>
+public class MTEOreWashingPlant extends MTEExtendedPowerMultiBlockBase<MTEOreWashingPlant>
     implements ISurvivalConstructable {
 
     private int casingAmount;
@@ -86,14 +86,14 @@ public class MTEIndustrialWasher extends MTEExtendedPowerMultiBlockBase<MTEIndus
         { "C  BC", "CDADC", "CBDDC", "CCCCC" }, { "C B C", "CDADC", "CDBDC", "CCCCC" },
         { "CB  C", "CDADC", "CDDBC", "CCCCC" }, { " CCC ", " CCC ", " CCC ", " CCC " } };
 
-    private static final IStructureDefinition<MTEIndustrialWasher> STRUCTURE_DEFINITION = StructureDefinition
-        .<MTEIndustrialWasher>builder()
+    private static final IStructureDefinition<MTEOreWashingPlant> STRUCTURE_DEFINITION = StructureDefinition
+        .<MTEOreWashingPlant>builder()
         .addShape(STRUCTURE_PIECE_MAIN, structure)
         .addElement('A', Casings.SteelGearBoxCasing.asElement())
         .addElement('B', ofFrame(Materials.Steel))
         .addElement(
             'C',
-            buildHatchAdder(MTEIndustrialWasher.class)
+            buildHatchAdder(MTEOreWashingPlant.class)
                 .atLeast(InputBus, InputHatch, OutputHatch, OutputBus, Maintenance, Energy, Muffler)
                 .casingIndex(Casings.WashPlantCasing.textureId)
                 .dot(1)
@@ -101,17 +101,17 @@ public class MTEIndustrialWasher extends MTEExtendedPowerMultiBlockBase<MTEIndus
         .addElement('D', ofChain(isAir(), ofAnyWater(false)))
         .build();
 
-    public MTEIndustrialWasher(final int aID, final String aName, final String aNameRegional) {
+    public MTEOreWashingPlant(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTEIndustrialWasher(final String aName) {
+    public MTEOreWashingPlant(final String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(final IGregTechTileEntity aTileEntity) {
-        return new MTEIndustrialWasher(this.mName);
+        return new MTEOreWashingPlant(this.mName);
     }
 
     @Override
@@ -142,7 +142,7 @@ public class MTEIndustrialWasher extends MTEExtendedPowerMultiBlockBase<MTEIndus
     }
 
     @Override
-    public IStructureDefinition<MTEIndustrialWasher> getStructureDefinition() {
+    public IStructureDefinition<MTEOreWashingPlant> getStructureDefinition() {
         return STRUCTURE_DEFINITION;
     }
 
@@ -399,7 +399,7 @@ public class MTEIndustrialWasher extends MTEExtendedPowerMultiBlockBase<MTEIndus
     }
 
     @Override
-    protected @NotNull MTEIndustrialWasherGui getGui() {
-        return new MTEIndustrialWasherGui(this);
+    protected @NotNull MTEOreWashingPlantGui getGui() {
+        return new MTEOreWashingPlantGui(this);
     }
 }
