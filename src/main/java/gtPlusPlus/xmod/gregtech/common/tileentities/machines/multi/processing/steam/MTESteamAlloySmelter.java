@@ -55,6 +55,7 @@ import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
 import gregtech.common.blocks.BlockCasings1;
 import gregtech.common.blocks.BlockCasings2;
+import gregtech.common.misc.GTStructureChannels;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTESteamMultiBase;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -164,6 +165,8 @@ public class MTESteamAlloySmelter extends MTESteamMultiBase<MTESteamAlloySmelter
                 EnumChatFormatting.GOLD + "16-26x" + EnumChatFormatting.GRAY + " Solid Steel Machine Casing")
             .addStructureInfo(EnumChatFormatting.GOLD + "2x" + EnumChatFormatting.GRAY + " Steel Pipe Casing")
             .addCasingInfoExactly("Any Tiered Glass", 4, true)
+            .addStructureInfo("")
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .toolTipFinisher();
         return tt;
     }

@@ -61,6 +61,7 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.common.misc.GTStructureChannels;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -642,6 +643,7 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
             .addInputHatch("Input lubricant/distilled water/washing chemicals", 3)
             .addMufflerHatch("Output Pollution", 3)
             .addOutputBus("Output products", 4)
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .addStructureAuthors(EnumChatFormatting.GOLD + "Bavib")
             .toolTipFinisher();
         return tt;

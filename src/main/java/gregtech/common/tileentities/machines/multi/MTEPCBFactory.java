@@ -97,6 +97,7 @@ import gregtech.api.util.ParallelHelper;
 import gregtech.api.util.shutdown.ShutDownReasonRegistry;
 import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.blocks.BlockCasings8;
+import gregtech.common.misc.GTStructureChannels;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class MTEPCBFactory extends MTEExtendedPowerMultiBlockBase<MTEPCBFactory>
@@ -1012,6 +1013,8 @@ public class MTEPCBFactory extends MTEExtendedPowerMultiBlockBase<MTEPCBFactory>
             .addStructureInfo(EnumChatFormatting.GOLD + "8" + EnumChatFormatting.GRAY + " Superconducting Coil Block")
             .addStructureInfo(EnumChatFormatting.GOLD + "20" + EnumChatFormatting.GRAY + " Tungstensteel Pipe Casing")
             .addStructureInfo(EnumChatFormatting.GOLD + "48" + EnumChatFormatting.GRAY + " Infinity Cooled Casing")
+            .addStructureInfo("")
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .toolTipFinisher(AuthorBlueWeabo);
         return tt;
     }

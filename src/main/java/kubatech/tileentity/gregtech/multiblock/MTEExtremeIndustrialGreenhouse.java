@@ -119,6 +119,7 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.VoidProtectionHelper;
+import gregtech.common.misc.GTStructureChannels;
 import gregtech.common.tileentities.machines.MTEHatchOutputBusME;
 import kubatech.api.EIGDynamicInventory;
 import kubatech.api.eig.EIGBucket;
@@ -324,6 +325,7 @@ public class MTEExtremeIndustrialGreenhouse extends KubaTechGTMultiBlockBase<MTE
             .addOutputBus("Any casing (Except inner bottom ones)", 1)
             .addInputHatch("Any casing (Except inner bottom ones)", 1)
             .addEnergyHatch("Any casing (Except inner bottom ones)", 1)
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .toolTipFinisher(GTValues.AuthorKuba);
         return tt;
     }

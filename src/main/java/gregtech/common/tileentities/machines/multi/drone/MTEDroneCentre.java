@@ -85,6 +85,7 @@ import gregtech.api.util.shutdown.ShutDownReason;
 import gregtech.api.util.shutdown.ShutDownReasonRegistry;
 import gregtech.common.gui.modularui.widget.ShutDownReasonSyncer;
 import gregtech.common.items.ItemTierDrone;
+import gregtech.common.misc.GTStructureChannels;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
@@ -202,6 +203,7 @@ public class MTEDroneCentre extends MTEExtendedPowerMultiBlockBase<MTEDroneCentr
             .addCasingInfoExactly("Any tiered glass", 6, false)
             .addInputBus("Any Titanium Casing", 1)
             .addStructureInfo("No maintenance hatch needed")
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .toolTipFinisher(AuthorSilverMoon);
         return tt;
     }
