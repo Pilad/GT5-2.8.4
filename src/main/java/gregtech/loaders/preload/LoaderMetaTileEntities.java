@@ -732,6 +732,12 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "industrialextruder.controller.tier.single",
                 "Industrial Extrusion Machine").getStackForm(1L));
 
+        ItemList.AdvancedImplosionCompressor.set(
+            new MTEAdvImplosionCompressor(
+                AdvancedImplosionCompressor.ID,
+                "multimachine.adv.implosioncompressor",
+                "Density^2").getStackForm(1L));
+
         ItemList.UniversalChemicalFuelEngine.set(
             new MTEUniversalChemicalFuelEngine(
                 UniversalChemicalFuelEngine.ID,
@@ -741,12 +747,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         ItemList.Boldarnator.set(
             new MTEIndustrialRockBreaker(Boldarnator.ID, "industrialrockcrusher.controller.tier.single", "Boldarnator")
                 .getStackForm(1L));
-
-        ItemList.AdvancedImplosionCompressor.set(
-            new MTEAdvImplosionCompressor(
-                AdvancedImplosionCompressor.ID,
-                "multimachine.adv.implosioncompressor",
-                "Density^2").getStackForm(1L));
 
         ItemList.LargeNaquadahReactor
             .set(new MTELargeNaquadahReactor(LargeNaquadahReactor.ID, "NaG", "Large Naquadah Reactor").getStackForm(1));

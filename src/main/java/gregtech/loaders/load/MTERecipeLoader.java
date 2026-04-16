@@ -1726,15 +1726,15 @@ public class MTERecipeLoader implements Runnable {
             ItemList.LargeThermalRefinery.get(1),
             new Object[] { GregtechItemList.Industrial_ThermalCentrifuge.get(1) });
 
-        // Boldarnator Conversion Recipe
-        GTModHandler.addShapelessCraftingRecipe(
-            ItemList.Boldarnator.get(1),
-            new Object[] { GregtechItemList.Controller_IndustrialRockBreaker.get(1) });
-
         // Naquadah Fuel Refinery Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.NaquadahFuelRefinery.get(1),
             new Object[] { ItemRefer.Naquadah_Fuel_Refinery.get(1) });
+
+        // Boldarnator Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.Boldarnator.get(1),
+            new Object[] { GregtechItemList.Controller_IndustrialRockBreaker.get(1) });
 
         // Amazon Packager Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
@@ -1870,14 +1870,14 @@ public class MTERecipeLoader implements Runnable {
             ItemList.IntegratedOreFactory.get(1),
             new Object[] { ItemList.Ore_Processor.get(1) });
 
+        // Electric Implosion Compressor Conversion Recipe
+        GTModHandler
+            .addShapelessCraftingRecipe(ItemList.ElectricImplosionCompressor.get(1), new Object[] { ItemRegistry.eic });
+
         // Large Combustion Engine Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.LargeCombustionEngine.get(1),
             new Object[] { ItemList.Machine_Multi_DieselEngine.get(1) });
-
-        // Electric Implosion Compressor Conversion Recipe
-        GTModHandler
-            .addShapelessCraftingRecipe(ItemList.ElectricImplosionCompressor.get(1), new Object[] { ItemRegistry.eic });
     }
 
     private static void registerSifter() {
