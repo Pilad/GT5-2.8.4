@@ -39,25 +39,26 @@ import gtPlusPlus.core.block.ModBlocks;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 
-public class MTEIndustrialCokeOven extends GTPPMultiBlockBase<MTEIndustrialCokeOven> implements ISurvivalConstructable {
+public class MTEIndustrialCokeOvenLegacy extends GTPPMultiBlockBase<MTEIndustrialCokeOvenLegacy>
+    implements ISurvivalConstructable {
 
     private int tier = 0;
     private int mCasing;
     private int mCasing1;
     private int mCasing2;
-    private static IStructureDefinition<MTEIndustrialCokeOven> STRUCTURE_DEFINITION = null;
+    private static IStructureDefinition<MTEIndustrialCokeOvenLegacy> STRUCTURE_DEFINITION = null;
 
-    public MTEIndustrialCokeOven(final int aID, final String aName, final String aNameRegional) {
+    public MTEIndustrialCokeOvenLegacy(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTEIndustrialCokeOven(final String aName) {
+    public MTEIndustrialCokeOvenLegacy(final String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(final IGregTechTileEntity aTileEntity) {
-        return new MTEIndustrialCokeOven(this.mName);
+        return new MTEIndustrialCokeOvenLegacy(this.mName);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class MTEIndustrialCokeOven extends GTPPMultiBlockBase<MTEIndustrialCokeO
             .beginStructureBlock(3, 3, 3, true)
             .addController("Front bottom center")
             .addCasingInfoMin("Structural Coke Oven Casings", 8, false)
-            .addCasingInfoMin("Heat Resistant/Proof Coke Oven Casings", 8, false)
+            .addCasingInfoExactly("Heat Resistant/Proof Coke Oven Casings", 8, false)
             .addInputBus("Any Structural Coke Oven Casing", 1)
             .addOutputBus("Any Structural Coke Oven Casing", 1)
             .addInputHatch("Any Structural Coke Oven Casing", 1)
@@ -90,9 +91,9 @@ public class MTEIndustrialCokeOven extends GTPPMultiBlockBase<MTEIndustrialCokeO
     }
 
     @Override
-    public IStructureDefinition<MTEIndustrialCokeOven> getStructureDefinition() {
+    public IStructureDefinition<MTEIndustrialCokeOvenLegacy> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
-            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialCokeOven>builder()
+            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialCokeOvenLegacy>builder()
                 .addShape(
                     mName,
                     transpose(
@@ -107,7 +108,7 @@ public class MTEIndustrialCokeOven extends GTPPMultiBlockBase<MTEIndustrialCokeO
                         new String[][] { { "CCC", "CCC", "CCC" }, { "bbb", "b-b", "bbb" }, { "C~C", "CCC", "CCC" }, }))
                 .addElement(
                     'C',
-                    buildHatchAdder(MTEIndustrialCokeOven.class)
+                    buildHatchAdder(MTEIndustrialCokeOvenLegacy.class)
                         .atLeast(InputBus, OutputBus, InputHatch, OutputHatch, Maintenance, Energy, Muffler)
                         .casingIndex(TAE.GTPP_INDEX(1))
                         .dot(1)

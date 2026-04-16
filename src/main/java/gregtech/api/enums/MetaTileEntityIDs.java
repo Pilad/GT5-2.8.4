@@ -1763,6 +1763,7 @@ public enum MetaTileEntityIDs {
     LargeNaquadahReactor(15537),
     LargeThermalRefinery(15538),
     MacerationStack(15539),
+    IndustrialCokeOven(15543),
     FishingPort(15544),
     PyrolyzeOven(15546),
     AdvancedImplosionCompressor(15547),

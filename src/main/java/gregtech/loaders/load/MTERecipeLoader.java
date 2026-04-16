@@ -1773,6 +1773,17 @@ public class MTERecipeLoader implements Runnable {
             ItemList.IndustrialCentrifuge.get(1),
             new Object[] { GregtechItemList.Industrial_Centrifuge.get(1) });
 
+        // Industrial Coke Oven Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IndustrialCokeOven.get(1),
+            new Object[] { GregtechItemList.Industrial_CokeOven.get(1) });
+
+        // Industrial Coke Oven
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialCokeOven.get(1),
+            new Object[] { "PCP", "HCH", "POP", 'P', MaterialsAlloy.TANTALLOY_61.getPlate(1), 'C', "circuitData", 'H',
+                ItemList.Casing_EV, 'O', ItemList.CokeOvenController });
+
         // Extreme Combustion Engine Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.ExtremeCombustionEngine.get(1),
