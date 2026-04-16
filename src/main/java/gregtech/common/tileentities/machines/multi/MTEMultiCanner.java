@@ -260,11 +260,6 @@ public class MTEMultiCanner extends MTEExtendedPowerMultiBlockBase<MTEMultiCanne
     }
 
     @Override
-    public boolean supportsSingleRecipeLocking() {
-        return true;
-    }
-
-    @Override
     protected @NotNull MTEMultiCannerGui getGui() {
         return new MTEMultiCannerGui(this);
     }

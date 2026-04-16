@@ -75,6 +75,7 @@ public class MTEMegaChemicalReactorLegacy extends MegaMultiBlockBase<MTEMegaChem
             .addPerfectOCInfo()
             .addTecTechHatchInfo()
             .addMinGlassForLaser(VoltageIndex.UV)
+            .addGlassEnergyLimitInfo()
             .addUnlimitedTierSkips()
             .beginStructureBlock(5, 5, 9, false)
             .addController("Front center")
@@ -122,11 +123,6 @@ public class MTEMegaChemicalReactorLegacy extends MegaMultiBlockBase<MTEMegaChem
                     .build() };
         }
         return new ITexture[] { casingTexturePages[1][48] };
-    }
-
-    @Override
-    public boolean supportsSingleRecipeLocking() {
-        return true;
     }
 
     @Override

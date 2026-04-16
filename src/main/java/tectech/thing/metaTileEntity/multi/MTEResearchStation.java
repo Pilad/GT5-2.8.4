@@ -477,6 +477,11 @@ public class MTEResearchStation extends TTMultiblockBase implements ISurvivalCon
     }
 
     @Override
+    public boolean supportsSingleRecipeLocking() {
+        return false;
+    }
+
+    @Override
     public void saveNBTData(NBTTagCompound aNBT) {
         super.saveNBTData(aNBT);
         aNBT.setLong("eComputationRemaining", computationRemaining);

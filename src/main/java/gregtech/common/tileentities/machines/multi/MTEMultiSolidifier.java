@@ -429,9 +429,4 @@ public class MTEMultiSolidifier extends MTEExtendedPowerMultiBlockBase<MTEMultiS
     public boolean isInputSeparationEnabled() {
         return true;
     }
-
-    @Override
-    public boolean supportsSingleRecipeLocking() {
-        return true;
-    }
 }

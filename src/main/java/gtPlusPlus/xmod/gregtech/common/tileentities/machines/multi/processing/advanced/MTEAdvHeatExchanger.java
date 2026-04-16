@@ -454,6 +454,11 @@ public class MTEAdvHeatExchanger extends GTPPMultiBlockBase<MTEAdvHeatExchanger>
         }
     }
 
+    @Override
+    public boolean supportsSingleRecipeLocking() {
+        return false;
+    }
+
     private enum AdvHEHatches implements IHatchElement<MTEAdvHeatExchanger> {
 
         HotInputHatch(MTEAdvHeatExchanger::addHotFluidInputToMachineList, MTEHatchInput.class) {

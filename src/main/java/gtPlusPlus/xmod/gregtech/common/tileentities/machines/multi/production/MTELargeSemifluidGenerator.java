@@ -351,4 +351,8 @@ public class MTELargeSemifluidGenerator extends GTPPMultiBlockBase<MTELargeSemif
         return false;
     }
 
+    @Override
+    public boolean supportsSingleRecipeLocking() {
+        return false;
+    }
 }

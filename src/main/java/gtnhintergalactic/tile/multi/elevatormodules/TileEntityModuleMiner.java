@@ -1018,6 +1018,11 @@ public abstract class TileEntityModuleMiner extends TileEntityModuleBase impleme
         return true;
     }
 
+    @Override
+    public boolean supportsSingleRecipeLocking() {
+        return false;
+    }
+
     /**
      * Space Miner project module T1 of the Space Elevator
      *

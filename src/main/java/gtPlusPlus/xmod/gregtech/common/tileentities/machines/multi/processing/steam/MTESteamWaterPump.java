@@ -376,4 +376,8 @@ public class MTESteamWaterPump extends MTESteamMultiBase<MTESteamWaterPump> impl
         return SoundResource.GT_MACHINES_WATER_PUMP_LOOP;
     }
 
+    @Override
+    public boolean supportsSingleRecipeLocking() {
+        return false;
+    }
 }

@@ -368,4 +368,9 @@ public class MTESpargeTower extends GTPPMultiBlockBase<MTESpargeTower> implement
             lEUt = (-lEUt);
         }
     }
+
+    @Override
+    public boolean supportsSingleRecipeLocking() {
+        return false;
+    }
 }

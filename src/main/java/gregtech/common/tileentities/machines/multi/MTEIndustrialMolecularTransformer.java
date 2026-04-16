@@ -195,11 +195,6 @@ public class MTEIndustrialMolecularTransformer extends MTEExtendedPowerMultiBloc
     }
 
     @Override
-    public boolean supportsSingleRecipeLocking() {
-        return true;
-    }
-
-    @Override
     public boolean supportsVoidProtection() {
         return true;
     }
