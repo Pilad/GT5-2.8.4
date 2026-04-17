@@ -453,6 +453,20 @@ public class GTUITextures {
         .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_washplant");
     public static final UITexture OVERLAY_BUTTON_MACHINEMODE_SIMPLEWASHER = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_simplewasher");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_FORGE = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_iof_forge");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_MACERATOR = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_iof_macerator");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_WASHER = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_iof_washer");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_SIFTER = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_iof_sifter");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_THERMAL = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_iof_thermal");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_CENTRIFUGE = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_iof_centrifuge");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_BATH = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_iof_bath");
     public static final UITexture OVERLAY_BUTTON_MACHINEMODE_PACKAGER = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_packager");
     public static final UITexture OVERLAY_BUTTON_MACHINEMODE_UNPACKAGER = UITexture

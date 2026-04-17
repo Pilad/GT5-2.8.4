@@ -48,10 +48,12 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Textures;
+import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
+import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
@@ -61,6 +63,7 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
+import gregtech.common.tileentities.machines.multi.gui.MTEIntegratedOreFactoryLegacyGui;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -343,15 +346,6 @@ public class MTEIntegratedOreFactoryLegacy extends MTEExtendedPowerMultiBlockBas
         }
 
         int finalParallel = (int) (batchMultiplierMax * currentParallelBeforeBatchMode);
-
-        // for scanner
-        setCurrentParallelism(finalParallel);
-
-        // Consume fluids
-        depleteInput(GTModHandler.getDistilledWater(finalParallel * 200L));
-        depleteInput(Materials.Lubricant.getFluid(finalParallel * 2L));
-
-        // Consume items and generate outputs
         List<ItemStack> tOres = new ArrayList<>();
         int remainingCost = finalParallel;
         for (int i = 0, size = tInput.size(); i < size; i++) {
@@ -366,15 +360,15 @@ public class MTEIntegratedOreFactoryLegacy extends MTEExtendedPowerMultiBlockBas
                 if (remainingCost >= ore.stackSize) {
                     tOres.add(GTUtility.copy(ore));
                     remainingCost -= ore.stackSize;
-                    ore.stackSize = 0;
                 } else {
                     tOres.add(GTUtility.copyAmountUnsafe(remainingCost, ore));
-                    ore.stackSize -= remainingCost;
+                    remainingCost = 0;
                     break;
                 }
             }
         }
         sMidProduct = tOres.toArray(new ItemStack[0]);
+
         switch (sMode) {
             case 0 -> {
                 doMac(isOre);
@@ -420,6 +414,42 @@ public class MTEIntegratedOreFactoryLegacy extends MTEExtendedPowerMultiBlockBas
             }
         }
 
+        if (!hasOutputSpace(sMidProduct)) {
+            return CheckRecipeResultRegistry.ITEM_OUTPUT_FULL;
+        }
+
+        // if (mOutputFluids != null && !hasFluidOutputSpace(Arrays.asList(mOutputFluids))) {
+        // return CheckRecipeResultRegistry.FLUID_OUTPUT_FULL;
+        // }
+
+        depleteInput(GTModHandler.getDistilledWater(finalParallel * 200L));
+        depleteInput(Materials.Lubricant.getFluid(finalParallel * 2L));
+
+        remainingCost = finalParallel;
+        for (int i = 0, size = tInput.size(); i < size; i++) {
+            ItemStack ore = tInput.get(i);
+            int tID = GTUtility.stackToInt(ore);
+            if (tID == 0) continue;
+            if (isPureDust.contains(tID) || isImpureDust.contains(tID)
+                || isCrushedPureOre.contains(tID)
+                || isThermal.contains(tID)
+                || isCrushedOre.contains(tID)
+                || isOre.contains(tID)) {
+
+                if (remainingCost >= ore.stackSize) {
+                    remainingCost -= ore.stackSize;
+                    ore.stackSize = 0;
+                } else {
+                    ore.stackSize -= remainingCost;
+                    break;
+                }
+            }
+        }
+
+        tInput.removeIf(stack -> stack == null || stack.stackSize <= 0);
+
+        setCurrentParallelism(finalParallel);
+
         this.mEfficiency = 10000 - (getIdealStatus() - getRepairStatus()) * 1000;
         this.mEfficiencyIncrease = 10000;
         this.mOutputItems = sMidProduct;
@@ -431,6 +461,83 @@ public class MTEIntegratedOreFactoryLegacy extends MTEExtendedPowerMultiBlockBas
         this.updateSlots();
 
         return CheckRecipeResultRegistry.SUCCESSFUL;
+    }
+
+    private boolean hasOutputSpace(ItemStack[] outputs) {
+        if (!voidingMode.protectItem) {
+            return true;
+        }
+        if (outputs == null || outputs.length == 0) {
+            return true;
+        }
+
+        List<ItemStack> currentItems = new ArrayList<>();
+        for (ItemStack stack : getStoredOutputs()) {
+            if (stack != null) {
+                currentItems.add(stack.copy());
+            }
+        }
+
+        for (ItemStack toAdd : outputs) {
+            if (toAdd == null) continue;
+            int remaining = toAdd.stackSize;
+
+            for (ItemStack existing : currentItems) {
+                if (remaining <= 0) break;
+                if (GTUtility.areStacksEqual(existing, toAdd) && existing.stackSize < existing.getMaxStackSize()) {
+                    int canFit = Math.min(remaining, existing.getMaxStackSize() - existing.stackSize);
+                    existing.stackSize += canFit;
+                    remaining -= canFit;
+                }
+            }
+            if (remaining > 0) {
+                currentItems.add(GTUtility.copyAmountUnsafe(remaining, toAdd));
+            }
+        }
+
+        int maxSlots = 0;
+        if (mOutputBusses != null) {
+            for (var bus : mOutputBusses) {
+                maxSlots += bus.getSizeInventory();
+            }
+        }
+        return currentItems.size() <= maxSlots;
+    }
+
+    private boolean hasFluidOutputSpace(List<FluidStack> outputs) {
+        if (!voidingMode.protectFluid) {
+            return true;
+        }
+        if (outputs == null || outputs.isEmpty()) {
+            return true;
+        }
+
+        for (FluidStack toAdd : outputs) {
+            if (toAdd == null) continue;
+
+            boolean canFit = false;
+            for (MTEHatchOutput hatch : mOutputHatches) {
+                if (hatch.isValid() && hatch.canStoreFluid(toAdd)) {
+                    canFit = true;
+                    break;
+                }
+            }
+
+            if (!canFit) {
+                for (MTEHatchOutput hatch : mOutputHatches) {
+                    if (hatch.isValid() && hatch.getFluid() == null) {
+                        canFit = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!canFit) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private boolean checkTypes(int aID, IntOpenHashSet... aTables) {
@@ -602,7 +709,14 @@ public class MTEIntegratedOreFactoryLegacy extends MTEExtendedPowerMultiBlockBas
                             .copy();
                         int tStored = getFluidAmount(tInputFluid);
                         int tWashed = Math.min(tStored / tInputFluid.amount, aStack.stackSize);
-                        depleteInput(new FluidStack(tInputFluid.getFluid(), tWashed * tInputFluid.amount));
+
+                        for (FluidStack stored : getStoredFluids()) {
+                            if (stored.isFluidEqual(tInputFluid)) {
+                                stored.amount -= (tWashed * tInputFluid.amount);
+                                break;
+                            }
+                        }
+
                         tProduct.addAll(getOutputStack(tRecipe, tWashed));
                         if (tWashed < aStack.stackSize) {
                             tProduct.add(GTUtility.copyAmountUnsafe(aStack.stackSize - tWashed, aStack));
@@ -856,6 +970,11 @@ public class MTEIntegratedOreFactoryLegacy extends MTEExtendedPowerMultiBlockBas
     }
 
     @Override
+    public String getMachineModeKey() {
+        return String.join("\n", getDisplayMode(sMode));
+    }
+
+    @Override
     public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         super.getWailaBody(itemStack, currenttip, accessor, config);
@@ -889,5 +1008,41 @@ public class MTEIntegratedOreFactoryLegacy extends MTEExtendedPowerMultiBlockBas
     @Override
     public boolean supportsVoidProtection() {
         return true;
+    }
+
+    @Override
+    public boolean supportsMachineModeSwitch() {
+        return true;
+    }
+
+    @Override
+    public int getMachineMode() {
+        return sMode;
+    }
+
+    @Override
+    public void setMachineMode(int idx) {
+        sMode = idx;
+    }
+
+    @Override
+    public int nextMachineMode() {
+        return (sMode + 1) % 7;
+    }
+
+    @Override
+    public void setMachineModeIcons() {
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_MACERATOR);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_WASHER);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_CENTRIFUGE);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_SIFTER);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_BATH);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_THERMAL);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_FORGE);
+    }
+
+    @Override
+    protected @NotNull MTEIntegratedOreFactoryLegacyGui getGui() {
+        return new MTEIntegratedOreFactoryLegacyGui(this);
     }
 }

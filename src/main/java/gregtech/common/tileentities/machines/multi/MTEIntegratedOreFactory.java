@@ -38,7 +38,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.cleanroommc.modularui.drawable.UITexture;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
@@ -46,12 +45,13 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
 import gregtech.api.casing.Casings;
 import gregtech.api.enums.Materials;
+import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
-import gregtech.api.modularui2.GTGuiTextures;
+import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 import gregtech.api.objects.XSTR;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.check.CheckRecipeResult;
@@ -62,6 +62,7 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.common.misc.GTStructureChannels;
+import gregtech.common.tileentities.machines.multi.gui.MTEIntegratedOreFactoryGui;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -75,17 +76,6 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
     private static final int OFFSET_X = 7;
     private static final int OFFSET_Y = 6;
     private static final int OFFSET_Z = 1;
-
-    private static final UITexture[] MODE_ICONS = { GTGuiTextures.OVERLAY_BUTTON_MACHINEMODE_IOF_MACERATOR, // mac wash
-                                                                                                            // thermal
-                                                                                                            // mac
-        GTGuiTextures.OVERLAY_BUTTON_MACHINEMODE_IOF_WASHER, // mac wash mac centri
-        GTGuiTextures.OVERLAY_BUTTON_MACHINEMODE_IOF_CENTRIFUGE, // mac mac centri
-        GTGuiTextures.OVERLAY_BUTTON_MACHINEMODE_IOF_SIFTER, // mac wash sift
-        GTGuiTextures.OVERLAY_BUTTON_MACHINEMODE_IOF_BATH, // mac chem mac centri
-        GTGuiTextures.OVERLAY_BUTTON_MACHINEMODE_IOF_THERMAL, // mac chem thermal mac
-        GTGuiTextures.OVERLAY_BUTTON_MACHINEMODE_IOF_FORGE, // forge forge simplewash
-    };
 
     private static final IStructureDefinition<MTEIntegratedOreFactory> STRUCTURE_DEFINITION = StructureDefinition
         .<MTEIntegratedOreFactory>builder()
@@ -260,42 +250,6 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
             return CheckRecipeResultRegistry.NO_RECIPE;
         }
 
-        long totalWaterToDrain = (long) effectiveParallel * 200L;
-        while (totalWaterToDrain > 0) {
-            int tryDrain = (int) Math.min(totalWaterToDrain, Integer.MAX_VALUE);
-            if (!depleteInput(GTModHandler.getDistilledWater(tryDrain))) {
-                int maxHatch = 0;
-                for (FluidStack sf : getStoredFluids()) {
-                    if (sf != null && sf.isFluidEqual(GTModHandler.getDistilledWater(1L)) && sf.amount > maxHatch) {
-                        maxHatch = sf.amount;
-                    }
-                }
-                if (maxHatch <= 0) break;
-                tryDrain = (int) Math.min(totalWaterToDrain, maxHatch);
-                if (!depleteInput(GTModHandler.getDistilledWater(tryDrain))) break;
-            }
-            totalWaterToDrain -= tryDrain;
-        }
-
-        long totalLubricantToDrain = (long) effectiveParallel * 2L;
-        while (totalLubricantToDrain > 0) {
-            int tryDrain = (int) Math.min(totalLubricantToDrain, Integer.MAX_VALUE);
-            if (!depleteInput(Materials.Lubricant.getFluid(tryDrain))) {
-                int maxHatch = 0;
-                for (FluidStack sf : getStoredFluids()) {
-                    if (sf != null && sf.isFluidEqual(Materials.Lubricant.getFluid(1L)) && sf.amount > maxHatch) {
-                        maxHatch = sf.amount;
-                    }
-                }
-                if (maxHatch <= 0) break;
-                tryDrain = (int) Math.min(totalLubricantToDrain, maxHatch);
-                if (!depleteInput(Materials.Lubricant.getFluid(tryDrain))) break;
-            }
-            totalLubricantToDrain -= tryDrain;
-        }
-
-        final long fixedEUt = -RECIPE_EUT * baseParallel;
-
         List<ItemStack> tOres = new ArrayList<>();
         int remaining = effectiveParallel;
 
@@ -307,7 +261,6 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
             int take = Math.min(remaining, ore.stackSize);
 
             tOres.add(GTUtility.copyAmountUnsafe(take, ore));
-            ore.stackSize -= take;
             remaining -= take;
         }
 
@@ -360,6 +313,63 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
                 return CheckRecipeResultRegistry.NO_RECIPE;
             }
         }
+
+        if (!hasOutputSpace(midProduct)) {
+            return CheckRecipeResultRegistry.ITEM_OUTPUT_FULL;
+        }
+
+        // if (mOutputFluids != null && !hasFluidOutputSpace(Arrays.asList(mOutputFluids))) {
+        // return CheckRecipeResultRegistry.FLUID_OUTPUT_FULL;
+        // }
+
+        long totalWaterToDrain = (long) effectiveParallel * 200L;
+        while (totalWaterToDrain > 0) {
+            int tryDrain = (int) Math.min(totalWaterToDrain, Integer.MAX_VALUE);
+            if (!depleteInput(GTModHandler.getDistilledWater(tryDrain))) {
+                int maxHatch = 0;
+                for (FluidStack sf : getStoredFluids()) {
+                    if (sf != null && sf.isFluidEqual(GTModHandler.getDistilledWater(1L)) && sf.amount > maxHatch) {
+                        maxHatch = sf.amount;
+                    }
+                }
+                if (maxHatch <= 0) break;
+                tryDrain = (int) Math.min(totalWaterToDrain, maxHatch);
+                if (!depleteInput(GTModHandler.getDistilledWater(tryDrain))) break;
+            }
+            totalWaterToDrain -= tryDrain;
+        }
+
+        long totalLubricantToDrain = (long) effectiveParallel * 2L;
+        while (totalLubricantToDrain > 0) {
+            int tryDrain = (int) Math.min(totalLubricantToDrain, Integer.MAX_VALUE);
+            if (!depleteInput(Materials.Lubricant.getFluid(tryDrain))) {
+                int maxHatch = 0;
+                for (FluidStack sf : getStoredFluids()) {
+                    if (sf != null && sf.isFluidEqual(Materials.Lubricant.getFluid(1L)) && sf.amount > maxHatch) {
+                        maxHatch = sf.amount;
+                    }
+                }
+                if (maxHatch <= 0) break;
+                tryDrain = (int) Math.min(totalLubricantToDrain, maxHatch);
+                if (!depleteInput(Materials.Lubricant.getFluid(tryDrain))) break;
+            }
+            totalLubricantToDrain -= tryDrain;
+        }
+
+        remaining = effectiveParallel;
+        for (int i = 0; i < inputItem.size() && remaining > 0; i++) {
+            ItemStack ore = inputItem.get(i);
+            int tID = GTUtility.stackToInt(ore);
+            if (tID == 0 || !isValidOreInput(tID)) continue;
+
+            int take = Math.min(remaining, ore.stackSize);
+            ore.stackSize -= take;
+            remaining -= take;
+        }
+
+        inputItem.removeIf(stack -> stack == null || stack.stackSize <= 0);
+
+        final long fixedEUt = -RECIPE_EUT * baseParallel;
 
         this.mEfficiency = 10000 - (getIdealStatus() - getRepairStatus()) * 1000;
         this.mEfficiencyIncrease = 10000;
@@ -494,22 +504,13 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
                 long available = getFluidAmount(requiredFluid);
                 int canProcess = (int) Math.min(available / requiredFluid.amount, stack.stackSize);
 
-                long totalChemToDrain = (long) canProcess * requiredFluid.amount;
-                while (totalChemToDrain > 0) {
-                    int tryDrain = (int) Math.min(totalChemToDrain, Integer.MAX_VALUE);
-                    if (!depleteInput(new FluidStack(requiredFluid.getFluid(), tryDrain))) {
-                        int maxHatch = 0;
-                        for (FluidStack sf : getStoredFluids()) {
-                            if (sf != null && sf.isFluidEqual(requiredFluid) && sf.amount > maxHatch) {
-                                maxHatch = sf.amount;
-                            }
-                        }
-                        if (maxHatch <= 0) break;
-                        tryDrain = (int) Math.min(totalChemToDrain, maxHatch);
-                        if (!depleteInput(new FluidStack(requiredFluid.getFluid(), tryDrain))) break;
+                for (FluidStack stored : getStoredFluids()) {
+                    if (stored.isFluidEqual(requiredFluid)) {
+                        stored.amount -= (canProcess * requiredFluid.amount);
+                        break;
                     }
-                    totalChemToDrain -= tryDrain;
                 }
+
                 output.addAll(getOutputStack(recipe, canProcess));
 
                 if (canProcess < stack.stackSize) {
@@ -856,5 +857,109 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
     @Override
     public boolean supportsSingleRecipeLocking() {
         return false;
+    }
+
+    private boolean hasOutputSpace(ItemStack[] outputs) {
+        if (!voidingMode.protectItem) {
+            return true;
+        }
+        if (outputs == null || outputs.length == 0) {
+            return true;
+        }
+
+        List<ItemStack> currentItems = new ArrayList<>();
+        for (ItemStack stack : getStoredOutputs()) {
+            if (stack != null) {
+                currentItems.add(stack.copy());
+            }
+        }
+
+        for (ItemStack toAdd : outputs) {
+            if (toAdd == null) continue;
+            int remaining = toAdd.stackSize;
+
+            for (ItemStack existing : currentItems) {
+                if (remaining <= 0) break;
+                if (GTUtility.areStacksEqual(existing, toAdd) && existing.stackSize < existing.getMaxStackSize()) {
+                    int canFit = Math.min(remaining, existing.getMaxStackSize() - existing.stackSize);
+                    existing.stackSize += canFit;
+                    remaining -= canFit;
+                }
+            }
+            if (remaining > 0) {
+                currentItems.add(GTUtility.copyAmountUnsafe(remaining, toAdd));
+            }
+        }
+
+        int maxSlots = 0;
+        if (mOutputBusses != null) {
+            for (var bus : mOutputBusses) {
+                maxSlots += bus.getSizeInventory();
+            }
+        }
+        return currentItems.size() <= maxSlots;
+    }
+
+    private boolean hasFluidOutputSpace(List<FluidStack> outputs) {
+        if (!voidingMode.protectFluid) {
+            return true;
+        }
+        if (outputs == null || outputs.isEmpty()) {
+            return true;
+        }
+
+        for (FluidStack toAdd : outputs) {
+            if (toAdd == null) continue;
+
+            boolean canFit = false;
+            for (MTEHatchOutput hatch : mOutputHatches) {
+                if (hatch.isValid() && hatch.canStoreFluid(toAdd)) {
+                    canFit = true;
+                    break;
+                }
+            }
+
+            if (!canFit) {
+                for (MTEHatchOutput hatch : mOutputHatches) {
+                    if (hatch.isValid() && hatch.getFluid() == null) {
+                        canFit = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!canFit) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean supportsMachineModeSwitch() {
+        return true;
+    }
+
+    @Override
+    public int nextMachineMode() {
+        return mode.next()
+            .ordinal();
+    }
+
+    @Override
+    public void setMachineModeIcons() {
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_MACERATOR);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_WASHER);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_CENTRIFUGE);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_SIFTER);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_BATH);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_THERMAL);
+        machineModeIcons.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_IOF_FORGE);
+    }
+
+    @Override
+    protected @NotNull MTEIntegratedOreFactoryGui getGui() {
+        return new MTEIntegratedOreFactoryGui(this);
     }
 }
