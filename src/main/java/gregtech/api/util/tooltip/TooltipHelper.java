@@ -23,8 +23,9 @@ public class TooltipHelper {
     public static final EnumChatFormatting TIER_COLOR = EnumChatFormatting.WHITE;
     public static final EnumChatFormatting ITALIC = EnumChatFormatting.ITALIC;
     public static final EnumChatFormatting EU_VOLT_COLOR = EnumChatFormatting.YELLOW;
-    public static final EnumChatFormatting CAP_COLOR = EnumChatFormatting.GOLD;
     public static final EnumChatFormatting AMP_COLOR = EnumChatFormatting.AQUA;
+    public static final EnumChatFormatting CAPACITY_COLOR = EnumChatFormatting.BLUE;
+    public static final EnumChatFormatting EU_AMOUNT_COLOR = EnumChatFormatting.GRAY;
     public static final EnumChatFormatting CABLE_LOSS_COLOR = EnumChatFormatting.RED;
     public static final EnumChatFormatting L_COLOR = EnumChatFormatting.WHITE;
     public static final DecimalFormat percentageFormat = new DecimalFormat("0.##%");
@@ -165,6 +166,13 @@ public class TooltipHelper {
     }
 
     /**
+     * @return The given number of EU, formatted.
+     */
+    public static String euCapacityText(long capacity) {
+        return CAPACITY_COLOR + GTUtility.formatNumbers(capacity) + EU_AMOUNT_COLOR + " EU";
+    }
+
+    /**
      * @return A string of the form "[voltage] ([voltage tier])"
      */
     public static String voltageText(long voltage) {
@@ -178,13 +186,6 @@ public class TooltipHelper {
      */
     public static String ampText(long amps) {
         return AMP_COLOR + GTUtility.formatNumbers(amps) + EnumChatFormatting.GRAY;
-    }
-
-    /**
-     * @return The given number of capacity, formatted.
-     */
-    public static String capText(long capacity) {
-        return CAP_COLOR + GTUtility.formatNumbers(capacity) + EnumChatFormatting.GRAY;
     }
 
     /**

@@ -385,8 +385,8 @@ public class MTEIndustrialMacerator extends MTEExtendedPowerMultiBlockBase<MTEIn
     @Override
     protected ProcessingLogic createProcessingLogic() {
         return new ProcessingLogic().noRecipeCaching()
-            .setSpeedBonus(1F / getSpeedBonus())
-            .setMaxParallelSupplier(this::getTrueParallel);
+            .setMaxParallelSupplier(this::getTrueParallel)
+            .setSpeedBonusSupplier(this::getSpeedBonus);
     }
 
     @Override
@@ -459,7 +459,7 @@ public class MTEIndustrialMacerator extends MTEExtendedPowerMultiBlockBase<MTEIn
         return null;
     }
 
-    public float getSpeedBonus() {
-        return (float) structureTier == 2 ? 6.4f : 1.6f;
+    public double getSpeedBonus() {
+        return 1F / (structureTier == 2 ? 6.4f : 1.6f);
     }
 }

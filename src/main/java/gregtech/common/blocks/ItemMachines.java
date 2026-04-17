@@ -87,29 +87,31 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
                     && ((ISecondaryDescribable) metaTileEntity).isDisplaySecondaryDescription()) ? "_Secondary" : "";
                 addDescription(aList, gtTileEntity.getDescription(), tDamage, tSuffix);
                 metaTileEntity.addAdditionalTooltipInformation(aStack, aList);
-                if (gtTileEntity.getEUCapacity() > 0L && !(metaTileEntity instanceof IHideTooltipEnergyInfo)) {
-                    if (gtTileEntity.getInputVoltage() > 0L) {
-                        aList.add(
-                            translate(
-                                "gt.tileentity.eup_in",
-                                TooltipHelper.voltageText(gtTileEntity.getInputVoltage())));
-                    }
-                    if (gtTileEntity.getOutputVoltage() > 0L) {
-                        aList.add(
-                            translate(
-                                "gt.tileentity.eup_out",
-                                TooltipHelper.voltageText(gtTileEntity.getOutputVoltage())));
-                    }
-                    if (gtTileEntity.getOutputAmperage() > 1L) {
-                        aList.add(
-                            translate(
-                                "gt.tileentity.amperage",
-                                TooltipHelper.ampText(gtTileEntity.getOutputAmperage())));
+                if (gtTileEntity.getEUCapacity() > 0L) {
+                    if (!(metaTileEntity instanceof IHideTooltipEnergyInfo)) {
+                        if (gtTileEntity.getInputVoltage() > 0L) {
+                            aList.add(
+                                translate(
+                                    "gt.tileentity.eup_in",
+                                    TooltipHelper.voltageText(gtTileEntity.getInputVoltage())));
+                        }
+                        if (gtTileEntity.getOutputVoltage() > 0L) {
+                            aList.add(
+                                translate(
+                                    "gt.tileentity.eup_out",
+                                    TooltipHelper.voltageText(gtTileEntity.getOutputVoltage())));
+                        }
+                        if (gtTileEntity.getOutputAmperage() > 1L) {
+                            aList.add(
+                                translate(
+                                    "gt.tileentity.amperage",
+                                    TooltipHelper.ampText(gtTileEntity.getOutputAmperage())));
+                        }
                     }
                     aList.add(
-                        translate("gt.tileentity.eup_store") + " "
-                            + TooltipHelper.capText(gtTileEntity.getEUCapacity()));
-
+                        translate(
+                            "gt.tileentity.eup_store",
+                            TooltipHelper.euCapacityText(gtTileEntity.getEUCapacity())));
                 }
             }
             final NBTTagCompound aNBT = aStack.getTagCompound();
