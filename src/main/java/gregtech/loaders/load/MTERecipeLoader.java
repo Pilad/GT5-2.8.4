@@ -1781,7 +1781,7 @@ public class MTERecipeLoader implements Runnable {
         // Industrial Coke Oven
         GTModHandler.addCraftingRecipe(
             ItemList.IndustrialCokeOven.get(1),
-            new Object[] { "PCP", "HCH", "POP", 'P', MaterialsAlloy.TANTALLOY_61.getPlate(1), 'C', "circuitData", 'H',
+            new Object[] { "PCP", "HOH", "PCP", 'P', MaterialsAlloy.TANTALLOY_61.getPlate(1), 'C', "circuitData", 'H',
                 ItemList.Casing_EV, 'O', ItemList.CokeOvenController });
 
         // Extreme Combustion Engine Conversion Recipe
@@ -1847,6 +1847,12 @@ public class MTERecipeLoader implements Runnable {
             ItemList.MacerationStack.get(1),
             new Object[] { GregtechItemList.Industrial_MacerationStack.get(1) });
 
+        // Industrial Maceration Stack
+        GTModHandler.addCraftingRecipe(
+            ItemList.MacerationStack.get(1),
+            new Object[] { "PCP", "MBM", "PCP", 'P', OrePrefixes.plate.get(Materials.Titanium), 'M',
+                ItemList.Machine_EV_Macerator, 'C', "circuitData", 'B', GregtechItemList.Casing_MacerationStack });
+
         // Planetary Gas Siphon Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.PlanetarySiphon.get(1),
@@ -1875,6 +1881,12 @@ public class MTERecipeLoader implements Runnable {
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.FishingPort.get(1),
             new Object[] { GregtechItemList.Industrial_FishingPond.get(1) });
+
+        // Zhuhai - Fishing Port
+        GTModHandler.addCraftingRecipe(
+            ItemList.FishingPort.get(1),
+            new Object[] { "PWP", "CFC", "PWP", 'P', MaterialsAlloy.AQUATIC_STEEL.getPlate(1), 'C', "circuitElite", 'W',
+                OrePrefixes.wireFine.get(Materials.Electrum), 'F', GregtechItemList.FishTrap });
 
         // Integrated Ore Factory Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
