@@ -40,12 +40,14 @@ import static gregtech.common.items.IDMetaItem03.Circuit_Board_Plastic;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Plastic_Advanced;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Wetware;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Wetware_Extreme;
+import static gregtech.common.items.IDMetaItem03.Circuit_Chip_APIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_BioCPU;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_Biocell;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_CPU;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_CrystalCPU;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_CrystalSoC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_CrystalSoC2;
+import static gregtech.common.items.IDMetaItem03.Circuit_Chip_FPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_HPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_ILC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_LPIC;
@@ -57,6 +59,7 @@ import static gregtech.common.items.IDMetaItem03.Circuit_Chip_NeuroCPU;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_Optical;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_PIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_PPIC;
+import static gregtech.common.items.IDMetaItem03.Circuit_Chip_PlPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_QPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_QuantumCPU;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_Ram;
@@ -66,6 +69,8 @@ import static gregtech.common.items.IDMetaItem03.Circuit_Chip_SoC2;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_Stemcell;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_UHPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_ULPIC;
+import static gregtech.common.items.IDMetaItem03.Circuit_Chip_YPIC;
+import static gregtech.common.items.IDMetaItem03.Circuit_Chip_ZPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_CosmicAssembly;
 import static gregtech.common.items.IDMetaItem03.Circuit_CosmicComputer;
 import static gregtech.common.items.IDMetaItem03.Circuit_CosmicMainframe;
@@ -128,13 +133,16 @@ import static gregtech.common.items.IDMetaItem03.Circuit_Silicon_Wafer4;
 import static gregtech.common.items.IDMetaItem03.Circuit_Silicon_Wafer5;
 import static gregtech.common.items.IDMetaItem03.Circuit_Silicon_Wafer6;
 import static gregtech.common.items.IDMetaItem03.Circuit_Silicon_Wafer7;
+import static gregtech.common.items.IDMetaItem03.Circuit_Silicon_Wafer8;
 import static gregtech.common.items.IDMetaItem03.Circuit_TranscendentAssembly;
 import static gregtech.common.items.IDMetaItem03.Circuit_TranscendentComputer;
 import static gregtech.common.items.IDMetaItem03.Circuit_TranscendentMainframe;
 import static gregtech.common.items.IDMetaItem03.Circuit_TranscendentProcessor;
 import static gregtech.common.items.IDMetaItem03.Circuit_Ultimatecrystalcomputer;
+import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_APIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_Bioware;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_CPU;
+import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_FPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_HPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_ILC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_LPIC;
@@ -144,6 +152,7 @@ import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_NPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_NanoCPU;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_PIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_PPIC;
+import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_PlPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_QPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_QuantumCPU;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_Ram;
@@ -152,6 +161,8 @@ import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_SoC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_SoC2;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_UHPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_ULPIC;
+import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_YPIC;
+import static gregtech.common.items.IDMetaItem03.Circuit_Wafer_ZPIC;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wetwarecomputer;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wetwaremainframe;
 import static gregtech.common.items.IDMetaItem03.Circuit_Wetwaresupercomputer;
@@ -162,6 +173,7 @@ import static gregtech.common.items.IDMetaItem03.Cover_SolarPanel_UIV;
 import static gregtech.common.items.IDMetaItem03.EV_Coil;
 import static gregtech.common.items.IDMetaItem03.GalliumArsenideCrystal;
 import static gregtech.common.items.IDMetaItem03.GalliumArsenideCrystalSmallPart;
+import static gregtech.common.items.IDMetaItem03.Gravitational_Lens;
 import static gregtech.common.items.IDMetaItem03.HV_Coil;
 import static gregtech.common.items.IDMetaItem03.Harmonic_Compound;
 import static gregtech.common.items.IDMetaItem03.Heavy_Hellish_Mud;
@@ -423,6 +435,13 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
                 "Photonically Enhanced Wafer",
                 RAW,
                 "waferPhotonicallyEnhanced",
+                "wafer"));
+        ItemList.Circuit_Silicon_Wafer8.set(
+            addItem(
+                Circuit_Silicon_Wafer8.ID,
+                GTUtility.translate("gt.item.circuit.wafer.infinite.name"),
+                RAW,
+                "waferInfinite",
                 "wafer"));
 
         ItemList.Circuit_Wafer_ILC
@@ -1340,6 +1359,82 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
                 Naquarite_Universal_Insulator_Foil.ID,
                 "Naquarite Universal Insulator Foil",
                 String.join("/n ", "The Perfect Insulator!", "Absorbs all heat, radiation and electricity.")));
+
+        ItemList.Circuit_Wafer_FPIC.set(
+            addItem(
+                Circuit_Wafer_FPIC.ID,
+                GTUtility.translate("gt.item.circuit.wafer.fpic.name"),
+                RAW,
+                "waferFPIC",
+                "wafer"));
+        ItemList.Circuit_Chip_FPIC.set(
+            addItem(
+                Circuit_Chip_FPIC.ID,
+                GTUtility.translate("gt.item.circuit.chip.fpic.name"),
+                GTUtility.translate("gt.item.circuit.chip.fpic.tooltip"),
+                "chipFPIC",
+                "chip"));
+        ItemList.Circuit_Wafer_APIC.set(
+            addItem(
+                Circuit_Wafer_APIC.ID,
+                GTUtility.translate("gt.item.circuit.wafer.apic.name"),
+                RAW,
+                "waferAPIC",
+                "wafer"));
+        ItemList.Circuit_Chip_APIC.set(
+            addItem(
+                Circuit_Chip_APIC.ID,
+                GTUtility.translate("gt.item.circuit.chip.apic.name"),
+                GTUtility.translate("gt.item.circuit.chip.apic.tooltip"),
+                "chipAPIC",
+                "chip"));
+        ItemList.Circuit_Wafer_ZPIC.set(
+            addItem(
+                Circuit_Wafer_ZPIC.ID,
+                GTUtility.translate("gt.item.circuit.wafer.zpic.name"),
+                RAW,
+                "waferZPIC",
+                "wafer"));
+        ItemList.Circuit_Chip_ZPIC.set(
+            addItem(
+                Circuit_Chip_ZPIC.ID,
+                GTUtility.translate("gt.item.circuit.chip.zpic.name"),
+                GTUtility.translate("gt.item.circuit.chip.zpic.tooltip"),
+                "chipZPIC",
+                "chip"));
+        ItemList.Circuit_Wafer_YPIC.set(
+            addItem(
+                Circuit_Wafer_YPIC.ID,
+                GTUtility.translate("gt.item.circuit.wafer.ypic.name"),
+                RAW,
+                "waferYPIC",
+                "wafer"));
+        ItemList.Circuit_Chip_YPIC.set(
+            addItem(
+                Circuit_Chip_YPIC.ID,
+                GTUtility.translate("gt.item.circuit.chip.ypic.name"),
+                GTUtility.translate("gt.item.circuit.chip.ypic.tooltip"),
+                "chipYPIC",
+                "chip"));
+        ItemList.Circuit_Wafer_PlPIC.set(
+            addItem(
+                Circuit_Wafer_PlPIC.ID,
+                GTUtility.translate("gt.item.circuit.wafer.plpic.name"),
+                RAW,
+                "waferPlPIC",
+                "wafer"));
+        ItemList.Circuit_Chip_PlPIC.set(
+            addItem(
+                Circuit_Chip_PlPIC.ID,
+                GTUtility.translate("gt.item.circuit.chip.plpic.name"),
+                GTUtility.translate("gt.item.circuit.chip.plpic.tooltip"),
+                "chipPlPIC",
+                "chip"));
+        ItemList.Gravitational_Lens.set(
+            addItem(
+                Gravitational_Lens.ID,
+                GTUtility.translate("gt.item.gravitational_lens.name"),
+                GTUtility.translate("gt.item.gravitational_lens.tooltip")));
 
         registerAllTieredTooltips();
         registerAllAnimatedTooltips();
