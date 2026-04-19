@@ -184,7 +184,7 @@ public class NaniteChain {
                 GregtechItemList.Laser_Lens_Special.get(0), // Quantum Anomaly, couldn't find any better
                                                             // naming
                 MaterialsUEVplus.WhiteDwarfMatter.getBlocks(8),
-                getModItem(NewHorizonsCoreMod.ID, "item.PicoWafer", 32),
+                ItemList.Circuit_Chip_APIC.get(64),
                 new ItemStack(huiCircuit, 1, 4) // Paradox circuit
             )
             .itemOutputs(MaterialsUEVplus.WhiteDwarfMatter.getNanite(4))
@@ -205,7 +205,7 @@ public class NaniteChain {
                 GregtechItemList.Laser_Lens_Special.get(0), // Quantum Anomaly, couldn't find any better
                                                             // naming
                 MaterialsUEVplus.BlackDwarfMatter.getBlocks(8),
-                getModItem(NewHorizonsCoreMod.ID, "item.PicoWafer", 32),
+                ItemList.Circuit_Chip_APIC.get(64),
                 new ItemStack(huiCircuit, 1, 4) // Paradox circuit
             )
             .itemOutputs(MaterialsUEVplus.BlackDwarfMatter.getNanite(4))
@@ -247,7 +247,7 @@ public class NaniteChain {
                 GregtechItemList.Laser_Lens_Special.get(0),
                 MaterialsUEVplus.TranscendentMetal.getNanite(1),
                 MaterialsUEVplus.Eternity.getBlocks(8),
-                getModItem(NewHorizonsCoreMod.ID, "item.PicoWafer", 32),
+                ItemList.Circuit_Chip_APIC.get(64),
                 ItemList.Timepiece.get(4))
             .itemOutputs(MaterialsUEVplus.Eternity.getNanite(4))
             .fluidInputs(
@@ -266,7 +266,7 @@ public class NaniteChain {
                 GTOreDictUnificator.get(OrePrefixes.lens, Materials.Forcillium, 0, false),
                 MaterialsUEVplus.Universium.getNanite(1),
                 MaterialsUEVplus.MagMatter.getBlocks(8),
-                getModItem(NewHorizonsCoreMod.ID, "item.PicoWafer", 64),
+                ItemList.Circuit_Chip_YPIC.get(64),
                 GTOreDictUnificator.get(OrePrefixes.circuit, Materials.UXV, 1))
             .itemOutputs(MaterialsUEVplus.MagMatter.getNanite(1))
             .fluidInputs(

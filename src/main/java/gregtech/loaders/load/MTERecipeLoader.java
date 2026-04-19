@@ -1721,6 +1721,13 @@ public class MTERecipeLoader implements Runnable {
             ItemList.AdvancedImplosionCompressor.get(1),
             new Object[] { GregtechItemList.Machine_Adv_ImplosionCompressor.get(1) });
 
+        // Density^2
+        GTModHandler.addCraftingRecipe(
+            ItemList.AdvancedImplosionCompressor.get(1),
+            new Object[] { "GCG", "RHF", "IXI", 'G', MaterialsAlloy.LEAGRISIUM.getGear(1), 'C', "circuitMaster", 'F',
+                ItemList.Field_Generator_IV, 'H', ItemList.Hull_ZPM, 'R', ItemList.Robot_Arm_IV, 'I',
+                "plateAlloyIridium", 'X', GregtechItemList.Gregtech_Computer_Cube.get(1) });
+
         // Large Thermal Refinery Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.LargeThermalRefinery.get(1),
