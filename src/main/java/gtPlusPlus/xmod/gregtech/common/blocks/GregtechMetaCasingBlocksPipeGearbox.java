@@ -42,8 +42,8 @@ public class GregtechMetaCasingBlocksPipeGearbox extends GregtechMetaCasingBlock
     public IIcon getIcon(final int ordinalSide, final int meta) {
         if ((meta >= 0) && (meta < 16)) {
             switch (meta) {
-                case 0, 1, 2, 3, 4, 5, 6, 7 -> {
-                    return TexturesGtBlock.TEXTURE_GEARBOX_GENERIC.getIcon();
+                case 0 -> {
+                    return TexturesGtBlock.TEXTURE_GEARBOX_EGLINSTEEL.getIcon();
                 }
                 case 1 -> {
                     return TexturesGtBlock.TEXTURE_GEARBOX_INCONEL792.getIcon();
