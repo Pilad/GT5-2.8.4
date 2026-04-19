@@ -100,6 +100,8 @@ public class TexturesGtBlock {
 
     public static final CustomIcon Casing_Material_Grisium = new CustomIcon(
         "TileEntities/MACHINE_CASING_STABLE_GRISIUM");
+    public static final CustomIcon Casing_Material_Grisium_Top = new CustomIcon(
+        "TileEntities/MACHINE_CASING_STABLE_GRISIUM_TOP");
     public static final CustomIcon Casing_Material_RedSteel = new CustomIcon(
         "TileEntities/MACHINE_CASING_STABLE_RED_STEEL");
     public static final CustomIcon Casing_Material_ZirconiumCarbide = new CustomIcon(
@@ -677,7 +679,8 @@ public class TexturesGtBlock {
 
     public static final CustomIcon TEXTURE_TECH_A = new CustomIcon("metro/TEXTURE_TECH_A");
     public static final CustomIcon TEXTURE_TECH_B = new CustomIcon("metro/TEXTURE_TECH_B");
-    public static final CustomIcon TEXTURE_TECH_C = new CustomIcon("metro/TEXTURE_TECH_C");
+    // public static final CustomIcon TEXTURE_TECH_C = new CustomIcon("metro/TEXTURE_TECH_C");
+    public static final CustomIcon MOLECULAR_CONTAINMENT_CASING = new CustomIcon("metro/MOLECULAR_CONTAINMENT_CASING");
 
     public static final CustomIcon TEXTURE_TECH_PANEL_D = new CustomIcon("metro/TEXTURE_TECH_PANEL_D");
     public static final CustomIcon TEXTURE_TECH_PANEL_H = new CustomIcon("metro/TEXTURE_TECH_PANEL_H");

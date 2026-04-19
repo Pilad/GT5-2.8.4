@@ -739,6 +739,13 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "multimachine.adv.implosioncompressor",
                 "Density^2").getStackForm(1L));
 
+        // Density^2
+        GTModHandler.addCraftingRecipe(
+            ItemList.AdvancedImplosionCompressor.get(1),
+            new Object[] { "GCG", "RHF", "IXI", 'G', MaterialsAlloy.LEAGRISIUM.getGear(1), 'C', "circuitMaster", 'F',
+                ItemList.Field_Generator_IV, 'H', ItemList.Hull_ZPM, 'R', ItemList.Robot_Arm_IV, 'I',
+                "plateAlloyIridium", 'X', GregtechItemList.Gregtech_Computer_Cube });
+
         ItemList.UniversalChemicalFuelEngine.set(
             new MTEUniversalChemicalFuelEngine(
                 UniversalChemicalFuelEngine.ID,

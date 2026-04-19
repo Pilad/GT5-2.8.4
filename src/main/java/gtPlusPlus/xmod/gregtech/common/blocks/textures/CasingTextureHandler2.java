@@ -22,7 +22,8 @@ public class CasingTextureHandler2 {
                     return TexturesGtBlock.Casing_Material_Fluid_IncoloyDS.getIcon();
                 }
                 case 4 -> {
-                    return TexturesGtBlock.Casing_Material_Grisium.getIcon();
+                    return ordinalSide < 2 ? TexturesGtBlock.Casing_Material_Grisium_Top.getIcon()
+                        : TexturesGtBlock.Casing_Material_Grisium.getIcon();
                 }
                 case 5 -> {
                     return TexturesGtBlock.Casing_Machine_Metal_Panel_A.getIcon();

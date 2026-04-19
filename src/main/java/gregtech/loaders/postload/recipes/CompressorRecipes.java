@@ -343,5 +343,12 @@ public class CompressorRecipes implements Runnable {
             .duration(15 * SECONDS)
             .eut(2)
             .addTo(compressorRecipes);
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(Materials.Graphite.getDust(18))
+            .itemOutputs(ItemList.Casing_Refined_Graphite.get(1L))
+            .duration(GTRecipeBuilder.SECONDS * 30)
+            .eut(TierEU.RECIPE_MV)
+            .addTo(compressorRecipes);
     }
 }

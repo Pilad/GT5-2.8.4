@@ -57,7 +57,7 @@ public class MTEAdvImplosionCompressor extends MTEExtendedPowerMultiBlockBase<MT
                 { "  CEC  ", " AA AA ", " A   A ", "A     A", " A   A ", " AA AA ", "D  A  D", "BBBBBBB", "BBBBBBB" },
                 { "       ", "  AAA  ", " AA AA ", " A   A ", " AA AA ", " DAAAD ", "       ", " BBBBB ", " DBBBD " },
                 { "       ", "       ", "   A   ", "  A A  ", "   A   ", "   D   ", "  D D  ", "  BBB  ", "  BDB  " } })
-        .addElement('A', Casings.NaquadahFuelRefineryCasing.asElement())
+        .addElement('A', Casings.RefinedGraphiteBlock.asElement())
         .addElement(
             'B',
             ofChain(
@@ -97,7 +97,7 @@ public class MTEAdvImplosionCompressor extends MTEExtendedPowerMultiBlockBase<MT
             .beginStructureBlock(7, 9, 7, true)
             .addController("Front center")
             .addCasingInfoMin("Robust Tungstensteel Machine Casing", 50, false)
-            .addCasingInfoExactly("Naquadah Fuel Refinery Casing", 80, false)
+            .addCasingInfoExactly("Refined Graphite Block", 80, false)
             .addCasingInfoExactly("Gold Frame Boxes", 4, false)
             .addCasingInfoExactly("Electrum Frame Boxes", 4, false)
             .addCasingInfoExactly("Tungstensteel Frame Box", 24, false)

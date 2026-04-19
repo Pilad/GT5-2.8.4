@@ -36,6 +36,7 @@ public class GregtechMetaSpecialMultiCasings extends GregtechMetaCasingBlocksAbs
     public GregtechMetaSpecialMultiCasings() {
         super(SpecialCasingItemBlock.class, "gtplusplus.blockspecialcasings.1", MaterialCasings.INSTANCE);
         TAE.registerTexture(1, 12, TextureFactory.of(this, 14));
+        TAE.registerTexture(3, 1, TextureFactory.of(this, 11));
 
         GregtechItemList.Casing_Turbine_Shaft.set(new ItemStack(this, 1, 0));
         GregtechItemList.Casing_Turbine_LP.set(new ItemStack(this, 1, 1));
@@ -80,7 +81,7 @@ public class GregtechMetaSpecialMultiCasings extends GregtechMetaCasingBlocksAbs
             case 8 -> TexturesGtBlock.Casing_Machine_Simple_Top.getIcon();
             case 9 -> TexturesGtBlock.TEXTURE_CASING_FLOTATION.getIcon();
             case 10, 14 -> TexturesGtBlock.Casing_Material_Talonite.getIcon();
-            case 11 -> Textures.BlockIcons.MACHINE_CASING_RADIATIONPROOF.getIcon();
+            case 11 -> TexturesGtBlock.MOLECULAR_CONTAINMENT_CASING.getIcon();
             case 12 -> TexturesGtBlock.Casing_Redox_5.getIcon();
             case 13 -> TexturesGtBlock.TEXTURE_MAGIC_PANEL_B.getIcon();
             case 15 -> TexturesGtBlock.Turbine_SC_Material_Casing.getIcon();

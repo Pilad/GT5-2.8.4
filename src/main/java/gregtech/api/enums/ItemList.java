@@ -1725,6 +1725,7 @@ public enum ItemList implements IItemContainer {
     Casing_Item_Pipe_Fluxed_Electrum,
     Casing_Item_Pipe_Black_Plutonium,
 
+    Casing_Refined_Graphite,
     MobRep_LV,
     MobRep_MV,
     MobRep_HV,
