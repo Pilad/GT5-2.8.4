@@ -192,6 +192,6 @@ public class MTEHatchSteamBusOutput extends MTEHatchOutputBus {
 
     @Override
     public boolean pushOutputInventory() {
-        return false;
+        return true;
     }
 }
