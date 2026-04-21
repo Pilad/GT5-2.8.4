@@ -29,7 +29,6 @@ import bartworks.common.loaders.recipes.FormingPress;
 import bartworks.common.loaders.recipes.LaserEngraver;
 import bartworks.common.loaders.recipes.Mixer;
 import bartworks.common.loaders.recipes.Pulverizer;
-import bartworks.common.loaders.recipes.PyrolyseOven;
 import gregtech.api.util.GTModHandler;
 
 public class RecipeLoader {
@@ -54,6 +53,5 @@ public class RecipeLoader {
         new LaserEngraver().run();
         new Mixer().run();
         new Pulverizer().run();
-        new PyrolyseOven().run();
     }
 }
