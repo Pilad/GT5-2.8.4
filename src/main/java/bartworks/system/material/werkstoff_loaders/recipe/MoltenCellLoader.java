@@ -13,9 +13,7 @@
 
 package bartworks.system.material.werkstoff_loaders.recipe;
 
-import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.enums.OrePrefixes.bolt;
-import static gregtech.api.enums.OrePrefixes.capsuleMolten;
 import static gregtech.api.enums.OrePrefixes.cellMolten;
 import static gregtech.api.enums.OrePrefixes.dust;
 import static gregtech.api.enums.OrePrefixes.dustSmall;
@@ -52,7 +50,6 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.recipe.RecipeCategories;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
 
 public class MoltenCellLoader implements IWerkstoffRunnable {
@@ -326,18 +323,5 @@ public class MoltenCellLoader implements IWerkstoffRunnable {
             werkstoff.get(cellMolten),
             Materials.Empty.getCells(1));
         GTUtility.addFluidContainerData(data);
-
-        if (!Forestry.isModLoaded()) return;
-
-        final FluidContainerRegistry.FluidContainerData emptyData = new FluidContainerRegistry.FluidContainerData(
-            new FluidStack(Objects.requireNonNull(WerkstoffLoader.molten.get(werkstoff)), 1 * INGOTS),
-            werkstoff.get(capsuleMolten),
-            GTModHandler.getModItem(Forestry.ID, "refractoryEmpty", 1));
-        FluidContainerRegistry.registerFluidContainer(
-            werkstoff.getMolten(1 * INGOTS),
-            werkstoff.get(capsuleMolten),
-            GTModHandler.getModItem(Forestry.ID, "refractoryEmpty", 1));
-        GTUtility.addFluidContainerData(emptyData);
-
     }
 }

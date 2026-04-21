@@ -48,7 +48,6 @@ import cpw.mods.fml.common.Loader;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.FluidState;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.Mods;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.enums.TCAspects;
@@ -732,10 +731,6 @@ public class Werkstoff implements IColorModulationContainer, ISubTagContainer {
             Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.rawOre, 0b1000);
 
             Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.cell, 0b10000);
-            if (Mods.Forestry.isModLoaded()) {
-                Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.capsule, 0b10000);
-                Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.capsuleMolten, 0b1000000);
-            }
             // Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.bottle,0b10000);
 
             Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.cellMolten, 0b1000000);
