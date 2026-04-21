@@ -2027,6 +2027,10 @@ tt.infodata.multi.currently_using=Сейчас использует: %s EU/t
 tt.infodata.multi.capacity.heat=Теплоёмкость: %s
 tt.infodata.multi.capacity.heat.effective=Эффективная теплоёмкость: %s
 
+## Waila
+
+tt.waila.multi.computation=§7Вычисление: §a%s
+
 ## Eye of Harmony
 tt.infodata.eoh.control_block_statistics=Статистика блока управления
 tt.infodata.eoh.spacetime_compression.grade=Генератор поля пространственно-временного сжатия: %s (%s)
