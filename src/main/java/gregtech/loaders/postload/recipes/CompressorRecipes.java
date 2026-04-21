@@ -21,6 +21,7 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.MaterialsUEVplus;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
+import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.recipe.metadata.CompressionTierKey;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
@@ -349,6 +350,14 @@ public class CompressorRecipes implements Runnable {
             .itemOutputs(ItemList.Casing_Refined_Graphite.get(1L))
             .duration(30 * SECONDS)
             .eut(TierEU.RECIPE_MV)
+            .addTo(compressorRecipes);
+
+        // From ProcessingSaplings
+        GTValues.RA.stdBuilder()
+            .itemInputs(new OreDictItemStack("treeSapling", 8))
+            .itemOutputs(ItemList.IC2_Plantball.get(1L))
+            .duration(15 * SECONDS)
+            .eut(2)
             .addTo(compressorRecipes);
     }
 }

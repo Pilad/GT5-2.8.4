@@ -12,6 +12,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.GTValues;
+import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipeConstants;
 
@@ -130,6 +131,13 @@ public class FuelRecipes implements Runnable {
                 .metadata(FUEL_TYPE, 5)
                 .addTo(GTRecipeConstants.Fuel);
         }
+
+        // From ProcessingWax
+        GTValues.RA.stdBuilder()
+            .itemInputs(new OreDictItemStack("waxMagical", 1))
+            .metadata(FUEL_VALUE, 6)
+            .metadata(FUEL_TYPE, 5)
+            .addTo(GTRecipeConstants.Fuel);
 
     }
 }

@@ -20,6 +20,7 @@ import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
+import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 
@@ -521,6 +522,15 @@ public class BreweryRecipes implements Runnable {
             this.addPotionRecipes("speed", GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sugar, 1L));
             this.addPotionRecipes("strength", GTOreDictUnificator.get(OrePrefixes.dust, Materials.Blaze, 1L));
         }
+
+        // From ProcessingCrop - cropLemon brewery
+        GTValues.RA.stdBuilder()
+            .itemInputs(new OreDictItemStack("cropLemon", 1))
+            .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 750))
+            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.leninade"), 750))
+            .duration(6 * SECONDS + 8 * TICKS)
+            .eut(4)
+            .addTo(brewingRecipes);
     }
 
     public void addPotionRecipes(String aName, ItemStack aItem) {
