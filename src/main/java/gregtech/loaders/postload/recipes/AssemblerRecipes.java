@@ -2771,7 +2771,8 @@ public class AssemblerRecipes implements Runnable {
         GTValues.RA.stdBuilder()
             .itemInputs(
                 GTOreDictUnificator.get(OrePrefixes.plate, Materials.StainlessSteel, 6),
-                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.StainlessSteel, 1))
+                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.StainlessSteel, 1),
+                GTUtility.getIntegratedCircuit(1))
             .itemOutputs(ItemList.Casing_CleanStainlessSteel.get(1))
             .duration(2 * SECONDS + 10 * TICKS)
             .eut(TierEU.RECIPE_LV / 2)
@@ -2782,7 +2783,7 @@ public class AssemblerRecipes implements Runnable {
                 GTOreDictUnificator.get(OrePrefixes.plate, Materials.StainlessSteel, 4),
                 GTOreDictUnificator.get(OrePrefixes.plate, Materials.Steel, 2),
                 GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.StainlessSteel, 1),
-                GTUtility.getIntegratedCircuit(1))
+                GTUtility.getIntegratedCircuit(2))
             .itemOutputs(ItemList.FormingCore.get(1))
             .duration(2 * SECONDS + 10 * TICKS)
             .eut(TierEU.RECIPE_LV / 2)
