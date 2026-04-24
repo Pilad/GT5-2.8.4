@@ -53,10 +53,11 @@ import gtPlusPlus.core.util.minecraft.FluidUtils;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 
-public class MTEThermalBoiler extends GTPPMultiBlockBase<MTEThermalBoiler> implements ISurvivalConstructable {
+public class MTEThermalBoilerLegacy extends GTPPMultiBlockBase<MTEThermalBoilerLegacy>
+    implements ISurvivalConstructable {
 
     private int mCasing;
-    private static IStructureDefinition<MTEThermalBoiler> STRUCTURE_DEFINITION = null;
+    private static IStructureDefinition<MTEThermalBoilerLegacy> STRUCTURE_DEFINITION = null;
 
     private static final int lavaFilterResilience = 30; // Damage lava filter with 1/n probability every operation.
     private int dryHeatCounter = 0; // Counts up to dryHeatMaximum to check for explosion conditions.
@@ -72,17 +73,17 @@ public class MTEThermalBoiler extends GTPPMultiBlockBase<MTEThermalBoiler> imple
     private static final Fluid fluidSHSteam = FluidUtils.getSuperHeatedSteam(1)
         .getFluid();
 
-    public MTEThermalBoiler(int aID, String aName, String aNameRegional) {
+    public MTEThermalBoilerLegacy(int aID, String aName, String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTEThermalBoiler(String mName) {
+    public MTEThermalBoilerLegacy(String mName) {
         super(mName);
     }
 
     @Override
     public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
-        return new MTEThermalBoiler(this.mName);
+        return new MTEThermalBoilerLegacy(this.mName);
     }
 
     @Override
@@ -322,16 +323,16 @@ public class MTEThermalBoiler extends GTPPMultiBlockBase<MTEThermalBoiler> imple
     }
 
     @Override
-    public IStructureDefinition<MTEThermalBoiler> getStructureDefinition() {
+    public IStructureDefinition<MTEThermalBoilerLegacy> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
-            STRUCTURE_DEFINITION = StructureDefinition.<MTEThermalBoiler>builder()
+            STRUCTURE_DEFINITION = StructureDefinition.<MTEThermalBoilerLegacy>builder()
                 .addShape(
                     mName,
                     transpose(
                         new String[][] { { "CCC", "CCC", "CCC" }, { "C~C", "C-C", "CCC" }, { "CCC", "CCC", "CCC" }, }))
                 .addElement(
                     'C',
-                    buildHatchAdder(MTEThermalBoiler.class)
+                    buildHatchAdder(MTEThermalBoilerLegacy.class)
                         .atLeast(InputBus, OutputBus, InputHatch, OutputHatch, Maintenance, Muffler)
                         .casingIndex(TAE.getIndexFromPage(0, 1))
                         .dot(1)

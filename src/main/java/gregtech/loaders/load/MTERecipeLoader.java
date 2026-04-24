@@ -1819,6 +1819,19 @@ public class MTERecipeLoader implements Runnable {
             ItemList.FlotationCell.get(1),
             new Object[] { GregtechItemList.Controller_Flotation_Cell.get(1) });
 
+        // Thermal Boiler Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.ThermalBoiler.get(1),
+            new Object[] { GregtechItemList.GT4_Thermal_Boiler.get(1) });
+
+        // Thermal Boiler
+        GTModHandler.addCraftingRecipe(
+            ItemList.ThermalBoiler.get(1),
+            GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "LCL", "GIG", "LCL", 'L', OrePrefixes.plate.get(Materials.TungstenSteel), 'C',
+                ItemList.Machine_HV_Centrifuge, 'G', OrePrefixes.gearGt.get(Materials.TungstenSteel), 'I',
+                "circuitElite" });
+
         // Large Naquadah Reactor Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.LargeNaquadahReactor.get(1),

@@ -2767,6 +2767,7 @@ public enum ItemList implements IItemContainer {
     IndustrialFormingPress,
     IndustrialBendingMachine,
     Boldarnator,
+    ThermalBoiler,
     MolecularTransformer,
     PlanetarySiphon,
     FlotationCell,
