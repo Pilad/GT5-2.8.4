@@ -1892,6 +1892,21 @@ GT5U.interface.coverTabs.redstone.west=запад
 GT5U.interface.coverTabs.redstone.east=восток
 GT5U.interface.coverTabs.redstone.unknown=<unknown>
 
+## Basic Electronic Circuit
+gt.item.circuit.basic_electronic.name=Basic Electronic Circuit
+gt.item.circuit.basic_electronic.tooltip=A Basic Circuit
+
+## Advanced Integrated Circuit
+gt.item.circuit.advanced_integrated.name=Advanced Integrated Circuit
+gt.item.circuit.advanced_integrated.tooltip=An Advanced Circuit
+
+gt.item.circuit_board.exotic.name=Exotic Circuit Board
+gt.item.circuit_board.exotic.tooltip=Exotic Matter Infused Board
+gt.item.circuit_board.cosmic.name=Cosmic Circuit Board
+gt.item.circuit_board.cosmic.tooltip=Cosmos Infused Board
+gt.item.circuit_board.transcendent.name=Temporally Transcendent Circuit Board
+gt.item.circuit_board.transcendent.tooltip=Temporally Warped Board
+
 ## Coils
 gt.item.coil.ulv.name=Ultra Low Voltage Coil
 gt.item.coil.ulv.tooltip=Primitive Coil

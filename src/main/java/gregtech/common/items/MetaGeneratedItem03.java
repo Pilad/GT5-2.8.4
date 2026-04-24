@@ -24,6 +24,8 @@ import static gregtech.client.GTTooltipHandler.Tier.ZPM;
 import static gregtech.client.GTTooltipHandler.registerTieredTooltip;
 import static gregtech.common.items.IDMetaItem03.Activated_Carbon_Filter_Mesh;
 import static gregtech.common.items.IDMetaItem03.Brittle_Netherite_Scrap;
+import static gregtech.common.items.IDMetaItem03.Circuit_AdvancedIntegrated;
+import static gregtech.common.items.IDMetaItem03.Circuit_BasicElectronic;
 import static gregtech.common.items.IDMetaItem03.Circuit_Biomainframe;
 import static gregtech.common.items.IDMetaItem03.Circuit_Bioprocessor;
 import static gregtech.common.items.IDMetaItem03.Circuit_Biowarecomputer;
@@ -31,13 +33,16 @@ import static gregtech.common.items.IDMetaItem03.Circuit_Biowaresupercomputer;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Bio;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Bio_Ultra;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Coated_Basic;
+import static gregtech.common.items.IDMetaItem03.Circuit_Board_Cosmic;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Epoxy_Advanced;
+import static gregtech.common.items.IDMetaItem03.Circuit_Board_Exotic;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Fiberglass_Advanced;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Multifiberglass_Elite;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Optical;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Phenolic_Good;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Plastic;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Plastic_Advanced;
+import static gregtech.common.items.IDMetaItem03.Circuit_Board_Transcendent;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Wetware;
 import static gregtech.common.items.IDMetaItem03.Circuit_Board_Wetware_Extreme;
 import static gregtech.common.items.IDMetaItem03.Circuit_Chip_APIC;
@@ -783,6 +788,25 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
         ItemList.Circuit_Board_Optical
             .set(addItem(Circuit_Board_Optical.ID, "Optical Circuit Board", "Optically Infused Board", o));
 
+        ItemList.Circuit_Board_Exotic.set(
+            addItem(
+                Circuit_Board_Exotic.ID,
+                GTUtility.translate("gt.item.circuit_board.exotic.name"),
+                GTUtility.translate("gt.item.circuit_board.exotic.tooltip"),
+                o));
+        ItemList.Circuit_Board_Cosmic.set(
+            addItem(
+                Circuit_Board_Cosmic.ID,
+                GTUtility.translate("gt.item.circuit_board.cosmic.name"),
+                GTUtility.translate("gt.item.circuit_board.cosmic.tooltip"),
+                o));
+        ItemList.Circuit_Board_Transcendent.set(
+            addItem(
+                Circuit_Board_Transcendent.ID,
+                GTUtility.translate("gt.item.circuit_board.transcendent.name"),
+                GTUtility.translate("gt.item.circuit_board.transcendent.tooltip"),
+                o));
+
         // Optical circuits
         ItemList.Circuit_OpticalProcessor.set(
             addItem(
@@ -1360,6 +1384,22 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
                 "Naquarite Universal Insulator Foil",
                 String.join("/n ", "The Perfect Insulator!", "Absorbs all heat, radiation and electricity.")));
 
+        // IC2 Circuit Replacements
+        ItemList.Circuit_BasicElectronic.set(
+            addItem(
+                Circuit_BasicElectronic.ID,
+                GTUtility.translate("gt.item.circuit.basic_electronic.name"),
+                GTUtility.translate("gt.item.circuit.basic_electronic.tooltip"),
+                OrePrefixes.circuit.get(Materials.LV),
+                SubTag.NO_UNIFICATION));
+        ItemList.Circuit_Integrated_Advanced.set(
+            addItem(
+                Circuit_AdvancedIntegrated.ID,
+                GTUtility.translate("gt.item.circuit.advanced_integrated.name"),
+                GTUtility.translate("gt.item.circuit.advanced_integrated.tooltip"),
+                OrePrefixes.circuit.get(Materials.HV),
+                SubTag.NO_UNIFICATION));
+
         ItemList.Circuit_Wafer_FPIC.set(
             addItem(
                 Circuit_Wafer_FPIC.ID,
@@ -1444,8 +1484,10 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
     }
 
     private void registerAllTieredTooltips() {
+        registerTieredTooltip(ItemList.Circuit_BasicElectronic.get(1), LV);
         registerTieredTooltip(ItemList.NandChip.get(1), ULV);
         registerTieredTooltip(ItemList.Circuit_Integrated_Good.get(1), MV);
+        registerTieredTooltip(ItemList.Circuit_Integrated_Advanced.get(1), HV);
         registerTieredTooltip(ItemList.Circuit_Microprocessor.get(1), LV);
         registerTieredTooltip(ItemList.Circuit_Processor.get(1), MV);
         registerTieredTooltip(ItemList.Circuit_Nanoprocessor.get(1), HV);
