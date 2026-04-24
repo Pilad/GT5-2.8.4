@@ -415,6 +415,11 @@ public abstract class MTESteamMultiBase<T extends MTESteamMultiBase<T>> extends 
     }
 
     @Override
+    public boolean supportsVoidProtection() {
+        return true;
+    }
+
+    @Override
     public void clearHatches() {
         super.clearHatches();
         mInputHatches.clear();

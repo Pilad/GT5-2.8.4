@@ -36,6 +36,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
+import gregtech.api.enums.Materials;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
@@ -77,33 +78,63 @@ public class MTESteamMacerator extends MTESteamMultiBase<MTESteamMacerator> impl
         return "Macerator";
     }
 
-    private static final String STRUCTUR_PIECE_MAIN = "main";
+    private static final String STRUCTURE_PIECE_MAIN = "main";
+    private static final String STRUCTURE_PIECE_LEGACY = "legacy";
 
     private IStructureDefinition<MTESteamMacerator> STRUCTURE_DEFINITION = null;
 
-    private final String[][] shape = new String[][] { { "CCC", "CCC", "CCC" }, { "C~C", "C-C", "CCC" },
-        { "CCC", "CCC", "CCC" } };
+    // TODO remove by 2.10/2.11
+    private final String[][] shape_legacy = new String[][] { { "AAA", "AAA", "AAA" }, { "A~A", "A-A", "AAA" },
+        { "AAA", "AAA", "AAA" } };
+
+    // spotless:off
+    private final String[][] shape = new String[][]{
+        {" A ", "CAC", "C~C", "AAA"},
+        {"ABA", "A A", "A A", "AAA"},
+        {" A ", "CAC", "CAC", "AAA"}};
     // spotless:on
 
-    private static final int HORIZONTAL_OFF_SET = 1;
-    private static final int VERTICAL_OFF_SET = 1;
-    private static final int DEPTH_OFF_SET = 0;
+    private static final int HORIZONTAL_OFFSET = 1;
+    private static final int VERTICAL_OFFSET = 2;
+    private static final int DEPTH_OFFSET = 0;
 
-    private int mCounCasing = 0;
+    private int casingAmount = 0;
 
     private int tierMachine = 0;
 
     private int tierMachineCasing = -1;
+    private int tierGearboxCasing = -1;
+    private int tierFrame = -1;
 
     @Nullable
     public Integer getTierMachineCasing(Block block, int meta) {
         if (block == sBlockCasings1 && 10 == meta) {
-            mCounCasing++;
+            casingAmount++;
             return 1;
         }
         if (block == sBlockCasings2 && 0 == meta) {
-            mCounCasing++;
+            casingAmount++;
             return 2;
+        }
+        return null;
+    }
+
+    @Nullable
+    public Integer getTierGearboxCasing(Block block, int meta) {
+        if (block == sBlockCasings2 && meta == 2) {
+            return 1;
+        }
+        if (block == sBlockCasings2 && meta == 3) {
+            return 2;
+        }
+        return null;
+    }
+
+    @Nullable
+    public static Integer getTierFrame(Block block, int meta) {
+        if (block == GregTechAPI.sBlockFrames) {
+            if (meta == Materials.Bronze.mMetaItemSubID) return 1;
+            if (meta == Materials.Steel.mMetaItemSubID) return 2;
         }
         return null;
     }
@@ -115,7 +146,8 @@ public class MTESteamMacerator extends MTESteamMultiBase<MTESteamMacerator> impl
     }
 
     private int getCasingTextureID() {
-        if (tierMachineCasing == 2) return ((BlockCasings2) GregTechAPI.sBlockCasings2).getTextureIndex(0);
+        if (tierMachineCasing == 2 || tierGearboxCasing == 2 || tierFrame == 2)
+            return ((BlockCasings2) GregTechAPI.sBlockCasings2).getTextureIndex(0);
         return ((BlockCasings1) GregTechAPI.sBlockCasings1).getTextureIndex(10);
     }
 
@@ -159,9 +191,10 @@ public class MTESteamMacerator extends MTESteamMultiBase<MTESteamMacerator> impl
     public IStructureDefinition<MTESteamMacerator> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
             STRUCTURE_DEFINITION = StructureDefinition.<MTESteamMacerator>builder()
-                .addShape(STRUCTUR_PIECE_MAIN, transpose(shape))
+                .addShape(STRUCTURE_PIECE_LEGACY, transpose(shape_legacy))
+                .addShape(STRUCTURE_PIECE_MAIN, shape)
                 .addElement(
-                    'C',
+                    'A',
                     ofChain(
                         buildSteamInput(MTESteamMacerator.class).casingIndex(10)
                             .dot(1)
@@ -177,6 +210,25 @@ public class MTESteamMacerator extends MTESteamMultiBase<MTESteamMacerator> impl
                             -1,
                             (t, m) -> t.tierMachineCasing = m,
                             t -> t.tierMachineCasing)))
+                .addElement(
+                    'B',
+                    ofBlocksTiered(
+                        this::getTierGearboxCasing,
+                        ImmutableList.of(Pair.of(sBlockCasings2, 2), Pair.of(sBlockCasings2, 3)),
+                        -1,
+                        (t, m) -> t.tierGearboxCasing = m,
+                        t -> t.tierGearboxCasing))
+                .addElement(
+                    'C',
+                    ofBlocksTiered(
+                        MTESteamMacerator::getTierFrame,
+                        ImmutableList.of(
+                            Pair.of(GregTechAPI.sBlockFrames, Materials.Bronze.mMetaItemSubID),
+                            Pair.of(GregTechAPI.sBlockFrames, Materials.Steel.mMetaItemSubID)),
+                        -1,
+                        (t, m) -> t.tierFrame = m,
+                        t -> t.tierFrame))
+
                 .build();
         }
         return STRUCTURE_DEFINITION;
@@ -184,17 +236,17 @@ public class MTESteamMacerator extends MTESteamMultiBase<MTESteamMacerator> impl
 
     @Override
     public void construct(ItemStack stackSize, boolean hintsOnly) {
-        buildPiece(STRUCTUR_PIECE_MAIN, stackSize, hintsOnly, HORIZONTAL_OFF_SET, VERTICAL_OFF_SET, DEPTH_OFF_SET);
+        buildPiece(STRUCTURE_PIECE_MAIN, stackSize, hintsOnly, HORIZONTAL_OFFSET, VERTICAL_OFFSET, DEPTH_OFFSET);
     }
 
     @Override
     public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
         return survivalBuildPiece(
-            STRUCTUR_PIECE_MAIN,
+            STRUCTURE_PIECE_MAIN,
             stackSize,
-            HORIZONTAL_OFF_SET,
-            VERTICAL_OFF_SET,
-            DEPTH_OFF_SET,
+            HORIZONTAL_OFFSET,
+            VERTICAL_OFFSET,
+            DEPTH_OFFSET,
             elementBudget,
             env,
             false,
@@ -204,14 +256,51 @@ public class MTESteamMacerator extends MTESteamMultiBase<MTESteamMacerator> impl
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         tierMachineCasing = -1;
-        mCounCasing = 0;
-        if (!checkPiece(STRUCTUR_PIECE_MAIN, HORIZONTAL_OFF_SET, VERTICAL_OFF_SET, DEPTH_OFF_SET)) return false;
-        if (tierMachineCasing == 1 && mCounCasing >= 14 && checkHatches()) {
+        tierGearboxCasing = -1;
+        tierFrame = -1;
+        casingAmount = 0;
+
+        if (checkPiece(STRUCTURE_PIECE_LEGACY, 1, 1, 0)) {
+
+            if (tierMachineCasing == 1 && casingAmount >= 14 && checkHatches()) {
+                updateHatchTexture();
+                tierMachine = 1;
+                return true;
+            }
+
+            if (tierMachineCasing == 2 && casingAmount >= 14 && checkHatches()) {
+                updateHatchTexture();
+                tierMachine = 2;
+                return true;
+            }
+
+            return false;
+        }
+
+        tierMachineCasing = -1;
+        tierGearboxCasing = -1;
+        tierFrame = -1;
+        casingAmount = 0;
+
+        if (!checkPiece(STRUCTURE_PIECE_MAIN, HORIZONTAL_OFFSET, VERTICAL_OFFSET, DEPTH_OFFSET)) {
+            return false;
+        }
+
+        if (tierFrame == 1 && tierMachineCasing == 1
+            && tierGearboxCasing == 1
+            && casingAmount >= 14
+            && checkHatches()) {
+
             updateHatchTexture();
             tierMachine = 1;
             return true;
         }
-        if (tierMachineCasing == 2 && mCounCasing >= 14 && checkHatches()) {
+
+        if (tierFrame == 2 && tierMachineCasing == 2
+            && tierGearboxCasing == 2
+            && casingAmount >= 14
+            && checkHatches()) {
+
             updateHatchTexture();
             tierMachine = 2;
             return true;
@@ -278,7 +367,7 @@ public class MTESteamMacerator extends MTESteamMultiBase<MTESteamMacerator> impl
         tt.addMachineType(getMachineType())
             .addSteamBulkMachineInfo(8, 1.25f, 0.625f)
             .addInfo(HIGH_PRESSURE_TOOLTIP_NOTICE)
-            .beginStructureBlock(3, 3, 3, true)
+            .beginStructureBlock(3, 4, 3, true)
             .addController("Front center")
             .addSteamInputBus(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + " Any casing", 1)
             .addSteamOutputBus(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + " Any casing", 1)
@@ -290,11 +379,16 @@ public class MTESteamMacerator extends MTESteamMultiBase<MTESteamMacerator> impl
                     + " Any casing")
             .addStructureInfo("")
             .addStructureInfo(EnumChatFormatting.BLUE + "Basic " + EnumChatFormatting.DARK_PURPLE + "Tier")
-            .addStructureInfo(EnumChatFormatting.GOLD + "14-22x" + EnumChatFormatting.GRAY + " Bronze Plated Bricks")
+            .addStructureInfo(EnumChatFormatting.GOLD + "14-20x" + EnumChatFormatting.GRAY + " Bronze Plated Bricks")
+            .addStructureInfo(EnumChatFormatting.GOLD + "8" + EnumChatFormatting.GRAY + " Bronze Frame Box")
+            .addStructureInfo(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + " Bronze Gear Box Casing")
             .addStructureInfo("")
             .addStructureInfo(EnumChatFormatting.BLUE + "High Pressure " + EnumChatFormatting.DARK_PURPLE + "Tier")
             .addStructureInfo(
-                EnumChatFormatting.GOLD + "14-22x" + EnumChatFormatting.GRAY + " Solid Steel Machine Casing")
+                EnumChatFormatting.GOLD + "14-20x" + EnumChatFormatting.GRAY + " Solid Steel Machine Casing")
+            .addStructureInfo(EnumChatFormatting.GOLD + "8" + EnumChatFormatting.GRAY + " Steel Frame Box")
+            .addStructureInfo(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + " Steel Gear Box Casing")
+            .addStructureAuthors(EnumChatFormatting.GOLD + "Citrusss")
             .toolTipFinisher();
         return tt;
     }
