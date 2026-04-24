@@ -3,7 +3,6 @@ package gregtech.api.util.tooltip;
 import java.text.DecimalFormat;
 
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.VoltageIndex;
@@ -199,10 +198,9 @@ public class TooltipHelper {
      * @return A string of the form "[lossPerMeter] EU-Volt"
      */
     public static String cableLossText(long lossPerMeter) {
-        return CABLE_LOSS_COLOR + GTUtility.formatNumbers(lossPerMeter)
-            + " "
-            + EnumChatFormatting.GRAY
-            + StatCollector.translateToLocal("GT5U.item.cable.eu_volt");
+        return GTUtility.translate(
+            "GT5U.item.cable.loss.eu_volt",
+            CABLE_LOSS_COLOR + GTUtility.formatNumbers(lossPerMeter) + EnumChatFormatting.GRAY);
     }
 
     /**
