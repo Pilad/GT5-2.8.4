@@ -1780,6 +1780,19 @@ public class MTERecipeLoader implements Runnable {
             ItemList.IndustrialCentrifuge.get(1),
             new Object[] { GregtechItemList.Industrial_Centrifuge.get(1) });
 
+        // Cryogenic Freezer Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.CryogenicFreezer.get(1),
+            new Object[] { GregtechItemList.Industrial_Cryogenic_Freezer.get(1) });
+
+        // Cryogenic Freezer
+        GTModHandler.addCraftingRecipe(
+            ItemList.CryogenicFreezer.get(1),
+            GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "PCP", "GXG", "DOD", 'G', MaterialsAlloy.INCOLOY_MA956.getGear(1), 'C', "circuitMaster", 'P',
+                ItemList.Electric_Piston_IV, 'X', GregtechItemList.Casing_AdvancedVacuum, 'D',
+                MaterialsAlloy.LEAGRISIUM.getPlateDouble(1), 'O', GregtechItemList.Gregtech_Computer_Cube });
+
         // Industrial Coke Oven Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.IndustrialCokeOven.get(1),

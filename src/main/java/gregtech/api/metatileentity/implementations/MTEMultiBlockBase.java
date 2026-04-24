@@ -151,7 +151,9 @@ import gregtech.common.tileentities.machines.multi.MTELargeTurbine;
 import gregtech.common.tileentities.machines.multi.drone.MTEHatchDroneDownLink;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTESteamMultiBase;
+import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
@@ -217,6 +219,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
 
     protected List<MTEHatch> mExoticEnergyHatches = new ArrayList<>();
     protected List<MTEHatch> mExoticDynamoHatches = new ArrayList<>();
+    protected List<MTEHatch> mCryotheumHatches = new ArrayList<>();
 
     protected final ProcessingLogic processingLogic;
     @SideOnly(Side.CLIENT)
@@ -498,6 +501,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         mMaintenanceHatches.clear();
         mDualInputHatches.clear();
         mSmartInputHatches.clear();
+        mCryotheumHatches.clear();
 
         mCoils.clear();
         deactivateCoilLease();
@@ -2125,6 +2129,19 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         return false;
     }
 
+    public boolean addCryotheumHatchToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) return false;
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) return false;
+        if (aMetaTileEntity instanceof MTEHatchCustomFluidBase mteHatchCryotheum
+            && mteHatchCryotheum.mLockedFluid == TFFluids.fluidCryotheum) {
+            mteHatchCryotheum.updateTexture(aBaseCasingIndex);
+            mteHatchCryotheum.updateCraftingIcon(this.getMachineCraftingIcon());
+            return mCryotheumHatches.add(mteHatchCryotheum);
+        }
+        return false;
+    }
+
     public boolean addMufflerToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
@@ -2623,6 +2640,10 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
 
     public List<MTEHatch> getExoticDynamoHatches() {
         return mExoticDynamoHatches;
+    }
+
+    public List<MTEHatch> getCryotheumHatches() {
+        return mCryotheumHatches;
     }
 
     /**

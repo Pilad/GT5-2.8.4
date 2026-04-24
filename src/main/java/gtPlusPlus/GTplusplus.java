@@ -235,8 +235,6 @@ public class GTplusplus {
         RecipeGenMultisUsingFluidInsteadOfCells
             .generateRecipesNotUsingCells(RecipeMaps.electrolyzerRecipes, GTPPRecipeMaps.electrolyzerNonCellRecipes);
         RecipeGenMultisUsingFluidInsteadOfCells
-            .generateRecipesNotUsingCells(RecipeMaps.vacuumFreezerRecipes, GTPPRecipeMaps.advancedFreezerRecipes);
-        RecipeGenMultisUsingFluidInsteadOfCells
             .generateRecipesNotUsingCells(RecipeMaps.mixerRecipes, GTPPRecipeMaps.mixerNonCellRecipes);
         RecipeGenMultisUsingFluidInsteadOfCells.generateRecipesNotUsingCells(
             GTPPRecipeMaps.chemicalDehydratorRecipes,
