@@ -32,7 +32,7 @@ import gregtech.nei.formatter.HeatingCoilSpecialValueFormatter;
 import gregtech.nei.formatter.SimpleSpecialValueFormatter;
 import gtPlusPlus.core.util.math.MathUtils;
 import gtPlusPlus.xmod.gregtech.api.gui.GTPPUITextures;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MTETreeFarm;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MTETreeFarmLegacy;
 
 public class GTPPRecipeMaps {
 
@@ -254,7 +254,7 @@ public class GTPPRecipeMaps {
         .build();
     public static final RecipeMap<RecipeMapBackend> treeGrowthSimulatorFakeRecipes = RecipeMapBuilder
         .of("gtpp.recipe.treefarm")
-        .maxIO(MTETreeFarm.Mode.values().length, MTETreeFarm.Mode.values().length, 0, 0)
+        .maxIO(MTETreeFarmLegacy.Mode.values().length, MTETreeFarmLegacy.Mode.values().length, 0, 0)
         .minInputs(1, 0)
         .useSpecialSlot()
         .frontend(TGSFrontend::new)

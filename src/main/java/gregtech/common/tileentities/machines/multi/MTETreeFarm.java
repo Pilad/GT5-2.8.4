@@ -1,17 +1,20 @@
-package gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production;
+package gregtech.common.tileentities.machines.multi;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
+import static gregtech.api.enums.HatchElement.MultiAmpEnergy;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
 import static gregtech.api.util.GTUtility.validMTEList;
 import static gregtech.common.items.IDMetaTool01.BRANCHCUTTER;
 import static gregtech.common.items.IDMetaTool01.BUZZSAW_HV;
@@ -28,7 +31,6 @@ import static gregtech.common.items.IDMetaTool01.POCKET_SAW;
 import static gregtech.common.items.IDMetaTool01.POCKET_WIRECUTTER;
 import static gregtech.common.items.IDMetaTool01.SAW;
 import static gregtech.common.items.IDMetaTool01.WIRECUTTER;
-import static gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase.GTPPHatchElement.TTEnergy;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -37,11 +39,14 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -51,19 +56,22 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import forestry.api.arboriculture.IToolGrafter;
 import forestry.api.arboriculture.ITree;
 import forestry.api.arboriculture.TreeManager;
+import gregtech.api.casing.Casings;
 import gregtech.api.enums.GTValues;
+import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
-import gregtech.api.enums.TAE;
-import gregtech.api.interfaces.IIconContainer;
+import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.items.MetaGeneratedTool;
 import gregtech.api.logic.ProcessingLogic;
+import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
 import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
+import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
@@ -73,34 +81,37 @@ import gregtech.common.items.IDMetaTool01;
 import gregtech.common.items.MetaGeneratedTool01;
 import gregtech.common.pollution.PollutionConfig;
 import gregtech.common.tileentities.machines.MTEHatchInputBusME;
-import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
-import gtPlusPlus.core.block.ModBlocks;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
-import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
-import gtPlusPlus.xmod.gregtech.common.items.MetaGeneratedGregtechTools;
 import gtPlusPlus.xmod.gregtech.loaders.recipe.RecipeLoaderTreeFarm;
 
-public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISurvivalConstructable {
+public class MTETreeFarm extends MTEExtendedPowerMultiBlockBase<MTETreeFarm> implements ISurvivalConstructable {
 
-    public static int CASING_TEXTURE_ID;
     private static final int TICKS_PER_OPERATION = 100;
     private static final int TOOL_DAMAGE_PER_OPERATION = 1;
     private static final int TOOL_CHARGE_PER_OPERATION = 32;
 
-    private int mCasing;
-    public static String mCasingName = "Sterile Farm Casing";
+    private static final String STRUCTURE_PIECE_MAIN = "main";
+    private static final int OFFSET_X = 3;
+    private static final int OFFSET_Y = 6;
+    private static final int OFFSET_Z = 0;
+    private int casingAmount;
     private static IStructureDefinition<MTETreeFarm> STRUCTURE_DEFINITION = null;
+    private static final String[][] shape = {
+        { "       ", "  AAA  ", " ABBBA ", "CABBBAC", "CABBBAC", "CABBBAC", "CCC~CCC" },
+        { "  AAA  ", " A   A ", "A     A", "A     A", "A     A", "ADDDDDA", "CCCCCCC" },
+        { " ABBBA ", "A     A", "B  F  B", "B     B", "B     B", "BDDDDDB", "CCCCCCC" },
+        { " ABBBA ", "A  F  A", "B FGF B", "B  G  B", "B  G  B", "BDDDDDB", "CCCCCCC" },
+        { " ABBBA ", "A     A", "B  F  B", "B     B", "B     B", "BDDDDDB", "CCCCCCC" },
+        { "  AAA  ", " A   A ", "A     A", "A     A", "A     A", "ADDDDDA", "CCCCCCC" },
+        { "       ", "  AAA  ", " ABBBA ", "CABBBAC", "CABBBAC", "CABBBAC", "CCCCCCC" } };
 
     public MTETreeFarm(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
-        CASING_TEXTURE_ID = TAE.getIndexFromPage(1, 15);
     }
 
     public MTETreeFarm(final String aName) {
         super(aName);
-        CASING_TEXTURE_ID = TAE.getIndexFromPage(1, 15);
     }
 
     @Override
@@ -109,14 +120,9 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
     }
 
     @Override
-    public String getMachineType() {
-        return "Tree Farm, TGS";
-    }
-
-    @Override
     protected MultiblockTooltipBuilder createTooltip() {
         MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
-        tt.addMachineType(getMachineType())
+        tt.addMachineType("Tree Farm, TGS")
             .addInfo("Farms and harvests trees using EU")
             .addInfo("Place a sapling in the controller slot")
             .addInfo("Place a tool in an input bus")
@@ -124,7 +130,7 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
             .addInfo("Advanced tools multiply output amount")
             .addInfo("  Logs: Saw (1x), Buzzsaw (2x), Chainsaw (4x)")
             .addInfo("  Saplings: Branch Cutter (1x), Grafter (4x)")
-            .addInfo("  Leaves: Shears (1x), Wire Cutter (2x), Automatic Snips (4x)")
+            .addInfo("  Leaves: Shears (1x), Wire Cutter (2x), Electric Wire Cutter (4x)")
             .addInfo("  Fruit: Knife (1x)")
             .addInfo("Multiple tools can be used at the same time")
             .addSeparator()
@@ -132,39 +138,115 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
             .addInfo("Energy input tier multiplies output further")
             .addInfo("Output multiplier is equal to: 2*tier^2 - 2*tier + 5")
             .addPollutionAmount(getPollutionPerSecond(null))
-            .beginStructureBlock(3, 3, 3, true)
-            .addController("Front center")
-            .addCasingInfoMin(mCasingName, 8, false)
-            .addInputBus("Any casing", 1)
+            .beginStructureBlock(7, 7, 7, true)
+            .addController("Front bottom center")
+            .addCasingInfoMin("Sterile Farm Casing", 45, false)
+            .addCasingInfoExactly("Steel Frame Box", 60, false)
+            .addCasingInfoExactly("Any tiered glass", 57, false)
+            .addCasingInfoExactly("Dirt/Grass", 25, false)
+            .addStructureInfo("Oak Wood and Leaves can be placed manually. If not, they will be placed automatically.")
+            .addInputBus("Any Sterile Farm Casing", 1)
             .addStructureInfo(
                 EnumChatFormatting.YELLOW + "Stocking Input Buses and Crafting Input Buses/Buffers are not allowed!")
-            .addOutputBus("Any casing", 1)
-            .addEnergyHatch("Any casing", 1)
-            .addMaintenanceHatch("Any casing", 1)
-            .addMufflerHatch("Any casing", 1)
+            .addOutputBus("Any Sterile Farm Casing", 1)
+            .addEnergyHatch("Any Sterile Farm Casing", 1)
+            .addMaintenanceHatch("Any Sterile Farm Casing", 1)
+            .addMufflerHatch("Any Sterile Farm Casing", 1)
+            .addStructureAuthors(EnumChatFormatting.GOLD + "EvgenWarGold")
             .toolTipFinisher();
         return tt;
     }
 
     @Override
-    protected IIconContainer getActiveOverlay() {
-        return TexturesGtBlock.oMCATreeFarmActive;
-    }
-
-    @Override
-    protected IIconContainer getInactiveOverlay() {
-        return TexturesGtBlock.oMCATreeFarm;
-    }
-
-    @Override
-    protected int getCasingTextureId() {
-        return CASING_TEXTURE_ID;
+    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection aFacing,
+        int colorIndex, boolean aActive, boolean redstoneLevel) {
+        if (side == aFacing) {
+            if (aActive) return new ITexture[] { Casings.SterileFarmCasing.getCasingTexture(), TextureFactory.builder()
+                .addIcon(TexturesGtBlock.oMCATreeFarmActive)
+                .extFacing()
+                .build(),
+                TextureFactory.builder()
+                    .addIcon(TexturesGtBlock.oMCATreeFarmActive)
+                    .extFacing()
+                    .glow()
+                    .build() };
+            return new ITexture[] { Casings.SterileFarmCasing.getCasingTexture(), TextureFactory.builder()
+                .addIcon(TexturesGtBlock.oMCATreeFarm)
+                .extFacing()
+                .extFacing()
+                .build(),
+                TextureFactory.builder()
+                    .addIcon(TexturesGtBlock.oMCATreeFarm)
+                    .extFacing()
+                    .glow()
+                    .build() };
+        }
+        return new ITexture[] { Casings.SterileFarmCasing.getCasingTexture() };
     }
 
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
-        mCasing = 0;
-        return checkPiece(mName, 1, 1, 0) && mCasing >= 8 && checkHatch();
+        casingAmount = 0;
+        return checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z) && casingAmount >= 8 && checkHatch();
+    }
+
+    public boolean checkHatch() {
+        return !mMufflerHatches.isEmpty() && !mEnergyHatches.isEmpty();
+    }
+
+    @Override
+    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        super.onPostTick(aBaseMetaTileEntity, aTick);
+        if (!aBaseMetaTileEntity.isServerSide() || !mMachine || aTick % 20 != 0) {
+            return;
+        }
+
+        for (int sliceZ = 0; sliceZ < shape.length; sliceZ++) {
+            String[] layers = shape[sliceZ];
+            for (int layerY = 0; layerY < layers.length; layerY++) {
+                String row = layers[layerY];
+                for (int charX = 0; charX < row.length(); charX++) {
+                    char marker = row.charAt(charX);
+                    if (marker != 'D' && marker != 'F' && marker != 'G') {
+                        continue;
+                    }
+
+                    int[] abc = new int[] { charX - OFFSET_X, layerY - OFFSET_Y, sliceZ - OFFSET_Z };
+                    int[] xyz = new int[] { 0, 0, 0 };
+                    getExtendedFacing().getWorldOffset(abc, xyz);
+
+                    int wx = aBaseMetaTileEntity.getXCoord() + xyz[0];
+                    int wy = aBaseMetaTileEntity.getYCoord() + xyz[1];
+                    int wz = aBaseMetaTileEntity.getZCoord() + xyz[2];
+
+                    Block block = aBaseMetaTileEntity.getWorld()
+                        .getBlock(wx, wy, wz);
+
+                    switch (marker) {
+                        case 'D':
+                            if (block == Blocks.dirt) {
+                                aBaseMetaTileEntity.getWorld()
+                                    .setBlock(wx, wy, wz, Blocks.grass, 0, 3);
+                            }
+                            break;
+                        case 'F':
+                            if (block == Blocks.air) {
+                                aBaseMetaTileEntity.getWorld()
+                                    .setBlock(wx, wy, wz, Blocks.leaves, 0, 3);
+                            }
+                            break;
+                        case 'G':
+                            if (block == Blocks.air) {
+                                aBaseMetaTileEntity.getWorld()
+                                    .setBlock(wx, wy, wz, Blocks.log, 0, 3);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -208,10 +290,9 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
     public IStructureDefinition<MTETreeFarm> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
             STRUCTURE_DEFINITION = StructureDefinition.<MTETreeFarm>builder()
-                .addShape(
-                    mName,
-                    transpose(
-                        new String[][] { { "CCC", "CCC", "CCC" }, { "C~C", "C-C", "CCC" }, { "CCC", "CCC", "CCC" }, }))
+                .addShape(STRUCTURE_PIECE_MAIN, shape)
+                .addElement('A', ofFrame(Materials.Steel))
+                .addElement('B', chainAllGlasses())
                 .addElement(
                     'C',
                     buildHatchAdder(MTETreeFarm.class)
@@ -221,11 +302,14 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
                             InputBus,
                             OutputBus,
                             Maintenance,
-                            Energy.or(TTEnergy),
+                            Energy.or(MultiAmpEnergy),
                             Muffler)
-                        .casingIndex(CASING_TEXTURE_ID)
+                        .casingIndex(Casings.SterileFarmCasing.textureId)
                         .dot(1)
-                        .buildAndChain(onElementPass(x -> ++x.mCasing, ofBlock(ModBlocks.blockCasings2Misc, 15))))
+                        .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.SterileFarmCasing.asElement())))
+                .addElement('D', ofChain(ofBlock(Blocks.dirt, 0), ofBlock(Blocks.grass, 0)))
+                .addElement('F', ofChain(ofBlock(Blocks.air, 0), ofBlock(Blocks.leaves, 0)))
+                .addElement('G', ofChain(ofBlock(Blocks.air, 0), ofBlock(Blocks.log, 0)))
                 .build();
         }
         return STRUCTURE_DEFINITION;
@@ -233,13 +317,22 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
 
     @Override
     public void construct(ItemStack stackSize, boolean hintsOnly) {
-        buildPiece(mName, stackSize, hintsOnly, 1, 1, 0);
+        buildPiece(STRUCTURE_PIECE_MAIN, stackSize, hintsOnly, OFFSET_X, OFFSET_Y, OFFSET_Z);
     }
 
     @Override
     public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
         if (mMachine) return -1;
-        return survivalBuildPiece(mName, stackSize, 1, 1, 0, elementBudget, env, false, true);
+        return survivalBuildPiece(
+            STRUCTURE_PIECE_MAIN,
+            stackSize,
+            OFFSET_X,
+            OFFSET_Y,
+            OFFSET_Z,
+            elementBudget,
+            env,
+            false,
+            true);
     }
 
     /* Processing logic. */
@@ -326,7 +419,6 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
                 EnumMap<Mode, ItemStack> outputPerMode = getOutputsForSapling(sapling);
                 if (outputPerMode == null) {
                     // This should usually not be possible, outputs for all valid saplings should be defined.
-                    Logger.INFO("No output found for sapling: " + sapling.getDisplayName());
                     return SimpleCheckRecipeResult.ofFailure("no_output_for_sapling");
                 }
 
@@ -462,11 +554,6 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
                     }
                     if (damage == WIRECUTTER.ID || damage == POCKET_WIRECUTTER.ID) {
                         return 2;
-                    }
-                }
-                if (tool instanceof MetaGeneratedGregtechTools) {
-                    if (toolStack.getItemDamage() == MetaGeneratedGregtechTools.ELECTRIC_SNIPS) {
-                        return 4;
                     }
                 }
                 break;
@@ -675,7 +762,6 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
     public static void registerTreeProducts(ItemStack saplingIn, ItemStack log, ItemStack saplingOut, ItemStack leaves,
         ItemStack fruit) {
         if (saplingIn == null) {
-            Logger.ERROR("Null sapling passed for registerTreeProducts()");
             return;
         }
         String key = Item.itemRegistry.getNameForObject(saplingIn.getItem()) + ":" + saplingIn.getItemDamage();
@@ -685,10 +771,7 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
         if (leaves != null) map.put(Mode.LEAVES, leaves);
         if (fruit != null) map.put(Mode.FRUIT, fruit);
         treeProductsMap.put(key, map);
-
-        if (!addFakeRecipeToNEI(saplingIn, log, saplingOut, leaves, fruit)) {
-            Logger.INFO("Registering NEI fake recipe for " + key + " failed!");
-        }
+        addFakeRecipeToNEI(saplingIn, log, saplingOut, leaves, fruit);
     }
 
     /**
@@ -710,7 +793,6 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
         // To do this we use the same method as when calculating real outputs.
         map = getOutputsForForestrySapling(sapling);
         if (map == null) {
-            Logger.INFO("Could not create Forestry tree output map for " + speciesUID);
             return;
         }
         addFakeRecipeToNEI(
@@ -744,9 +826,7 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
             // Mode.LEAVES
             { new ItemStack(Items.shears),
                 toolInstance.getToolWithStats(IDMetaTool01.WIRECUTTER.ID, 1, null, null, null),
-                toolInstance.getToolWithStats(IDMetaTool01.POCKET_WIRECUTTER.ID, 1, null, null, null),
-                MetaGeneratedGregtechTools.getInstance()
-                    .getToolWithStats(MetaGeneratedGregtechTools.ELECTRIC_SNIPS, 1, null, null, null), },
+                toolInstance.getToolWithStats(IDMetaTool01.POCKET_WIRECUTTER.ID, 1, null, null, null), },
             // Mode.FRUIT
             { toolInstance.getToolWithStats(IDMetaTool01.KNIFE.ID, 1, null, null, null),
                 toolInstance.getToolWithStats(IDMetaTool01.POCKET_KNIFE.ID, 1, null, null, null), } };
@@ -789,11 +869,6 @@ public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISur
                 outputStacks[ordinal].stackSize *= modeMultiplier.get(mode);
             }
         }
-
-        Logger.INFO(
-            "Adding Tree Growth Simulation NEI recipe for " + specialStack.getDisplayName()
-                + " -> "
-                + ItemUtils.getArrayStackNames(outputStacks));
 
         GTPPRecipeMaps.treeGrowthSimulatorFakeRecipes.addFakeRecipe(
             false,

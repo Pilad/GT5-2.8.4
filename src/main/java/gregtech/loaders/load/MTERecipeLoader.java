@@ -1733,6 +1733,20 @@ public class MTERecipeLoader implements Runnable {
             ItemList.LargeThermalRefinery.get(1),
             new Object[] { GregtechItemList.Industrial_ThermalCentrifuge.get(1) });
 
+        // Tree Grow Simulator Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.TreeGrowSimulator.get(1),
+            new Object[] { GregtechItemList.Industrial_TreeFarm.get(1) });
+
+        // Tree Growth Simulator
+        GTModHandler.addCraftingRecipe(
+            ItemList.TreeGrowSimulator.get(1),
+            GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "FXF", "PHP", "FRF", 'F', ItemList.Field_Generator_IV, 'R',
+                MaterialsAlloy.INCOLOY_MA956.getRotor(1), 'P', MaterialsAlloy.NITINOL_60.getPlate(1), 'H',
+                GregtechItemList.GTPP_Casing_IV.get(1), 'X',
+                MaterialsAlloy.INCONEL_792.getComponentByPrefix(OrePrefixes.pipeMedium, 1) });
+
         // Naquadah Fuel Refinery Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.NaquadahFuelRefinery.get(1),
