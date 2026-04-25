@@ -130,7 +130,7 @@ public class MTETreeFarm extends MTEExtendedPowerMultiBlockBase<MTETreeFarm> imp
             .addInfo("Advanced tools multiply output amount")
             .addInfo("  Logs: Saw (1x), Buzzsaw (2x), Chainsaw (4x)")
             .addInfo("  Saplings: Branch Cutter (1x), Grafter (4x)")
-            .addInfo("  Leaves: Shears (1x), Wire Cutter (2x), Electric Wire Cutter (4x)")
+            .addInfo("  Leaves: Shears (1x), Wire Cutter (2x), Automatic Snips (4x)")
             .addInfo("  Fruit: Knife (1x)")
             .addInfo("Multiple tools can be used at the same time")
             .addSeparator()
