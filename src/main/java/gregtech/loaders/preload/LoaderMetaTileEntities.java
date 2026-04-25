@@ -173,6 +173,7 @@ import gregtech.common.tileentities.machines.multi.MTEIndustrialMolecularTransfo
 import gregtech.common.tileentities.machines.multi.MTEIndustrialPackager;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialRockBreaker;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialThermalCentrifuge;
+import gregtech.common.tileentities.machines.multi.MTEIndustrialTreeFarm;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialWireMill;
 import gregtech.common.tileentities.machines.multi.MTEIntegratedOreFactory;
 import gregtech.common.tileentities.machines.multi.MTEIntegratedOreFactoryLegacy;
@@ -222,7 +223,6 @@ import gregtech.common.tileentities.machines.multi.MTEResearchCompleter;
 import gregtech.common.tileentities.machines.multi.MTESolarFactory;
 import gregtech.common.tileentities.machines.multi.MTEThermalBoiler;
 import gregtech.common.tileentities.machines.multi.MTETranscendentPlasmaMixer;
-import gregtech.common.tileentities.machines.multi.MTETreeFarm;
 import gregtech.common.tileentities.machines.multi.MTEUniversalChemicalFuelEngine;
 import gregtech.common.tileentities.machines.multi.MTEVacuumFreezer;
 import gregtech.common.tileentities.machines.multi.MTEWormholeGenerator;
@@ -774,7 +774,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .getStackForm(1L));
 
         ItemList.TreeGrowSimulator.set(
-            new MTETreeFarm(TreeGrowSimulator.ID, "treefarm.controller.tier.single", "Tree Growth Simulator")
+            new MTEIndustrialTreeFarm(TreeGrowSimulator.ID, "treefarm.controller.tier.single", "Tree Growth Simulator")
                 .getStackForm(1L));
 
         ItemList.ElectricImplosionCompressor.set(

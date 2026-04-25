@@ -18,8 +18,8 @@ import gregtech.api.recipe.RecipeMapFrontend;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 import gregtech.common.gui.modularui.UIHelper;
-import gregtech.common.tileentities.machines.multi.MTETreeFarm;
-import gregtech.common.tileentities.machines.multi.MTETreeFarm.Mode;
+import gregtech.common.tileentities.machines.multi.MTEIndustrialTreeFarm;
+import gregtech.common.tileentities.machines.multi.MTEIndustrialTreeFarm.Mode;
 import gregtech.nei.GTNEIDefaultHandler;
 import gregtech.nei.RecipeDisplayInfo;
 import gregtech.nei.formatter.INEISpecialInfoFormatter;
@@ -108,7 +108,7 @@ public class TGSFrontend extends RecipeMapFrontend {
             if (mode < recipe.mOreDictAlt.length && recipe.mOreDictAlt[mode] != null) {
                 // There is a valid input in this mode.
                 if (slot < neiCachedRecipe.mInputs.size() && stack == neiCachedRecipe.mInputs.get(slot).item) {
-                    int toolMultiplier = MTETreeFarm.getToolMultiplier(stack, MODE_VALUES[mode]);
+                    int toolMultiplier = MTEIndustrialTreeFarm.getToolMultiplier(stack, MODE_VALUES[mode]);
                     currentTip.add(EnumChatFormatting.YELLOW + tooltipInputs[mode]);
                     if (toolMultiplier > 0) {
                         currentTip.add(EnumChatFormatting.YELLOW + tooltipMultiplier + " " + toolMultiplier + "x");

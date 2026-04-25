@@ -10,10 +10,16 @@ import forestry.api.arboriculture.ITree;
 import forestry.api.arboriculture.TreeManager;
 import forestry.arboriculture.genetics.TreeDefinition;
 import forestry.plugins.PluginArboriculture;
-import gregtech.common.tileentities.machines.multi.MTETreeFarm;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MTETreeFarmLegacy;
+import gregtech.common.tileentities.machines.multi.MTEIndustrialTreeFarm;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MTETreeFarm;
 
 public class ForestryTreeHandler {
+
+    private static void registerForestryTree(String speciesUID, ItemStack sapling, ItemStack log, ItemStack leaves,
+        ItemStack fruit) {
+        MTETreeFarm.registerForestryTree(speciesUID, sapling, log, leaves, fruit);
+        MTEIndustrialTreeFarm.registerForestryTree(speciesUID, sapling, log, leaves, fruit);
+    }
 
     public static void generateForestryTrees() {
         for (TreeDefinition tree : TreeDefinition.values()) {
@@ -45,14 +51,7 @@ public class ForestryTreeHandler {
                 }
             }
 
-            MTETreeFarmLegacy.registerForestryTree(
-                speciesUID,
-                sapling == null ? null : sapling.copy(),
-                log == null ? null : log.copy(),
-                leaves.copy(),
-                fruit == null ? null : fruit.copy());
-
-            MTETreeFarm.registerForestryTree(
+            registerForestryTree(
                 speciesUID,
                 sapling == null ? null : sapling.copy(),
                 log == null ? null : log.copy(),
@@ -63,7 +62,6 @@ public class ForestryTreeHandler {
 
     public static void generateExtraTreesTrees() {
         for (ExtraTreeSpecies species : ExtraTreeSpecies.values()) {
-
             String speciesUID = species.getUID();
 
             ITree individual = TreeManager.treeRoot.templateAsIndividual(species.getTemplate());
@@ -76,7 +74,6 @@ public class ForestryTreeHandler {
             }
 
             ItemStack leaves = new ItemStack(PluginArboriculture.blocks.leaves, 1, 0);
-
             NBTTagCompound nbtTagCompound = new NBTTagCompound();
             nbtTagCompound.setString("species", speciesUID);
             leaves.setTagCompound(nbtTagCompound);
@@ -89,14 +86,7 @@ public class ForestryTreeHandler {
                 }
             }
 
-            MTETreeFarmLegacy.registerForestryTree(
-                speciesUID,
-                sapling == null ? null : sapling.copy(),
-                log == null ? null : log.copy(),
-                leaves.copy(),
-                fruit == null ? null : fruit.copy());
-
-            MTETreeFarm.registerForestryTree(
+            registerForestryTree(
                 speciesUID,
                 sapling == null ? null : sapling.copy(),
                 log == null ? null : log.copy(),

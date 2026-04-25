@@ -82,7 +82,7 @@ import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 import gtPlusPlus.xmod.gregtech.common.items.MetaGeneratedGregtechTools;
 import gtPlusPlus.xmod.gregtech.loaders.recipe.RecipeLoaderTreeFarm;
 
-public class MTETreeFarmLegacy extends GTPPMultiBlockBase<MTETreeFarmLegacy> implements ISurvivalConstructable {
+public class MTETreeFarm extends GTPPMultiBlockBase<MTETreeFarm> implements ISurvivalConstructable {
 
     public static int CASING_TEXTURE_ID;
     private static final int TICKS_PER_OPERATION = 100;
@@ -91,21 +91,21 @@ public class MTETreeFarmLegacy extends GTPPMultiBlockBase<MTETreeFarmLegacy> imp
 
     private int mCasing;
     public static String mCasingName = "Sterile Farm Casing";
-    private static IStructureDefinition<MTETreeFarmLegacy> STRUCTURE_DEFINITION = null;
+    private static IStructureDefinition<MTETreeFarm> STRUCTURE_DEFINITION = null;
 
-    public MTETreeFarmLegacy(final int aID, final String aName, final String aNameRegional) {
+    public MTETreeFarm(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
         CASING_TEXTURE_ID = TAE.getIndexFromPage(1, 15);
     }
 
-    public MTETreeFarmLegacy(final String aName) {
+    public MTETreeFarm(final String aName) {
         super(aName);
         CASING_TEXTURE_ID = TAE.getIndexFromPage(1, 15);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(final IGregTechTileEntity aTileEntity) {
-        return new MTETreeFarmLegacy(this.mName);
+        return new MTETreeFarm(this.mName);
     }
 
     @Override
@@ -205,16 +205,16 @@ public class MTETreeFarmLegacy extends GTPPMultiBlockBase<MTETreeFarmLegacy> imp
     }
 
     @Override
-    public IStructureDefinition<MTETreeFarmLegacy> getStructureDefinition() {
+    public IStructureDefinition<MTETreeFarm> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
-            STRUCTURE_DEFINITION = StructureDefinition.<MTETreeFarmLegacy>builder()
+            STRUCTURE_DEFINITION = StructureDefinition.<MTETreeFarm>builder()
                 .addShape(
                     mName,
                     transpose(
                         new String[][] { { "CCC", "CCC", "CCC" }, { "C~C", "C-C", "CCC" }, { "CCC", "CCC", "CCC" }, }))
                 .addElement(
                     'C',
-                    buildHatchAdder(MTETreeFarmLegacy.class)
+                    buildHatchAdder(MTETreeFarm.class)
                         .atLeast(
                             InputHatch,
                             OutputHatch,

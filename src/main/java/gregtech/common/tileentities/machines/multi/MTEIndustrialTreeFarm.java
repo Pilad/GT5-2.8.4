@@ -83,9 +83,11 @@ import gregtech.common.pollution.PollutionConfig;
 import gregtech.common.tileentities.machines.MTEHatchInputBusME;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
+import gtPlusPlus.xmod.gregtech.common.items.MetaGeneratedGregtechTools;
 import gtPlusPlus.xmod.gregtech.loaders.recipe.RecipeLoaderTreeFarm;
 
-public class MTETreeFarm extends MTEExtendedPowerMultiBlockBase<MTETreeFarm> implements ISurvivalConstructable {
+public class MTEIndustrialTreeFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustrialTreeFarm>
+    implements ISurvivalConstructable {
 
     private static final int TICKS_PER_OPERATION = 100;
     private static final int TOOL_DAMAGE_PER_OPERATION = 1;
@@ -96,7 +98,7 @@ public class MTETreeFarm extends MTEExtendedPowerMultiBlockBase<MTETreeFarm> imp
     private static final int OFFSET_Y = 6;
     private static final int OFFSET_Z = 0;
     private int casingAmount;
-    private static IStructureDefinition<MTETreeFarm> STRUCTURE_DEFINITION = null;
+    private static IStructureDefinition<MTEIndustrialTreeFarm> STRUCTURE_DEFINITION = null;
     private static final String[][] shape = {
         { "       ", "  AAA  ", " ABBBA ", "CABBBAC", "CABBBAC", "CABBBAC", "CCC~CCC" },
         { "  AAA  ", " A   A ", "A     A", "A     A", "A     A", "ADDDDDA", "CCCCCCC" },
@@ -106,17 +108,17 @@ public class MTETreeFarm extends MTEExtendedPowerMultiBlockBase<MTETreeFarm> imp
         { "  AAA  ", " A   A ", "A     A", "A     A", "A     A", "ADDDDDA", "CCCCCCC" },
         { "       ", "  AAA  ", " ABBBA ", "CABBBAC", "CABBBAC", "CABBBAC", "CCCCCCC" } };
 
-    public MTETreeFarm(final int aID, final String aName, final String aNameRegional) {
+    public MTEIndustrialTreeFarm(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTETreeFarm(final String aName) {
+    public MTEIndustrialTreeFarm(final String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(final IGregTechTileEntity aTileEntity) {
-        return new MTETreeFarm(this.mName);
+        return new MTEIndustrialTreeFarm(this.mName);
     }
 
     @Override
@@ -287,15 +289,15 @@ public class MTETreeFarm extends MTEExtendedPowerMultiBlockBase<MTETreeFarm> imp
     }
 
     @Override
-    public IStructureDefinition<MTETreeFarm> getStructureDefinition() {
+    public IStructureDefinition<MTEIndustrialTreeFarm> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
-            STRUCTURE_DEFINITION = StructureDefinition.<MTETreeFarm>builder()
+            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialTreeFarm>builder()
                 .addShape(STRUCTURE_PIECE_MAIN, shape)
                 .addElement('A', ofFrame(Materials.Steel))
                 .addElement('B', chainAllGlasses())
                 .addElement(
                     'C',
-                    buildHatchAdder(MTETreeFarm.class)
+                    buildHatchAdder(MTEIndustrialTreeFarm.class)
                         .atLeast(
                             InputHatch,
                             OutputHatch,
@@ -554,6 +556,11 @@ public class MTETreeFarm extends MTEExtendedPowerMultiBlockBase<MTETreeFarm> imp
                     }
                     if (damage == WIRECUTTER.ID || damage == POCKET_WIRECUTTER.ID) {
                         return 2;
+                    }
+                }
+                if (tool instanceof MetaGeneratedGregtechTools) {
+                    if (toolStack.getItemDamage() == MetaGeneratedGregtechTools.ELECTRIC_SNIPS) {
+                        return 4;
                     }
                 }
                 break;
@@ -826,7 +833,9 @@ public class MTETreeFarm extends MTEExtendedPowerMultiBlockBase<MTETreeFarm> imp
             // Mode.LEAVES
             { new ItemStack(Items.shears),
                 toolInstance.getToolWithStats(IDMetaTool01.WIRECUTTER.ID, 1, null, null, null),
-                toolInstance.getToolWithStats(IDMetaTool01.POCKET_WIRECUTTER.ID, 1, null, null, null), },
+                toolInstance.getToolWithStats(IDMetaTool01.POCKET_WIRECUTTER.ID, 1, null, null, null),
+                MetaGeneratedGregtechTools.getInstance()
+                    .getToolWithStats(MetaGeneratedGregtechTools.ELECTRIC_SNIPS, 1, null, null, null), },
             // Mode.FRUIT
             { toolInstance.getToolWithStats(IDMetaTool01.KNIFE.ID, 1, null, null, null),
                 toolInstance.getToolWithStats(IDMetaTool01.POCKET_KNIFE.ID, 1, null, null, null), } };
