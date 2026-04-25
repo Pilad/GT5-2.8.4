@@ -67,6 +67,8 @@ public abstract class MTEOilDrillBase extends MTEDrillerBase implements IMetrics
 
     private int chunkRangeConfig = getRangeInChunks();
 
+    protected int batchMultiplier = 1;
+
     public MTEOilDrillBase(int aID, String aName, String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
@@ -113,7 +115,8 @@ public abstract class MTEOilDrillBase extends MTEDrillerBase implements IMetrics
         if (aNBT.hasKey("chunkRangeConfig")) chunkRangeConfig = aNBT.getInteger("chunkRangeConfig");
     }
 
-    protected MultiblockTooltipBuilder createTooltip(String tierSuffix) {
+    @Override
+    protected MultiblockTooltipBuilder createTooltip() {
         String casings = getCasingBlockItem().get(0)
             .getDisplayName();
 
@@ -127,7 +130,8 @@ public abstract class MTEOilDrillBase extends MTEDrillerBase implements IMetrics
             // work
             .addInfo("Minimum energy hatch tier: " + GTUtility.getColoredTierNameFromTier((byte) getMinTier()))
             .addInfo(
-                "Base cycle time: " + (baseCycleTime < 20 ? GTUtility.formatNumbers(baseCycleTime) + " ticks"
+                "Base cycle time: " + (baseCycleTime < 20
+                    ? GTUtility.formatNumbers(baseCycleTime) + (baseCycleTime == 1 ? " tick" : " ticks")
                     : GTUtility.formatNumbers(baseCycleTime / 20.0) + " seconds"))
             .beginStructureBlock(3, 7, 3, false)
             .addController("Front bottom center")
@@ -174,17 +178,15 @@ public abstract class MTEOilDrillBase extends MTEDrillerBase implements IMetrics
         return ImmutableList.of(InputBus, OutputHatch, Maintenance, Energy);
     }
 
-    int batchMultiplier = 1;
-
     @Override
     protected void setElectricityStats() {
         // for a 6.4 second beautiful batch
-        batchMultiplier = batchMode ? 128 : 1;
+        batchMultiplier = (batchMode && reachingVoidOrBedrock()) ? 128 : 1;
         this.mEfficiency = getCurrentEfficiency(null);
         this.mEfficiencyIncrease = 10000;
         int tier = Math.max(0, GTUtility.getTier(getMaxInputVoltage()));
         this.mEUt = -7 << (tier << 1); // (1/4) A of current tier when at bottom (7/8) A of current tier while mining
-        this.mMaxProgresstime = calculateMaxProgressTime(tier) * batchMultiplier;
+        this.mMaxProgresstime = calculateMaxProgressTime(tier);
     }
 
     @Override
@@ -193,7 +195,8 @@ public abstract class MTEOilDrillBase extends MTEDrillerBase implements IMetrics
             1,
             (workState == STATE_AT_BOTTOM || simulateWorking
                 ? (64 * (chunkRangeConfig * chunkRangeConfig)) >> (getMinTier() - 1)
-                : 120) / GTUtility.powInt(2, tier));
+                : 120) / GTUtility.powInt(2, tier))
+            * batchMultiplier;
     }
 
     protected float computeSpeed() {
@@ -249,7 +252,7 @@ public abstract class MTEOilDrillBase extends MTEDrillerBase implements IMetrics
             mOil = tFluid.getFluid();
         }
         if (debugDriller) {
-            GTLog.out.println(" Driller on  fluid = " + mOil == null ? null : mOil.getName());
+            GTLog.out.println(" Driller on fluid = " + mOil == null ? null : mOil.getName());
         }
 
         tOil = new FluidStack(mOil, 0);
@@ -316,14 +319,20 @@ public abstract class MTEOilDrillBase extends MTEDrillerBase implements IMetrics
         // it can save tiny amount of CPU time when void protection is disabled
         if (protectsExcessFluid()) {
             FluidStack simulatedOil = pumpOil(speed, true);
+            simulatedOil = adjustPumpedOil(simulatedOil);
             if (!canOutputAll(new FluidStack[] { simulatedOil })) {
                 return ValidationResult.of(ValidationType.INVALID, null);
             }
         }
 
         FluidStack pumpedOil = pumpOil(speed, false);
+        pumpedOil = adjustPumpedOil(pumpedOil);
         mOilFlow = pumpedOil.amount;
         return ValidationResult.of(ValidationType.VALID, pumpedOil.amount == 0 ? null : pumpedOil);
+    }
+
+    protected FluidStack adjustPumpedOil(FluidStack pumpedOil) {
+        return pumpedOil;
     }
 
     /**
@@ -338,7 +347,7 @@ public abstract class MTEOilDrillBase extends MTEDrillerBase implements IMetrics
 
         FluidStack returnOil = new FluidStack(mOil, 0);
         World world = getBaseMetaTileEntity().getWorld();
-        float coefficient = simulate ? -speed : speed;
+        final float coefficient = (simulate ? -speed : speed) * batchMultiplier;
 
         for (Iterator<ChunkCoordIntPair> iterator = mOilFieldChunks.iterator(); iterator.hasNext();) {
             ChunkCoordIntPair tChunk = iterator.next();

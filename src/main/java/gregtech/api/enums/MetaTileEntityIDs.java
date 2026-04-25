@@ -1781,6 +1781,7 @@ public enum MetaTileEntityIDs {
     IntegratedOreFactory(15564),
     CryogenicFreezer(15565),
     IndustrialMixer(15566),
+    InfiniteFluidDrillingRig(15567),
     ENTROPIC_PROCESSOR(15750),
     DECAY_WAREHOUSE(15751),
     BasicTeslaTransceiver1by1(16000),

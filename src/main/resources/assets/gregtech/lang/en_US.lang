@@ -92,6 +92,9 @@ gt.crop.trollplant.name=Trollplant
 gt.crop.withereed.name=Withereed
 gt.crop.zomplant.name=Zomplant
 
+# Tooltip for Block Machines
+gt.blockmachines.cable.desc=Max Voltage: %s\nMax Amperage: %s\nLoss/Meter/Ampere: %s
+
 # Tooltip info of tile-entities
 gt.tileentity.eup_in=Voltage IN: %s
 gt.tileentity.eup_out=Voltage OUT: %s

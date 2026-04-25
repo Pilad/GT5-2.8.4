@@ -4,6 +4,7 @@ import static gregtech.api.enums.Mods.GalacticraftCore;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
@@ -46,6 +47,7 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTGCCompat;
 import gregtech.api.util.GTModHandler;
+import gregtech.api.util.GTSplit;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.blocks.ItemMachines;
@@ -820,24 +822,12 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable {
     public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
 
-        currenttip.add(
-            StatCollector.translateToLocal("GT5U.item.cable.max_voltage") + ": "
-                + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(mVoltage)
-                + " ("
-                + GTUtility.getColoredTierNameFromVoltage(mVoltage)
-                + EnumChatFormatting.GREEN
-                + ")");
-        currenttip.add(
-            StatCollector.translateToLocal("GT5U.item.cable.max_amperage") + ": "
-                + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(mAmperage));
-        currenttip.add(
-            StatCollector.translateToLocal("GT5U.item.cable.loss") + ": "
-                + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(mCableLossPerMeter)
-                + EnumChatFormatting.RESET
-                + " "
-                + StatCollector.translateToLocal("GT5U.item.cable.eu_volt"));
+        Collections.addAll(
+            currenttip,
+            GTSplit.splitLocalizedFormatted(
+                "gt.blockmachines.cable.desc",
+                TooltipHelper.voltageText(mVoltage),
+                TooltipHelper.ampText(mAmperage),
+                TooltipHelper.cableLossText(mCableLossPerMeter)));
     }
 }

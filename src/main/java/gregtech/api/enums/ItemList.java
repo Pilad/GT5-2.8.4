@@ -2781,6 +2781,7 @@ public enum ItemList implements IItemContainer {
     IntegratedOreFactory,
     CryogenicFreezer,
     IndustrialMixer,
+    InfiniteFluidDrillingRig,
 
     CokeOvenController,
     CokeOvenCasing,
