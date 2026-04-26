@@ -60,6 +60,14 @@ public class MTEHatchEnergyMulti extends MTEHatch implements IHideTooltipEnergyI
         Amperes = maxAmperes = aAmp;
     }
 
+    public int getAmperes() {
+        return Amperes;
+    }
+
+    public void setAmperes(int amperes) {
+        Amperes = amperes;
+    }
+
     public int getHatchType() {
         return 1;
     }
