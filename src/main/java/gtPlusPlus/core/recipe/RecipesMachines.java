@@ -318,6 +318,7 @@ public class RecipesMachines {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
+                GTUtility.getIntegratedCircuit(14),
                 ItemList.Hull_IV.get(2),
                 ItemList.Machine_IV_Hammer.get(1),
                 CI.getPlate(4, 8),

@@ -191,7 +191,7 @@ public class TexturesGtBlock {
     public static final CustomIcon Casing_Machine_Metal_Panel_A = new CustomIcon("chrono/MetalPanel");
     public static final CustomIcon Casing_Machine_Metal_Sheet_A = new CustomIcon("chrono/MetalSheet");
     public static final CustomIcon Casing_Machine_Metal_Sheet_H = new CustomIcon("chrono/MetalSheet8");
-    public static final CustomIcon Casing_Machine_Metal_Sheet_I = new CustomIcon("chrono/MetalSheet9");
+    public static final CustomIcon Casing_Machine_Metal_Sheet_I = new CustomIcon("chrono/STURDY_PRINTER_CASING");
     public static final CustomIcon Overlay_Machine_Cyber_A = new CustomIcon("chrono/CyberPanel");
 
     public static final CustomIcon TEXTURE_CASING_AMAZON = new CustomIcon("TileEntities/CASING_AMAZON");
@@ -709,7 +709,7 @@ public class TexturesGtBlock {
     public static final CustomIcon MOLECULAR_CONTAINMENT_CASING = new CustomIcon("metro/MOLECULAR_CONTAINMENT_CASING");
 
     public static final CustomIcon TEXTURE_TECH_PANEL_D = new CustomIcon("metro/TEXTURE_TECH_PANEL_D");
-    public static final CustomIcon TEXTURE_TECH_PANEL_H = new CustomIcon("metro/TEXTURE_TECH_PANEL_H");
+    public static final CustomIcon TEXTURE_TECH_PANEL_H = new CustomIcon("metro/FORGE_CASING");
 
     public static ITexture[] OVERLAYS_ENERGY_OUT_MULTI_BUFFER = new ITexture[] {
         TextureFactory.of(OVERLAY_ENERGY_OUT_MULTI_BUFFER, new short[] { 220, 220, 220, 0 }),

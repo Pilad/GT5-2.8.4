@@ -48,6 +48,7 @@ import gregtech.api.util.GTUtility;
 import gregtech.loaders.postload.PCBFactoryMaterialLoader;
 import gregtech.loaders.postload.ProcessingArrayRecipeLoader;
 import gtPlusPlus.core.material.MaterialsAlloy;
+import gtPlusPlus.core.material.MaterialsElements;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import ic2.core.Ic2Items;
 
@@ -1740,6 +1741,26 @@ public class MTERecipeLoader implements Runnable {
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.AdvancedImplosionCompressor.get(1),
             new Object[] { GregtechItemList.Machine_Adv_ImplosionCompressor.get(1) });
+
+        // Industrial Sledgehammer/Forge Hammer Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IndustrialForgeHammer.get(1),
+            new Object[] { GregtechItemList.Controller_IndustrialForgeHammer.get(1) });
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Hull_IV.get(2),
+                ItemList.Machine_IV_Hammer.get(1),
+                MaterialsAlloy.INCOLOY_DS.getPlate(8),
+                MaterialsAlloy.ENERGYCRYSTAL.getBolt(32),
+                MaterialsElements.getInstance().ZIRCONIUM.getFineWire(32),
+                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.IV, 4L),
+                GTUtility.getIntegratedCircuit(15))
+            .itemOutputs(ItemList.IndustrialForgeHammer.get(1))
+            .fluidInputs(MaterialsAlloy.INCOLOY_DS.getFluidStack(12 * INGOTS))
+            .duration(30 * SECONDS)
+            .eut(TierEU.RECIPE_IV)
+            .addTo(assemblerRecipes);
 
         // Density^2
         GTModHandler.addCraftingRecipe(
