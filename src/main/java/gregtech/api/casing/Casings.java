@@ -1054,7 +1054,6 @@ public enum Casings implements ICasing {
         }
     },
 
-
     ;
     // spotless:on
 

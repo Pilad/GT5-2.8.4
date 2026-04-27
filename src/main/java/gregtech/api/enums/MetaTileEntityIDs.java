@@ -1774,6 +1774,7 @@ public enum MetaTileEntityIDs {
     IndustrialChemicalBath(15551),
     IndustrialFormingPress(15552),
     IndustrialBendingMachine(15553),
+    IndustrialPrinter(15554),
     Boldarnator(15556),
     ThermalBoiler(15557),
     MolecularTransformer(15558),

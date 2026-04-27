@@ -16,6 +16,7 @@ import static gregtech.api.util.GTModHandler.RecipeBits.DISMANTLEABLE;
 import static gregtech.api.util.GTModHandler.RecipeBits.NOT_REMOVABLE;
 import static gregtech.api.util.GTModHandler.RecipeBits.REVERSIBLE;
 import static gregtech.api.util.GTRecipeBuilder.HOURS;
+import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
@@ -1710,6 +1711,25 @@ public class MTERecipeLoader implements Runnable {
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.IndustrialWireFactory.get(1),
             new Object[] { GregtechItemList.Industrial_WireFactory.get(1) });
+
+        // Industrial 3D Copying Machine Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IndustrialPrinter.get(1),
+            new Object[] { GregtechItemList.Controller_IndustrialAutoChisel.get(1) });
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GregtechItemList.GT_Chisel_HV.get(1),
+                MaterialsAlloy.INCOLOY_DS.getPlate(8),
+                ItemList.Electric_Motor_EV.get(8),
+                ItemList.Conveyor_Module_EV.get(8),
+                ItemList.Robot_Arm_EV.get(4),
+                GTUtility.getIntegratedCircuit(15))
+            .itemOutputs(ItemList.IndustrialPrinter.get(1))
+            .fluidInputs(MaterialsAlloy.INCOLOY_DS.getFluidStack(8 * INGOTS))
+            .duration(20 * SECONDS)
+            .eut(TierEU.RECIPE_EV)
+            .addTo(assemblerRecipes);
 
         // Industrial Extruder Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
