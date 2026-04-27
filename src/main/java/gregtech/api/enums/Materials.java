@@ -24,6 +24,8 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.TCAspects.TC_AspectStack;
@@ -3256,6 +3258,14 @@ public class Materials implements IColorModulationContainer, ISubTagContainer {
             aFormat.replace("%s", "%temp")
                 .replace("%material", "%s"),
             this.mLocalizedName).replace("%temp", "%s");
+    }
+
+    public static boolean isMaterialItem(int meta) {
+        return meta >= 0 && meta < 32000;
+    }
+
+    public static boolean isMaterialItem(@NotNull ItemStack stack) {
+        return isMaterialItem(stack.getItemDamage());
     }
 
     public boolean hasCorrespondingFluid() {
