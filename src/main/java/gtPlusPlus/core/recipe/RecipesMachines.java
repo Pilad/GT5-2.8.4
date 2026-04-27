@@ -47,7 +47,6 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.recipe.Scanning;
-import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.core.block.ModBlocks;
 import gtPlusPlus.core.item.ModItems;
 import gtPlusPlus.core.item.crafting.ItemDummyResearch;
@@ -179,7 +178,6 @@ public class RecipesMachines {
 
     public static void loadRecipes() {
         run();
-        Logger.INFO("Loading Recipes for the Various machine blocks.");
     }
 
     private static void run() {
@@ -2926,7 +2924,6 @@ public class RecipesMachines {
             .eut(TierEU.RECIPE_LuV)
             .addTo(assemblerRecipes);
 
-        Logger.INFO("Done loading recipes for the Various machine blocks.");
     }
 
     private static void energyCores() {

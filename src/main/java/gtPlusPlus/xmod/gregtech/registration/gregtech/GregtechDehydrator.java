@@ -24,7 +24,6 @@ import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe;
 import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe.SpecialEffects;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
-import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
 import gtPlusPlus.core.item.ModItems;
 import gtPlusPlus.core.lib.GTPPCore;
@@ -35,7 +34,6 @@ import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MT
 public class GregtechDehydrator {
 
     public static void run() {
-        Logger.INFO("Gregtech5u Content | Registering Chemical Dehydrators.");
         registerMTEs();
         registerRecipes();
     }

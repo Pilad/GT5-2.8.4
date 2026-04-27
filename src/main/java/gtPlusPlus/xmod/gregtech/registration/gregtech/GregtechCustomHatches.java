@@ -48,7 +48,6 @@ import gregtech.GTMod;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
-import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchAirIntake;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchAirIntakeAtmosphere;
@@ -66,7 +65,6 @@ import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 public class GregtechCustomHatches {
 
     public static void run() {
-        Logger.INFO("Gregtech5u Content | Registering Custom Fluid Hatches.");
         run1();
         if (GTMod.proxy.mPollution) {
             run2();
