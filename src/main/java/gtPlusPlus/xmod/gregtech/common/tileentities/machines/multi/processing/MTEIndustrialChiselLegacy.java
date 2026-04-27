@@ -216,8 +216,9 @@ public class MTEIndustrialChiselLegacy extends GTPPMultiBlockBase<MTEIndustrialC
 
     private GTRecipe generateChiselRecipe(ItemStack aInput) {
         boolean tIsCached = hasValidCache(aInput, this.target, true);
-        if (tIsCached || aInput != null && (hasChiselResults(aInput)
-            || (this.target != null && this.target.getItem() instanceof ArchitectureItemBlock))) {
+        boolean hasArchitectureTarget = ArchitectureCraft.isModLoaded() && this.target != null
+            && this.target.getItem() instanceof ArchitectureItemBlock;
+        if (tIsCached || aInput != null && (hasChiselResults(aInput) || hasArchitectureTarget)) {
             ItemStack tOutput = tIsCached ? mOutputCache.copy() : getChiselOutput(aInput, this.target);
             if (tOutput != null) {
                 if (mCachedRecipe != null && GTUtility.areStacksEqual(aInput, mInputCache)
@@ -262,6 +263,9 @@ public class MTEIndustrialChiselLegacy extends GTPPMultiBlockBase<MTEIndustrialC
                 || (block.renderAsNormalBlock() && !block.hasTileEntity())) {
                 tOutput = aTarget.copy();
                 NBTTagCompound tag = aTarget.getTagCompound();
+                if (tag == null) {
+                    return null;
+                }
                 NBTTagCompound tagOutput = (NBTTagCompound) tag.copy();
                 int aInputDmg = aInput.getItemDamage();
                 GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(block);
