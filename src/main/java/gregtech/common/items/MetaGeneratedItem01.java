@@ -3591,6 +3591,9 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
                 if ((aPrefix == OrePrefixes.dustImpure) || (aPrefix == OrePrefixes.dustPure)) {
                     aList.add(translateToLocal("GT5U.tooltip.purify.1"));
                 }
+                if (aPrefix == OrePrefixes.dust && aMaterial == Materials.Wheat) {
+                    aList.add(GTUtility.translate("GT5U.tooltip.flour.cauldron"));
+                }
             }
         }
     }
