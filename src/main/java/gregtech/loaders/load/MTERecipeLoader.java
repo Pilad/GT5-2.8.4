@@ -1700,6 +1700,12 @@ public class MTERecipeLoader implements Runnable {
             ItemList.FormingCore.get(1),
             new Object[] { "PhP", "SFS", "PwP", 'P', OrePrefixes.plate.get(Materials.StainlessSteel), 'S',
                 OrePrefixes.plate.get(Materials.Steel), 'F', OrePrefixes.frameGt.get(Materials.StainlessSteel) });
+
+        // Algae Casing
+        GTModHandler.addCraftingRecipe(
+            ItemList.AlgaeCasing.get(1),
+            new Object[] { "PhP", "SFS", "PwP", 'P', OrePrefixes.plate.get(Materials.RoseGold), 'S',
+                OrePrefixes.plate.get(Materials.StainlessSteel), 'F', OrePrefixes.frameGt.get(Materials.RoseGold) });
     }
 
     // This method is for all the structure rework shapeless crafing migration recipes
@@ -1790,6 +1796,25 @@ public class MTERecipeLoader implements Runnable {
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.TreeGrowSimulator.get(1),
             new Object[] { GregtechItemList.Industrial_TreeFarm.get(1) });
+
+        // Algae Farm Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.AlgaeFarm.get(1),
+            new Object[] { GregtechItemList.AlgaeFarm_Controller.get(1) });
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GregtechItemList.GTPP_Casing_ULV.get(4),
+                GTOreDictUnificator.get(OrePrefixes.stick, Materials.Aluminium, 12),
+                GTOreDictUnificator.get(OrePrefixes.plate, Materials.Wood, 32),
+                GTOreDictUnificator.get(OrePrefixes.bolt, Materials.Steel, 16),
+                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Redstone, 32),
+                GTUtility.getIntegratedCircuit(22))
+            .itemOutputs(ItemList.AlgaeFarm.get(1))
+            .fluidInputs(MaterialsAlloy.POTIN.getFluidStack(8 * INGOTS))
+            .duration(60 * SECONDS)
+            .eut(TierEU.RECIPE_MV)
+            .addTo(assemblerRecipes);
 
         // Tree Growth Simulator
         GTModHandler.addCraftingRecipe(

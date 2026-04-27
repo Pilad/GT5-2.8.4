@@ -1768,6 +1768,7 @@ public enum MetaTileEntityIDs {
     LargeSifter(15542),
     IndustrialCokeOven(15543),
     FishingPort(15544),
+    AlgaeFarm(15545),
     PyrolyzeOven(15546),
     AdvancedImplosionCompressor(15547),
     IndustrialExtruder(15549),

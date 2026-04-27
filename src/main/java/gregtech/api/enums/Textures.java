@@ -405,6 +405,7 @@ public class Textures {
 
         MIXING_CASING,
         FORMING_CORE,
+        ALGAE_CASING,
 
         DECAY_WAREHOUSE_BACKGROUND,
         DECAY_WAREHOUSE_GLOW,
