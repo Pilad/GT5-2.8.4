@@ -23,7 +23,6 @@ public class BlockCasings13 extends BlockCasingsAbstract {
         register(7, ItemList.FieldEnergyAbsorberCasing);
         register(8, ItemList.LoadbearingDistributionCasing);
         register(9, ItemList.NaniteFramework);
-        register(15, ItemList.CasingHearth);
     }
 
     @Override
@@ -41,11 +40,6 @@ public class BlockCasings13 extends BlockCasingsAbstract {
             case 7 -> Textures.BlockIcons.NANO_FORGE_CASING_3.getIcon();
             case 8 -> Textures.BlockIcons.NANO_FORGE_CASING_4.getIcon();
             case 9 -> Textures.BlockIcons.NANITE_CORE.getIcon();
-            case 15 -> {
-                if (ordinalSide == 0) yield Textures.BlockIcons.MACHINE_CASING_HEARTH_BOTTOM.getIcon();
-                if (ordinalSide == 1) yield Textures.BlockIcons.MACHINE_CASING_HEARTH_TOP.getIcon();
-                yield Textures.BlockIcons.MACHINE_CASING_HEARTH_SIDE.getIcon();
-            }
             default -> Textures.BlockIcons.MACHINE_CASING_ROBUST_TUNGSTENSTEEL.getIcon();
         };
     }

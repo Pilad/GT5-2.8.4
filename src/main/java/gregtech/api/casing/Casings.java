@@ -491,10 +491,14 @@ public enum Casings implements ICasing {
         (() -> GregTechAPI.sBlockCasings13, 8, gt(16, 6, 8)),
     NaniteReplicationFramework
         (() -> GregTechAPI.sBlockCasings13, 9, gt(16, 6, 9)),
-    HearthCasing(() -> GregTechAPI.sBlockCasings13, 15, gt(16, 6, 15)),
+
     // Block Reinforced
     NaquadahReinforcedBlock
         (() -> GregTechAPI.sBlockReinforced,10,218),
+
+    // Block Casings 14
+    CableCasing
+        (() -> GregTechAPI.sBlockCasings14, 3, gt(16, 7, 3)),
 
     // Block Casings NH
     AirFilterTurbineCasing
