@@ -355,13 +355,13 @@ public enum Casings implements ICasing {
     CokeOvenBricks
         (() -> GregTechAPI.sBlockCasings12, 0, gt(16, 5, 0)),
     VibrationSafeCasing
-        (() -> GregTechAPI.sBlockCasings12, 1, gt(16, 5, 1)),
+        (() -> GregTechAPI.sBlockCasings12, 9, gt(16, 5, 9)),
     AlchemicallyResistantThaumiumCasing
-        (() -> GregTechAPI.sBlockCasings12, 2, gt(16, 5, 2)),
+        (() -> GregTechAPI.sBlockCasings12, 10, gt(16, 5, 10)),
     AlchemicallyInertVoidCasing
-        (() -> GregTechAPI.sBlockCasings12, 3, gt(16, 5, 3)),
+        (() -> GregTechAPI.sBlockCasings12, 11, gt(16, 5, 11)),
     AlchemicallyImmuneIchoriumCasing
-        (() -> GregTechAPI.sBlockCasings12, 4, gt(16, 5, 4)),
+        (() -> GregTechAPI.sBlockCasings12, 12, gt(16, 5, 12)),
     MixerCasing
         (() -> GregTechAPI.sBlockCasings12, 13, gt(16, 5, 13)),
     FormingCore
@@ -491,6 +491,7 @@ public enum Casings implements ICasing {
         (() -> GregTechAPI.sBlockCasings13, 8, gt(16, 6, 8)),
     NaniteReplicationFramework
         (() -> GregTechAPI.sBlockCasings13, 9, gt(16, 6, 9)),
+    HearthCasing(() -> GregTechAPI.sBlockCasings13, 15, gt(16, 6, 15)),
     // Block Reinforced
     NaquadahReinforcedBlock
         (() -> GregTechAPI.sBlockReinforced,10,218),
@@ -987,6 +988,8 @@ public enum Casings implements ICasing {
         (() -> Loaders.MAR_Casing, 0, -1),
     FieldRestrictionGlass
         (() -> Loaders.fieldRestrictingGlass, 0, -1),
+    SCTurbineCasing
+        (() -> Loaders.supercriticalFluidTurbineCasing, 0, 1538),
 
     BorosilicateGlassAny(BorosilicateGlass::getGlassBlock, 0, -1) {
         @Override

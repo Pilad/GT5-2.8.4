@@ -438,6 +438,11 @@ public class GTUITextures {
     public static final UITexture OVERLAY_BUTTON_LMA_ANIMATION_OFF = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/lma_animation_off");
 
+    public static final UITexture OVERLAY_BUTTON_PYROTHEUM_ON = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/mebf_pyro_on");
+    public static final UITexture OVERLAY_BUTTON_PYROTHEUM_OFF = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/mebf_pyro_off");
+
     public static final UITexture OVERLAY_BUTTON_LIQUIDMODE = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/LiquidMode");
 

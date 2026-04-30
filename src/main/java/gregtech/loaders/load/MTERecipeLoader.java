@@ -1967,6 +1967,22 @@ public class MTERecipeLoader implements Runnable {
             ItemList.TungstensteelBoilerLarge.get(1),
             new Object[] { ItemList.Machine_Multi_LargeBoiler_TungstenSteel.get(1) });
 
+        // Large Turbines Conversion Recipes
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.SteamTurbine.get(1),
+            new Object[] { ItemList.LargeSteamTurbine.get(1) });
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.HPSteamTurbine.get(1),
+            new Object[] { ItemList.LargeHPSteamTurbine.get(1) });
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.SCSteamTurbine.get(1),
+            new Object[] { ItemRefer.SC_Fluid_Turbine.get(1) });
+        GTModHandler
+            .addShapelessCraftingRecipe(ItemList.GasTurbine.get(1), new Object[] { ItemList.LargeGasTurbine.get(1) });
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.PlasmaTurbine.get(1),
+            new Object[] { ItemList.LargePlasmaTurbine.get(1) });
+
         // Maceration Stack conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.MacerationStack.get(1),
@@ -2031,6 +2047,11 @@ public class MTERecipeLoader implements Runnable {
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.InfiniteFluidDrillingRig.get(1),
             new Object[] { ItemList.OilDrillInfinite.get(1) });
+
+        // Mega Electric Blast Furnace -> Exothermic Hearth Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.ExothermicHearth.get(1),
+            new Object[] { ItemRegistry.megaMachines[0] });
     }
 
     private static void registerSifter() {
