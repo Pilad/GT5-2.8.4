@@ -1655,7 +1655,8 @@ GT5U.gui.text.cluster=Cluster Decay
 GT5U.gui.text.alpha-transfer=Alpha Transfer
 GT5U.gui.text.beta-minus=Beta Minus Decay
 GT5U.gui.text.beta-plus=Beta Plus Decay
-GT5U.gui.text.button.pyrotheum=Enable Pyrotheum Heating
+GT5U.gui.text.button.pyrotheum.enabled=Pyrotheum Heating: §2Enabled
+GT5U.gui.text.button.pyrotheum.disabled=Pyrotheum Heating: §4Disabled
 
 GT5U.gui.config.client=Client
 GT5U.gui.config.client.color_modulation=Color Modulation
@@ -4489,7 +4490,9 @@ gt.blockcasings13.6.name=Magnetic Anchor Casing
 gt.blockcasings13.7.name=Field Energy Absorber Casing
 gt.blockcasings13.8.name=Loadbearing Distribution Casing
 gt.blockcasings13.9.name=Nanite Replication Framework
-gt.blockcasings13.15.name=Hearth Casing
+
+gt.blockcasings14.3.name=Hearth Casing
+
 gt.blockcasingsNH.0.name=Air Filter Turbine Casing
 gt.blockcasingsNH.1.name=Air Filter Vent Casing
 gt.blockcasingsNH.2.name=Pyrolyse Oven Casing

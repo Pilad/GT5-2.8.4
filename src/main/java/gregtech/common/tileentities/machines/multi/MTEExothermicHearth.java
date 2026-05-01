@@ -515,31 +515,40 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
     @Override
     public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {
         super.addUIWidgets(builder, buildContext);
-        builder.widget(new ButtonWidget().setOnClick((clickData, widget) -> {
-            // Переключаем состояние при клике
+
+        ButtonWidget pyroButton = new ButtonWidget();
+
+        builder.widget(pyroButton.setOnClick((clickData, widget) -> {
             isPyroSupplied = !isPyroSupplied;
+            widget.notifyTooltipChange();
         })
             .setPlayClickSound(true)
             .setBackground(() -> {
-                // Динамическая смена текстуры в зависимости от состояния
                 List<UITexture> ret = new ArrayList<>();
                 if (isPyroSupplied) {
-                    ret.add(GTUITextures.BUTTON_STANDARD_PRESSED); // Фон нажатой кнопки
-                    ret.add(GTUITextures.OVERLAY_BUTTON_PYROTHEUM_ON); // Оверлей "ВКЛ"
+                    ret.add(GTUITextures.BUTTON_STANDARD_PRESSED);
+                    ret.add(GTUITextures.OVERLAY_BUTTON_PYROTHEUM_ON);
                 } else {
-                    ret.add(GTUITextures.BUTTON_STANDARD); // Фон обычной кнопки
-                    ret.add(GTUITextures.OVERLAY_BUTTON_PYROTHEUM_OFF); // Оверлей "ВЫКЛ"
+                    ret.add(GTUITextures.BUTTON_STANDARD);
+                    ret.add(GTUITextures.OVERLAY_BUTTON_PYROTHEUM_OFF);
                 }
                 return ret.toArray(new IDrawable[0]);
             })
+            .dynamicTooltip(() -> {
+                List<String> textList = new ArrayList<>();
+                if (isPyroSupplied) {
+                    textList.add(StatCollector.translateToLocal("GT5U.gui.text.button.pyrotheum.enabled"));
+                } else {
+                    textList.add(StatCollector.translateToLocal("GT5U.gui.text.button.pyrotheum.disabled"));
+                }
+                return textList;
+            })
             .attachSyncer(
-                // Синхронизация переменной между сервером и клиентом
-                new FakeSyncWidget.BooleanSyncer(() -> isPyroSupplied, val -> isPyroSupplied = val),
+                new FakeSyncWidget.BooleanSyncer(() -> isPyroSupplied, val -> isPyroSupplied = val)
+                    .setOnClientUpdate(val -> pyroButton.notifyTooltipChange()),
                 builder)
-            .addTooltip(StatCollector.translateToLocal("GT5U.gui.text.button.pyrotheum")) // Тултип
-            .setPos(80, 91) // Позиция в GUI (подбери под свой интерфейс)
-            .setSize(16, 16) // Размер кнопки
-        );
+            .setPos(80, 91)
+            .setSize(16, 16));
     }
 
     @Override
