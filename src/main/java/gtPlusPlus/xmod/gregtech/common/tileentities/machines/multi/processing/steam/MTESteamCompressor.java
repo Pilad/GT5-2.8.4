@@ -86,21 +86,6 @@ public class MTESteamCompressor extends MTESteamMultiBase<MTESteamCompressor> im
 
     private IStructureDefinition<MTESteamCompressor> STRUCTURE_DEFINITION = null;
 
-    private final String[][] shape_legacy = new String[][] { { "AAA", "AAA", "AAA", "AAA" },
-        { "A~A", "A-A", "A-A", "AAA" }, { "AAA", "AAA", "AAA", "AAA" } };
-
-    // spotless:off
-    private final String[][] shape = new String[][]{
-        {"CCC", "C~C", "CCC"},
-        {"AAA", "AAA", "AAA"},
-        {"   ", " C ", "AAA"},
-        {"   ", " C ", "AAA"},
-        {"EEE", "EEE", "AAA"},
-        {"   ", "   ", "AAA"},
-        {"AAA", "AAA", "AAA"}};
-
-    // spotless:on
-
     private static final int HORIZONTAL_OFFSET = 1;
     private static final int VERTICAL_OFFSET = 1;
     private static final int DEPTH_OFFSET = 0;
@@ -211,8 +196,20 @@ public class MTESteamCompressor extends MTESteamMultiBase<MTESteamCompressor> im
     public IStructureDefinition<MTESteamCompressor> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
             STRUCTURE_DEFINITION = StructureDefinition.<MTESteamCompressor>builder()
-                .addShape(STRUCTURE_PIECE_LEGACY, transpose(shape_legacy))
-                .addShape(STRUCTURE_PIECE_MAIN, shape)
+                // spotless:off
+                .addShape(STRUCTURE_PIECE_LEGACY, transpose( new String[][] {
+                    { "AAA", "AAA", "AAA", "AAA" },
+                    { "A~A", "A-A", "A-A", "AAA" },
+                    { "AAA", "AAA", "AAA", "AAA" }}))
+                .addShape(STRUCTURE_PIECE_MAIN, new String[][]{
+                    {"CCC", "C~C", "CCC"},
+                    {"AAA", "AAA", "AAA"},
+                    {"   ", " C ", "AAA"},
+                    {"   ", " C ", "AAA"},
+                    {"EEE", "EEE", "AAA"},
+                    {"   ", "   ", "AAA"},
+                    {"AAA", "AAA", "AAA"}})
+                // spotless:on
                 .addElement(
                     'A',
                     ofChain(
@@ -281,15 +278,17 @@ public class MTESteamCompressor extends MTESteamMultiBase<MTESteamCompressor> im
         casingAmount = 0;
 
         if (checkPiece(STRUCTURE_PIECE_LEGACY, 1, 1, 0)) {
-            if (tierMachineCasing == 1 && casingAmount >= 14 && checkHatches()) {
-                updateHatchTexture();
-                tierMachine = 1;
-                return true;
-            }
-            if (tierMachineCasing == 2 && casingAmount >= 14 && checkHatches()) {
-                updateHatchTexture();
-                tierMachine = 2;
-                return true;
+            if (casingAmount >= 14 && checkHatches()) {
+                if (tierMachineCasing == 1) {
+                    updateHatchTexture();
+                    tierMachine = 1;
+                    return true;
+                }
+                if (tierMachineCasing == 2) {
+                    updateHatchTexture();
+                    tierMachine = 2;
+                    return true;
+                }
             }
             return false;
         }
