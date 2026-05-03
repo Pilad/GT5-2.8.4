@@ -56,16 +56,16 @@ import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchTurbi
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 
-public abstract class MTELargerTurbineBase extends GTPPMultiBlockBase<MTELargerTurbineBase>
+public abstract class MTELargerTurbineBaseLegacy extends GTPPMultiBlockBase<MTELargerTurbineBaseLegacy>
     implements ISurvivalConstructable {
 
     private static final String STRUCTURE_PIECE_MAIN = "main";
-    private static final ClassValue<IStructureDefinition<MTELargerTurbineBase>> STRUCTURE_DEFINITION = new ClassValue<>() {
+    private static final ClassValue<IStructureDefinition<MTELargerTurbineBaseLegacy>> STRUCTURE_DEFINITION = new ClassValue<>() {
 
         @Override
         @SuppressWarnings("SpellCheckingInspection")
-        protected IStructureDefinition<MTELargerTurbineBase> computeValue(Class<?> type) {
-            return StructureDefinition.<MTELargerTurbineBase>builder()
+        protected IStructureDefinition<MTELargerTurbineBaseLegacy> computeValue(Class<?> type) {
+            return StructureDefinition.<MTELargerTurbineBaseLegacy>builder()
                 // c = turbine casing
                 // s = turbine shaft
                 // t = turbine housing
@@ -87,7 +87,8 @@ public abstract class MTELargerTurbineBase extends GTPPMultiBlockBase<MTELargerT
                 .addElement(
                     't',
                     lazy(
-                        t -> buildHatchAdder(MTELargerTurbineBase.class).adder(MTELargerTurbineBase::addTurbineHatch)
+                        t -> buildHatchAdder(MTELargerTurbineBaseLegacy.class)
+                            .adder(MTELargerTurbineBaseLegacy::addTurbineHatch)
                             .hatchClass(MTEHatchTurbine.class)
                             .casingIndex(t.getCasingTextureIndex())
                             .dot(1)
@@ -95,7 +96,7 @@ public abstract class MTELargerTurbineBase extends GTPPMultiBlockBase<MTELargerT
                 .addElement(
                     'h',
                     lazy(
-                        t -> buildHatchAdder(MTELargerTurbineBase.class)
+                        t -> buildHatchAdder(MTELargerTurbineBaseLegacy.class)
                             .atLeast(InputBus, InputHatch, OutputHatch, Dynamo.or(TTDynamo), Maintenance)
                             .casingIndex(t.getCasingTextureIndex())
                             .dot(4)
@@ -120,11 +121,11 @@ public abstract class MTELargerTurbineBase extends GTPPMultiBlockBase<MTELargerT
 
     public ArrayList<MTEHatchTurbine> mTurbineRotorHatches = new ArrayList<>();
 
-    public MTELargerTurbineBase(int aID, String aName, String aNameRegional) {
+    public MTELargerTurbineBaseLegacy(int aID, String aName, String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTELargerTurbineBase(String aName) {
+    public MTELargerTurbineBaseLegacy(String aName) {
         super(aName);
     }
 
@@ -180,7 +181,7 @@ public abstract class MTELargerTurbineBase extends GTPPMultiBlockBase<MTELargerT
     }
 
     @Override
-    public IStructureDefinition<MTELargerTurbineBase> getStructureDefinition() {
+    public IStructureDefinition<MTELargerTurbineBaseLegacy> getStructureDefinition() {
         return STRUCTURE_DEFINITION.get(getClass());
     }
 

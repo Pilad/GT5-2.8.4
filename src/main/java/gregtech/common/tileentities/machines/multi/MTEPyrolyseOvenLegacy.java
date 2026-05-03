@@ -140,6 +140,11 @@ public class MTEPyrolyseOvenLegacy extends MTEEnhancedMultiBlockBase<MTEPyrolyse
     }
 
     @Override
+    public boolean supportsSingleRecipeLocking() {
+        return true;
+    }
+
+    @Override
     public RecipeMap<?> getRecipeMap() {
         return RecipeMaps.pyrolyseRecipes;
     }

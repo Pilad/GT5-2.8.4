@@ -1983,6 +1983,23 @@ public class MTERecipeLoader implements Runnable {
             ItemList.PlasmaTurbine.get(1),
             new Object[] { ItemList.LargePlasmaTurbine.get(1) });
 
+        // XL Turbines Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.SteamTurbineXL.get(1),
+            new Object[] { GregtechItemList.Large_Steam_Turbine.get(1) });
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.HPSteamTurbineXL.get(1),
+            new Object[] { GregtechItemList.Large_HPSteam_Turbine.get(1) });
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.GasTurbineXL.get(1),
+            new Object[] { GregtechItemList.Large_Gas_Turbine.get(1) });
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.PlasmaTurbineXL.get(1),
+            new Object[] { GregtechItemList.Large_Plasma_Turbine.get(1) });
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.SCSteamTurbineXL.get(1),
+            new Object[] { GregtechItemList.Large_SCSteam_Turbine.get(1) });
+
         // Maceration Stack conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.MacerationStack.get(1),

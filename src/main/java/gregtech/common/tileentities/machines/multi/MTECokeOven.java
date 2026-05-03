@@ -23,14 +23,20 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-
-import org.jetbrains.annotations.NotNull;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 import com.gtnewhorizon.structurelib.alignment.IAlignmentLimits;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
+import com.gtnewhorizons.modularui.api.screen.ModularWindow;
+import com.gtnewhorizons.modularui.api.screen.UIBuildContext;
+import com.gtnewhorizons.modularui.common.internal.wrapper.BaseSlot;
+import com.gtnewhorizons.modularui.common.widget.FluidSlotWidget;
+import com.gtnewhorizons.modularui.common.widget.ProgressBar;
+import com.gtnewhorizons.modularui.common.widget.SlotWidget;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,6 +46,7 @@ import gregtech.api.enums.HarvestTool;
 import gregtech.api.enums.ParticleFX;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.Textures;
+import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -55,7 +62,6 @@ import gregtech.api.util.IGTHatchAdder;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.WorldSpawnedEventBuilder;
 import gregtech.common.pollution.Pollution;
-import gregtech.common.tileentities.machines.multi.gui.MTECokeOvenGui;
 
 public class MTECokeOven extends MTEEnhancedMultiBlockBase<MTECokeOven> implements ISurvivalConstructable {
 
@@ -143,11 +149,6 @@ public class MTECokeOven extends MTEEnhancedMultiBlockBase<MTECokeOven> implemen
         final int toDrain = Math.min(fluid.amount, maxDrain);
         if (doDrain) fluid.amount -= toDrain;
         return GTUtility.copyAmount(toDrain, fluid);
-    }
-
-    @Override
-    protected @NotNull MTECokeOvenGui getGui() {
-        return new MTECokeOvenGui(this);
     }
 
     @Override
@@ -439,6 +440,113 @@ public class MTECokeOven extends MTEEnhancedMultiBlockBase<MTECokeOven> implemen
         public long count(MTECokeOven cokeOven) {
             return cokeOven.hatches.size();
         }
+    }
+
+    @Override
+    public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {
+        super.addUIWidgets(builder, buildContext);
+
+        // 1. Слот входа (INPUT_SLOT = 0)
+        builder.widget(
+            new SlotWidget(new BaseSlot(inventoryHandler, INPUT_SLOT)).setPos(45, 55)
+                .setSize(18, 18));
+
+        // 2. Прогресс-бар
+        builder.widget(
+            new ProgressBar().setProgress(() -> mMaxProgresstime > 0 ? (float) mProgresstime / mMaxProgresstime : 0f)
+                .setTexture(GTUITextures.PROGRESSBAR_ARROW, 20)
+                .setPos(65, 55)
+                .setSize(20, 18));
+
+        // 3. Слот выхода (OUTPUT_SLOT = 1)
+        builder.widget(new SlotWidget(new BaseSlot(inventoryHandler, OUTPUT_SLOT) {
+
+            @Override
+            public boolean isItemValid(ItemStack stack) {
+                return false;
+            }
+
+            @Override
+            public void putStack(ItemStack stack) {
+                if (stack != null) {
+                    return;
+                }
+                super.putStack(stack);
+            }
+        }).setPos(87, 55)
+            .setSize(18, 18));
+
+        // 4. Бак с креозотом
+        FluidTank tankWrapper = new FluidTank(FLUID_CAPACITY) {
+
+            @Override
+            public FluidStack getFluid() {
+                // ВАЖНО: Возвращаем КОПИЮ, чтобы ванильный FluidContainerRegistry
+                // не испортил оригинальный fluid машины при проверке ведер!
+                return MTECokeOven.this.fluid == null ? null : MTECokeOven.this.fluid.copy();
+            }
+
+            @Override
+            public int getFluidAmount() {
+                // ВАЖНО: Без этого виджет всегда думал, что бак пустой (0 литров)
+                return MTECokeOven.this.fluid == null ? 0 : MTECokeOven.this.fluid.amount;
+            }
+
+            @Override
+            public int getCapacity() {
+                return FLUID_CAPACITY;
+            }
+
+            public FluidTankInfo[] getTankInfo() {
+                return new FluidTankInfo[] { new FluidTankInfo(MTECokeOven.this.fluid, FLUID_CAPACITY) };
+            }
+
+            @Override
+            public int fill(FluidStack resource, boolean doFill) {
+                if (resource == null || resource.getFluid() == null) return 0;
+                if (MTECokeOven.this.fluid != null && !MTECokeOven.this.fluid.isFluidEqual(resource)) return 0;
+
+                int space = FLUID_CAPACITY - getFluidAmount();
+                int filled = Math.min(resource.amount, space);
+
+                if (doFill && filled > 0) {
+                    if (MTECokeOven.this.fluid == null) {
+                        MTECokeOven.this.fluid = resource.copy();
+                        MTECokeOven.this.fluid.amount = filled;
+                    } else {
+                        MTECokeOven.this.fluid.amount += filled;
+                    }
+                    getBaseMetaTileEntity().markDirty();
+                }
+                return filled;
+            }
+
+            @Override
+            public FluidStack drain(int maxDrain, boolean doDrain) {
+                if (MTECokeOven.this.fluid == null || MTECokeOven.this.fluid.amount <= 0) return null;
+                int drained = Math.min(maxDrain, MTECokeOven.this.fluid.amount);
+                FluidStack drainedStack = new FluidStack(MTECokeOven.this.fluid, drained);
+
+                if (doDrain) {
+                    MTECokeOven.this.fluid.amount -= drained;
+                    if (MTECokeOven.this.fluid.amount <= 0) {
+                        MTECokeOven.this.fluid = null;
+                    }
+                    getBaseMetaTileEntity().markDirty();
+                }
+                return drainedStack;
+            }
+
+            public FluidStack drain(FluidStack resource, boolean doDrain) {
+                if (resource == null || MTECokeOven.this.fluid == null
+                    || !MTECokeOven.this.fluid.isFluidEqual(resource)) return null;
+                return drain(resource.amount, doDrain);
+            }
+        };
+
+        builder.widget(
+            new FluidSlotWidget(tankWrapper).setPos(109, 55)
+                .setSize(18, 18));
     }
 
     @Override

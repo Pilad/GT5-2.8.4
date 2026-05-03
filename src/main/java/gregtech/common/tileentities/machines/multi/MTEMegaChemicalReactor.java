@@ -231,6 +231,11 @@ public class MTEMegaChemicalReactor extends MTEExtendedPowerMultiBlockBase<MTEMe
     }
 
     @Override
+    public boolean supportsSingleRecipeLocking() {
+        return true;
+    }
+
+    @Override
     public boolean supportsBatchMode() {
         return true;
     }

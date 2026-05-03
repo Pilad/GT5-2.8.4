@@ -24,7 +24,7 @@ import gregtech.common.tileentities.machines.multi.MTELargeTurbineLegacy;
 import gregtech.common.tileentities.machines.multi.turbines.MTELargeTurbineBase;
 import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.core.lib.GTPPCore;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.turbines.MTELargerTurbineBase;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.turbines.MTELargerTurbineBaseLegacy;
 
 public class MTEHatchTurbineProvider extends MTEHatchInputBus {
 
@@ -210,7 +210,7 @@ public class MTEHatchTurbineProvider extends MTEHatchInputBus {
     @Override
     public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {
         builder.widget(
-            new SlotWidget(inventoryHandler, 0).setFilter(MTELargerTurbineBase::isValidTurbine)
+            new SlotWidget(inventoryHandler, 0).setFilter(MTELargerTurbineBaseLegacy::isValidTurbine)
                 .setAccess(false, true)
                 .setPos(79, 34));
     }

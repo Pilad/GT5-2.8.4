@@ -278,6 +278,7 @@ public class GTUITextures {
         .fullImage(GregTech.ID, "gui/button/cover_normal_hovered");
     public static final UITexture BUTTON_COVER_NORMAL_DISABLED = UITexture
         .fullImage(GregTech.ID, "gui/button/cover_normal_disabled");
+    public static final UITexture BUTTON_GEAR = AdaptableUITexture.of(GregTech.ID, "gui/button/gear", 18, 18, 1);
 
     public static final UITexture OVERLAY_BUTTON_DISABLE = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/disable");
