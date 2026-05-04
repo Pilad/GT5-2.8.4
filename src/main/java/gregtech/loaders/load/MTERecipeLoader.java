@@ -1701,6 +1701,19 @@ public class MTERecipeLoader implements Runnable {
             new Object[] { "PhP", "SFS", "PwP", 'P', OrePrefixes.plate.get(Materials.StainlessSteel), 'S',
                 OrePrefixes.plate.get(Materials.Steel), 'F', OrePrefixes.frameGt.get(Materials.StainlessSteel) });
 
+        // Naquadah Reactor Casing
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemRefer.Radiation_Protection_Plate.get(2),
+                Materials.PrismaticNaquadah.getPlates(2),
+                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Naquadah, 1),
+                GTUtility.getIntegratedCircuit(1))
+            .itemOutputs(ItemList.NaquadahReactorCasing.get(1))
+            .fluidInputs(Materials.NaquadahEnriched.getMolten(4 * INGOTS))
+            .duration(20 * SECONDS)
+            .eut(TierEU.RECIPE_LuV)
+            .addTo(assemblerRecipes);
+
         // Algae Casing
         GTModHandler.addCraftingRecipe(
             ItemList.AlgaeCasing.get(1),
@@ -1974,14 +1987,30 @@ public class MTERecipeLoader implements Runnable {
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.HPSteamTurbine.get(1),
             new Object[] { ItemList.LargeHPSteamTurbine.get(1) });
+
+        GTModHandler.addCraftingRecipe(
+            ItemList.HPSteamTurbine.get(1L),
+            GTModHandler.RecipeBits.BITS,
+            new Object[] { "BPB", "PMP", "CPC", 'M', ItemList.Hull_IV, 'B',
+                OrePrefixes.pipeLarge.get(Materials.Titanium), 'C', OrePrefixes.circuit.get(Materials.IV), 'P',
+                OrePrefixes.gearGt.get(Materials.Titanium) });
+
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.SCSteamTurbine.get(1),
             new Object[] { ItemRefer.SC_Fluid_Turbine.get(1) });
+
         GTModHandler
             .addShapelessCraftingRecipe(ItemList.GasTurbine.get(1), new Object[] { ItemList.LargeGasTurbine.get(1) });
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.PlasmaTurbine.get(1),
             new Object[] { ItemList.LargePlasmaTurbine.get(1) });
+
+        GTModHandler.addCraftingRecipe(
+            ItemList.PlasmaTurbine.get(1L),
+            GTModHandler.RecipeBits.BITS,
+            new Object[] { "BPB", "PMP", "CPC", 'M', ItemList.Hull_UV, 'B',
+                OrePrefixes.pipeHuge.get(Materials.Naquadah), 'C', OrePrefixes.circuit.get(Materials.ZPM), 'P',
+                OrePrefixes.gearGt.get(Materials.NaquadahAlloy) });
 
         // XL Turbines Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(

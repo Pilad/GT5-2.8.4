@@ -121,10 +121,10 @@ public class MTELargeNaquadahReactor extends TTMultiblockBase implements ISurviv
             ofChain(
                 buildHatchAdder(MTELargeNaquadahReactor.class)
                     .atLeast(DynamoMulti.or(Dynamo), EnergyMulti.or(Energy), InputHatch, OutputHatch, Maintenance)
-                    .casingIndex(Casings.RadiationProofMachineCasing.textureId)
+                    .casingIndex(Casings.NaquadahReactorCasing.textureId)
                     .dot(1)
                     .build(),
-                onElementPass(x -> x.casingAmount++, Casings.RadiationProofMachineCasing.asElement())))
+                onElementPass(x -> x.casingAmount++, Casings.NaquadahReactorCasing.asElement())))
         .addElement('B', Casings.FieldRestrictionCasing.asElement())
         .addElement('C', Casings.RadiantProofSteelFrameBox.asElement())
         .build();
@@ -417,13 +417,13 @@ public class MTELargeNaquadahReactor extends TTMultiblockBase implements ISurviv
             .addTecTechHatchInfo()
             .beginStructureBlock(7, 11, 7, false)
             .addController("Front bottom center")
-            .addCasingInfoMin("Radiation Proof Machine Casing", 130, false)
+            .addCasingInfoMin("Naquadah Reactor Casing", 130, false)
             .addCasingInfoExactly("Field Restriction Casing", 81, false)
             .addCasingInfoExactly("Radiation Proof Steel Frame Box", 36, false)
-            .addDynamoHatch("Any Radiation Proof Machine Casing, only accepts ONE!")
-            .addInputHatch("Any Radiation Proof Machine Casing")
-            .addOutputHatch("Any Radiation Proof Machine Casing")
-            .addMaintenanceHatch("Any Radiation Proof Machine Casing")
+            .addDynamoHatch("Any Naquadah Reactor Casing, only accepts ONE!")
+            .addInputHatch("Any Naquadah Reactor Casing")
+            .addOutputHatch("Any Naquadah Reactor Casing")
+            .addMaintenanceHatch("Any Naquadah Reactor Casing")
             .addStructureAuthors(EnumChatFormatting.GOLD + "N7Paddy")
             .toolTipFinisher();
         return tt;
@@ -433,7 +433,7 @@ public class MTELargeNaquadahReactor extends TTMultiblockBase implements ISurviv
     public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection facing,
         int colorIndex, boolean aActive, boolean aRedstone) {
         if (side == facing) {
-            if (aActive) return new ITexture[] { Casings.RadiationProofMachineCasing.getCasingTexture(),
+            if (aActive) return new ITexture[] { Casings.NaquadahReactorCasing.getCasingTexture(),
                 TextureFactory.builder()
                     .addIcon(Textures.BlockIcons.NAQUADAH_REACTOR_SOLID_FRONT_ACTIVE)
                     .extFacing()
@@ -443,12 +443,12 @@ public class MTELargeNaquadahReactor extends TTMultiblockBase implements ISurviv
                     .extFacing()
                     .glow()
                     .build() };
-            return new ITexture[] { Casings.RadiationProofMachineCasing.getCasingTexture(), TextureFactory.builder()
+            return new ITexture[] { Casings.NaquadahReactorCasing.getCasingTexture(), TextureFactory.builder()
                 .addIcon(Textures.BlockIcons.NAQUADAH_REACTOR_SOLID_FRONT)
                 .extFacing()
                 .build() };
         }
-        return new ITexture[] { Casings.RadiationProofMachineCasing.getCasingTexture() };
+        return new ITexture[] { Casings.NaquadahReactorCasing.getCasingTexture() };
     }
 
     @Override

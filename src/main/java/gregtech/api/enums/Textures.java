@@ -405,6 +405,7 @@ public class Textures {
 
         MIXING_CASING,
         FORMING_CORE,
+        NAQUADAH_REACTOR_CASING,
         ALGAE_CASING,
         MACHINE_CASING_HEARTH_TOP,
         MACHINE_CASING_HEARTH_SIDE,

@@ -22,7 +22,6 @@ import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.api.util.GTUtility;
 import gregtech.common.tileentities.machines.multi.MTELargeTurbineLegacy;
 import gregtech.common.tileentities.machines.multi.turbines.MTELargeTurbineBase;
-import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.core.lib.GTPPCore;
 import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.turbines.MTELargerTurbineBaseLegacy;
 
@@ -62,7 +61,6 @@ public class MTEHatchTurbineProvider extends MTEHatchInputBus {
     }
 
     private void tryFindParentTurbine() {
-        Logger.INFO("This turbine housing has no parent, searching world.");
         IGregTechTileEntity T = this.getBaseMetaTileEntity();
         World W = T.getWorld();
         Chunk C = W.getChunkFromBlockCoords(T.getXCoord(), T.getZCoord());
@@ -78,7 +76,6 @@ public class MTEHatchTurbineProvider extends MTEHatchInputBus {
                     for (MTEHatchInputBus ee : aTurb.mInputBusses) {
                         if (ee.equals(this)) {
                             mParent = aTurb;
-                            Logger.INFO("Found a Parent to attach to this housing.");
                             return;
                         }
                     }
