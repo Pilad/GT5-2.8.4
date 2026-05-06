@@ -374,11 +374,11 @@ public class MTEPlanetaryGasSiphon extends MTEExtendedPowerMultiBlockBase<MTEPla
         fluid = recipeFluid.copy();
 
         if (ocLevel == 0) {
-            mEUt = -recipeEUt;
+            lEUt = -recipeEUt;
         } else {
             ocLevel--;
             fluid.amount *= 2 << ocLevel;
-            mEUt = -recipeEUt * (4 << (2 * ocLevel));
+            lEUt = -recipeEUt * (4 << (2 * ocLevel));
         }
 
         int processTime = (int) (20 * speedBoost(getCoilTier()));
@@ -448,7 +448,7 @@ public class MTEPlanetaryGasSiphon extends MTEExtendedPowerMultiBlockBase<MTEPla
     }
 
     private void resetMachine() {
-        mEUt = 0;
+        lEUt = 0;
         mEfficiency = 0;
     }
 
@@ -481,7 +481,7 @@ public class MTEPlanetaryGasSiphon extends MTEExtendedPowerMultiBlockBase<MTEPla
                 + fluid.getLocalizedName()
                 + EnumChatFormatting.RESET,
             "EU/t required: " + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(-mEUt)
+                + GTUtility.formatNumbers(-lEUt)
                 + EnumChatFormatting.RESET
                 + " EU/t",
             "Maintenance Status: " + (getRepairStatus() == getIdealStatus()

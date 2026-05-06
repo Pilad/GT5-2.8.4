@@ -234,11 +234,9 @@ public abstract class MTELargeTurbineBase extends MTEExtendedPowerMultiBlockBase
         } else {
             this.lEUt = newPower;
         }
-        this.mEUt = GTUtility.safeInt(this.lEUt);
 
         if (this.lEUt <= 0) {
             this.lEUt = 0;
-            this.mEUt = 0;
             this.mEfficiency = 0;
             return CheckRecipeResultRegistry.NO_FUEL_FOUND;
         } else {
@@ -394,7 +392,7 @@ public abstract class MTELargeTurbineBase extends MTEExtendedPowerMultiBlockBase
         return new String[] {
             tRunning + ": "
                 + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(mEUt)
+                + GTUtility.formatNumbers(lEUt)
                 + EnumChatFormatting.RESET
                 + " EU/t",
             tMaintainance,
