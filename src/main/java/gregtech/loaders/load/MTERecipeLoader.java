@@ -1848,6 +1848,18 @@ public class MTERecipeLoader implements Runnable {
             ItemList.Boldarnator.get(1),
             new Object[] { GregtechItemList.Controller_IndustrialRockBreaker.get(1) });
 
+        // Industrial Cutting Machine Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IndustrialCuttingMachine.get(1),
+            new Object[] { GregtechItemList.Industrial_CuttingFactoryController.get(1) });
+
+        // Industrial Cutting Factory
+        GTModHandler.addCraftingRecipe(
+            ItemList.IndustrialCuttingMachine.get(1),
+            GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "WCW", "PMP", "PCP", 'P', MaterialsAlloy.MARAGING300.getPlate(1), 'C', "circuitData", 'W',
+                OrePrefixes.wireFine.get(Materials.Platinum), 'M', ItemList.Machine_IV_Cutter });
+
         // Amazon Packager Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.IndustrialPackager.get(1),

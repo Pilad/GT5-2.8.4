@@ -1,6 +1,5 @@
 package gregtech.common.tileentities.machines.multi;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
@@ -21,7 +20,6 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
-import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.casing.Casings;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.interfaces.ITexture;
@@ -117,7 +115,7 @@ public class MTEIndustrialForgeHammer extends MTEExtendedPowerMultiBlockBase<MTE
                         .casingIndex(Casings.ForgeCasing.textureId)
                         .dot(1)
                         .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.ForgeCasing.asElement())))
-                .addElement('D', ofBlock(WerkstoffLoader.BWBlockCasingsAdvanced, 32100))
+                .addElement('D', Casings.ReboltedBlackSteelCasing.asElement())
                 .addElement('E', Casings.ForgeCasing.asElement())
                 .build();
         }

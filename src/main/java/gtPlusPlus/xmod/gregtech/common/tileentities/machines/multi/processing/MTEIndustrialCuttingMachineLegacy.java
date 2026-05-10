@@ -52,26 +52,26 @@ import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMult
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.gui.MTEIndustrialCuttingMachineGui;
 
-public class MTEIndustrialCuttingMachine extends GTPPMultiBlockBase<MTEIndustrialCuttingMachine>
+public class MTEIndustrialCuttingMachineLegacy extends GTPPMultiBlockBase<MTEIndustrialCuttingMachineLegacy>
     implements ISurvivalConstructable {
 
     private int mCasing;
     private static final int MACHINEMODE_CUTTER = 0;
     private static final int MACHINEMODE_SLICER = 1;
 
-    private static IStructureDefinition<MTEIndustrialCuttingMachine> STRUCTURE_DEFINITION = null;
+    private static IStructureDefinition<MTEIndustrialCuttingMachineLegacy> STRUCTURE_DEFINITION = null;
 
-    public MTEIndustrialCuttingMachine(final int aID, final String aName, final String aNameRegional) {
+    public MTEIndustrialCuttingMachineLegacy(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
     }
 
-    public MTEIndustrialCuttingMachine(final String aName) {
+    public MTEIndustrialCuttingMachineLegacy(final String aName) {
         super(aName);
     }
 
     @Override
     public IMetaTileEntity newMetaEntity(final IGregTechTileEntity aTileEntity) {
-        return new MTEIndustrialCuttingMachine(this.mName);
+        return new MTEIndustrialCuttingMachineLegacy(this.mName);
     }
 
     @Override
@@ -99,9 +99,9 @@ public class MTEIndustrialCuttingMachine extends GTPPMultiBlockBase<MTEIndustria
     }
 
     @Override
-    public IStructureDefinition<MTEIndustrialCuttingMachine> getStructureDefinition() {
+    public IStructureDefinition<MTEIndustrialCuttingMachineLegacy> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
-            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialCuttingMachine>builder()
+            STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialCuttingMachineLegacy>builder()
                 .addShape(
                     mName,
                     transpose(
@@ -109,7 +109,7 @@ public class MTEIndustrialCuttingMachine extends GTPPMultiBlockBase<MTEIndustria
                             { "CCC", "CCC", "CCC", "CCC", "CCC" }, }))
                 .addElement(
                     'C',
-                    buildHatchAdder(MTEIndustrialCuttingMachine.class)
+                    buildHatchAdder(MTEIndustrialCuttingMachineLegacy.class)
                         .atLeast(InputBus, InputHatch, OutputBus, Maintenance, Energy, Muffler)
                         .casingIndex(getCasingTextureIndex())
                         .dot(1)

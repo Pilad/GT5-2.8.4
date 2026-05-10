@@ -69,7 +69,7 @@ public class MTEAdvImplosionCompressor extends MTEExtendedPowerMultiBlockBase<MT
                 onElementPass(x -> ++x.casingAmount, Casings.RobustTungstenSteelMachineCasing.asElement())))
         .addElement('C', ofFrame(Materials.Gold))
         .addElement('D', ofFrame(Materials.TungstenSteel))
-        .addElement('E', ofFrame(Materials.Electrum))
+        .addElement('E', Casings.BoltedGoldCasing.asElement())
         .build();
 
     public MTEAdvImplosionCompressor(int aID, String aName, String aNameRegional) {
@@ -99,7 +99,7 @@ public class MTEAdvImplosionCompressor extends MTEExtendedPowerMultiBlockBase<MT
             .addCasingInfoMin("Robust Tungstensteel Machine Casing", 50, false)
             .addCasingInfoExactly("Refined Graphite Block", 80, false)
             .addCasingInfoExactly("Gold Frame Boxes", 4, false)
-            .addCasingInfoExactly("Electrum Frame Boxes", 4, false)
+            .addCasingInfoExactly("Bolted Gold Casing", 4, false)
             .addCasingInfoExactly("Tungstensteel Frame Box", 24, false)
             .addInputBus("Any Robust Tungstensteel Machine Casing", 1)
             .addOutputBus("Any Robust Tungstensteel Machine Casing", 1)

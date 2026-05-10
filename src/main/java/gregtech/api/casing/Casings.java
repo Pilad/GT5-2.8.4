@@ -573,17 +573,23 @@ public enum Casings implements ICasing {
     // ------------------ Bartworks Casings -----------------
 
     BoltedOsmiridiumCasing
-        (() -> WerkstoffLoader.BWBlockCasings, 32083,32083),
+        (() -> WerkstoffLoader.BWBlockCasings, 32083, 32083),
     ReboltedOsmiridiumCasing
         (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 32083, 32083),
     BoltedNaquadahAlloyCasing
-        (() -> WerkstoffLoader.BWBlockCasings, 32091,32091),
+        (() -> WerkstoffLoader.BWBlockCasings, 32091, 32091),
     ReboltedNaquadahAlloyCasing
         (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 32091, 32091),
     BoltedIridiumCasing
-        (() -> WerkstoffLoader.BWBlockCasings, 31850,31850),
+        (() -> WerkstoffLoader.BWBlockCasings, 31850, 31850),
     ReboltedIridiumCasing
         (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 31850, 31850),
+    BoltedBlueSteelCasing
+        (() -> WerkstoffLoader.BWBlockCasings, 32115, 32115),
+    BoltedGoldCasing
+        (() -> WerkstoffLoader.BWBlockCasings, 31852, 31852),
+   ReboltedBlackSteelCasing
+        (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 32100, 32100),
 
     // ------------------ GT++ Casings -----------------
 
