@@ -4090,7 +4090,7 @@ public class MTERecipeLoader implements Runnable {
         GTModHandler.addCraftingRecipe(
             ItemList.CokeOvenCasing.get(1),
             GTModHandler.RecipeBits.BITS,
-            new Object[] { "BB ", "BB ", "   ", 'B', ItemList.Firebrick.get(1) });
+            new Object[] { "BB", "BB", 'B', ItemList.Firebrick.get(1) });
 
         GTModHandler.addCraftingRecipe(
             ItemList.CokeOvenController.get(1),
