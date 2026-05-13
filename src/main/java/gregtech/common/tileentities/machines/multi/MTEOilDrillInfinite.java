@@ -57,7 +57,7 @@ public class MTEOilDrillInfinite extends MTEOilDrillBase {
                         { "         ", "         ", "         ", "    G    ", "    G    ", "   GBG   ", "   BBB   ",
                             "   BBB   ", "  GBABG  ", "  B A B  ", "  B A B  ", "    A    ", "    A    ", "BFCDDDCFB" },
                         { "    G    ", "    G    ", "    B    ", "   GBG   ", "   GBG   ", "   BHB   ", "  GBHBG  ",
-                            "  GBHBG  ", "  BAHAB  ", "   AHA   ", "   AHA   ", "   AHA   ", "   AHA   ", "EFCDDDCFE" },
+                            "  GBHBG  ", "  BAHAB  ", "   AHA   ", "   AHA   ", "   AHA   ", "   AHA   ", "BFCDDDCFB" },
                         { "         ", "         ", "         ", "    G    ", "    G    ", "   GBG   ", "   BBB   ",
                             "   BBB   ", "  GBABG  ", "  B A B  ", "  B A B  ", "    A    ", "    A    ", "BFCDDDCFB" },
                         { "         ", "         ", "         ", "         ", "         ", "         ", "    G    ",
@@ -66,7 +66,7 @@ public class MTEOilDrillInfinite extends MTEOilDrillBase {
                             "         ", "         ", "         ", "         ", "  B   B  ", " GB   BG ", " BBFFFBB " },
                         { "         ", "         ", "         ", "         ", "         ", "         ", "         ",
                             "         ", "         ", "         ", "         ", "         ", "         ",
-                            "  BBEBB  " } })
+                            "  BBBBB  " } })
                 .addElement('A', chainAllGlasses())
                 .addElement(
                     'B',
@@ -77,7 +77,6 @@ public class MTEOilDrillInfinite extends MTEOilDrillBase {
                             onElementPass(x -> ++x.casingAmount, Casings.MiningNeutroniumCasing.asElement())))
                 .addElement('C', Casings.AdvancedIridiumPlatedMachineCasing.asElement())
                 .addElement('D', Casings.PBIPipeCasing.asElement())
-                .addElement('E', Casings.ComputerHeatVent.asElement())
                 .addElement('F', Casings.AdvancedComputerCasing.asElement())
                 .addElement('G', ofFrame(Materials.Neutronium))
                 .addElement('H', ofBlock(LudicrousBlocks.resource_block, 1))
@@ -113,7 +112,6 @@ public class MTEOilDrillInfinite extends MTEOilDrillBase {
             .addController("Front bottom center")
             .addCasingInfoMin("Mining Neutronium Casing", 90, false)
             .addCasingInfoExactly("Any Tiered Glass", 20, false)
-            .addCasingInfoExactly("Computer Heat Vent", 3, false)
             .addCasingInfoExactly("PBI Pipe Casing", 9, false)
             .addCasingInfoExactly("Advanced Iridium Plated Machine Casing", 12, false)
             .addCasingInfoExactly("Advanced Computer Casing", 12, false)
@@ -121,7 +119,7 @@ public class MTEOilDrillInfinite extends MTEOilDrillBase {
             .addCasingInfoExactly("Infinity Block", 8, false)
             .addEnergyHatch("1x " + VN[getMinTier()] + "+, Any Mining Neutronium Casing", 1)
             .addMaintenanceHatch("Any Mining Neutronium Casing", 1)
-            .addInputBus("Mining Pipes or Circuits, optional, any Mining Neutronium Casing", 1)
+            .addInputBus("Programmed Circuits, optional, any Mining Neutronium Casing", 1)
             .addOutputHatch("Any Mining Neutronium Casing", 1)
             .addStructureAuthors(EnumChatFormatting.GOLD + "Pix3lated")
             .toolTipFinisher();
@@ -135,6 +133,11 @@ public class MTEOilDrillInfinite extends MTEOilDrillBase {
         return checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z) && checkHatches()
             && GTUtility.getTier(getMaxInputVoltage()) >= getMinTier()
             && casingAmount >= 90;
+    }
+
+    @Override
+    protected boolean checkHatches() {
+        return !mOutputHatches.isEmpty() && mEnergyHatches.size() == 1;
     }
 
     @Override
@@ -182,6 +185,11 @@ public class MTEOilDrillInfinite extends MTEOilDrillBase {
     }
 
     @Override
+    protected boolean requiresMiningPipes() {
+        return false;
+    }
+
+    @Override
     protected ItemList getCasingBlockItem() {
         return ItemList.Casing_MiningNeutronium;
     }
@@ -221,7 +229,6 @@ public class MTEOilDrillInfinite extends MTEOilDrillBase {
     }
 
     protected int getParallelCount() {
-        System.out.println("1");
         return (GTUtility.getTier(getMaxInputVoltage()) - getMinTier()) * parallels + 1;
     }
 }
