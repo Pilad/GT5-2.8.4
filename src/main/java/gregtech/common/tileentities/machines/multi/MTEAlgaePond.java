@@ -6,6 +6,7 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElement
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
+import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
@@ -62,6 +63,8 @@ import gregtech.common.pollution.PollutionConfig;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
+import ic2.core.init.BlocksItems;
+import ic2.core.init.InternalName;
 
 public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> implements ISurvivalConstructable {
 
@@ -69,6 +72,7 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
     private static final int OFFSET_Y = 3;
     private static final int OFFSET_Z = 0;
     private static final String STRUCTURE_PIECE_MAIN = "main";
+    private static final Block DISTILLED_WATER_BLOCK = BlocksItems.getFluidBlock(InternalName.fluidDistilledWater);
     private int tier = -1;
     private int glassTier = -1;
     private int casingAmount;
@@ -109,8 +113,9 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
             .addInfo(
                 GTUtility.getColoredTierNameFromTier((byte) 12) + EnumChatFormatting.GRAY
                     + "-glass unlocks all above energy tiers")
-            .addInfo("Accepts exactly 1 Energy Hatch. Does not need Maintenance")
-            .addInfo("Fill Input Hatch with Water to fill the inside of the multiblock")
+            .addInfo("Accepts exactly 1 Energy Hatch")
+            .addInfo("Fill Input Hatch with Water to fill the inside of the multiblock with water")
+            .addInfo("The inside may also be hand filled with Distilled Water")
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(3, 6, 10, false)
             .addController("Front center, 3rd layer")
@@ -121,6 +126,7 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
             .addOutputBus("Any Casing", 1)
             .addInputHatch("Any Casing", 1)
             .addEnergyHatch("Any Casing", 1)
+            .addMaintenanceHatch("Any Casing", 1)
             .addStructureAuthors(EnumChatFormatting.GOLD + "IX")
             .toolTipFinisher();
         return tt;
@@ -134,7 +140,7 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
                 .addElement('A', chainAllGlasses(-1, (te, t) -> te.glassTier = t, te -> te.glassTier))
                 .addElement(
                     'B',
-                    buildHatchAdder(MTEAlgaePond.class).atLeast(InputBus, OutputBus, Energy, InputHatch)
+                    buildHatchAdder(MTEAlgaePond.class).atLeast(InputBus, OutputBus, Energy, InputHatch, Maintenance)
                         .casingIndex(Casings.AlgaeCasing.textureId)
                         .dot(1)
                         .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.AlgaeCasing.asElement())))
@@ -173,7 +179,6 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
         tier = -1;
 
         if (checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z) && casingAmount >= 20
-            && !mInputHatches.isEmpty()
             && !mOutputBusses.isEmpty()
             && mEnergyHatches.size() == 1) {
             int inputTier = (int) getInputVoltageTier();
@@ -245,7 +250,7 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
                         .getBlock(worldX, worldY, worldZ);
                     boolean isCOFHWater = Mods.COFHCore.isModLoaded()
                         && (block instanceof BlockWater || block instanceof BlockTickingWater);
-                    if (block == Blocks.water || isCOFHWater) {
+                    if (block == Blocks.water || block == DISTILLED_WATER_BLOCK || isCOFHWater) {
                         continue;
                     }
 
@@ -338,11 +343,6 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
 
     public RecipeMap<?> getRecipeMap() {
         return GTPPRecipeMaps.algaePondRecipes;
-    }
-
-    @Override
-    public boolean getDefaultHasMaintenanceChecks() {
-        return false;
     }
 
     @SideOnly(Side.CLIENT)
