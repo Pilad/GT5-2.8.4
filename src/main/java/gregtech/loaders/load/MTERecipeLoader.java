@@ -1761,6 +1761,28 @@ public class MTERecipeLoader implements Runnable {
             ItemList.AdvancedImplosionCompressor.get(1),
             new Object[] { GregtechItemList.Machine_Adv_ImplosionCompressor.get(1) });
 
+        // Drone Centre Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.DroneCentre.get(1),
+            new Object[] { ItemList.Machine_Multi_DroneCentre.get(1) });
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Casing_Assembler.get(1),
+                ItemList.Cover_SolarPanel_IV.get(4),
+                ItemList.Conveyor_Module_IV.get(2),
+                ItemList.Robot_Arm_IV.get(2),
+                ItemList.Sensor_IV.get(2),
+                ItemList.Energy_LapotronicOrb.get(4),
+                ItemList.Cover_WirelessNeedsMaintainance.get(1),
+                GalacticraftCore.isModLoaded() ? GTModHandler.getModItem(GalacticraftCore.ID, "item.basicItem", 1, 19)
+                    : ItemList.Sensor_EV.get(4))
+            .itemOutputs(ItemList.DroneCentre.get(1L))
+            .fluidInputs(Materials.AdvancedGlue.getFluid(8_000))
+            .duration(30 * SECONDS)
+            .eut(TierEU.RECIPE_IV)
+            .addTo(assemblerRecipes);
+
         // Industrial Sledgehammer/Forge Hammer Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.IndustrialForgeHammer.get(1),
