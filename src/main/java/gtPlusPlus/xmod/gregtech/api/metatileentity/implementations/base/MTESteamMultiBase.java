@@ -50,7 +50,9 @@ import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 import gregtech.api.metatileentity.implementations.MTEHatch;
 import gregtech.api.metatileentity.implementations.MTEHatchInput;
+import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.metatileentity.implementations.MTEHatchOutput;
+import gregtech.api.metatileentity.implementations.MTEHatchOutputBus;
 import gregtech.api.metatileentity.implementations.MTEHatchVoidBus;
 import gregtech.api.objects.overclockdescriber.OverclockDescriber;
 import gregtech.api.objects.overclockdescriber.SteamOverclockDescriber;
@@ -72,7 +74,7 @@ public abstract class MTESteamMultiBase<T extends MTESteamMultiBase<T>> extends 
     private final OverclockDescriber overclockDescriber;
 
     public ArrayList<MTEHatchSteamBusInput> mSteamInputs = new ArrayList<>();
-    public ArrayList<MTEHatchSteamBusOutput> mSteamOutputs = new ArrayList<>();
+    public ArrayList<MTEHatchOutputBus> mSteamOutputs = new ArrayList<>();
     public ArrayList<MTEHatchCustomFluidBase> mSteamInputFluids = new ArrayList<>();
 
     protected static final String HIGH_PRESSURE_TOOLTIP_NOTICE = "High Pressure Doubles " + EnumChatFormatting.GREEN
@@ -186,7 +188,6 @@ public abstract class MTESteamMultiBase<T extends MTESteamMultiBase<T>> extends 
     public boolean onRunningTick(ItemStack aStack) {
         if (lEUt < 0) {
             long aSteamVal = ((-lEUt * 10000) / Math.max(1000, mEfficiency));
-            // Logger.INFO("Trying to drain "+aSteamVal+" steam per tick.");
             if (!tryConsumeSteam((int) aSteamVal)) {
                 stopMachine(ShutDownReasonRegistry.POWER_LOSS);
                 return false;
@@ -207,26 +208,24 @@ public abstract class MTESteamMultiBase<T extends MTESteamMultiBase<T>> extends 
             return false;
         }
 
-        // Use this to determine the correct value, then update the hatch texture after.
-        boolean aDidAdd = false;
-
         if (aMetaTileEntity instanceof MTEHatchCustomFluidBase) {
             log("Adding Steam Input Hatch");
-            aDidAdd = addToMachineListInternal(mSteamInputFluids, aMetaTileEntity, aBaseCasingIndex);
+            return addToMachineListInternal(mSteamInputFluids, aMetaTileEntity, aBaseCasingIndex);
         } else if (aMetaTileEntity instanceof MTEHatchSteamBusInput) {
             log(
                 "Trying to set recipe map. Type: "
                     + (getRecipeMap() != null ? getRecipeMap().unlocalizedName : "Null"));
             this.resetRecipeMapForHatch(aTileEntity, getRecipeMap());
             log("Adding Steam Input Bus");
-            aDidAdd = addToMachineListInternal(mSteamInputs, aMetaTileEntity, aBaseCasingIndex);
+            return addToMachineListInternal(mSteamInputs, aMetaTileEntity, aBaseCasingIndex);
         } else if (aMetaTileEntity instanceof MTEHatchSteamBusOutput || aMetaTileEntity instanceof MTEHatchVoidBus) {
             log("Adding Steam Output Bus");
-            aDidAdd = addToMachineListInternal(mSteamOutputs, aMetaTileEntity, aBaseCasingIndex);
-        } else if (aMetaTileEntity instanceof MTEHatchInput)
-            aDidAdd = addToMachineListInternal(mInputHatches, aMetaTileEntity, aBaseCasingIndex);
+            return addToMachineListInternal(mSteamOutputs, aMetaTileEntity, aBaseCasingIndex);
+        } else if (aMetaTileEntity instanceof MTEHatchInput) {
+            return addToMachineListInternal(mInputHatches, aMetaTileEntity, aBaseCasingIndex);
+        }
 
-        return aDidAdd;
+        return false;
     }
 
     /*
@@ -333,7 +332,7 @@ public abstract class MTESteamMultiBase<T extends MTESteamMultiBase<T>> extends 
         if (GTUtility.isStackInvalid(aStack)) return false;
         aStack = GTUtility.copyOrNull(aStack);
 
-        final List<MTEHatchSteamBusOutput> validBusses = filterValidMTEs(mSteamOutputs);
+        final List<MTEHatchOutputBus> validBusses = filterValidMTEs(mSteamOutputs);
         if (dumpItem(validBusses, aStack, true, false)) return true;
         if (dumpItem(validBusses, aStack, false, false)) return true;
 
@@ -355,7 +354,7 @@ public abstract class MTESteamMultiBase<T extends MTESteamMultiBase<T>> extends 
     @Override
     public ArrayList<ItemStack> getStoredOutputs() {
         ArrayList<ItemStack> rList = new ArrayList<>();
-        for (MTEHatchSteamBusOutput tHatch : validMTEList(mSteamOutputs)) {
+        for (MTEHatchOutputBus tHatch : validMTEList(mSteamOutputs)) {
             for (int i = tHatch.getBaseMetaTileEntity()
                 .getSizeInventory() - 1; i >= 0; i--) {
                 rList.add(
@@ -594,7 +593,7 @@ public abstract class MTESteamMultiBase<T extends MTESteamMultiBase<T>> extends 
             public long count(MTESteamMultiBase<?> t) {
                 return t.mSteamOutputs.size();
             }
-        },;
+        };
 
         @Override
         public IGTHatchAdder<? super MTESteamMultiBase<?>> adder() {
