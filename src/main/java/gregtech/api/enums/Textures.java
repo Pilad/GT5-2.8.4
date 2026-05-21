@@ -101,6 +101,7 @@ public class Textures {
         MACHINE_CASING_ITEM_PIPE_BLACK_PLUTONIUM,
 
         MACHINE_CASING_REFINED_GRAPHITE,
+        MACHINE_CASING_INSULATED_FLUID_PIPE,
 
         BLOCK_STEELEAF,
         BLOCK_ICHORIUM,
@@ -2579,6 +2580,7 @@ public class Textures {
         POCKET_MULTITOOL_WIRECUTTER,
         HALO,
         HALO_FUZZY,
+        MASK_VOLTAGE_COIL,
         TROWEL,
         HANDLE_TROWEL;
 

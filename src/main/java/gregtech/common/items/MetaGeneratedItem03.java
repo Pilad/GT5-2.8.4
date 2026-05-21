@@ -6,6 +6,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_METRICS_TRANSMITTER
 import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_UEV;
 import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_UHV;
 import static gregtech.api.enums.Textures.BlockIcons.SOLARPANEL_UIV;
+import static gregtech.api.enums.Textures.ItemIcons.MASK_VOLTAGE_COIL;
 import static gregtech.client.GTTooltipHandler.Tier.EV;
 import static gregtech.client.GTTooltipHandler.Tier.HV;
 import static gregtech.client.GTTooltipHandler.Tier.IV;
@@ -23,6 +24,8 @@ import static gregtech.client.GTTooltipHandler.Tier.UXV;
 import static gregtech.client.GTTooltipHandler.Tier.ZPM;
 import static gregtech.client.GTTooltipHandler.registerTieredTooltip;
 import static gregtech.common.items.IDMetaItem03.Activated_Carbon_Filter_Mesh;
+import static gregtech.common.items.IDMetaItem03.Alumina_Support_Ring;
+import static gregtech.common.items.IDMetaItem03.Alumina_Support_Ring_Raw;
 import static gregtech.common.items.IDMetaItem03.Brittle_Netherite_Scrap;
 import static gregtech.common.items.IDMetaItem03.Circuit_AdvancedIntegrated;
 import static gregtech.common.items.IDMetaItem03.Circuit_BasicElectronic;
@@ -281,6 +284,7 @@ import gregtech.common.powergoggles.ItemPowerGoggles;
 import gregtech.common.render.items.GlitchEffectMetaItemRenderer;
 import gregtech.common.render.items.InfinityMetaItemRenderer;
 import gregtech.common.render.items.RainbowOverlayMetaItemRenderer;
+import gregtech.common.render.items.UniversiumMetaItemRenderer;
 import mods.railcraft.common.items.firestone.IItemFirestoneBurning;
 
 @Optional.Interface(
@@ -800,12 +804,14 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
                 GTUtility.translate("gt.item.circuit_board.cosmic.name"),
                 GTUtility.translate("gt.item.circuit_board.cosmic.tooltip"),
                 o));
-        ItemList.Circuit_Board_Transcendent.set(
-            addItem(
-                Circuit_Board_Transcendent.ID,
-                GTUtility.translate("gt.item.circuit_board.transcendent.name"),
-                GTUtility.translate("gt.item.circuit_board.transcendent.tooltip"),
-                o));
+        ItemList.Circuit_Board_Transcendent
+            .set(
+                addItem(
+                    Circuit_Board_Transcendent.ID,
+                    GTUtility.translate("gt.item.circuit_board.transcendent.name"),
+                    GTUtility.translate("gt.item.circuit_board.transcendent.tooltip"),
+                    o))
+            .setRender(new InfinityMetaItemRenderer());
 
         // Optical circuits
         ItemList.Circuit_OpticalProcessor.set(
@@ -1044,18 +1050,22 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
                 GTUtility.translate("gt.item.coil.umv.name"),
                 GTUtility.translate("gt.item.coil.umv.tooltip"),
                 o));
-        ItemList.UXV_Coil.set(
-            addItem(
-                UXV_Coil.ID,
-                GTUtility.translate("gt.item.coil.uxv.name"),
-                GTUtility.translate("gt.item.coil.uxv.tooltip"),
-                o));
-        ItemList.MAX_Coil.set(
-            addItem(
-                MAX_Coil.ID,
-                GTUtility.translate("gt.item.coil.max.name"),
-                GTUtility.translate("gt.item.coil.max.tooltip"),
-                o));
+        ItemList.UXV_Coil
+            .set(
+                addItem(
+                    UXV_Coil.ID,
+                    GTUtility.translate("gt.item.coil.uxv.name"),
+                    GTUtility.translate("gt.item.coil.uxv.tooltip"),
+                    o))
+            .setRender(new UniversiumMetaItemRenderer(MASK_VOLTAGE_COIL));
+        ItemList.MAX_Coil
+            .set(
+                addItem(
+                    MAX_Coil.ID,
+                    GTUtility.translate("gt.item.coil.max.name"),
+                    GTUtility.translate("gt.item.coil.max.tooltip"),
+                    o))
+            .setRender(new InfinityMetaItemRenderer());
 
         ItemList.GalliumArsenideCrystal
             .set(addItem(GalliumArsenideCrystal.ID, "Gallium Arsenide Crystal", "For making boules", o));
@@ -1371,6 +1381,16 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
         ItemList.Hot_Netherite_Scrap.set(addItem(Hot_Netherite_Scrap.ID, "Hot Netherite Scrap", "Activated?"));
         ItemList.Prismarine_Precipitate.set(addItem(Prismarine_Precipitate.ID, "Prismarine Precipitate", ""));
         ItemList.Prismatic_Crystal.set(addItem(Prismatic_Crystal.ID, "Prismatic Crystal", ""));
+        ItemList.Alumina_Support_Ring.set(
+            addItem(
+                Alumina_Support_Ring.ID,
+                GTUtility.translate("gt.item.alumina_support_ring.name"),
+                GTUtility.translate("gt.item.alumina_support_ring.tooltip")));
+        ItemList.Alumina_Support_Ring_Raw.set(
+            addItem(
+                Alumina_Support_Ring_Raw.ID,
+                GTUtility.translate("gt.item.alumina_support_ring_raw.name"),
+                GTUtility.translate("gt.item.alumina_support_ring_raw.tooltip")));
         ItemList.Radiation_Proof_Prismatic_Naquadah_Composite_Sheet
             .set(
                 addItem(

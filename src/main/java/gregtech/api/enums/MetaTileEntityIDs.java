@@ -1783,6 +1783,7 @@ public enum MetaTileEntityIDs {
     AlgaeFarm(15545),
     PyrolyzeOven(15546),
     AdvancedImplosionCompressor(15547),
+    IndustrialArcFurnace(15548),
     IndustrialExtruder(15549),
     OreWashingPlant(15550),
     IndustrialChemicalBath(15551),

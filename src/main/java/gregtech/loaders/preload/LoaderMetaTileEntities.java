@@ -157,6 +157,7 @@ import gregtech.common.tileentities.machines.multi.MTEFusionComputer2;
 import gregtech.common.tileentities.machines.multi.MTEFusionComputer3;
 import gregtech.common.tileentities.machines.multi.MTEHeatExchanger;
 import gregtech.common.tileentities.machines.multi.MTEImplosionCompressor;
+import gregtech.common.tileentities.machines.multi.MTEIndustrialArcFurnace;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialBendingMachine;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialBrewery;
 import gregtech.common.tileentities.machines.multi.MTEIndustrialCentrifuge;
@@ -878,6 +879,12 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 ExtremeCombustionEngine.ID,
                 "multimachine.extremedieselengine",
                 "Extreme Combustion Engine").getStackForm(1L));
+
+        ItemList.IndustrialArcFurnace.set(
+            new MTEIndustrialArcFurnace(
+                IndustrialArcFurnace.ID,
+                "industrialarcfurnace.controller.tier.single",
+                "Industrial Arc Furnace").getStackForm(1));
 
         ItemList.IndustrialCokeOven.set(
             new MTEIndustrialCokeOven(

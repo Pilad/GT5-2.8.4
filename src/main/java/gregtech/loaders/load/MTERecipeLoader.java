@@ -6,6 +6,7 @@ import static gregtech.api.enums.Mods.GalacticraftCore;
 import static gregtech.api.enums.Mods.Gendustry;
 import static gregtech.api.enums.Mods.IndustrialCraft2;
 import static gregtech.api.enums.Mods.Minecraft;
+import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.enums.Mods.NotEnoughItems;
 import static gregtech.api.enums.Mods.Railcraft;
 import static gregtech.api.enums.Mods.StorageDrawers;
@@ -17,6 +18,7 @@ import static gregtech.api.util.GTModHandler.RecipeBits.NOT_REMOVABLE;
 import static gregtech.api.util.GTModHandler.RecipeBits.REVERSIBLE;
 import static gregtech.api.util.GTRecipeBuilder.HOURS;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
+import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
@@ -1700,6 +1702,36 @@ public class MTERecipeLoader implements Runnable {
             ItemList.FormingCore.get(1),
             new Object[] { "PhP", "SFS", "PwP", 'P', OrePrefixes.plate.get(Materials.StainlessSteel), 'S',
                 OrePrefixes.plate.get(Materials.Steel), 'F', OrePrefixes.frameGt.get(Materials.StainlessSteel) });
+
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IndustrialArcFurnace.get(1),
+            new Object[] { GregtechItemList.Industrial_Arc_Furnace.get(1) });
+
+        // High Current Industrial Arc Furnace
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GregtechItemList.Casing_Multi_Use.get(1),
+                ItemList.Field_Generator_EV.get(2),
+                ItemList.Robot_Arm_IV.get(4),
+                GregtechItemList.Energy_Core_EV.get(2),
+                Materials.Tungsten.getPlates(8),
+                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.IV, 8))
+            .itemOutputs(ItemList.IndustrialArcFurnace.get(1))
+            .duration(1 * MINUTES)
+            .eut(TierEU.RECIPE_IV)
+            .addTo(assemblerRecipes);
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTOreDictUnificator.get(OrePrefixes.pipeLarge, Materials.Titanium, 1L),
+                GTOreDictUnificator.get(OrePrefixes.pipeMedium, Materials.Titanium, 1L),
+                GTModHandler.getModItem(NewHorizonsCoreMod.ID, "item.MicaInsulatorFoil", 16),
+                GTOreDictUnificator.get(OrePrefixes.plate, Materials.StainlessSteel, 4L),
+                ItemList.Alumina_Support_Ring.get(2L))
+            .itemOutputs(ItemList.Casing_Insulated_Fluid_Pipe.get(1L))
+            .duration(SECONDS * 20)
+            .eut(TierEU.RECIPE_EV)
+            .addTo(assemblerRecipes);
 
         // Algae Casing
         GTModHandler.addCraftingRecipe(

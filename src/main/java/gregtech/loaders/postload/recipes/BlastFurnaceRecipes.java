@@ -661,6 +661,14 @@ public class BlastFurnaceRecipes implements Runnable {
             .eut((int) TierEU.RECIPE_UMV)
             .metadata(COIL_HEAT, 14000)
             .addTo(blastFurnaceRecipes);
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(ItemList.Alumina_Support_Ring_Raw.get(1L))
+            .itemOutputs(ItemList.Alumina_Support_Ring.get(1L))
+            .duration(SECONDS * 60)
+            .eut(TierEU.RECIPE_EV)
+            .metadata(COIL_HEAT, 4000)
+            .addTo(blastFurnaceRecipes);
     }
 
     public void registerPrimitiveBlastFurnaceRecipes() {

@@ -17,6 +17,7 @@ public class BlockCasings13 extends BlockCasingsAbstract {
 
     public BlockCasings13() {
         super(ItemCasings.class, "gt.blockcasings13", MaterialCasings.INSTANCE, 16);
+        register(2, ItemList.Casing_Insulated_Fluid_Pipe);
         register(4, ItemList.Casing_Refined_Graphite);
         register(5, ItemList.PrecisionFieldSyncCasing);
         register(6, ItemList.MagneticAnchorCasing);
@@ -35,6 +36,7 @@ public class BlockCasings13 extends BlockCasingsAbstract {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int ordinalSide, int aMeta) {
         return switch (aMeta) {
+            case 2 -> Textures.BlockIcons.MACHINE_CASING_INSULATED_FLUID_PIPE.getIcon();
             case 4 -> Textures.BlockIcons.MACHINE_CASING_REFINED_GRAPHITE.getIcon();
             case 5 -> Textures.BlockIcons.NANO_FORGE_CASING_1.getIcon();
             case 6 -> Textures.BlockIcons.NANO_FORGE_CASING_2.getIcon();

@@ -1831,6 +1831,7 @@ GT5U.nei.purified_water.grade_3.2=Returned in amount equivalent to consumed floc
 GT5U.nei.purified_water.grade_4.0=+%s pH/stack
 GT5U.nei.purified_water.grade_4.1=%s pH/1000L
 GT5U.nei.cauldron.consumed=Consumed per operation
+GT5U.nei.cauldron.anystack=Works with any stack size
 
 GT5U.config.colormodulation=Цветовой модулятор
 GT5U.config.colormodulation.cable_insulation=Изоляция кабеля
@@ -1945,6 +1946,10 @@ gt.item.coil.uxv.name=Extended Mega Ultimate Voltage Coil
 gt.item.coil.uxv.tooltip=Limit Breaking Coil
 gt.item.coil.max.name=Maximum Voltage Coil
 gt.item.coil.max.tooltip=Horizon Reaching Coil
+gt.item.alumina_support_ring.name=Alumina Support Ring
+gt.item.alumina_support_ring.tooltip=A support ring used for insulated fluid pipes
+gt.item.alumina_support_ring_raw.name=Raw Alumina Support Ring
+gt.item.alumina_support_ring_raw.tooltip=An unfired support ring used for insulated fluid pipes
 
 # NEI Display
 GT5U.nei.display.steam_variant.bronze=Бронза
