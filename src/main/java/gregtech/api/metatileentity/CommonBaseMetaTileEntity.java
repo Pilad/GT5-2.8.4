@@ -2,8 +2,6 @@ package gregtech.api.metatileentity;
 
 import static gregtech.GTMod.GT_FML_LOGGER;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
@@ -37,11 +35,9 @@ import gregtech.api.util.GTUtility;
 public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity implements IGregTechTileEntity {
 
     protected boolean mNeedsBlockUpdate = true, mNeedsUpdate = true, mNeedsTileUpdate = false, mSendClientData = false,
-        mInventoryChanged = false, mTickDisabled = false;
+        mInventoryChanged = false;
 
     protected NBTTagCompound pendingDescriptionPacket;
-
-    private boolean mIgnoreNextUnload = false;
 
     // Profiling
     private final int[] mTimeStatistics = new int[GregTechAPI.TICKS_FOR_LAG_AVERAGING];
@@ -66,48 +62,6 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
             return true;
         }
         return false;
-    }
-
-    public boolean isTickDisabled() {
-        return mTickDisabled;
-    }
-
-    // Re-enable ticking after disable.
-    @Override
-    public void enableTicking() {
-        if (!mTickDisabled) return;
-        getWorld().func_147448_a(Collections.singleton(this));
-        mTickDisabled = false;
-    }
-
-    // Effectively triggers unloading of the current tile entity, this does not invalidate the tile entity.
-    // After unloading, the tile entity will be in the same state as a non-tickable tile entity.
-    // This method may fail silently due to various reason, and calling enableTicking in the same tick will
-    // cause the disable tick call to be effectively ignored, as adding tile entity take precedence over unloading.
-    @Override
-    public void tryDisableTicking() {
-        if (mTickDisabled) return;
-        if (getValidCoversMask() != 0) return;
-        if (mIgnoreNextUnload) return;
-        getWorld().func_147457_a(this);
-        mIgnoreNextUnload = true;
-        hasTimeStatisticsStarted = false;
-        Arrays.fill(mTimeStatistics, 0);
-        mTickDisabled = true;
-    }
-
-    // This method is called both when the ticking is disabled for this block and the block is unloaded.
-    @Override
-    public final void onChunkUnload() {
-        if (mIgnoreNextUnload) {
-            mIgnoreNextUnload = false;
-            return;
-        }
-        onUnload();
-    }
-
-    public void onUnload() {
-        super.onChunkUnload();
     }
 
     protected abstract void updateEntityProfiled();
@@ -254,9 +208,7 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     }
 
     protected void addProfilingInformation(List<String> tList) {
-        if (mTickDisabled) {
-            tList.add("Tick Disabled");
-        } else if (hasTimeStatisticsStarted) {
+        if (hasTimeStatisticsStarted) {
             double tAverageTime = 0;
             double tWorstTime = 0;
             int amountOfZero = 0;
@@ -314,7 +266,6 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     @Override
     public Packet getDescriptionPacket() {
         issueClientUpdate();
-        sendClientData();
 
         IMetaTileEntity imte = getMetaTileEntity();
 
@@ -350,34 +301,16 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
     @Override
     public void issueClientUpdate() {
         mSendClientData = true;
-        if (mTickDisabled) {
-            sendClientData();
-        }
     }
-
-    abstract protected void sendClientData();
 
     @Override
     public void issueBlockUpdate() {
         mNeedsBlockUpdate = true;
-        if (mTickDisabled) {
-            doBlockUpdate();
-        }
-    }
-
-    public final void doBlockUpdate() {
-        updateNeighbours(mStrongRedstone, oldStrongRedstone);
-        oldStrongRedstone = mStrongRedstone;
-        mNeedsBlockUpdate = false;
     }
 
     @Override
     public void issueTileUpdate() {
         mNeedsTileUpdate = true;
-        if (mTickDisabled) {
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-            mNeedsTileUpdate = false;
-        }
     }
 
     @Override
