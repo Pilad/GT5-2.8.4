@@ -85,10 +85,10 @@ public class MTEIndustrialCuttingMachine extends MTEExtendedPowerMultiBlockBase<
 
     public enum SawbladeTiers {
 
-        TungstenTitaniumCarbide(2, 2.0F, 0.95F, VoltageIndex.LuV, false),
-        MysteriousCrystal(3, 2.5F, 0.9F, VoltageIndex.UV, false),
-        Neutronium(4, 3.0F, 0.85F, VoltageIndex.UEV, false),
-        Transcendent(6, 4.0F, 0.8F, Integer.MAX_VALUE, true);
+        TungstenTitaniumCarbide(2, 2.5F, 0.9F, VoltageIndex.LuV, false),
+        MysteriousCrystal(3, 3.0F, 0.8F, VoltageIndex.UV, false),
+        Neutronium(4, 3.5F, 0.7F, VoltageIndex.UEV, false),
+        TranscendentMetal(6, 4.5F, 0.6F, Integer.MAX_VALUE, true);
 
         final int parallelPerVoltageTier;
         final float speedBoost, euModifier;
@@ -109,32 +109,16 @@ public class MTEIndustrialCuttingMachine extends MTEExtendedPowerMultiBlockBase<
                 ? GTUtility.translate("gt.sawblade.tooltip.hatch_tier_unlimited")
                 : GTUtility.translate(
                     "gt.sawblade.tooltip.hatch_tier_limit",
-                    GTUtility.getColoredTierNameFromTier((byte) sawblade.maxAllowedEnergyHatchTier),
-                    EnumChatFormatting.GRAY);
+                    GTUtility.getColoredTierNameFromTier((byte) sawblade.maxAllowedEnergyHatchTier));
             String tooltip = GTUtility.translate(
                 "gt.sawblade.tooltip.base",
-                EnumChatFormatting.LIGHT_PURPLE,
-                EnumChatFormatting.GRAY,
                 hatchTierLimit,
-                EnumChatFormatting.GOLD,
                 sawblade.parallelPerVoltageTier,
-                EnumChatFormatting.GRAY,
-                EnumChatFormatting.WHITE,
-                EnumChatFormatting.GRAY,
-                EnumChatFormatting.GREEN,
-                Math.round((1F / sawblade.speedBoost * 100)),
-                EnumChatFormatting.GRAY,
-                EnumChatFormatting.AQUA,
-                Math.round(sawblade.euModifier * 100),
-                EnumChatFormatting.GRAY);
+                Math.round(1F / sawblade.speedBoost * 100),
+                Math.round(sawblade.euModifier * 100));
 
             if (sawblade.supportsExotic) {
-                tooltip = tooltip + "\\n"
-                    + GTUtility.translate(
-                        "gt.sawblade.tooltip.exotic",
-                        EnumChatFormatting.BOLD,
-                        EnumChatFormatting.GREEN,
-                        EnumChatFormatting.RED);
+                tooltip = tooltip + "\\n" + GTUtility.translate("gt.sawblade.tooltip.exotic");
             }
 
             return tooltip;
@@ -166,7 +150,7 @@ public class MTEIndustrialCuttingMachine extends MTEExtendedPowerMultiBlockBase<
                     + EnumChatFormatting.GRAY
                     + " in the controller slot to use")
             .addInfo(
-                "Better " + EnumChatFormatting.AQUA + "Sawblades" + EnumChatFormatting.GRAY + " give further bonuses")
+                "Better " + EnumChatFormatting.AQUA + "Sawblades" + EnumChatFormatting.GRAY + " give increased bonuses")
             .addInfo(
                 "With a " + EnumChatFormatting.DARK_GREEN
                     + "Transcendent Metal Sawblade"
@@ -186,7 +170,7 @@ public class MTEIndustrialCuttingMachine extends MTEExtendedPowerMultiBlockBase<
             .addEnergyHatch("Any Casing", 1)
             .addMaintenanceHatch("Any Casing", 1)
             .addMufflerHatch("Any Casing", 1)
-            .addStructureAuthors(EnumChatFormatting.GOLD + "Auynonymous")
+            .addStructureAuthors(EnumChatFormatting.LIGHT_PURPLE + "Auynonymous")
             .toolTipFinisher();
         return tt;
     }
@@ -296,6 +280,7 @@ public class MTEIndustrialCuttingMachine extends MTEExtendedPowerMultiBlockBase<
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
         SawbladeTiers sawbladeTier = getSawbladeTier(getControllerSlot());
+        updateSawbladeRenderTier();
         if (sawbladeTier == null) {
             return SimpleCheckRecipeResult.ofFailure("sawblade_missing");
         }
@@ -338,7 +323,7 @@ public class MTEIndustrialCuttingMachine extends MTEExtendedPowerMultiBlockBase<
         if (ItemList.T1Sawblade.isStackEqual(stack, false, true)) return SawbladeTiers.TungstenTitaniumCarbide;
         if (ItemList.T2Sawblade.isStackEqual(stack, false, true)) return SawbladeTiers.MysteriousCrystal;
         if (ItemList.T3Sawblade.isStackEqual(stack, false, true)) return SawbladeTiers.Neutronium;
-        if (ItemList.T4Sawblade.isStackEqual(stack, false, true)) return SawbladeTiers.Transcendent;
+        if (ItemList.T4Sawblade.isStackEqual(stack, false, true)) return SawbladeTiers.TranscendentMetal;
         return null;
     }
 
@@ -385,12 +370,20 @@ public class MTEIndustrialCuttingMachine extends MTEExtendedPowerMultiBlockBase<
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         super.onPostTick(aBaseMetaTileEntity, aTick);
         if (!aBaseMetaTileEntity.isServerSide()) return;
+        if (aTick % 100 != 0) return;
+        updateSawbladeRenderTier();
+    }
+
+    private void updateSawbladeRenderTier() {
+        IGregTechTileEntity base = getBaseMetaTileEntity();
+        if (base == null || !base.isServerSide()) return;
+
         SawbladeTiers sawbladeTier = getSawbladeTier(getControllerSlot());
         int sawbladeTierIndex = sawbladeTier == null ? -1 : sawbladeTier.ordinal();
-        if (renderSawbladeTier != sawbladeTierIndex) {
-            renderSawbladeTier = sawbladeTierIndex;
-            aBaseMetaTileEntity.issueTileUpdate();
-        }
+        if (renderSawbladeTier == sawbladeTierIndex) return;
+
+        renderSawbladeTier = sawbladeTierIndex;
+        base.issueTileUpdate();
     }
 
     @Override

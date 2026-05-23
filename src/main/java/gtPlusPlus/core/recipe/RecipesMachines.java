@@ -2577,13 +2577,13 @@ public class RecipesMachines {
             .eut(TierEU.RECIPE_EV)
             .addTo(assemblerRecipes);
 
-        ItemStack plate = MaterialsAlloy.MARAGING300.getPlate(1);
+        ItemStack plate = MaterialsAlloy.TUNGSTEN_TITANIUM_CARBIDE.getPlate(1);
         RecipeUtils.addShapedRecipe(
             plate,
             ToolDictNames.craftingToolHardHammer.name(),
             plate,
             "plateStellite",
-            "frameGtTalonite",
+            MaterialsAlloy.TANTALUM_CARBIDE.getFrameBox(1),
             "plateStellite",
             plate,
             ToolDictNames.craftingToolWrench.name(),
@@ -2591,9 +2591,9 @@ public class RecipesMachines {
             GregtechItemList.Casing_CuttingFactoryFrame.get(1));
         GTValues.RA.stdBuilder()
             .itemInputs(
-                MaterialsAlloy.MARAGING300.getPlate(4),
+                MaterialsAlloy.TUNGSTEN_TITANIUM_CARBIDE.getPlate(4),
                 MaterialsAlloy.STELLITE.getPlate(2),
-                MaterialsAlloy.TALONITE.getFrameBox(1),
+                MaterialsAlloy.TANTALUM_CARBIDE.getFrameBox(1),
                 GTUtility.getIntegratedCircuit(1))
             .itemOutputs(GregtechItemList.Casing_CuttingFactoryFrame.get(1L))
             .duration(2 * SECONDS + 10 * TICKS)

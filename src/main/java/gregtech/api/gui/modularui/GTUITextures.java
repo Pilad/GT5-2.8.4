@@ -443,6 +443,10 @@ public class GTUITextures {
         .fullImage(GregTech.ID, "gui/overlay_button/mebf_pyro_on");
     public static final UITexture OVERLAY_BUTTON_PYROTHEUM_OFF = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/mebf_pyro_off");
+    public static final UITexture OVERLAY_BUTTON_CRYOTHEUM_ON = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/mvf_cryo_on");
+    public static final UITexture OVERLAY_BUTTON_CRYOTHEUM_OFF = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/mvf_cryo_off");
 
     public static final UITexture OVERLAY_BUTTON_LIQUIDMODE = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/LiquidMode");

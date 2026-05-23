@@ -19,6 +19,8 @@ import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static gregtech.api.util.GTStructureUtility.ofCoil;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
+import static gregtech.api.util.NumberFormatUtil.formatFluid;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
 import java.util.ArrayList;
@@ -225,7 +227,7 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
             .addInfo("While not running, the machine will rapidly cooldown")
             .addInfo(
                 "Optionally supply " + EnumChatFormatting.RED
-                    + GTUtility.formatNumbers(PYROTHEUM_DRAIN_BASE)
+                    + formatFluid(PYROTHEUM_DRAIN_BASE)
                     + EnumChatFormatting.GRAY
                     + "/s of "
                     + EnumChatFormatting.GOLD
@@ -250,7 +252,7 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
             .addUnlimitedTierSkips()
             .addPollutionAmount(getPollutionPerSecond(null))
             .addSeparator()
-            .addInfo(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_RED + "Heating up!")
+            .addInfo(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_RED + "Never one...")
             .beginStructureBlock(23, 43, 23, true)
             .addController("Front center, 4th layer")
             .addCasingInfoRange("Hearth Casing", 1800, 1915, false)
@@ -334,14 +336,17 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
 
     @Override
     public boolean onRunningTick(ItemStack aStack) {
-        runningTickCounter++;
         // every 5 seconds, increment the parallel modifier.
+        runningTickCounter++;
         if (runningTickCounter % 20 == 0) { // drain pyrotheum and crash machine if enough isnt supplied
             if (isPyroSupplied) {
                 final FluidStack pyrotheum = new FluidStack(
                     TFFluids.fluidPyrotheum,
                     (int) Math.floor(PYROTHEUM_DRAIN_BASE * parallelModifier));
-                if (!this.depleteInput(pyrotheum, false)) stopMachine(ShutDownReasonRegistry.outOfFluid(pyrotheum));
+                if (!this.depleteInput(pyrotheum, false)) {
+                    stopMachine(ShutDownReasonRegistry.outOfFluid(pyrotheum));
+                    return false;
+                }
             }
         }
         if (runningTickCounter % 100 == 0 && parallelModifier < 2) {
@@ -378,13 +383,10 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
         final NBTTagCompound tag = accessor.getNBTData();
         boolean pyrotheumActive = tag.getBoolean("pyrotheum");
         float parallelModifier = tag.getFloat("parallelModifier");
-        currentTip
-            .add(translateToLocalFormatted("GT5U.waila.mebf.parallel", GTUtility.formatNumbers(parallelModifier)));
+        currentTip.add(translateToLocalFormatted("GT5U.waila.mebf.parallel", formatNumber(parallelModifier)));
         if (pyrotheumActive) {
-            currentTip.add(
-                translateToLocalFormatted(
-                    "GT5U.waila.mebf.pyrotheum",
-                    GTUtility.formatNumbers(tag.getInteger("drain"))));
+            currentTip
+                .add(translateToLocalFormatted("GT5U.waila.mebf.pyrotheum", formatFluid(tag.getInteger("drain"))));
         }
 
     }
@@ -479,14 +481,13 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
     public boolean checkMachine(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         this.heatingCapacity = 0;
         this.glassTier = -1;
+        this.casingAmount = 0;
 
         this.setCoilLevel(HeatingCoilLevel.None);
 
         if (!this.checkPiece(STRUCTURE_PIECE_MAIN, HORIZONTAL_OFFSET, VERTICAL_OFFSET, DEPTH_OFFSET)) return false;
 
         if (this.getCoilLevel() == HeatingCoilLevel.None) return false;
-
-        if (this.mMaintenanceHatches.size() != 1) return false;
 
         if (this.glassTier < VoltageIndex.UV) {
             for (MTEHatch hatch : this.mExoticEnergyHatches) {
@@ -509,7 +510,7 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
         }
 
         this.heatingCapacity = (int) getCoilLevel().getHeat() + 100 * (GTUtility.getTier(getMaxInputVoltage()) - 2);
-        return this.casingAmount > 1800;
+        return this.casingAmount >= 1800;
     }
 
     @Override
