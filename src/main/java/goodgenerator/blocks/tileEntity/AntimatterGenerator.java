@@ -409,7 +409,7 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
             .addInputHatch("2, Hint block with dot 1", 1)
             .addOtherStructurePart(
                 StatCollector.translateToLocal("gg.structure.tooltip.laser_source_hatch"),
-                "1-64, Hint Block with dot 2",
+                "1-64, Hint block with dot 2",
                 2)
             .toolTipFinisher();
         return tt;

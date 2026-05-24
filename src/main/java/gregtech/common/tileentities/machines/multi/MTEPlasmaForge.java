@@ -652,42 +652,10 @@ public class MTEPlasmaForge extends MTEExtendedPowerMultiBlockBase<MTEPlasmaForg
                     + "1"
                     + EnumChatFormatting.GRAY
                     + " TT energy hatch")
-            .addStructureInfo(
-                "Requires " + EnumChatFormatting.GOLD
-                    + min_input_hatch
-                    + EnumChatFormatting.GRAY
-                    + "-"
-                    + EnumChatFormatting.GOLD
-                    + max_input_hatch
-                    + EnumChatFormatting.GRAY
-                    + " input hatches")
-            .addStructureInfo(
-                "Requires " + EnumChatFormatting.GOLD
-                    + min_output_hatch
-                    + EnumChatFormatting.GRAY
-                    + "-"
-                    + EnumChatFormatting.GOLD
-                    + max_output_hatch
-                    + EnumChatFormatting.GRAY
-                    + " output hatches")
-            .addStructureInfo(
-                "Requires " + EnumChatFormatting.GOLD
-                    + min_input_bus
-                    + EnumChatFormatting.GRAY
-                    + "-"
-                    + EnumChatFormatting.GOLD
-                    + max_input_bus
-                    + EnumChatFormatting.GRAY
-                    + " input buses")
-            .addStructureInfo(
-                "Requires " + EnumChatFormatting.GOLD
-                    + min_output_bus
-                    + EnumChatFormatting.GRAY
-                    + "-"
-                    + EnumChatFormatting.GOLD
-                    + max_output_bus
-                    + EnumChatFormatting.GRAY
-                    + " output buses")
+            .addInputHatch("Any Casing")
+            .addOutputHatch("Any Casing")
+            .addInputBus("Any Casing")
+            .addOutputBus("Any Casing")
             .addStructureInfo("")
             .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
             .addTecTechHatchInfo()

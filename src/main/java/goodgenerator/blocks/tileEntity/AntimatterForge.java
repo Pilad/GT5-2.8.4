@@ -326,7 +326,7 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
             .addEnergyHatch("1-9, Hint block with dot 2", 2)
             .addOtherStructurePart(
                 StatCollector.translateToLocal("gg.structure.tooltip.antimatter_hatch"),
-                "16, Hint Block with dot 3",
+                "16, Hint block with dot 3",
                 3)
             .toolTipFinisher();
         return tt;

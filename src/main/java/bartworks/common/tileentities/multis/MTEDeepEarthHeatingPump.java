@@ -13,7 +13,6 @@
 
 package bartworks.common.tileentities.multis;
 
-import static bartworks.util.BWTooltipReference.MULTIBLOCK_ADDED_BY_BARTIMAEUSNEK_VIA_BARTWORKS;
 import static gregtech.api.enums.GTValues.VN;
 
 import java.util.Arrays;
@@ -117,15 +116,18 @@ public class MTEDeepEarthHeatingPump extends MTEDrillerBase {
             .addController("Front bottom center")
             .addOtherStructurePart(casings, "form the 3x1x3 Base")
             .addOtherStructurePart(casings, "1x3x1 pillar above the center of the base (2 minimum total)")
-            .addOtherStructurePart(
-                this.getFrameMaterial().mName + " Frame Boxes",
-                "Each pillar's side and 1x3x1 on top")
-            .addEnergyHatch(VN[this.getMinTier()] + "+, Any base casing")
-            .addMaintenanceHatch("Any base casing")
-            .addInputBus("Mining Pipes, optional, any base casing")
-            .addInputHatch("Any base casing")
-            .addOutputHatch("Any base casing")
-            .toolTipFinisher(MULTIBLOCK_ADDED_BY_BARTIMAEUSNEK_VIA_BARTWORKS);
+            .addOtherStructurePart(this.getFrameMaterial().mName + " Frame Box", "Each pillar's side and 1x3x1 on top")
+            .addEnergyHatch(VN[this.getMinTier()] + "+, any base Casing")
+            .addMaintenanceHatch("Any base Casing")
+            .addInputBus("Mining Pipes, optional, any base Casing")
+            .addInputHatch("Any base Casing")
+            .addOutputHatch("Any base Casing")
+            .toolTipFinisher(
+                EnumChatFormatting.GREEN + "bartimaeusnek"
+                    + EnumChatFormatting.GRAY
+                    + " via "
+                    + EnumChatFormatting.DARK_GREEN
+                    + "BartWorks");
         return tt;
     }
 
