@@ -11,7 +11,10 @@ import static com.gtnewhorizon.structurelib.util.ItemStackPredicate.NBTMode.EXAC
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
@@ -19,6 +22,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.annotation.Nonnull;
 
@@ -35,6 +40,7 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
@@ -995,6 +1001,30 @@ public class GTStructureUtility {
                     env.getChatter());
             }
         };
+    }
+
+    /**
+     * Builds a block->metas map from an OreDict entry, suitable for use with
+     * {@link StructureUtility#ofBlocksMap}.
+     */
+    public static Map<Block, Collection<Integer>> ofOreDictBlockMap(String oreDictName) {
+        Map<Block, Collection<Integer>> map = new HashMap<>();
+        for (ItemStack stack : OreDictionary.getOres(oreDictName)) {
+            Block block = Block.getBlockFromItem(stack.getItem());
+            if (block == null || block == Blocks.air) continue;
+            int meta = stack.getItemDamage();
+            if (meta == OreDictionary.WILDCARD_VALUE) {
+                map.computeIfAbsent(block, k -> new ArrayList<>())
+                    .addAll(
+                        IntStream.rangeClosed(0, 15)
+                            .boxed()
+                            .collect(Collectors.toList()));
+            } else {
+                map.computeIfAbsent(block, k -> new ArrayList<>())
+                    .add(meta);
+            }
+        }
+        return map;
     }
 
     /**
