@@ -1131,6 +1131,11 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
             processingLogic.setInputFluids(getStoredFluidsForColor(Optional.of(color)));
             if (isInputSeparationEnabled()) {
                 if (mInputBusses.isEmpty()) {
+                    List<ItemStack> inputItems = new ArrayList<>();
+                    if (canUseControllerSlotForRecipe() && getControllerSlot() != null) {
+                        inputItems.add(getControllerSlot());
+                    }
+                    processingLogic.setInputItems(inputItems);
                     CheckRecipeResult foundResult = processingLogic.process();
                     if (foundResult.wasSuccessful()) return foundResult;
                     // Recipe failed in interesting way, so remember that and continue searching
