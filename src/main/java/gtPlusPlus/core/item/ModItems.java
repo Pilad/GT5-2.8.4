@@ -982,6 +982,7 @@ public final class ModItems {
     }
 
     public static void registerCustomMaterialComponents() {
+        Material.registerAllPending();
         // Custom GT++ Crafting Components
 
         /*

@@ -7,6 +7,7 @@ import static gtPlusPlus.core.util.math.MathUtils.safeCast_LongToInt;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -44,6 +45,9 @@ public class Material {
     public static final Map<String, Map<String, ItemStack>> mComponentMap = new HashMap<>();
     public static final HashMap<String, String> sChemicalFormula = new HashMap<>();
 
+    private static boolean registrationGateOpen = false;
+    private static final List<Material> pendingRegistration = new ArrayList<>();
+
     private String unlocalizedName;
     private String localizedName;
     private String translatedName;
@@ -55,6 +59,7 @@ public class Material {
     private Fluid mPlasma;
 
     private boolean vGenerateCells;
+    private boolean shouldGenerateFluid;
 
     private ArrayList<MaterialStack> vMaterialInput = new ArrayList<>();
     public long[] vSmallestRatio;
@@ -593,31 +598,13 @@ public class Material {
                 this.vChemicalFormula = "??";
             }
 
+            this.shouldGenerateFluid = generateFluid;
             if (generateFluid) {
-                final Materials aGregtechMaterial = tryFindGregtechMaterialEquivalent();
-                FluidStack aTest = FluidUtils.getWildcardFluidStack(localizedName, 1);
-                if (aTest != null) {
-                    this.mFluid = aTest.getFluid();
-                    checkForCellAndGenerate(this);
+                if (registrationGateOpen) {
+                    performFluidAndCellRegistration();
                 } else {
-                    if (aGregtechMaterial != null && !MaterialUtils.isNullGregtechMaterial(aGregtechMaterial)) {
-                        aTest = FluidUtils.getWildcardFluidStack(aGregtechMaterial, 1);
-                    }
-                    if (aTest != null) {
-                        this.mFluid = aTest.getFluid();
-                        checkForCellAndGenerate(this);
-                    } else {
-                        mFluid = generateFluid();
-                    }
+                    pendingRegistration.add(this);
                 }
-                // Don't generate plasma for composites
-                if (this.getComposites()
-                    .isEmpty()) {
-                    this.mPlasma = this.generatePlasma();
-                }
-            } else {
-                this.mFluid = null;
-                this.mPlasma = null;
             }
             StringBuilder ratio = new StringBuilder();
             if (this.vSmallestRatio != null) {
@@ -685,6 +672,38 @@ public class Material {
                 material.registerComponentForMaterial(OrePrefixes.cell, aTestCell3);
             }
         }
+    }
+
+    private void performFluidAndCellRegistration() {
+        final Materials aGregtechMaterial = tryFindGregtechMaterialEquivalent();
+        FluidStack aTest = FluidUtils.getWildcardFluidStack(localizedName, 1);
+        if (aTest != null) {
+            this.mFluid = aTest.getFluid();
+            checkForCellAndGenerate(this);
+        } else {
+            if (aGregtechMaterial != null && !MaterialUtils.isNullGregtechMaterial(aGregtechMaterial)) {
+                aTest = FluidUtils.getWildcardFluidStack(aGregtechMaterial, 1);
+            }
+            if (aTest != null) {
+                this.mFluid = aTest.getFluid();
+                checkForCellAndGenerate(this);
+            } else {
+                mFluid = generateFluid();
+            }
+        }
+        // Don't generate plasma for composites
+        if (this.getComposites()
+            .isEmpty()) {
+            this.mPlasma = this.generatePlasma();
+        }
+    }
+
+    public static void registerAllPending() {
+        for (Material mat : pendingRegistration) {
+            mat.performFluidAndCellRegistration();
+        }
+        pendingRegistration.clear();
+        registrationGateOpen = true;
     }
 
     public final TextureSet getTextureSet() {
