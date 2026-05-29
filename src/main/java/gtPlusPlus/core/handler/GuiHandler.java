@@ -7,6 +7,8 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import gtPlusPlus.GTplusplus;
 import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.core.container.ContainerCircuitProgrammer;
@@ -74,6 +76,7 @@ public class GuiHandler implements IGuiHandler {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public Object getClientGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
         final int y, final int z) {
         Logger.WARNING(
