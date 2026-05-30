@@ -3660,6 +3660,7 @@ GT5U.scanner.error_leaves_info=An exception was thrown while fetching this leave
 
 GT5U.scanner.base_info_1=Position X: §6%s§r Y: §6%s§r Z: §6%s
 GT5U.scanner.base_info_2=Name: §6%s §fMetadata: §6%s
+GT5U.scanner.base_info_meta_id=Meta ID: §6%s
 GT5U.scanner.base_info_3=Hardness: §6%s §fBlast Resistance: §6%s
 GT5U.scanner.base_info_4=§6Is valid Beacon Pyramid Material
 GT5U.scanner.fluid_handler_info_1=Tank %s: §6%sL §f/ §6%sL §f%s
@@ -4701,5 +4702,6 @@ gt.blockstones.12.name=Cracked Basalt Bricks
 gt.blockstones.13.name=Mossy Basalt Bricks
 gt.blockstones.14.name=Chiseled Basalt
 gt.blockstones.15.name=Smooth Basalt
+gt.tile.data_server.name=GT-Data Server
 gt.item.gravitational_lens.name=Gravitational Lens
 gt.item.gravitational_lens.tooltip=Portable gravitational well

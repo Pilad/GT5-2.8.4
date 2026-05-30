@@ -8,8 +8,6 @@ import net.minecraft.nbt.NBTTagList;
 
 public class InventoryPestKiller implements IInventory {
 
-    private final String name = "Pest Killer";
-
     /** Defining your inventory size this way is handy */
     public static final int INV_SIZE = 3;
 
@@ -96,7 +94,7 @@ public class InventoryPestKiller implements IInventory {
     // 1.7.2+ renamed to getInventoryName
     @Override
     public String getInventoryName() {
-        return this.name;
+        return "tile.blockPestKiller.name";
     }
 
     // 1.7.2+ renamed to hasCustomInventoryName

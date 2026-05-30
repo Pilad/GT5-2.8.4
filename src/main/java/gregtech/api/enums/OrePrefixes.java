@@ -14,18 +14,21 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.google.common.collect.ImmutableList;
 
 import gregtech.api.enums.TCAspects.TC_AspectStack;
 import gregtech.api.interfaces.ICondition;
+import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.IOreRecipeRegistrator;
 import gregtech.api.interfaces.ISubTagContainer;
 import gregtech.api.objects.GTArrayList;
 import gregtech.api.objects.GTItemStack;
 import gregtech.api.objects.ItemData;
 import gregtech.api.objects.MaterialStack;
+import gregtech.api.util.GTInflectionManager;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.GTUtility.ItemId;
@@ -1415,5 +1418,31 @@ public enum OrePrefixes {
         }
         // Use Standard Localization
         return mLocalizedMaterialPre + "%material" + mLocalizedMaterialPost;
+    }
+
+    /**
+     * Gets the localized item name with inflection. Prioritizes the special key {@code prefixKey.materialName} if
+     * available; otherwise attempts inflection formatting.
+     */
+    public static String getLocalizedNameForItemWithInflection(String prefixKey, IOreMaterial material) {
+        final String key = prefixKey + "."
+            + material.getInternalName()
+                .toLowerCase();
+        if (StatCollector.canTranslate(key)) {
+            return StatCollector.translateToLocal(key);
+        }
+        return GTInflectionManager.formatInflection(prefixKey, material.getLocalizedNameKey());
+    }
+
+    /**
+     * Gets the localized item name with inflection. Prioritizes the special key {@code prefixKey.materialKey} if
+     * available; otherwise attempts inflection formatting.
+     */
+    public static String getLocalizedNameForItemWithInflection(String prefixKey, String materialKey) {
+        final String key = prefixKey + "." + materialKey.toLowerCase();
+        if (StatCollector.canTranslate(key)) {
+            return StatCollector.translateToLocal(key);
+        }
+        return GTInflectionManager.formatInflection(prefixKey, materialKey);
     }
 }

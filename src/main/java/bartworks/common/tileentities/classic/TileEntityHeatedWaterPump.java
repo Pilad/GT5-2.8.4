@@ -13,6 +13,8 @@
 
 package bartworks.common.tileentities.classic;
 
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
+
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -238,7 +240,7 @@ public class TileEntityHeatedWaterPump extends TileEntity implements ITileDropsC
 
     @Override
     public String getInventoryName() {
-        return null;
+        return "tile.BWHeatedWaterPump.name";
     }
 
     @Override
@@ -349,7 +351,7 @@ public class TileEntityHeatedWaterPump extends TileEntity implements ITileDropsC
     public String[] getInfoData() {
         return new String[] {
             StatCollector.translateToLocal("tooltip.tile.waterpump.0.name") + " "
-                + GTUtility.formatNumbers(Configuration.singleBlocks.mbWaterperSec)
+                + formatNumber(Configuration.singleBlocks.mbWaterperSec)
                 + StatCollector.translateToLocalFormatted(
                     "tooltip.tile.waterpump.1.name",
                     PollutionConfig.pollutionHeatedWaterPumpSecond),
