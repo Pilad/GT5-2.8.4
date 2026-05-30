@@ -233,7 +233,7 @@ public class MTEEndothermicFridge extends MTEExtendedPowerMultiBlockBase<MTEEndo
             .addCasingInfoExactly("Tungstensteel Pipe Casing", 148, false)
             .addCasingInfoExactly("Callisto Ice Frame Box", 146, false)
             .addCasingInfoExactly("Robust Tungstensteel Machine Casing", 135, false)
-            .addCasingInfoExactly("Coolant Duct", 50, false)
+            .addCasingInfoExactly("Coolant Duct", 51, false)
             .addCasingInfoExactly("Ledox Sheetmetal", 40, false)
             .addCasingInfoExactly("Any Tiered Glass", 18, false)
             .addStructureInfo(EnumChatFormatting.BLUE + "Tier 1 Structure:")
@@ -323,6 +323,14 @@ public class MTEEndothermicFridge extends MTEExtendedPowerMultiBlockBase<MTEEndo
         tag.setBoolean("cryotheum", isCryoEnabled);
         tag.setInteger("drain", (int) Math.floor(speedBoost * speedMultiplier * CRYOTHEUM_DRAIN_BASE));
         tag.setFloat("speedBoost", speedBoost * speedMultiplier);
+        if (this.machineTier == 2 && this.currentBoosterFluid != null) {
+            tag.setBoolean("subspaceCooling", true);
+            tag.setString(
+                "subspaceFluid",
+                this.currentBoosterFluid.getStack()
+                    .getLocalizedName());
+            tag.setInteger("subspaceDrain", this.currentBoosterFluid.amount);
+        }
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
 
     }
@@ -337,6 +345,13 @@ public class MTEEndothermicFridge extends MTEExtendedPowerMultiBlockBase<MTEEndo
         currentTip.add(translateToLocalFormatted("GT5U.waila.mvf.speedboost", formatNumber(speedModifier)));
         if (cryotheumActive) {
             currentTip.add(translateToLocalFormatted("GT5U.waila.mvf.cryotheum", formatFluid(tag.getInteger("drain"))));
+        }
+        if (tag.getBoolean("subspaceCooling")) {
+            currentTip.add(
+                translateToLocalFormatted(
+                    "GT5U.waila.mvf.subspace",
+                    formatFluid(tag.getInteger("subspaceDrain")),
+                    tag.getString("subspaceFluid")));
         }
 
     }
@@ -479,6 +494,34 @@ public class MTEEndothermicFridge extends MTEExtendedPowerMultiBlockBase<MTEEndo
     @Override
     public int getMaxParallelRecipes() {
         return Configuration.Multiblocks.megaMachinesMax;
+    }
+
+    @Override
+    public void getExtraInfoData(List<String> info) {
+        info.add(StatCollector.translateToLocalFormatted("BW.infoData.mega_vacuum_freezer.tier", this.machineTier));
+        if (this.machineTier == 2) {
+            info.add(
+                this.currentBoosterFluid != null
+                    ? StatCollector.translateToLocalFormatted(
+                        "BW.infoData.mega_vacuum_freezer.subspace_cooling.active",
+                        this.currentBoosterFluid.getStack()
+                            .getLocalizedName())
+                    : StatCollector.translateToLocal("BW.infoData.mega_vacuum_freezer.subspace_cooling.inactive"));
+        }
+        info.add(
+            StatCollector.translateToLocal(
+                this.isCryoEnabled ? "GT5U.gui.text.button.cryotheum.enabled"
+                    : "GT5U.gui.text.button.cryotheum.disabled"));
+        info.add(
+            StatCollector.translateToLocalFormatted(
+                "GT5U.waila.mvf.speedboost",
+                formatNumber(this.speedBoost * this.speedMultiplier)));
+        if (this.isCryoEnabled) {
+            info.add(
+                StatCollector.translateToLocalFormatted(
+                    "GT5U.waila.mvf.cryotheum",
+                    formatFluid((int) Math.floor(CRYOTHEUM_DRAIN_BASE * this.speedBoost * this.speedMultiplier))));
+        }
     }
 
     @Override

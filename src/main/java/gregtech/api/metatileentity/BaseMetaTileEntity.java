@@ -767,6 +767,13 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
     }
 
     @Override
+    public void getExtraInfoData(List<String> info) {
+        if (canAccessData()) {
+            getMetaTileEntity().getExtraInfoData(info);
+        }
+    }
+
+    @Override
     public Map<String, String> getInfoMap() {
         return canAccessData() ? getMetaTileEntity().getInfoMap() : Collections.emptyMap();
     }

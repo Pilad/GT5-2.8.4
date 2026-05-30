@@ -10,6 +10,7 @@ import static gregtech.api.util.GTUtility.formatShortenedLong;
 import static gregtech.api.util.GTUtility.min;
 import static gregtech.api.util.GTUtility.truncateText;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static mcp.mobius.waila.api.SpecialChars.GREEN;
 import static mcp.mobius.waila.api.SpecialChars.RED;
 import static mcp.mobius.waila.api.SpecialChars.RESET;
@@ -161,6 +162,7 @@ import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti;
+import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoTunnel;
 import tectech.thing.metaTileEntity.hatch.MTEHatchEnergyMulti;
 
 public abstract class MTEMultiBlockBase extends MetaTileEntity implements IControllerWithOptionalFeatures,
@@ -2149,6 +2151,18 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         return false;
     }
 
+    public boolean addLaserSourceToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) return false;
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) return false;
+        if (aMetaTileEntity instanceof MTEHatchDynamoTunnel mteHatchDynamoTunnel) {
+            mteHatchDynamoTunnel.updateTexture(aBaseCasingIndex);
+            mteHatchDynamoTunnel.updateCraftingIcon(this.getMachineCraftingIcon());
+            return mExoticDynamoHatches.add(mteHatchDynamoTunnel);
+        }
+        return false;
+    }
+
     public boolean addCryotheumHatchToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
@@ -2272,8 +2286,16 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         return true;
     }
 
+    public List<MTEHatch> getExoticAndNormalEnergyHatchList() {
+        List<MTEHatch> list = new ArrayList<>();
+        list.addAll(filterValidMTEs(mEnergyHatches));
+        list.addAll(filterValidMTEs(mExoticEnergyHatches));
+        return list;
+    }
+
     @Override
     public String[] getInfoData() {
+        List<String> info = new ArrayList<>();
         long storedEnergy = 0;
         long maxEnergy = 0;
         int hatchCount = 0;
@@ -2282,87 +2304,83 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         long hours = TimeUnit.SECONDS.toHours(seconds);
 
         // spotless:off
-        String timeValue = hours > 0 ? String.valueOf(hours)
-            : minutes > 0 ? String.valueOf(minutes)
-                : seconds > 0 ? String.valueOf(seconds) : String.valueOf(this.mTotalRunTime);
-        String timeKey = hours > 0 ? "GT5U.multiblock.scanner.totalRunHours"
-            : minutes > 0 ? "GT5U.multiblock.scanner.totalRunMinutes"
-                : seconds > 0 ? "GT5U.multiblock.scanner.totalRunSeconds" : "GT5U.multiblock.scanner.totalRunTicks";
+        String timeValue =
+            hours > 0 ? String.valueOf(hours)
+                : minutes > 0 ? String.valueOf(minutes)
+                : seconds > 0 ? String.valueOf(seconds)
+                : String.valueOf(this.mTotalRunTime);
+        String timeKey =
+            hours > 0 ? "GT5U.multiblock.scanner.totalRunHours"
+                : minutes > 0 ? "GT5U.multiblock.scanner.totalRunMinutes"
+                : seconds > 0 ? "GT5U.multiblock.scanner.totalRunSeconds"
+                : "GT5U.multiblock.scanner.totalRunTicks";
 
-        for (MTEHatchEnergy tHatch : validMTEList(mEnergyHatches)) {
-            final IGregTechTileEntity baseMetaTileEntity = tHatch.getBaseMetaTileEntity();
-            if (baseMetaTileEntity != null) {
-                storedEnergy += baseMetaTileEntity.getStoredEU();
-                maxEnergy += baseMetaTileEntity.getEUCapacity();
+        for (MTEHatch tHatch : getExoticAndNormalEnergyHatchList()) {
+            final IGregTechTileEntity te = tHatch.getBaseMetaTileEntity();
+            if (te != null) {
+                storedEnergy += te.getStoredEU();
+                maxEnergy += te.getEUCapacity();
                 hatchCount++;
             }
         }
 
         if (getBaseMetaTileEntity() != null) {
-            IGregTechTileEntity baseMetaTileEntity = getBaseMetaTileEntity();
-            String ownedBy = GTUtility.translate("GT5U.multiblock.scanner.owned_by", baseMetaTileEntity.getOwnerName());
-            if (baseMetaTileEntity.getMetaTileEntity() != null) {
-                String result = GTUtility
-                    .translate("GT5U.multiblock.scanner.meta_tile_entity", baseMetaTileEntity.getMetaTileID()) + " "
-                    + GTUtility.translate(
-                        baseMetaTileEntity.canAccessData() ? "GT5U.multiblock.scanner.valid"
-                            : "GT5U.multiblock.scanner.invalid");
+            IGregTechTileEntity te = getBaseMetaTileEntity();
+
+            info.add(GTUtility.translate("GT5U.multiblock.scanner.owned_by", te.getOwnerName()));
+
+            if (te.getMetaTileEntity() != null) {
+                info.add(GTUtility.translate("GT5U.multiblock.scanner.meta_tile_entity", te.getMetaTileID())
+                    + " "
+                    + GTUtility.translate(te.canAccessData() ? "GT5U.multiblock.scanner.valid" : "GT5U.multiblock.scanner.invalid"));
             } else {
-                String isMeta = GTUtility.translate("GT5U.multiblock.scanner.is_meta_tile_entity");
+                info.add(GTUtility.translate("GT5U.multiblock.scanner.is_meta_tile_entity"));
             }
         }
 
-        return new String[] {
-            /* 1 */ translateToLocal("GT5U.multiblock.scanner.Progress") + ": "
-                + EnumChatFormatting.GREEN
-                + formatNumbers(mProgresstime / 20)
-                + EnumChatFormatting.RESET
-                + " s / "
-                + EnumChatFormatting.YELLOW
-                + formatNumbers(mMaxProgresstime / 20)
-                + EnumChatFormatting.RESET
-                + " s",
-            /* 2 */ translateToLocal("GT5U.multiblock.scanner.energy") + ": "
-                + EnumChatFormatting.GREEN
-                + formatNumbers(storedEnergy)
-                + EnumChatFormatting.RESET
-                + " EU / "
-                + EnumChatFormatting.YELLOW
-                + formatNumbers(maxEnergy)
-                + EnumChatFormatting.RESET
-                + " EU",
-            /* 3 */ translateToLocal("GT5U.multiblock.scanner.usage") + ": "
-                + EnumChatFormatting.RED
-                + formatNumbers(getActualEnergyUsage())
-                + EnumChatFormatting.RESET
-                + " EU/t",
-            /* 4 */ translateToLocal("GT5U.multiblock.scanner.mei") + ": "
-                + EnumChatFormatting.YELLOW
-                + formatNumbers(getMaxInputVoltage())
-                + EnumChatFormatting.RESET
-                + " EU/t(*2A) "
-                + translateToLocal("GT5U.machines.tier")
-                + ": "
-                + EnumChatFormatting.YELLOW
-                + VN[GTUtility.getTier(getMaxInputVoltage())]
-                + EnumChatFormatting.RESET,
-            /* 5 */ translateToLocal("GT5U.multiblock.scanner.problems") + ": "
-                + EnumChatFormatting.RED
-                + (getIdealStatus() - getRepairStatus())
-                + EnumChatFormatting.RESET
-                + " "
-                + translateToLocal("GT5U.multiblock.scanner.efficiency")
-                + ": "
-                + EnumChatFormatting.YELLOW
-                + mEfficiency / 100.0F
-                + EnumChatFormatting.RESET
-                + " %",
-            /* 6 */ translateToLocal("GT5U.multiblock.scanner.pollution") + ": "
-                + EnumChatFormatting.GREEN
-                + getAveragePollutionPercentage()
-                + EnumChatFormatting.RESET
-                + " %",
-            /* 7 */ GTUtility.translate(timeKey, timeValue) };
+        // spotless:on
+
+        if (mProgresstime > 0) {
+            info.add(
+                GTUtility.translate(
+                    "GT5U.multiblock.scanner.Progress",
+                    formatNumber(mProgresstime / 20),
+                    formatNumber(mMaxProgresstime / 20)));
+        }
+
+        if (hatchCount > 0) {
+            info.add(
+                GTUtility
+                    .translate("GT5U.multiblock.scanner.energy", formatNumber(storedEnergy), formatNumber(maxEnergy)));
+
+            info.add(
+                GTUtility.translate(
+                    "GT5U.multiblock.scanner.mei",
+                    formatNumber(getMaxInputVoltage()),
+                    VN[GTUtility.getTier(getMaxInputVoltage())]));
+        }
+
+        if (getActualEnergyUsage() > 0) {
+            info.add(GTUtility.translate("GT5U.multiblock.scanner.usage", formatNumber(getActualEnergyUsage())));
+        }
+
+        info.add(
+            GTUtility
+                .translate("GT5U.multiblock.scanner.problems", formatNumber(getIdealStatus() - getRepairStatus())));
+
+        if (mEfficiency > 0) {
+            info.add(GTUtility.translate("GT5U.multiblock.scanner.efficiency", formatNumber(mEfficiency / 100.0F)));
+        }
+
+        if (getPollutionPerSecond(getStackForm(1)) > 0) {
+            info.add(
+                GTUtility
+                    .translate("GT5U.multiblock.scanner.pollution", formatNumber(getAveragePollutionPercentage())));
+        }
+
+        info.add(GTUtility.translate(timeKey, timeValue));
+
+        return info.toArray(new String[0]);
     }
 
     @Override

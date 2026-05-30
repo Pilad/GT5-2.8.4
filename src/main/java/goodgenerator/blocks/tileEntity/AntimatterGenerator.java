@@ -6,6 +6,7 @@ import static gregtech.api.enums.Textures.BlockIcons.*;
 import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static gregtech.common.misc.WirelessNetworkManager.addEUToGlobalEnergyMap;
 import static gregtech.common.misc.WirelessNetworkManager.strongCheckOrAddUser;
 
@@ -454,57 +455,20 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
     }
 
     @Override
-    public String[] getInfoData() {
-        long storedEnergy = 0;
-        long maxEnergy = 0;
+    public void getExtraInfoData(List<String> info) {
+        info.add(
+            StatCollector.translateToLocalFormatted("gui.AntimatterGenerator.0.s", formatNumber(this.euLastCycle)));
 
-        for (MTEHatch tHatch : mExoticEnergyHatches) {
-            storedEnergy += tHatch.getBaseMetaTileEntity()
-                .getStoredEU();
-            maxEnergy += tHatch.getBaseMetaTileEntity()
-                .getEUCapacity();
-        }
-        // Prevent -Value when long overflow
-        if (storedEnergy < 0) storedEnergy = Long.MAX_VALUE;
-        if (maxEnergy < 0) maxEnergy = Long.MAX_VALUE;
+        info.add(
+            StatCollector.translateToLocalFormatted(
+                "gui.AntimatterGenerator.1.s",
+                formatNumber(Math.ceil(this.annihilationEfficiency * 100))));
 
-        return new String[] {
-            EnumChatFormatting.BLUE + StatCollector.translateToLocal("gg.scanner.info.antimatter_generator")
-                + " "
-                + EnumChatFormatting.GRAY,
-            StatCollector.translateToLocal("GT5U.multiblock.Progress") + ": "
-                + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(mProgresstime)
-                + EnumChatFormatting.RESET
-                + "t / "
-                + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(mMaxProgresstime)
-                + EnumChatFormatting.RESET
-                + "t",
-            StatCollector.translateToLocal("GT5U.multiblock.energy") + ": "
-                + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(storedEnergy)
-                + EnumChatFormatting.RESET
-                + " EU / "
-                + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(maxEnergy)
-                + EnumChatFormatting.RESET
-                + " EU",
-            StatCollector.translateToLocal("gui.AntimatterGenerator.0") + ": "
-                + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(this.euLastCycle)
-                + EnumChatFormatting.RESET
-                + " EU",
-            StatCollector.translateToLocal("gui.AntimatterGenerator.1") + ": "
-                + EnumChatFormatting.AQUA
-                + GTUtility.formatNumbers(Math.ceil(this.annihilationEfficiency * 100))
-                + EnumChatFormatting.RESET
-                + " %",
-            StatCollector.translateToLocal("gui.AntimatterGenerator.1") + ": ⟨ "
-                + EnumChatFormatting.AQUA
-                + GTUtility.formatNumbers(Math.ceil(this.avgEffCache * 100))
-                + EnumChatFormatting.RESET
-                + " % ⟩₁₀" };
+        info.add(
+            StatCollector.translateToLocalFormatted(
+                "gui.AntimatterGenerator.2.s",
+                formatNumber(Math.ceil(this.avgEffCache * 100))));
+
     }
 
     private long getEnergyProduced() {
@@ -592,23 +556,16 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
         IWailaConfigHandler config) {
         super.getWailaBody(itemStack, currentTip, accessor, config);
         currentTip.add(
-            StatCollector.translateToLocal("gui.AntimatterGenerator.0") + ": "
-                + EnumChatFormatting.BLUE
-                + GTUtility.scientificFormat(energyProducedCache)
-                + EnumChatFormatting.WHITE
-                + " EU");
+            StatCollector
+                .translateToLocalFormatted("gui.AntimatterGenerator.0.s", formatNumber(this.energyProducedCache)));
         currentTip.add(
-            StatCollector.translateToLocal("gui.AntimatterGenerator.1") + ": "
-                + EnumChatFormatting.RED
-                + numberFormat.format(Math.ceil(efficiencyCache * 100))
-                + EnumChatFormatting.WHITE
-                + " %");
+            StatCollector.translateToLocalFormatted(
+                "gui.AntimatterGenerator.1.s",
+                formatNumber(Math.ceil(this.efficiencyCache * 100))));
         currentTip.add(
-            StatCollector.translateToLocal("gui.AntimatterGenerator.1") + ": ⟨ "
-                + EnumChatFormatting.RED
-                + numberFormat.format(Math.ceil(avgEffCache * 100))
-                + EnumChatFormatting.WHITE
-                + " % ⟩₁₀");
+            StatCollector.translateToLocalFormatted(
+                "gui.AntimatterGenerator.2.s",
+                formatNumber(Math.ceil(this.avgEffCache * 100))));
     }
 
     @Override
