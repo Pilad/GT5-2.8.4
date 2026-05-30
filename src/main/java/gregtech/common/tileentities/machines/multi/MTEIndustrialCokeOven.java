@@ -14,6 +14,7 @@ import static gregtech.api.util.GTStructureUtility.activeCoils;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofCoil;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.List;
 
@@ -47,7 +48,6 @@ import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.render.TextureFactory;
-import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.misc.GTStructureChannels;
@@ -103,11 +103,11 @@ public class MTEIndustrialCokeOven extends MTEExtendedPowerMultiBlockBase<MTEInd
             .addInfo(
                 TooltipHelper.parallelText(PARALLELS_T1) + " base and +"
                     + TooltipHelper.parallelText(SLICE_PARALLELS_T1)
-                    + " Parallels per extra slice with Heat Resistant Casings")
+                    + " Parallels per extra slice with Heat Resistant Casing")
             .addInfo(
                 TooltipHelper.parallelText(PARALLELS_T2) + " base and +"
                     + TooltipHelper.parallelText(SLICE_PARALLELS_T2)
-                    + " Parallels per extra slice with Heat Proof Casings")
+                    + " Parallels per extra slice with Heat Proof Casing")
             .addInfo(
                 EnumChatFormatting.AQUA + "-2% "
                     + EnumChatFormatting.GRAY
@@ -143,6 +143,7 @@ public class MTEIndustrialCokeOven extends MTEExtendedPowerMultiBlockBase<MTEInd
             .addMufflerHatch("Any Structural Coke Oven Casing of the base structure", 1)
             .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
             .addSubChannelUsage(GTStructureChannels.COKE_OVEN_CASING)
+            .addSubChannelUsage(GTStructureChannels.STRUCTURE_LENGTH)
             .addStructureAuthors(EnumChatFormatting.GOLD + "Nicouuuuu")
             .toolTipFinisher();
         return tt;
@@ -400,7 +401,7 @@ public class MTEIndustrialCokeOven extends MTEExtendedPowerMultiBlockBase<MTEInd
         currenttip.add(
             StatCollector.translateToLocal("GT5U.multiblock.euModifier") + ": "
                 + EnumChatFormatting.WHITE
-                + GTUtility.formatNumbers(euModifier(tag.getInteger("coilTier")) * 100)
+                + formatNumber(euModifier(tag.getInteger("coilTier")) * 100)
                 + "%");
     }
 

@@ -13,6 +13,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_EXTREME_DIESE
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 
@@ -140,8 +141,8 @@ public class MTEExtremeCombustionEngine extends MTEExtendedPowerMultiBlockBase<M
             .addCasingInfoExactly("Tungstensteel Firebox Casing", 12, false)
             .addCasingInfoExactly("Chemically Inert Machine Casing", 30, false)
             .addDynamoHatch("Back center", 3)
-            .addMaintenanceHatch("Any Robust Tungstensteel Machine Casing", 1)
-            .addMufflerHatch("Any Robust Tungstensteel Machine Casing", 1)
+            .addMaintenanceHatch("Any Robust Tungstensteel Machine Casing NOT touching a gearbox", 1)
+            .addMufflerHatch("Any Robust Tungstensteel Machine Casing NOT touching a gearbox", 1)
             .addInputHatch("High Rating Fuel, next to a Gear Box", 2)
             .addInputHatch("Lubricant, next to a Gear Box", 2)
             .addInputHatch("Liquid Oxygen, optional, next to a Gear Box", 2)
@@ -244,11 +245,11 @@ public class MTEExtremeCombustionEngine extends MTEExtendedPowerMultiBlockBase<M
                 + EnumChatFormatting.RESET,
             StatCollector.translateToLocal("GT5U.multiblock.energy") + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(storedEnergy)
+                + formatNumber(storedEnergy)
                 + EnumChatFormatting.RESET
                 + " EU / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(maxEnergy)
+                + formatNumber(maxEnergy)
                 + EnumChatFormatting.RESET
                 + " EU",
             getIdealStatus() == getRepairStatus()
@@ -258,22 +259,22 @@ public class MTEExtremeCombustionEngine extends MTEExtendedPowerMultiBlockBase<M
                     + EnumChatFormatting.RESET,
             StatCollector.translateToLocal("GT5U.engine.output") + ": "
                 + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(lEUt * mEfficiency / 10000)
+                + formatNumber(lEUt * mEfficiency / 10000)
                 + EnumChatFormatting.RESET
                 + " EU/t",
             StatCollector.translateToLocal("GT5U.engine.consumption") + ": "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(fuelConsumption)
+                + formatNumber(fuelConsumption)
                 + EnumChatFormatting.RESET
                 + " L/t",
             StatCollector.translateToLocal("GT5U.engine.value") + ": "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(fuelValue)
+                + formatNumber(fuelValue)
                 + EnumChatFormatting.RESET
                 + " EU/L",
             StatCollector.translateToLocal("GT5U.turbine.fuel") + ": "
                 + EnumChatFormatting.GOLD
-                + GTUtility.formatNumbers(fuelRemaining)
+                + formatNumber(fuelRemaining)
                 + EnumChatFormatting.RESET
                 + " L",
             StatCollector.translateToLocal("GT5U.engine.efficiency") + ": "

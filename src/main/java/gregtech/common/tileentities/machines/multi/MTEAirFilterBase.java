@@ -7,11 +7,9 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose
 import static gregtech.api.enums.GTValues.VN;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.enums.Textures.BlockIcons.TURBINE_NEW;
 import static gregtech.api.enums.Textures.BlockIcons.TURBINE_NEW_ACTIVE;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
@@ -107,7 +105,7 @@ public abstract class MTEAirFilterBase extends MTEEnhancedMultiBlockBase<MTEAirF
                         lazy(
                             x -> ofChain(
                                 buildHatchAdder(MTEAirFilterBase.class)
-                                    .atLeast(Maintenance, InputBus, InputHatch, OutputHatch, OutputBus, Energy)
+                                    .atLeast(Maintenance, InputBus, OutputBus, Energy)
                                     .dot(1)
                                     .casingIndex(x.getCasingIndex())
                                     .build(),
@@ -211,8 +209,8 @@ public abstract class MTEAirFilterBase extends MTEEnhancedMultiBlockBase<MTEAirF
             .addOtherStructurePart("Muffler Hatch", "Sides of the middle two layers")
             .addEnergyHatch("Any bottom layer Casing", 1)
             .addMaintenanceHatch("Any bottom layer Casing", 1)
-            .addInputBus("Any bottom layer Casing", 1)
-            .addOutputBus("Any bottom layer Casing", 1)
+            .addInputBus("Any bottom layer Casing (optional)", 1)
+            .addOutputBus("Any bottom layer Casing (optional)", 1)
             .toolTipFinisher();
         return tt;
     }

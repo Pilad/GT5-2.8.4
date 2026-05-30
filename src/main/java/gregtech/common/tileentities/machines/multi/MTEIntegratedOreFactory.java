@@ -7,7 +7,6 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ORE_FACTORY;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ORE_FACTORY_ACTIVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ORE_FACTORY_ACTIVE_GLOW;
@@ -103,7 +102,7 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
         .addElement(
             'D',
             buildHatchAdder(MTEIntegratedOreFactory.class)
-                .atLeast(Energy, ExoticEnergy, InputBus, InputHatch, Muffler, OutputBus, OutputHatch, Maintenance)
+                .atLeast(Energy, ExoticEnergy, InputBus, InputHatch, Muffler, OutputBus, Maintenance)
                 .casingIndex(Casings.CleanStainlessSteelMachineCasing.textureId)
                 .dot(1)
                 .buildAndChain(Casings.CleanStainlessSteelMachineCasing.asElement()))
@@ -638,12 +637,12 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
             .addCasingInfoExactly("Clean Stainless Steel Machine Casing", 169, false)
             .addCasingInfoExactly("Advanced Iridium Plated Machine Casing", 98, false)
             .addCasingInfoExactly("Advanced Iridium Plated Machine Casing", 462, false)
-            .addEnergyHatch("Any bottom Casing", 1)
-            .addMaintenanceHatch("Any bottom Casing", 1)
-            .addInputBus("Input ore/crushed ore", 2)
-            .addInputHatch("Input lubricant/distilled water/washing chemicals", 3)
-            .addMufflerHatch("Output Pollution", 3)
-            .addOutputBus("Output products", 4)
+            .addEnergyHatch("Any Stainless Steel Casing", 1)
+            .addMaintenanceHatch("Any Stainless Steel Casing", 1)
+            .addInputBus("Any Stainless Steel Casing", 1)
+            .addInputHatch("Any Stainless Steel Casing", 1)
+            .addMufflerHatch("Any Stainless Steel Casing", 1)
+            .addOutputBus("Any Stainless Steel Casing", 1)
             .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .addStructureAuthors(EnumChatFormatting.GOLD + "Bavib")
             .toolTipFinisher();
@@ -724,6 +723,7 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
                 + getCurrentParallelism()
                 + EnumChatFormatting.RESET);
         info.add(StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor.void", doesVoidStone));
+        info.add(StatCollector.translateToLocal("GT5U.multiblock.runningMode"));
         info.addAll(getDisplayMode(mode));
         return info.toArray(new String[0]);
     }
@@ -810,6 +810,7 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
                 + EnumChatFormatting.BLUE
                 + tag.getInteger("currentParallelism")
                 + EnumChatFormatting.RESET);
+        currenttip.add(StatCollector.translateToLocal("GT5U.multiblock.runningMode"));
         currenttip.addAll(getDisplayMode(ProcessingMode.fromOrdinal(tag.getInteger("mode"))));
         currenttip.add(
             StatCollector

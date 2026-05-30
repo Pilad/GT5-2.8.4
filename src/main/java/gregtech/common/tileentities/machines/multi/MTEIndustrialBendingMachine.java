@@ -3,7 +3,6 @@ package gregtech.common.tileentities.machines.multi;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
@@ -56,7 +55,7 @@ public class MTEIndustrialBendingMachine extends MTEExtendedPowerMultiBlockBase<
         .addElement(
             'D',
             buildHatchAdder(MTEIndustrialBendingMachine.class)
-                .atLeast(InputBus, OutputBus, Maintenance, Energy, Muffler, InputHatch)
+                .atLeast(InputBus, OutputBus, Maintenance, Energy, Muffler)
                 .casingIndex(Casings.MaterialPressCasing.textureId)
                 .dot(1)
                 .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.MaterialPressCasing.asElement())))
@@ -78,7 +77,7 @@ public class MTEIndustrialBendingMachine extends MTEExtendedPowerMultiBlockBase<
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
         MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
-        tt.addMachineType("Bending Machine")
+        tt.addMachineType("Bending Machine, IBM")
             .addBulkMachineInfo(6, 6f, 1f)
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(6, 3, 3, false)

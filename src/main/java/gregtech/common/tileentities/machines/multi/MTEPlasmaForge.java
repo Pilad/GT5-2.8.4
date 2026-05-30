@@ -588,17 +588,17 @@ public class MTEPlasmaForge extends MTEExtendedPowerMultiBlockBase<MTEPlasmaForg
             .addInfo("Transcending Dimensional Boundaries.")
             .addInfo(
                 "Takes " + EnumChatFormatting.RED
-                    + GTUtility.formatNumbers(max_efficiency_time_in_ticks / (3600 * 20))
+                    + formatNumber(max_efficiency_time_in_ticks / (3600 * 20))
                     + EnumChatFormatting.GRAY
                     + " hours of continuous run time to fully breach dimensional")
             .addInfo(
                 "boundaries and achieve maximum efficiency, reducing fuel consumption by up to "
                     + EnumChatFormatting.RED
-                    + GTUtility.formatNumbers(100 * maximum_discount)
+                    + formatNumber(100 * maximum_discount)
                     + "%")
             .addInfo(
                 "When no recipe is running, fuel discount decays x" + EnumChatFormatting.RED
-                    + GTUtility.formatNumbers(efficiency_decay_rate)
+                    + formatNumber(efficiency_decay_rate)
                     + EnumChatFormatting.GRAY
                     + " as fast as it builds up, draining")
             .addInfo("the total amount of stored runtime")
@@ -1174,7 +1174,7 @@ public class MTEPlasmaForge extends MTEExtendedPowerMultiBlockBase<MTEPlasmaForg
             currentTip.add(
                 StatCollector.translateToLocalFormatted(
                     "GT5U.infodata.plasma_forge.fuel_discount",
-                    EnumChatFormatting.GOLD + GTUtility.formatNumbers(100 * (1 - tag.getDouble("discount")))
+                    EnumChatFormatting.GOLD + formatNumber(100 * (1 - tag.getDouble("discount")))
                         + EnumChatFormatting.RESET
                         + "%"));
 

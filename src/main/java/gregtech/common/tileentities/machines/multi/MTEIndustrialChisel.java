@@ -76,9 +76,9 @@ public class MTEIndustrialChisel extends MTEExtendedPowerMultiBlockBase<MTEIndus
         tt.addMachineType("Chisel")
             .addBulkMachineInfo(16, 3f, 0.75f)
             .addInfo("Factory Grade Auto Chisel")
-            .addInfo(
-                "Without a circuit, chisels architecture and chisel blocks depending on reference block in CRIB or Controller")
-            .addInfo("Use a programmed circuit to select a specific chiseled output - check NEI for the order")
+            .addInfo("Chisel Bus: Set ghost targets to define the desired output variants")
+            .addInfo("Regular Bus: Use a programmed circuit to select a variant (see NEI)")
+            .addInfo("Also supports ArchitectureCraft shapes as target blocks")
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(7, 5, 5, false)
             .addController("Front left, 3rd layer")
@@ -240,6 +240,16 @@ public class MTEIndustrialChisel extends MTEExtendedPowerMultiBlockBase<MTEIndus
     @Override
     public int getPollutionPerSecond(ItemStack aStack) {
         return PollutionConfig.pollutionPerSecondMultiIndustrialChisel;
+    }
+
+    @Override
+    public boolean isValidSlot(int aIndex) {
+        return aIndex > 1;
+    }
+
+    @Override
+    protected boolean canUseControllerSlotForRecipe() {
+        return false;
     }
 
     @Override

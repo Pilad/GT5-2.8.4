@@ -653,11 +653,9 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "industrialthermalcentrifuge.controller.tier.single",
                 "Large Thermal Refinery").getStackForm(1));
 
-        ItemList.LargeSifter.set(
-            new MTEIndustrialSifter(
-                LargeSifter.ID,
-                "industrialsifter.controller.tier.single",
-                "Large Sifter Control Block").getStackForm(1L));
+        ItemList.IndustrialPrinter.set(
+            new MTEIndustrialChisel(IndustrialPrinter.ID, "multimachine.adv.chisel", "Industrial 3D Copying Machine")
+                .getStackForm(1L));
 
         ItemList.IndustrialForgeHammer.set(
             new MTEIndustrialForgeHammer(
@@ -665,8 +663,8 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "industrialhammer.controller.tier.single",
                 "Industrial Sledgehammer").getStackForm(1L));
 
-        ItemList.IndustrialPrinter.set(
-            new MTEIndustrialChisel(IndustrialPrinter.ID, "multimachine.adv.chisel", "Industrial 3D Copying Machine")
+        ItemList.LargeSifter.set(
+            new MTEIndustrialSifter(LargeSifter.ID, "industrialsifter.controller.tier.single", "Large Sifter")
                 .getStackForm(1L));
 
         ItemList.CryogenicFreezer.set(

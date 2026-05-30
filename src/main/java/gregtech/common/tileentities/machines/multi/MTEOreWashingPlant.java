@@ -9,7 +9,6 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofAnyWater;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
@@ -94,7 +93,7 @@ public class MTEOreWashingPlant extends MTEExtendedPowerMultiBlockBase<MTEOreWas
         .addElement(
             'C',
             buildHatchAdder(MTEOreWashingPlant.class)
-                .atLeast(InputBus, InputHatch, OutputHatch, OutputBus, Maintenance, Energy, Muffler)
+                .atLeast(InputBus, InputHatch, OutputBus, Maintenance, Energy, Muffler)
                 .casingIndex(Casings.WashPlantCasing.textureId)
                 .dot(1)
                 .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.WashPlantCasing.asElement())))
@@ -117,7 +116,7 @@ public class MTEOreWashingPlant extends MTEExtendedPowerMultiBlockBase<MTEOreWas
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
         MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
-        tt.addMachineType("Ore Washer, Simple Washer")
+        tt.addMachineType("Ore Washer, Simple Washer, OWP")
             .addBulkMachineInfo(4, 5f, 1f)
             .addInfo("Can be configured with a screwdriver to also be used as Simple Washer")
             .addInfo("Always requires an Input Hatch full of water to refill structure")
@@ -132,7 +131,6 @@ public class MTEOreWashingPlant extends MTEExtendedPowerMultiBlockBase<MTEOreWas
             .addInputBus("Any Wash Plant Casing", 1)
             .addOutputBus("Any Wash Plant Casing", 1)
             .addInputHatch("Any Wash Plant Casing", 1)
-            .addOutputHatch("Any Wash Plant Casing", 1)
             .addEnergyHatch("Any Wash Plant Casing", 1)
             .addMaintenanceHatch("Any Wash Plant Casing", 1)
             .addMufflerHatch("Any Wash Plant Casing", 1)

@@ -9,6 +9,7 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static tectech.thing.metaTileEntity.multi.base.TTMultiblockBase.HatchElement.DynamoMulti;
 import static tectech.thing.metaTileEntity.multi.base.TTMultiblockBase.HatchElement.EnergyMulti;
 
@@ -258,7 +259,7 @@ public class MTELargeNaquadahReactor extends TTMultiblockBase implements ISurviv
         String[] info = super.getInfoData();
         info[4] = StatCollector.translateToLocalFormatted(
             "gg.scanner.info.generator.generates",
-            EnumChatFormatting.RED + GTUtility.formatNumbers(Math.abs(this.trueOutput)) + EnumChatFormatting.RESET);
+            EnumChatFormatting.RED + formatNumber(Math.abs(this.trueOutput)) + EnumChatFormatting.RESET);
         info[6] = StatCollector.translateToLocal("gg.scanner.info.generator.problems") + " "
             + EnumChatFormatting.RED
             + (this.getIdealStatus() - this.getRepairStatus())

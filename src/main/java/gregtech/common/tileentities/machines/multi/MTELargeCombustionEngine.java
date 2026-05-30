@@ -138,8 +138,8 @@ public class MTELargeCombustionEngine extends MTEExtendedPowerMultiBlockBase<MTE
             .addCasingInfoExactly("PTFE Frame Box", 21, false)
             .addCasingInfoExactly("Chemically Inert Machine Casing", 19, false)
             .addDynamoHatch(GTUtility.translate("gt.mbtt.structure.back_center"), 3)
-            .addMaintenanceHatch("Any Stable Titanium Machine Casing", 1)
-            .addMufflerHatch("Any Stable Titanium Machine Casing", 1)
+            .addMaintenanceHatch("Any Stable Titanium Machine Casing NOT touching a gearbox", 1)
+            .addMufflerHatch("Any Stable Titanium Machine Casing NOT touching a gearbox", 1)
             .addInputHatch(GTUtility.translate("gt.multiblock.DieselEngine.diesel_fuel"), 2)
             .addInputHatch(GTUtility.translate("gt.multiblock.DieselEngine.lubricant"), 2)
             .addInputHatch(GTUtility.translate("gt.multiblock.DieselEngine.oxygen_optional"), 2)
@@ -370,7 +370,7 @@ public class MTELargeCombustionEngine extends MTEExtendedPowerMultiBlockBase<MTE
                     + EnumChatFormatting.RESET,
             StatCollector.translateToLocal("GT5U.engine.output") + ": "
                 + EnumChatFormatting.RED
-                + formatNumber(lEUt * mEfficiency / 10000)
+                + formatNumber((lEUt * mEfficiency / 10000))
                 + EnumChatFormatting.RESET
                 + " EU/t",
             StatCollector.translateToLocal("GT5U.engine.consumption") + ": "

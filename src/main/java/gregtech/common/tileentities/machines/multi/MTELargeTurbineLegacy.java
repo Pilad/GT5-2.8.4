@@ -15,6 +15,7 @@ import static gregtech.api.enums.Textures.BlockIcons.TURBINE_NEW_ACTIVE;
 import static gregtech.api.enums.Textures.BlockIcons.TURBINE_NEW_EMPTY;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -383,7 +384,7 @@ public abstract class MTELargeTurbineLegacy extends MTEEnhancedMultiBlockBase<MT
             // 8 Lines available for information panels
             tRunning + ": "
                 + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(((long) mEUt * mEfficiency) / 10000)
+                + formatNumber(((long) mEUt * mEfficiency) / 10000)
                 + EnumChatFormatting.RESET
                 + " EU/t", /* 1 */
             tMaintainance, /* 2 */
@@ -394,16 +395,16 @@ public abstract class MTELargeTurbineLegacy extends MTEEnhancedMultiBlockBase<MT
                 + "%", /* 2 */
             StatCollector.translateToLocal("GT5U.multiblock.energy") + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(storedEnergy)
+                + formatNumber(storedEnergy)
                 + EnumChatFormatting.RESET
                 + " EU / "
                 + /* 3 */ EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(maxEnergy)
+                + formatNumber(maxEnergy)
                 + EnumChatFormatting.RESET
                 + " EU",
             StatCollector.translateToLocal("GT5U.turbine.flow") + ": "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(GTUtility.safeInt((long) realOptFlow))
+                + formatNumber(GTUtility.safeInt((long) realOptFlow))
                 + EnumChatFormatting.RESET
                 + " L/" // based on processing time uses ticks or seconds (for plasma)
                 + (this.mMaxProgresstime == 1 ? 't' : 's')
@@ -414,7 +415,7 @@ public abstract class MTELargeTurbineLegacy extends MTEEnhancedMultiBlockBase<MT
                 + ")", /* 5 */
             StatCollector.translateToLocal("GT5U.turbine.fuel") + ": "
                 + EnumChatFormatting.GOLD
-                + GTUtility.formatNumbers(storedFluid)
+                + formatNumber(storedFluid)
                 + EnumChatFormatting.RESET
                 + "L", /* 6 */
             StatCollector.translateToLocal(

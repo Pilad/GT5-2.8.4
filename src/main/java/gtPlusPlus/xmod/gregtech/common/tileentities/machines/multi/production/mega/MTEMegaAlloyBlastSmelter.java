@@ -225,13 +225,13 @@ public class MTEMegaAlloyBlastSmelter extends MTEExtendedPowerMultiBlockBase<MTE
                 }
             }
         }
-        calculateSpeedBonus(coilLevel, glassTier);
+        calculateSpeedBonus(coilLevel);
         return true;
     }
 
-    private void calculateSpeedBonus(HeatingCoilLevel lvl, int glassTier) {
-        int bonusTier = lvl != null ? Math.min(lvl.getTier() - 3, glassTier - 2) : 0;
-        if (bonusTier < 0) {
+    private void calculateSpeedBonus(HeatingCoilLevel lvl) {
+        int bonusTier = lvl != null ? lvl.getTier() - 3 : 0;
+        if (bonusTier <= 0) {
             speedBonus = 1;
             return;
         }
@@ -275,7 +275,6 @@ public class MTEMegaAlloyBlastSmelter extends MTEExtendedPowerMultiBlockBase<MTE
                     + " Speed Bonus per "
                     + EnumChatFormatting.WHITE
                     + "Heating Coil Tier")
-            .addInfo("Speed bonus is only applicable if equivalent or better glass tier is present")
             .addInfo("Furthermore, a multiplicative energy discount is granted for using coils above the recipe tier")
             .addDynamicEuEffInfo(0.05f, TooltipTier.COIL)
             .addInfo(

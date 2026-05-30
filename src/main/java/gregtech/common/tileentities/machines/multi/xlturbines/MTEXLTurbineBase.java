@@ -243,7 +243,6 @@ public abstract class MTEXLTurbineBase extends MTEExtendedPowerMultiBlockBase<MT
             getStructureOffsetZ());
         if (mMaintenanceHatches.size() != 1 || (mDynamoHatches.isEmpty() && mExoticDynamoHatches.isEmpty())
             || (requiresMufflers() && mMufflerHatches.size() != 4)
-            || mInputBusses.isEmpty()
             || mInputHatches.isEmpty()
             || (requiresOutputHatch() && mOutputHatches.isEmpty())
             || casingAmount < minCasingAmount()) {

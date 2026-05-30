@@ -8,6 +8,7 @@ import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.List;
 
@@ -102,8 +103,8 @@ public abstract class MTEConcreteBackfillerBase extends MTEDrillerBase {
             .addInfo("Range is " + getRadius() + "x" + getRadius() + " blocks horizontally")
             .addInfo("Minimum energy hatch tier: " + GTUtility.getColoredTierNameFromTier((byte) getMinTier()))
             .addInfo(
-                "Base cycle time: " + (baseCycleTime < 20 ? GTUtility.formatNumbers(baseCycleTime) + " ticks"
-                    : GTUtility.formatNumbers(baseCycleTime / 20.0) + " seconds"))
+                "Base cycle time: " + (baseCycleTime < 20 ? formatNumber(baseCycleTime) + " ticks"
+                    : formatNumber(baseCycleTime / 20.0) + " seconds"))
             .beginStructureBlock(3, 7, 3, false)
             .addController("Front bottom center")
             .addOtherStructurePart(casings, "form the 3x1x3 Base")

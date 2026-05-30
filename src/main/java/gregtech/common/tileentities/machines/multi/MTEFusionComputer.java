@@ -11,6 +11,7 @@ import static gregtech.api.util.GTRecipeConstants.FUSION_THRESHOLD;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.filterByMTETier;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.math.BigInteger;
 import java.util.Set;
@@ -468,21 +469,21 @@ public abstract class MTEFusionComputer extends MTEEnhancedMultiBlockBase<MTEFus
                 + tier,
             StatCollector.translateToLocal("GT5U.fusion.req") + ": "
                 + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(powerRequired)
+                + formatNumber(powerRequired)
                 + EnumChatFormatting.RESET
                 + "EU/t",
             StatCollector.translateToLocal("GT5U.multiblock.energy") + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(mEUStore)
+                + formatNumber(mEUStore)
                 + EnumChatFormatting.RESET
                 + " EU / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(maxEUStore())
+                + formatNumber(maxEUStore())
                 + EnumChatFormatting.RESET
                 + " EU",
             StatCollector.translateToLocal("GT5U.fusion.plasma") + ": "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(plasmaOut)
+                + formatNumber(plasmaOut)
                 + EnumChatFormatting.RESET
                 + "L/t" };
     }

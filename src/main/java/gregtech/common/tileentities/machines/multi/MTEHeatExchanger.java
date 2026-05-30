@@ -14,6 +14,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_HEAT_EXCHANGE
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_HEAT_EXCHANGER_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.casingTexturePages;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static gregtech.api.util.NumberFormatUtil.getFluidUnit;
 
 import javax.annotation.Nonnull;
@@ -360,18 +361,18 @@ public class MTEHeatExchanger extends MTEEnhancedMultiBlockBase<MTEHeatExchanger
         return new String[] {
             StatCollector.translateToLocal("GT5U.multiblock.Progress") + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(mProgresstime / 20)
+                + formatNumber(mProgresstime / 20)
                 + EnumChatFormatting.RESET
                 + " s / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(mMaxProgresstime / 20)
+                + formatNumber(mMaxProgresstime / 20)
                 + EnumChatFormatting.RESET
                 + " s",
             StatCollector.translateToLocal("GT5U.multiblock.usage") + " "
                 + StatCollector.translateToLocal("GT5U.LHE.steam")
                 + ": "
                 + (superheated ? EnumChatFormatting.RED : EnumChatFormatting.YELLOW)
-                + GTUtility.formatNumbers(superheated ? -2L * mEUt : -mEUt)
+                + formatNumber(superheated ? -2L * mEUt : -mEUt)
                 + EnumChatFormatting.RESET
                 + " EU/t",
             StatCollector.translateToLocal("GT5U.multiblock.problems") + ": "
@@ -393,7 +394,7 @@ public class MTEHeatExchanger extends MTEEnhancedMultiBlockBase<MTEHeatExchanger
                 + StatCollector.translateToLocal("GT5U.LHE.threshold")
                 + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(superheated_threshold)
+                + formatNumber(superheated_threshold)
                 + EnumChatFormatting.RESET };
     }
 

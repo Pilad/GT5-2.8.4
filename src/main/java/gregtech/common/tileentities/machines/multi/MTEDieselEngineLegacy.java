@@ -14,6 +14,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_DIESEL_ENGINE
 import static gregtech.api.enums.Textures.BlockIcons.casingTexturePages;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 
@@ -377,11 +378,11 @@ public class MTEDieselEngineLegacy extends MTEEnhancedMultiBlockBase<MTEDieselEn
                 + EnumChatFormatting.RESET,
             StatCollector.translateToLocal("GT5U.multiblock.energy") + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(storedEnergy)
+                + formatNumber(storedEnergy)
                 + EnumChatFormatting.RESET
                 + " EU / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(maxEnergy)
+                + formatNumber(maxEnergy)
                 + EnumChatFormatting.RESET
                 + " EU",
             getIdealStatus() == getRepairStatus()
@@ -391,22 +392,22 @@ public class MTEDieselEngineLegacy extends MTEEnhancedMultiBlockBase<MTEDieselEn
                     + EnumChatFormatting.RESET,
             StatCollector.translateToLocal("GT5U.engine.output") + ": "
                 + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(((long) mEUt * mEfficiency / 10000))
+                + formatNumber(((long) mEUt * mEfficiency / 10000))
                 + EnumChatFormatting.RESET
                 + " EU/t",
             StatCollector.translateToLocal("GT5U.engine.consumption") + ": "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(fuelConsumption)
+                + formatNumber(fuelConsumption)
                 + EnumChatFormatting.RESET
                 + " L/t",
             StatCollector.translateToLocal("GT5U.engine.value") + ": "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(fuelValue)
+                + formatNumber(fuelValue)
                 + EnumChatFormatting.RESET
                 + " EU/L",
             StatCollector.translateToLocal("GT5U.turbine.fuel") + ": "
                 + EnumChatFormatting.GOLD
-                + GTUtility.formatNumbers(fuelRemaining)
+                + formatNumber(fuelRemaining)
                 + EnumChatFormatting.RESET
                 + " L",
             StatCollector.translateToLocal("GT5U.engine.efficiency") + ": "

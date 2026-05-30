@@ -14,6 +14,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_LARGE_BOILER_
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_LARGE_BOILER_ACTIVE_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_LARGE_BOILER_GLOW;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 
@@ -203,18 +204,18 @@ public abstract class MTELargeBoilerBase extends MTEExtendedPowerMultiBlockBase<
         tt.addMachineType("Boiler");
         if (isSuperheated()) {
             tt.addInfo(
-                "Produces " + GTUtility.formatNumbers((getEUt() * 40) * ((runtimeBoost(20) / (20f)) / 3))
+                "Produces " + formatNumber((getEUt() * 40) * ((runtimeBoost(20) / (20f)) / 3))
                     + "L of Superheated Steam with 1 Coal at "
-                    + GTUtility.formatNumbers((getEUt() * 40L) / 3)
+                    + formatNumber((getEUt() * 40L) / 3)
                     + "L/s")
                 .addInfo("A programmed circuit in the main block throttles the boiler (-1000L/s per config)")
                 .addInfo("Only some solid fuels are allowed (check the NEI Large Boiler tab for details)")
                 .addInfo("If there are any disallowed fuels in the input bus, the boiler won't run!");
         } else {
             tt.addInfo(
-                "Produces " + GTUtility.formatNumbers((getEUt() * 40) * (runtimeBoost(20) / 20f))
+                "Produces " + formatNumber((getEUt() * 40) * (runtimeBoost(20) / 20f))
                     + "L of Steam with 1 Coal at "
-                    + GTUtility.formatNumbers(getEUt() * 40L)
+                    + formatNumber(getEUt() * 40L)
                     + "L/s")
                 .addInfo("A programmed circuit in the main block throttles the boiler (-1000L/s per config)")
                 .addInfo("Solid Fuels with a burn value that is too high or too low will not work");
@@ -222,7 +223,7 @@ public abstract class MTELargeBoilerBase extends MTEExtendedPowerMultiBlockBase<
         tt.addInfo(
             String.format(
                 "Diesel fuels have 1/4 efficiency - Takes %s seconds to heat up",
-                GTUtility.formatNumbers(500.0 / getEfficiencyIncrease())))
+                formatNumber(500.0 / getEfficiencyIncrease())))
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(5, 6, 3, false)
             .addController("Front center, 2nd layer")

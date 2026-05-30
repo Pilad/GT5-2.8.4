@@ -9,6 +9,7 @@ import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.Textures.BlockIcons.*;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -215,10 +216,10 @@ public class MTEUniversalChemicalFuelEngine extends TTMultiblockBase implements 
             .addCasingInfoExactly("Titanium Firebox Casing", 10, false)
             .addCasingInfoExactly("Chemically Inert Machine Casing", 39, false)
             .addCasingInfoExactly("PTFE Frame Box", 72, false)
-            .addMaintenanceHatch("Any Stable Titanium Machine Casing")
-            .addMufflerHatch("Any Stable Titanium Machine Casing")
-            .addInputHatch("Any Stable Titanium Machine Casing")
-            .addDynamoHatch("Back center of the machine")
+            .addMaintenanceHatch("Any Stable Titanium Machine Casing", 1)
+            .addMufflerHatch("Any Stable Titanium Machine Casing", 1)
+            .addInputHatch("Any Stable Titanium Machine Casing", 1)
+            .addDynamoHatch("Back center of the machine", 2)
             .addStructureAuthors(EnumChatFormatting.GOLD + "TimTems")
             .toolTipFinisher();
         return tt;
@@ -293,17 +294,16 @@ public class MTEUniversalChemicalFuelEngine extends TTMultiblockBase implements 
         String[] info = super.getInfoData();
         info[4] = StatCollector.translateToLocalFormatted(
             "gg.scanner.info.generator.generates",
-            EnumChatFormatting.RED + GTUtility.formatNumbers(this.getPowerFlow() * tEff / 10000)
-                + EnumChatFormatting.RESET);
+            EnumChatFormatting.RED + formatNumber(this.getPowerFlow() * tEff / 10000) + EnumChatFormatting.RESET);
         info[6] = StatCollector.translateToLocal("gg.scanner.info.generator.problems") + " "
             + EnumChatFormatting.RED
-            + GTUtility.formatNumbers(this.getIdealStatus() - this.getRepairStatus())
+            + formatNumber(this.getIdealStatus() - this.getRepairStatus())
             + EnumChatFormatting.RESET
             + " "
             + StatCollector.translateToLocal("gg.scanner.info.generator.efficiency")
             + " "
             + EnumChatFormatting.YELLOW
-            + GTUtility.formatNumbers(tEff / 100D)
+            + formatNumber(tEff / 100D)
             + EnumChatFormatting.RESET
             + " %";
         return info;

@@ -1,6 +1,7 @@
 package gregtech.common.tileentities.machines.multi;
 
 import static gregtech.api.enums.GTValues.VN;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import net.minecraftforge.fluids.FluidStack;
 
@@ -82,9 +83,9 @@ public class MTEOilDrillInfiniteLegacy extends MTEOilDrillBase {
             // work
             .addInfo("Minimum energy hatch tier: " + GTUtility.getColoredTierNameFromTier((byte) getMinTier()))
             .addInfo(
-                "Base cycle time: " + (baseCycleTime < 20
-                    ? GTUtility.formatNumbers(baseCycleTime) + (baseCycleTime == 1 ? " tick" : " ticks")
-                    : GTUtility.formatNumbers(baseCycleTime / 20.0) + " seconds"))
+                "Base cycle time: "
+                    + (baseCycleTime < 20 ? formatNumber(baseCycleTime) + (baseCycleTime == 1 ? " tick" : " ticks")
+                        : formatNumber(baseCycleTime / 20.0) + " seconds"))
             .beginStructureBlock(3, 7, 3, false)
             .addController("Front bottom center")
             .addOtherStructurePart(casings, "form the 3x1x3 Base")

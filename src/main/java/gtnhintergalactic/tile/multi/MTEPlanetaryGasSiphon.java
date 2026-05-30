@@ -11,6 +11,7 @@ import static gregtech.api.util.GTStructureUtility.activeCoils;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofCoil;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.gtnewhorizon.structurelib.alignment.IAlignmentLimits;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
@@ -480,10 +482,7 @@ public class MTEPlanetaryGasSiphon extends MTEExtendedPowerMultiBlockBase<MTEPla
                 + EnumChatFormatting.BLUE
                 + fluid.getLocalizedName()
                 + EnumChatFormatting.RESET,
-            "EU/t required: " + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(-lEUt)
-                + EnumChatFormatting.RESET
-                + " EU/t",
+            "EU/t required: " + EnumChatFormatting.YELLOW + formatNumber(-lEUt) + EnumChatFormatting.RESET + " EU/t",
             "Maintenance Status: " + (getRepairStatus() == getIdealStatus()
                 ? EnumChatFormatting.GREEN + "Working perfectly" + EnumChatFormatting.RESET
                 : EnumChatFormatting.RED + "Has problems" + EnumChatFormatting.RESET),
@@ -523,7 +522,7 @@ public class MTEPlanetaryGasSiphon extends MTEExtendedPowerMultiBlockBase<MTEPla
         currenttip.add(
             StatCollector.translateToLocal("GT5U.multiblock.speed") + ": "
                 + EnumChatFormatting.WHITE
-                + GTUtility.formatNumbers(Math.max(0, 100 / speedBoost(tag.getInteger("coilTier"))))
+                + formatNumber(Math.max(0, 100 / speedBoost(tag.getInteger("coilTier"))))
                 + "%");
     }
 
@@ -532,6 +531,11 @@ public class MTEPlanetaryGasSiphon extends MTEExtendedPowerMultiBlockBase<MTEPla
         int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
         tag.setInteger("coilTier", getCoilTier());
+    }
+
+    @Override
+    protected IAlignmentLimits getInitialAlignmentLimits() {
+        return (d, r, f) -> d.offsetY == 0 && r.isNotRotated() && !f.isVerticallyFliped();
     }
 
     @Override
