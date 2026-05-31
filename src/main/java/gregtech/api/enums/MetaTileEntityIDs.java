@@ -1753,6 +1753,7 @@ public enum MetaTileEntityIDs {
     IndustrialPackager(15513),
     IndustrialElectrolyzer(15514),
     MegaChemicalReactor(15515),
+    MegaDistillationTower(15516),
     ExothermicHearth(15517),
     EndothermicFridge(15518),
     SteamTurbineXL(15519),
