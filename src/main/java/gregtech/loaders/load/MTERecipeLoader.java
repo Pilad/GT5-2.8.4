@@ -16,11 +16,9 @@ import static gregtech.api.util.GTModHandler.RecipeBits.BUFFERED;
 import static gregtech.api.util.GTModHandler.RecipeBits.DISMANTLEABLE;
 import static gregtech.api.util.GTModHandler.RecipeBits.NOT_REMOVABLE;
 import static gregtech.api.util.GTModHandler.RecipeBits.REVERSIBLE;
-import static gregtech.api.util.GTRecipeBuilder.HOURS;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
@@ -1675,15 +1673,6 @@ public class MTERecipeLoader implements Runnable {
             ItemList.IndustrialElectrolyzer.get(1),
             new Object[] { "PRP", "HMH", "PCP", 'P', MaterialsAlloy.STELLITE.getPlate(1), 'C', "circuitElite", 'H',
                 ItemList.Casing_IV, 'M', ItemList.Machine_IV_Electrolyzer, 'R', MaterialsAlloy.STELLITE.getRotor(1) });
-        // Mega Chemical Reactor
-        // todo: tweak this recipe
-        GTValues.RA.stdBuilder()
-            .itemInputs(ItemList.Machine_Multi_LargeChemicalReactor.get(64), GTUtility.getIntegratedCircuit(1))
-            .itemOutputs(ItemList.MegaChemicalReactor.get(1))
-            .fluidInputs(Materials.Polytetrafluoroethylene.getMolten(1 * STACKS))
-            .duration(1 * HOURS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(assemblerRecipes);
 
         // Industrial Mixer
         GTModHandler.addCraftingRecipe(
