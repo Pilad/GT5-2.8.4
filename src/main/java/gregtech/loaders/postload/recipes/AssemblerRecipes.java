@@ -3420,6 +3420,20 @@ public class AssemblerRecipes implements Runnable {
             GTOreDictUnificator.get(OrePrefixes.plate, Materials.WroughtIron, 1),
             GTOreDictUnificator.get(OrePrefixes.pipeSmall, Materials.Steel, 1),
             ItemList.Machine_Bronze_Boiler_Solar.get(1L));
+
+        // Naquadah Reinforced Distillation Casing
+
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Casing_CleanStainlessSteel.get(4),
+                GTOreDictUnificator.get(OrePrefixes.stick, Materials.Naquadah, 4),
+                GTOreDictUnificator.get(OrePrefixes.itemCasing, Materials.TungstenSteel, 4),
+                new Object[] { OrePrefixes.circuit.get(Materials.IV), 1 })
+            .fluidInputs(Materials.SolderingAlloy.getMolten(16 * INGOTS))
+            .itemOutputs(ItemList.CasingNaquadahReinforcedDistillation.get(4))
+            .duration(2 * SECONDS)
+            .eut(TierEU.RECIPE_LuV)
+            .addTo(assemblerRecipes);
     }
 
     /**

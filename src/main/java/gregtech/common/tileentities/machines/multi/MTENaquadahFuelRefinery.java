@@ -1,6 +1,7 @@
 package gregtech.common.tileentities.machines.multi;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlocksTiered;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static gregtech.api.enums.HatchElement.Dynamo;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
@@ -59,6 +60,9 @@ public class MTENaquadahFuelRefinery extends TTMultiblockBase implements ISurviv
     private static final int OFFSET_X = 13;
     private static final int OFFSET_Y = 13;
     private static final int OFFSET_Z = 0;
+    // Total casing without hatch = 483
+    private static final int MIN_CASINGS = 470;
+    private int casingAmount = 0;
 
     public MTENaquadahFuelRefinery(String name) {
         super(name);
@@ -149,7 +153,8 @@ public class MTENaquadahFuelRefinery extends TTMultiblockBase implements ISurviv
                             DynamoMulti.or(Dynamo))
                         .casingIndex(Casings.NaquadahFuelRefineryCasing.textureId)
                         .dot(1)
-                        .buildAndChain(Casings.NaquadahFuelRefineryCasing.asElement()))
+                        .buildAndChain(
+                            onElementPass(x -> x.casingAmount++, Casings.NaquadahFuelRefineryCasing.asElement())))
                 .addElement('C', Casings.FieldRestrictionGlass.asElement())
                 .addElement(
                     'B',
@@ -207,7 +212,7 @@ public class MTENaquadahFuelRefinery extends TTMultiblockBase implements ISurviv
             .addUnlimitedTierSkips()
             .beginStructureBlock(5, 27, 27, false)
             .addController("Front center")
-            .addCasingInfoExactly("Naquadah Fuel Refinery Casing", 483, false)
+            .addCasingInfoMin("Naquadah Fuel Refinery Casing", MIN_CASINGS, false)
             .addCasingInfoExactly("Field Restriction Coil", 72, true)
             .addCasingInfoExactly("Field Restriction Glass", 192, false)
             .addCasingInfoExactly("Radiation Proof Steel Frame Box", 64, false)
@@ -237,13 +242,25 @@ public class MTENaquadahFuelRefinery extends TTMultiblockBase implements ISurviv
 
     @Override
     public String[] getStructureDescription(ItemStack itemStack) {
-        return DescTextLocalization.addText("FuelRefineFactory.hint", 8);
+        return DescTextLocalization.addText("NaquadahFuelRefinery.hint", 8);
     }
 
     @Override
     public boolean checkMachine_EM(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         tier = -1;
-        return structureCheck_EM(mName, OFFSET_X, OFFSET_Y, OFFSET_Z);
+        casingAmount = 0;
+
+        if (!structureCheck_EM(mName, OFFSET_X, OFFSET_Y, OFFSET_Z)) return false;
+
+        if (casingAmount < MIN_CASINGS) return false;
+
+        if (mMaintenanceHatches.size() != 1) return false;
+        if (mEnergyHatches.isEmpty() && eEnergyMulti.isEmpty()) return false;
+        if (mInputHatches.isEmpty()) return false;
+        if (mInputBusses.isEmpty()) return false;
+        if (mOutputHatches.isEmpty()) return false;
+
+        return true;
     }
 
     @Override

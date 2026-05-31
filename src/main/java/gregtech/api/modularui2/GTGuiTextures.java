@@ -543,6 +543,12 @@ public final class GTGuiTextures {
     public static final UITexture OVERLAY_BUTTON_MACHINEMODE_SIMPLEWASHER = fullImage(
         GregTech.ID,
         "gui/overlay_button/machine_mode_simplewasher");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_DISTILLATION_TOWER = fullImage(
+        GregTech.ID,
+        "gui/overlay_button/machine_mode_tower");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_DISTILLING = fullImage(
+        GregTech.ID,
+        "gui/overlay_button/machine_mode_distilling");
     public static final UITexture OVERLAY_BUTTON_MACHINEMODE_PACKAGER = fullImage(
         GregTech.ID,
         "gui/overlay_button/machine_mode_packager");

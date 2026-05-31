@@ -463,6 +463,10 @@ public class GTUITextures {
         .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_washplant");
     public static final UITexture OVERLAY_BUTTON_MACHINEMODE_SIMPLEWASHER = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_simplewasher");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_DISTILLATION_TOWER = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_tower");
+    public static final UITexture OVERLAY_BUTTON_MACHINEMODE_DISTILLING = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_distilling");
     public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_FORGE = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/machine_mode_iof_forge");
     public static final UITexture OVERLAY_BUTTON_MACHINEMODE_IOF_MACERATOR = UITexture

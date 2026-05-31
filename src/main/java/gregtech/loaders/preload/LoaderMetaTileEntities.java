@@ -203,6 +203,7 @@ import gregtech.common.tileentities.machines.multi.MTELargeTurbineHPSteamLegacy;
 import gregtech.common.tileentities.machines.multi.MTELargeTurbinePlasmaLegacy;
 import gregtech.common.tileentities.machines.multi.MTELargeTurbineSteamLegacy;
 import gregtech.common.tileentities.machines.multi.MTEMegaChemicalReactor;
+import gregtech.common.tileentities.machines.multi.MTEMegaDistillationTower;
 import gregtech.common.tileentities.machines.multi.MTEMultiAutoclave;
 import gregtech.common.tileentities.machines.multi.MTEMultiCanner;
 import gregtech.common.tileentities.machines.multi.MTEMultiFurnace;
@@ -831,6 +832,9 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "multimachine.adv.implosioncompressor",
                 "Density^2").getStackForm(1L));
 
+        ItemList.LargeNaquadahReactor
+            .set(new MTELargeNaquadahReactor(LargeNaquadahReactor.ID, "NaG", "Large Naquadah Reactor").getStackForm(1));
+
         ItemList.UniversalChemicalFuelEngine.set(
             new MTEUniversalChemicalFuelEngine(
                 UniversalChemicalFuelEngine.ID,
@@ -840,9 +844,6 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         ItemList.Boldarnator.set(
             new MTEIndustrialRockBreaker(Boldarnator.ID, "industrialrockcrusher.controller.tier.single", "Boldarnator")
                 .getStackForm(1L));
-
-        ItemList.LargeNaquadahReactor
-            .set(new MTELargeNaquadahReactor(LargeNaquadahReactor.ID, "NaG", "Large Naquadah Reactor").getStackForm(1));
 
         ItemList.InfiniteFluidDrillingRig.set(
             new MTEOilDrillInfinite(
@@ -891,13 +892,19 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "industrialcokeoven.controller.tier.single",
                 "Industrial Coke Oven").getStackForm(1L));
 
+        ItemList.EndothermicFridge.set(
+            new MTEEndothermicFridge(EndothermicFridge.ID, "multimachine.endothermichfridge", "Endothermic Fridge")
+                .getStackForm(1));
+
         ItemList.ExothermicHearth.set(
             new MTEExothermicHearth(ExothermicHearth.ID, "multimachine.exothermichearth", "Exothermic Hearth")
                 .getStackForm(1));
 
-        ItemList.EndothermicFridge.set(
-            new MTEEndothermicFridge(EndothermicFridge.ID, "multimachine.endothermichfridge", "Endothermic Fridge")
-                .getStackForm(1));
+        ItemList.MegaDistillationTower.set(
+            new MTEMegaDistillationTower(
+                MegaDistillationTower.ID,
+                "multimachine.mega_distillation_tower",
+                "Mega Distillation Tower").getStackForm(1));
     }
 
     private static void registerSteamMachines() {

@@ -77,10 +77,10 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
     private int glassTier = -1;
     private int casingAmount;
     private static final String[][] shape = { { "BBB", "BCB", "BCB", "B~B", "BBB", "B B" },
-        { "AAA", "AEA", "AEA", "AEA", " A ", "   " }, { " A ", "AEA", "ADA", "AEA", " A ", "   " },
+        { " A ", "AEA", "AEA", "AEA", " A ", "   " }, { " A ", "AEA", "ADA", "AEA", " A ", "   " },
         { " A ", "AEA", "ADA", "AEA", " A ", "   " }, { " A ", "AEA", "ADA", "AEA", " A ", "   " },
         { " A ", "AEA", "ADA", "AEA", " A ", "   " }, { " A ", "AEA", "ADA", "AEA", " A ", "   " },
-        { " A ", "AEA", "ADA", "AEA", " A ", "   " }, { "AAA", "AEA", "AEA", "AEA", " A ", "   " },
+        { " A ", "AEA", "ADA", "AEA", " A ", "   " }, { " A ", "AEA", "AEA", "AEA", " A ", "   " },
         { "BBB", "BCB", "BCB", "BCB", "BBB", "B B" } };
 
     private static IStructureDefinition<MTEAlgaePond> STRUCTURE_DEFINITION = null;
@@ -121,7 +121,7 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
             .addController("Front center, 3rd layer")
             .addCasingInfoMin("Algae Casing", 20, false)
             .addCasingInfoExactly("Stainless Steel Frame Box", 6, false)
-            .addCasingInfoExactly("Any Tiered Glass", 68, true)
+            .addCasingInfoExactly("Any Tiered Glass", 64, true)
             .addInputBus("Any Casing", 1)
             .addOutputBus("Any Casing", 1)
             .addInputHatch("Any Casing", 1)
@@ -180,6 +180,7 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
 
         if (checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z) && casingAmount >= 20
             && !mOutputBusses.isEmpty()
+            && mMaintenanceHatches.size() == 1
             && mEnergyHatches.size() == 1) {
             int inputTier = (int) getInputVoltageTier();
             if (glassTier < VoltageIndex.UMV && inputTier > glassTier) {

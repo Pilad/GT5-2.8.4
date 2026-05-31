@@ -3,6 +3,7 @@ package goodgenerator.blocks.tileEntity;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.Textures.BlockIcons.*;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -143,7 +144,7 @@ public class MTEUniversalChemicalFuelEngineLegacy extends MTETooltipMultiBlockBa
 
     @Override
     public String[] getStructureDescription(ItemStack itemStack) {
-        return DescTextLocalization.addText("UniversalChemicalFuelEngine.hint", 11);
+        return DescTextLocalization.addText("UniversalChemicalFuelEngineLegacy.hint", 10);
     }
 
     @Override
@@ -263,17 +264,16 @@ public class MTEUniversalChemicalFuelEngineLegacy extends MTETooltipMultiBlockBa
         String[] info = super.getInfoData();
         info[4] = StatCollector.translateToLocalFormatted(
             "gg.scanner.info.generator.generates",
-            EnumChatFormatting.RED + GTUtility.formatNumbers(this.getPowerFlow() * tEff / 10000)
-                + EnumChatFormatting.RESET);
+            EnumChatFormatting.RED + formatNumber(this.getPowerFlow() * tEff / 10000) + EnumChatFormatting.RESET);
         info[6] = StatCollector.translateToLocal("gg.scanner.info.generator.problems") + " "
             + EnumChatFormatting.RED
-            + GTUtility.formatNumbers(this.getIdealStatus() - this.getRepairStatus())
+            + formatNumber(this.getIdealStatus() - this.getRepairStatus())
             + EnumChatFormatting.RESET
             + " "
             + StatCollector.translateToLocal("gg.scanner.info.generator.efficiency")
             + " "
             + EnumChatFormatting.YELLOW
-            + GTUtility.formatNumbers(tEff / 100D)
+            + formatNumber(tEff / 100D)
             + EnumChatFormatting.RESET
             + " %";
         return info;

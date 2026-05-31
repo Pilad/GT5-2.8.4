@@ -137,7 +137,7 @@ public class MTELargeNaquadahReactor extends TTMultiblockBase implements ISurviv
 
     @Override
     public String[] getStructureDescription(ItemStack itemStack) {
-        return DescTextLocalization.addText("MultiNqGenerator.hint", 8);
+        return DescTextLocalization.addText("LargeNaquadahReactor.hint", 7);
     }
 
     @Override

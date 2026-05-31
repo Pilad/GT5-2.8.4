@@ -47,7 +47,7 @@ import bartworks.common.tileentities.multis.MTEHighTempGasCooledReactor;
 import bartworks.common.tileentities.multis.MTEThoriumHighTempReactor;
 import bartworks.common.tileentities.multis.mega.MTEMegaBlastFurnaceLegacy;
 import bartworks.common.tileentities.multis.mega.MTEMegaChemicalReactorLegacy;
-import bartworks.common.tileentities.multis.mega.MTEMegaDistillTower;
+import bartworks.common.tileentities.multis.mega.MTEMegaDistillTowerLegacy;
 import bartworks.common.tileentities.multis.mega.MTEMegaOilCracker;
 import bartworks.common.tileentities.multis.mega.MTEMegaVacuumFreezerLegacy;
 import bartworks.common.tileentities.tiered.MTEAcidGenerator;
@@ -372,11 +372,11 @@ public class ItemRegistry {
         ItemRegistry.dehp = new MTEDeepEarthHeatingPump(DeepEarthHeatingPump.ID, "DEHP", "Deep Earth Heating Pump")
             .getStackForm(1L);
         ItemRegistry.megaMachines[0] = new MTEMegaBlastFurnaceLegacy(
-            MegaBlastFurnace.ID,
+            LegacyMegaBlastFurnace.ID,
             "MegaBlastFurnace",
             StatCollector.translateToLocal("tile.bw.mbf.name")).getStackForm(1L);
         ItemRegistry.megaMachines[1] = new MTEMegaVacuumFreezerLegacy(
-            MegaVacuumFreezer.ID,
+            LegacyMegaVacuumFreezer.ID,
             "MegaVacuumFreezer",
             StatCollector.translateToLocal("tile.bw.mvf.name")).getStackForm(1L);
         ItemRegistry.cal = new MTECircuitAssemblyLine(
@@ -395,8 +395,8 @@ public class ItemRegistry {
             HumongousInputHatch.ID,
             "HumongousInputHatch",
             "Humongous Input Hatch").getStackForm(1L);
-        ItemRegistry.megaMachines[2] = new MTEMegaDistillTower(
-            MegaDistillationTower.ID,
+        ItemRegistry.megaMachines[2] = new MTEMegaDistillTowerLegacy(
+            LegacyMegaDistillationTower.ID,
             "MegaDistillationTower",
             "Mega Distillation Tower").getStackForm(1L);
         ItemRegistry.megaMachines[3] = new MTEMegaChemicalReactorLegacy(

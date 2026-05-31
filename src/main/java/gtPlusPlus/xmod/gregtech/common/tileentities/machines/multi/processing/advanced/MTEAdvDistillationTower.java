@@ -27,6 +27,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
@@ -36,9 +37,16 @@ import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructa
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
+import com.gtnewhorizons.modularui.api.drawable.IDrawable;
+import com.gtnewhorizons.modularui.api.drawable.UITexture;
+import com.gtnewhorizons.modularui.api.screen.ModularWindow;
+import com.gtnewhorizons.modularui.api.screen.UIBuildContext;
+import com.gtnewhorizons.modularui.common.widget.ButtonWidget;
+import com.gtnewhorizons.modularui.common.widget.FakeSyncWidget;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Textures;
+import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.fluid.IFluidStore;
@@ -448,5 +456,45 @@ public class MTEAdvDistillationTower extends GTPPMultiBlockBase<MTEAdvDistillati
     @Override
     public String getMachineModeKey() {
         return "GT5U.GTPP_MULTI_ADV_DISTILLATION_TOWER.mode." + mMode.ordinal();
+    }
+
+    @Override
+    public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {
+        super.addUIWidgets(builder, buildContext);
+
+        ButtonWidget modeButton = new ButtonWidget();
+
+        builder.widget(modeButton.setOnClick((clickData, widget) -> {
+            if (mHeight >= 11) {
+                mMode = mMode.next();
+                mLastRecipe = null;
+            }
+            widget.notifyTooltipChange();
+        })
+            .setPlayClickSound(true)
+            .setBackground(() -> {
+                List<UITexture> ret = new ArrayList<>();
+                if (mMode == Mode.DistillationTower) {
+                    ret.add(GTUITextures.BUTTON_STANDARD_PRESSED);
+                    ret.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_DISTILLATION_TOWER);
+                } else {
+                    ret.add(GTUITextures.BUTTON_STANDARD);
+                    ret.add(GTUITextures.OVERLAY_BUTTON_MACHINEMODE_DISTILLING);
+                }
+                return ret.toArray(new IDrawable[0]);
+            })
+            .dynamicTooltip(() -> {
+                List<String> textList = new ArrayList<>();
+                textList.add(
+                    mMode == Mode.DistillationTower ? EnumChatFormatting.GREEN + "Distillation Tower"
+                        : EnumChatFormatting.AQUA + "Distillery");
+                return textList;
+            })
+            .attachSyncer(
+                new FakeSyncWidget.IntegerSyncer(() -> mMode.ordinal(), val -> mMode = Mode.VALUES[val])
+                    .setOnClientUpdate(val -> modeButton.notifyTooltipChange()),
+                builder)
+            .setPos(80, 91)
+            .setSize(16, 16));
     }
 }
