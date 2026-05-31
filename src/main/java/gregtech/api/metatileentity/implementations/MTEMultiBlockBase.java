@@ -2286,13 +2286,6 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         return true;
     }
 
-    public List<MTEHatch> getExoticAndNormalEnergyHatchList() {
-        List<MTEHatch> list = new ArrayList<>();
-        list.addAll(filterValidMTEs(mEnergyHatches));
-        list.addAll(filterValidMTEs(mExoticEnergyHatches));
-        return list;
-    }
-
     @Override
     public String[] getInfoData() {
         List<String> info = new ArrayList<>();
@@ -3892,5 +3885,12 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
 
     public void setAlwaysMaxParallel(boolean alwaysMaxParallel) {
         this.alwaysMaxParallel = alwaysMaxParallel;
+    }
+
+    public List<MTEHatch> getExoticAndNormalEnergyHatchList() {
+        List<MTEHatch> tHatches = new ArrayList<>();
+        tHatches.addAll(filterValidMTEs(mExoticEnergyHatches));
+        tHatches.addAll(filterValidMTEs(mEnergyHatches));
+        return tHatches;
     }
 }
