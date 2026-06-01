@@ -212,7 +212,7 @@ public class MTEMegaDistillationTower extends MTEExtendedPowerMultiBlockBase<MTE
     }
 
     @Override
-    public boolean checkMachine(IGregTechTileEntity bastMTE, ItemStack stack) {
+    public boolean checkMachine(IGregTechTileEntity baseMTE, ItemStack stack) {
         this.outputHatchesPerLayer.forEach(List::clear);
         this.casingAmount = 0;
         this.height = 1;
@@ -222,14 +222,7 @@ public class MTEMegaDistillationTower extends MTEExtendedPowerMultiBlockBase<MTE
         while (this.height <= 5) {
 
             if (this.isTopLayerFound) {
-                int topHatchIndex = (this.height - 1) * 2;
-                if (this.outputHatchesPerLayer.size() < topHatchIndex + 1
-                    || this.outputHatchesPerLayer.get(topHatchIndex)
-                        .isEmpty()) {
-                    return false;
-                }
-
-                break;
+                break; // needed to break out of the loop in the case the structure isn't max height.
             }
 
             if (checkPiece(
@@ -237,8 +230,13 @@ public class MTEMegaDistillationTower extends MTEExtendedPowerMultiBlockBase<MTE
                 HORIZONTAL_OFFSET,
                 FINAL_LAYER_OFFSET + LAYER_OFFSET_BASE + (LAYER_OFFSET_INCREMENT * (height)),
                 DEPTH_OFFSET)) {
-
                 this.isTopLayerFound = true;
+                int topHatchIndex = (this.height) * 2;
+                if (this.outputHatchesPerLayer.size() < topHatchIndex + 1
+                    || this.outputHatchesPerLayer.get(topHatchIndex)
+                        .isEmpty()) {
+                    return false;
+                }
             }
             if (!checkPiece(
                 STRUCTURE_PIECE_LAYER,
@@ -292,7 +290,7 @@ public class MTEMegaDistillationTower extends MTEExtendedPowerMultiBlockBase<MTE
     public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
         if (this.mMachine) return -1;
         int realBudget = elementBudget >= 200 ? elementBudget : Math.min(200, elementBudget * 5);
-        this.height = 0;
+        this.height = 0; // required for nei preview to not crash on out of index. (hatch adder being out of bounds)
         int built = this.survivalBuildPiece(
             STRUCTURE_PIECE_BASE,
             stackSize,
@@ -364,7 +362,7 @@ public class MTEMegaDistillationTower extends MTEExtendedPowerMultiBlockBase<MTE
     }
 
     protected int getFinalLayerOutputHatchCount() {
-        int currentLayer = height * 2 + 1; // in a max dt (height 5), this is index 10. so height*2
+        int currentLayer = height * 2; // in a max dt (height 5), this is index 10. so height*2
         return outputHatchesPerLayer.size() < currentLayer + 1 || height <= 0 ? 0
             : outputHatchesPerLayer.get(currentLayer)
                 .size();
@@ -582,7 +580,9 @@ public class MTEMegaDistillationTower extends MTEExtendedPowerMultiBlockBase<MTE
             .addInfo("Each middle slice adds 2 output hatches, the top slice adds one output hatch")
             .addSeparator()
             .addInfo("Distillery Mode")
-            .addInfo(TooltipHelper.parallelText("256 * (1+ Tower Height/2)") + " Parallels")
+            .addInfo(
+                TooltipHelper.parallelText(Configuration.Multiblocks.megaMachinesMax + " * (1 + Tower Height/2)")
+                    + " Parallels")
             .addStaticSpeedInfo(DISTILLERY_SPEED)
             .addStaticEuEffInfo(DISTILLERY_EU_EFFICIENCY)
             .addInfo("Fluids output to the first hatch only")
@@ -619,7 +619,7 @@ public class MTEMegaDistillationTower extends MTEExtendedPowerMultiBlockBase<MTE
             .addInputBus("Any Naquadah Distillation Casing in the first 5 layers", 1)
             .addEnergyHatch("Any Naquadah Distillation Casing in the first 5 layers", 1)
             .addMaintenanceHatch("Any Naquadah Distillation Casing in the first 5 layers", 1)
-            .addOutputBus("Bottom Slice, Steel Pipe Casing, 8th layer, furthest right ", 2)
+            .addOutputBus("Bottom Slice, Steel Pipe Casing, 8th layer, furthest right", 2)
             .addInputHatch("Bottom Slice, Bronze Pipe Casing, 8th layer, furthest left", 3)
             .addOutputHatch("Middle Slices & Top Slice, Bronze Pipe Casing, furthest right", 4, 5, 6)
             .addSubChannelUsage(GTStructureChannels.STRUCTURE_HEIGHT)

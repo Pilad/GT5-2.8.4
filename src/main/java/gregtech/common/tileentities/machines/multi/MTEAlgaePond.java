@@ -13,7 +13,6 @@ import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static gregtech.api.util.GTStructureUtility.ofAnyWater;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
-import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -23,8 +22,8 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -34,14 +33,11 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
-import cofh.asmhooks.block.BlockTickingWater;
-import cofh.asmhooks.block.BlockWater;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.casing.Casings;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.Mods;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.interfaces.ITexture;
@@ -52,10 +48,10 @@ import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBas
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTStreamUtil;
+import gregtech.api.util.GTStructureUtility;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
@@ -63,8 +59,6 @@ import gregtech.common.pollution.PollutionConfig;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
-import ic2.core.init.BlocksItems;
-import ic2.core.init.InternalName;
 
 public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> implements ISurvivalConstructable {
 
@@ -72,11 +66,11 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
     private static final int OFFSET_Y = 3;
     private static final int OFFSET_Z = 0;
     private static final String STRUCTURE_PIECE_MAIN = "main";
-    private static final Block DISTILLED_WATER_BLOCK = BlocksItems.getFluidBlock(InternalName.fluidDistilledWater);
     private int tier = -1;
     private int glassTier = -1;
     private int casingAmount;
-    private static final String[][] shape = { { "BBB", "BCB", "BCB", "B~B", "BBB", "B B" },
+    private boolean needsWaterFill = false;
+    private static final String[][] structure = { { "BBB", "BCB", "BCB", "B~B", "BBB", "B B" },
         { " A ", "AEA", "AEA", "AEA", " A ", "   " }, { " A ", "AEA", "ADA", "AEA", " A ", "   " },
         { " A ", "AEA", "ADA", "AEA", " A ", "   " }, { " A ", "AEA", "ADA", "AEA", " A ", "   " },
         { " A ", "AEA", "ADA", "AEA", " A ", "   " }, { " A ", "AEA", "ADA", "AEA", " A ", "   " },
@@ -114,8 +108,6 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
                 GTUtility.getColoredTierNameFromTier((byte) 12) + EnumChatFormatting.GRAY
                     + "-glass unlocks all above energy tiers")
             .addInfo("Accepts exactly 1 Energy Hatch")
-            .addInfo("Fill Input Hatch with Water to fill the inside of the multiblock with water")
-            .addInfo("The inside may also be hand filled with Distilled Water")
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(3, 6, 10, false)
             .addController("Front center, 3rd layer")
@@ -136,7 +128,7 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
     public IStructureDefinition<MTEAlgaePond> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
             STRUCTURE_DEFINITION = StructureDefinition.<MTEAlgaePond>builder()
-                .addShape(STRUCTURE_PIECE_MAIN, shape)
+                .addShape(STRUCTURE_PIECE_MAIN, structure)
                 .addElement('A', chainAllGlasses(-1, (te, t) -> te.glassTier = t, te -> te.glassTier))
                 .addElement(
                     'B',
@@ -178,8 +170,19 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
         glassTier = -1;
         tier = -1;
 
-        if (checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z) && casingAmount >= 20
-            && !mOutputBusses.isEmpty()
+        if (!checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z)) {
+            needsWaterFill = GTStructureUtility.hasWaterAtStructurePosition(
+                aBaseMetaTileEntity,
+                getExtendedFacing(),
+                structure,
+                OFFSET_X,
+                OFFSET_Y,
+                OFFSET_Z,
+                'E');
+            return false;
+        }
+
+        if (casingAmount >= 20 && !mOutputBusses.isEmpty()
             && mMaintenanceHatches.size() == 1
             && mEnergyHatches.size() == 1) {
             int inputTier = (int) getInputVoltageTier();
@@ -187,6 +190,7 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
                 return false;
             }
             tier = inputTier;
+            needsWaterFill = true;
             return true;
         }
         return false;
@@ -228,68 +232,41 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
         return new ITexture[] { Casings.AlgaeCasing.getCasingTexture() };
     }
 
-    public boolean checkForWater() {
-        IGregTechTileEntity base = this.getBaseMetaTileEntity();
-        boolean allFilled = true;
+    @Override
+    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        super.onPostTick(aBaseMetaTileEntity, aTick);
+        if (aBaseMetaTileEntity.isServerSide() && needsWaterFill && aTick % 20 == 0) {
+            World world = aBaseMetaTileEntity.getWorld();
+            boolean allFilled = true;
+            int controllerX = aBaseMetaTileEntity.getXCoord();
+            int controllerY = aBaseMetaTileEntity.getYCoord();
+            int controllerZ = aBaseMetaTileEntity.getZCoord();
 
-        for (int localZ = 0; localZ < shape.length; localZ++) {
-            String[] rows = shape[localZ];
-            for (int localY = 0; localY < rows.length; localY++) {
-                String row = rows[localY];
-                for (int localX = 0; localX < row.length(); localX++) {
-                    if (row.charAt(localX) != 'E') continue;
+            for (int sliceZ = 0; sliceZ < structure.length; sliceZ++) {
+                String[] layers = structure[sliceZ];
+                for (int layerY = 0; layerY < layers.length; layerY++) {
+                    String row = layers[layerY];
+                    for (int charX = 0; charX < row.length(); charX++) {
+                        if (row.charAt(charX) != 'E') continue;
 
-                    int[] abc = new int[] { localX - OFFSET_X, localY - OFFSET_Y, localZ - OFFSET_Z };
-                    int[] xyz = new int[] { 0, 0, 0 };
-                    getExtendedFacing().getWorldOffset(abc, xyz);
-
-                    int worldX = base.getXCoord() + xyz[0];
-                    int worldY = base.getYCoord() + xyz[1];
-                    int worldZ = base.getZCoord() + xyz[2];
-
-                    Block block = base.getWorld()
-                        .getBlock(worldX, worldY, worldZ);
-                    boolean isCOFHWater = Mods.COFHCore.isModLoaded()
-                        && (block instanceof BlockWater || block instanceof BlockTickingWater);
-                    if (block == Blocks.water || block == DISTILLED_WATER_BLOCK || isCOFHWater) {
-                        continue;
-                    }
-
-                    allFilled = false;
-
-                    boolean isAir = block == Blocks.air || block == Blocks.flowing_water;
-                    if (!isAir) {
-                        return false;
-                    }
-
-                    ArrayList<FluidStack> stored = this.getStoredFluids();
-                    if (stored == null) {
-                        return false;
-                    }
-
-                    boolean filled = false;
-                    for (FluidStack fs : stored) {
-                        if (!fs.isFluidEqual(Materials.Water.getFluid(1))) {
-                            continue;
+                        int[] abc = new int[] { charX - OFFSET_X, layerY - OFFSET_Y, sliceZ - OFFSET_Z };
+                        int[] xyz = new int[] { 0, 0, 0 };
+                        this.getExtendedFacing()
+                            .getWorldOffset(abc, xyz);
+                        int wx = controllerX + xyz[0];
+                        int wy = controllerY + xyz[1];
+                        int wz = controllerZ + xyz[2];
+                        Block block = world.getBlock(wx, wy, wz);
+                        if (GTUtility.canReplaceBlockWithWater(world, wx, wy, wz)) {
+                            world.setBlock(wx, wy, wz, Blocks.water, 0, 3);
+                        } else if (!GTUtility.isSourceWater(block, world, wx, wy, wz)) {
+                            allFilled = false;
                         }
-                        if (fs.amount < 1000) {
-                            continue;
-                        }
-
-                        fs.amount -= 1000;
-                        base.getWorld()
-                            .setBlock(worldX, worldY, worldZ, Blocks.water, 0, 3);
-                        filled = true;
-                        break;
-                    }
-
-                    if (!filled) {
-                        allFilled = false;
                     }
                 }
             }
+            if (allFilled) needsWaterFill = false;
         }
-        return allFilled;
     }
 
     @Override
@@ -319,9 +296,6 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
             @NotNull
             @Override
             protected CheckRecipeResult validateRecipe(@NotNull GTRecipe recipe) {
-                if (!checkForWater()) {
-                    return SimpleCheckRecipeResult.ofFailure("no_water");
-                }
                 long recipeEUt = getRecipeEUt();
                 if (recipeEUt > availableVoltage * availableAmperage) {
                     return CheckRecipeResultRegistry.insufficientPower(recipeEUt);

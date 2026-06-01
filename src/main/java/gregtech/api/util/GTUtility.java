@@ -135,6 +135,8 @@ import com.mojang.authlib.GameProfile;
 import buildcraft.api.transport.IPipeTile;
 import cofh.api.energy.IEnergyReceiver;
 import cofh.api.transport.IItemDuct;
+import cofh.asmhooks.block.BlockTickingWater;
+import cofh.asmhooks.block.BlockWater;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.GTMod;
@@ -145,6 +147,7 @@ import gregtech.api.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.Mods;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.SubTag;
@@ -176,6 +179,8 @@ import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.RecipeInputOreDict;
 import ic2.api.recipe.RecipeOutput;
 import ic2.core.IC2Potion;
+import ic2.core.init.BlocksItems;
+import ic2.core.init.InternalName;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Reference2LongOpenHashMap;
@@ -233,6 +238,7 @@ public class GTUtility {
     public static UUID defaultUuid = null; // maybe default non-null?
     // UUID.fromString("00000000-0000-0000-0000-000000000000");
     private static final Splitter NEWLINE_SPLITTER = Splitter.on("\\n");
+    private static final Block DISTILLED_WATER_BLOCK = BlocksItems.getFluidBlock(InternalName.fluidDistilledWater);
 
     static {
         GregTechAPI.sItemStackMappings.add(sFilledContainerToData);
@@ -5000,5 +5006,30 @@ public class GTUtility {
         return entity instanceof EntityPlayer p && !p.getClass()
             .getName()
             .contains("Fake");
+    }
+
+    public static boolean canReplaceBlockWithWater(World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        boolean isFlowing = isFlowingWater(block, world, x, y, z);
+        boolean isAir = block == Blocks.air;
+        return (isFlowing || isAir);
+    }
+
+    public static boolean isCOFHWater(Block block) {
+        return Mods.COFHCore.isModLoaded() && (block instanceof BlockWater || block instanceof BlockTickingWater);
+    }
+
+    public static boolean isWater(Block block) {
+        return block == Blocks.flowing_water || block == Blocks.water
+            || block == DISTILLED_WATER_BLOCK
+            || isCOFHWater(block);
+    }
+
+    public static boolean isFlowingWater(Block block, World world, int x, int y, int z) {
+        return block == Blocks.flowing_water || (isWater(block) && world.getBlockMetadata(x, y, z) > 0);
+    }
+
+    public static boolean isSourceWater(Block block, World world, int x, int y, int z) {
+        return isWater(block) && !isFlowingWater(block, world, x, y, z);
     }
 }
