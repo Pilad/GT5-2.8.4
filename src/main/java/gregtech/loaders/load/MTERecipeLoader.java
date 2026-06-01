@@ -2172,6 +2172,14 @@ public class MTERecipeLoader implements Runnable {
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.ExothermicHearth.get(1),
             new Object[] { ItemRegistry.megaMachines[0] });
+
+        GTModHandler.addCraftingRecipe(
+            ItemList.LATEX.get(1),
+            GTModHandler.RecipeBits.BITS,
+            new Object[] { "SPS", "CMC", "SPS", 'S',
+                GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.Silicone, 1L), 'P',
+                ItemList.Electric_Pump_HV.get(1L), 'C', OrePrefixes.circuit.get(Materials.EV), 'M',
+                ItemList.Machine_HV_Assembler.get(1) });
     }
 
     private static void registerSifter() {
