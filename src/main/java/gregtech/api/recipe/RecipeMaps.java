@@ -1320,6 +1320,12 @@ public final class RecipeMaps {
         .progressBar(GTUITextures.PROGRESSBAR_ARROW)
         .frontend(IsotopeDecayFrontend::new)
         .build();
+    public static final RecipeMap<RecipeMapBackend> cableRecipes = RecipeMapBuilder
+        .of("gt.recipe.cable", RecipeMapBackend::new)
+        .maxIO(6, 1, 1, 0)
+        .minInputs(1, 1)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW)
+        .build();
     public static final RecipeMap<RecipeMapBackend> cauldronRecipe = RecipeMapBuilder
         .of("gt.recipe.cauldron", RecipeMapBackend::new)
         .maxIO(1, 1, 1, 0)

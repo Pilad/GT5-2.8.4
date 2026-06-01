@@ -2214,6 +2214,7 @@ public enum ItemList implements IItemContainer {
     NaquadahReactorCasing,
     EntropicProcessor,
     DecayWarehouse,
+    LATEX,
     AcceleratorLV,
     AcceleratorMV,
     AcceleratorHV,

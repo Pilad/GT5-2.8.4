@@ -1,5 +1,7 @@
 package gregtech.loaders.preload;
 
+import static com.gtnewhorizon.gtnhlib.util.AnimatedTooltipHandler.addItemTooltip;
+import static com.gtnewhorizon.gtnhlib.util.AnimatedTooltipHandler.chain;
 import static gregtech.api.enums.MetaTileEntityIDs.*;
 import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.enums.Mods.StorageDrawers;
@@ -46,6 +48,7 @@ import static gregtech.api.recipe.RecipeMaps.wiremillRecipes;
 
 import net.minecraft.util.EnumChatFormatting;
 
+import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.MachineType;
 import gregtech.api.enums.SoundResource;
@@ -202,6 +205,7 @@ import gregtech.common.tileentities.machines.multi.MTELargeTurbineGasLegacy;
 import gregtech.common.tileentities.machines.multi.MTELargeTurbineHPSteamLegacy;
 import gregtech.common.tileentities.machines.multi.MTELargeTurbinePlasmaLegacy;
 import gregtech.common.tileentities.machines.multi.MTELargeTurbineSteamLegacy;
+import gregtech.common.tileentities.machines.multi.MTELatex;
 import gregtech.common.tileentities.machines.multi.MTEMegaChemicalReactor;
 import gregtech.common.tileentities.machines.multi.MTEMegaDistillationTower;
 import gregtech.common.tileentities.machines.multi.MTEMultiAutoclave;
@@ -635,6 +639,9 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         ItemList.DecayWarehouse.set(
             new MTEDecayWarehouse(DECAY_WAREHOUSE.ID, "multimachine.decay-warehouse", "Decay Warehouse")
                 .getStackForm(1));
+
+        ItemList.LATEX.set(new MTELatex(LATEX.ID, "multimachine.latex", "L.A.T.E.X.").getStackForm(1));
+        addItemTooltip(ItemList.LATEX.get(1), chain(() -> "Author: ", GTValues.AuthorThree));
 
         if (Thaumcraft.isModLoaded()) {
             ItemList.ResearchCompleter.set(
