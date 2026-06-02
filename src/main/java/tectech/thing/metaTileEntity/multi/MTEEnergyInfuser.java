@@ -94,8 +94,9 @@ public class MTEEnergyInfuser extends TTMultiblockBase implements ISurvivalConst
             if (item instanceof IElectricItem) {
                 return ElectricItem.manager.getCharge(stack) >= ((IElectricItem) item).getMaxCharge(stack);
             } else if (Mods.COFHCore.isModLoaded() && item instanceof IEnergyContainerItem) {
-                return ((IEnergyContainerItem) item).getEnergyStored(stack)
-                    >= ((IEnergyContainerItem) item).getMaxEnergyStored(stack);
+                IEnergyContainerItem rfItem = (IEnergyContainerItem) item;
+                return rfItem.getEnergyStored(stack) >= rfItem.getMaxEnergyStored(stack)
+                    || rfItem.receiveEnergy(stack, 1, true) == 0;
             }
         }
         return true;
@@ -274,6 +275,8 @@ public class MTEEnergyInfuser extends TTMultiblockBase implements ISurvivalConst
             .addInputBus(translateToLocal("tt.keyword.Structure.AnyHighPowerCasing"), 1)
             // Output Bus: Any High Power Casing
             .addOutputBus(translateToLocal("tt.keyword.Structure.AnyHighPowerCasing"), 1)
+            // Input Hatch: Any High Power Casing
+            .addInputHatch(translateToLocal("tt.keyword.Structure.AnyHighPowerCasing"), 1)
             .toolTipFinisher();
         return tt;
     }
