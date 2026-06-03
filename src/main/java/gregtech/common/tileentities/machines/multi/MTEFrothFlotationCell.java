@@ -200,6 +200,7 @@ public class MTEFrothFlotationCell extends MTEExtendedPowerMultiBlockBase<MTEFro
 
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        needsWaterFill = false;
         casingAmount = 0;
         if (!checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z)) {
             needsWaterFill = GTStructureUtility.hasWaterAtStructurePosition(

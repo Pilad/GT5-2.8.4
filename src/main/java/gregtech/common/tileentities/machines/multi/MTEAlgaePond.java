@@ -166,6 +166,7 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
 
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        needsWaterFill = false;
         casingAmount = 0;
         glassTier = -1;
         tier = -1;

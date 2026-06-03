@@ -162,6 +162,7 @@ public class MTEIndustrialFishingPond extends MTEExtendedPowerMultiBlockBase<MTE
 
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        needsWaterFill = false;
         casingAmount = 0;
         if (!checkPiece(mName, OFFSET_X, OFFSET_Y, OFFSET_Z)) {
             needsWaterFill = GTStructureUtility.hasWaterAtStructurePosition(
