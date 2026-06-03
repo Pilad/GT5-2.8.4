@@ -23,6 +23,7 @@ import static net.minecraftforge.common.util.ForgeDirection.DOWN;
 import static net.minecraftforge.common.util.ForgeDirection.UNKNOWN;
 import static net.minecraftforge.common.util.ForgeDirection.UP;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +35,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
@@ -50,6 +52,8 @@ import com.gtnewhorizons.modularui.api.math.Pos2d;
 import com.gtnewhorizons.modularui.api.math.Size;
 import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 import com.gtnewhorizons.modularui.api.screen.UIBuildContext;
+import com.gtnewhorizons.modularui.api.widget.Interactable;
+import com.gtnewhorizons.modularui.api.widget.Interactable.ClickResult;
 import com.gtnewhorizons.modularui.api.widget.Widget;
 import com.gtnewhorizons.modularui.common.fluid.FluidStackTank;
 import com.gtnewhorizons.modularui.common.widget.CycleButtonWidget;
@@ -95,6 +99,8 @@ import gregtech.client.GTSoundLoop;
 import gregtech.common.gui.modularui.UIHelper;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
+import tectech.thing.metaTileEntity.pipe.MTEPipeData;
+import tectech.thing.metaTileEntity.pipe.MTEPipeLaser;
 
 /**
  * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
@@ -126,6 +132,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
     protected final OverclockDescriber overclockDescriber;
     @SideOnly(Side.CLIENT)
     protected GTSoundLoop activitySoundLoop;
+    private FakeSyncWidget<Integer> facingSyncer;
 
     /**
      * Contains the Recipe which has been previously used, or null if there was no previous Recipe, which could have
@@ -1292,6 +1299,35 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
 
     @Override
     public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {
+        facingSyncer = new FakeSyncWidget<Integer>(
+            () -> 0,
+            val -> {},
+            (buf, val) -> buf.writeVarIntToBuffer(val),
+            buf -> buf.readVarIntFromBuffer()) {
+
+            @Override
+            public void readOnServer(int id, PacketBuffer buf) throws IOException {
+                if (id == 0) {
+                    int facingOrdinal = buf.readVarIntFromBuffer();
+                    ForgeDirection newFacing = ForgeDirection.getOrientation(facingOrdinal);
+                    IGregTechTileEntity te = getBaseMetaTileEntity();
+
+                    if (te != null && newFacing != mMainFacing && newFacing != ForgeDirection.UNKNOWN) {
+                        te.setFrontFacing(newFacing);
+
+                        for (final ForgeDirection s : ForgeDirection.VALID_DIRECTIONS) {
+                            final IGregTechTileEntity neighbor = te.getIGregTechTileEntityAtSide(s);
+                            if (neighbor != null) {
+                                if (neighbor.getMetaTileEntity() instanceof MTEPipeLaser pipe) pipe.updateNetwork(true);
+                                if (neighbor.getMetaTileEntity() instanceof MTEPipeData pipe) pipe.updateNetwork(true);
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        builder.widget(facingSyncer);
+
         if (!isSteampowered()) {
             builder.widget(createFluidAutoOutputButton());
             builder.widget(createItemAutoOutputButton());
@@ -1443,24 +1479,115 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected CycleButtonWidget createItemAutoOutputButton() {
-        return (CycleButtonWidget) new CycleButtonWidget().setToggle(() -> mItemTransfer, val -> mItemTransfer = val)
+        return (CycleButtonWidget) new CycleButtonWidget() {
+
+            @Override
+            public ClickResult onClick(int buttonId, boolean doubleClick) {
+                if (isClient() && Interactable.hasShiftDown()) {
+                    openSideSelector(this);
+                    return ClickResult.ACCEPT;
+                }
+                return super.onClick(buttonId, doubleClick);
+            }
+        }.setToggle(() -> mItemTransfer, val -> mItemTransfer = val)
             .setStaticTexture(GTUITextures.OVERLAY_BUTTON_AUTOOUTPUT_ITEM)
             .setVariableBackground(GTUITextures.BUTTON_STANDARD_TOGGLE)
             .setGTTooltip(() -> mTooltipCache.getData(ITEM_TRANSFER_TOOLTIP))
+            .addTooltip(translateToLocal("GT5U.machines.side_selection.tooltip"))
             .setTooltipShowUpDelay(TOOLTIP_DELAY)
             .setPos(25, 62)
             .setSize(18, 18);
     }
 
+    @SuppressWarnings("unchecked")
     protected CycleButtonWidget createFluidAutoOutputButton() {
-        return (CycleButtonWidget) new CycleButtonWidget().setToggle(() -> mFluidTransfer, val -> mFluidTransfer = val)
+        return (CycleButtonWidget) new CycleButtonWidget() {
+
+            @Override
+            public ClickResult onClick(int buttonId, boolean doubleClick) {
+                if (isClient() && Interactable.hasShiftDown()) {
+                    openSideSelector(this);
+                    return ClickResult.ACCEPT;
+                }
+                return super.onClick(buttonId, doubleClick);
+            }
+        }.setToggle(() -> mFluidTransfer, val -> mFluidTransfer = val)
             .setStaticTexture(GTUITextures.OVERLAY_BUTTON_AUTOOUTPUT_FLUID)
             .setVariableBackground(GTUITextures.BUTTON_STANDARD_TOGGLE)
             .setGTTooltip(() -> mTooltipCache.getData(FLUID_TRANSFER_TOOLTIP))
+            .addTooltip(translateToLocal("GT5U.machines.side_selection.tooltip"))
             .setTooltipShowUpDelay(TOOLTIP_DELAY)
             .setPos(7, 62)
             .setSize(18, 18);
+    }
+
+    private void openSideSelector(Widget triggerWidget) {
+        final int btnSize = 18;
+        final int gap = 1;
+        final int w = 3 * btnSize + 2 * gap;
+        final int h = 3 * btnSize + 2 * gap;
+
+        Pos2d btnPos = triggerWidget.getAbsolutePos();
+        Size btnSizeObj = triggerWidget.getSize();
+        int popupX = btnPos.x + btnSizeObj.width / 2 - w / 2;
+        int popupY = btnPos.y + btnSizeObj.height / 2 - h / 2;
+
+        ForgeDirection leftDir = mMainFacing.getRotation(ForgeDirection.UP);
+        ForgeDirection rightDir = mMainFacing.getRotation(ForgeDirection.DOWN);
+        ForgeDirection backDir = mMainFacing.getOpposite();
+
+        ModularWindow.Builder builder = ModularWindow.builder(w, h);
+        builder.setDraggable(false);
+        builder.setBackground(IDrawable.EMPTY);
+        builder.setPos((screenSize, mainWindow) -> new Pos2d(popupX, popupY));
+
+        builder.widget(
+            createDirButton(ForgeDirection.UP, GTUITextures.OVERLAY_BUTTON_SIDE_SELECTION_UP, btnSize)
+                .setPos(1 * (btnSize + gap), 0));
+
+        builder.widget(
+            createDirButton(leftDir, GTUITextures.OVERLAY_BUTTON_SIDE_SELECTION_LEFT, btnSize)
+                .setPos(0, 1 * (btnSize + gap)));
+        builder.widget(
+            createDirButton(rightDir, GTUITextures.OVERLAY_BUTTON_SIDE_SELECTION_RIGHT, btnSize)
+                .setPos(2 * (btnSize + gap), 1 * (btnSize + gap)));
+
+        builder.widget(
+            createDirButton(ForgeDirection.DOWN, GTUITextures.OVERLAY_BUTTON_SIDE_SELECTION_DOWN, btnSize)
+                .setPos(1 * (btnSize + gap), 2 * (btnSize + gap)));
+        builder.widget(
+            createDirButton(backDir, GTUITextures.OVERLAY_BUTTON_SIDE_SELECTION_BACK, btnSize)
+                .setPos(2 * (btnSize + gap), 2 * (btnSize + gap)));
+
+        ModularWindow popup = builder.build();
+        triggerWidget.getContext()
+            .openClientWindow(player -> popup);
+    }
+
+    @SuppressWarnings("unchecked")
+    private CycleButtonWidget createDirButton(final ForgeDirection direction, IDrawable texture, int size) {
+        return (CycleButtonWidget) new CycleButtonWidget() {
+
+            @Override
+            public ClickResult onClick(int buttonId, boolean doubleClick) {
+                if (buttonId == 0) {
+                    Interactable.playButtonClickSound();
+                    if (facingSyncer != null) {
+                        facingSyncer.syncToServer(0, buf -> buf.writeVarIntToBuffer(direction.ordinal()));
+                    }
+                    if (isClient()) {
+                        getWindow().tryClose();
+                    }
+                    return ClickResult.ACCEPT;
+                }
+                return ClickResult.IGNORE;
+            }
+        }.setToggle(() -> false, val -> {})
+            .setStaticTexture(texture)
+            .setBackground(GTUITextures.BUTTON_STANDARD)
+            .setSize(size, size);
     }
 
     // Used for ui syncing

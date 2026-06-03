@@ -448,6 +448,21 @@ public class GTUITextures {
     public static final UITexture OVERLAY_BUTTON_CRYOTHEUM_OFF = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/mvf_cryo_off");
 
+    public static final UITexture OVERLAY_BUTTON_SIDE_SELECTION_LEFT = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/side_selection_left");
+
+    public static final UITexture OVERLAY_BUTTON_SIDE_SELECTION_UP = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/side_selection_up");
+
+    public static final UITexture OVERLAY_BUTTON_SIDE_SELECTION_RIGHT = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/side_selection_right");
+
+    public static final UITexture OVERLAY_BUTTON_SIDE_SELECTION_DOWN = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/side_selection_down");
+
+    public static final UITexture OVERLAY_BUTTON_SIDE_SELECTION_BACK = UITexture
+        .fullImage(GregTech.ID, "gui/overlay_button/side_selection_back");
+
     public static final UITexture OVERLAY_BUTTON_LIQUIDMODE = UITexture
         .fullImage(GregTech.ID, "gui/overlay_button/LiquidMode");
 
