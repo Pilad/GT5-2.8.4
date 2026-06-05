@@ -170,7 +170,7 @@ public class NEIGTConfig implements IConfigureNEI {
         return new HandlerInfo.Builder(
             recipeCategory.unlocalizedName,
             recipeCategory.ownerMod.getName(),
-            recipeCategory.ownerMod.getModId()).setShiftY(6)
+            recipeCategory.ownerMod.getModId()).setShiftY(8)
                 .setHeight(135)
                 .setMaxRecipesPerPage(2);
     }
