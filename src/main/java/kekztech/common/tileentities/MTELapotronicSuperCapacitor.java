@@ -10,6 +10,7 @@ import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static gregtech.api.util.GTStructureUtility.filterByMTEClass;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static java.lang.Math.min;
 import static kekztech.util.Util.toPercentageFrom;
 import static kekztech.util.Util.toStandardForm;
@@ -241,7 +242,6 @@ public class MTELapotronicSuperCapacitor extends MTEEnhancedMultiBlockBase<MTELa
      * Count the amount of capacitors of each tier in each slot. Index = meta - 1
      */
     private final int[] capacitors = new int[10];
-
     private BigInteger capacity = BigInteger.ZERO;
     private BigInteger stored = BigInteger.ZERO;
     private long passiveDischargeAmount = 0;
@@ -275,7 +275,11 @@ public class MTELapotronicSuperCapacitor extends MTEEnhancedMultiBlockBase<MTELa
     }
 
     private void processInputHatch(MTEHatch aHatch, int aBaseCasingIndex) {
-        mMaxEUIn += aHatch.maxEUInput() * aHatch.maxAmperesIn();
+        long maxAmpereIn = aHatch.maxAmperesIn();
+        if (aHatch instanceof MTEHatchEnergyMulti multiAmpEnergy) {
+            maxAmpereIn = multiAmpEnergy.maxAmperes + (multiAmpEnergy.maxAmperes >> 2);
+        }
+        mMaxEUIn += aHatch.maxEUInput() * maxAmpereIn;
         aHatch.updateTexture(aBaseCasingIndex);
     }
 
@@ -294,36 +298,30 @@ public class MTELapotronicSuperCapacitor extends MTEEnhancedMultiBlockBase<MTELa
                 droneDownLink.registerMachineController(this);
             }
             return MTELapotronicSuperCapacitor.this.mMaintenanceHatches.add(hatch);
-        } else if (aMetaTileEntity instanceof MTEHatchEnergy) {
+        } else if (aMetaTileEntity instanceof MTEHatchEnergy tHatch) {
             // Add GT hatches
-            final MTEHatchEnergy tHatch = ((MTEHatchEnergy) aMetaTileEntity);
             processInputHatch(tHatch, aBaseCasingIndex);
             return mEnergyHatches.add(tHatch);
-        } else if (aMetaTileEntity instanceof MTEHatchEnergyTunnel) {
+        } else if (aMetaTileEntity instanceof MTEHatchEnergyTunnel tHatch) {
             // Add TT Laser hatches
-            final MTEHatchEnergyTunnel tHatch = ((MTEHatchEnergyTunnel) aMetaTileEntity);
             processInputHatch(tHatch, aBaseCasingIndex);
             return mEnergyTunnelsTT.add(tHatch);
-        } else if (aMetaTileEntity instanceof MTEHatchEnergyMulti) {
+        } else if (aMetaTileEntity instanceof MTEHatchEnergyMulti tHatch) {
             // Add TT hatches
-            final MTEHatchEnergyMulti tHatch = (MTEHatchEnergyMulti) aMetaTileEntity;
             processInputHatch(tHatch, aBaseCasingIndex);
             return mEnergyHatchesTT.add(tHatch);
-        } else if (aMetaTileEntity instanceof MTEHatchDynamo) {
-            // Add GT hatches
-            final MTEHatchDynamo tDynamo = (MTEHatchDynamo) aMetaTileEntity;
-            processOutputHatch(tDynamo, aBaseCasingIndex);
-            return mDynamoHatches.add(tDynamo);
-        } else if (aMetaTileEntity instanceof MTEHatchDynamoTunnel) {
+        } else if (aMetaTileEntity instanceof MTEHatchDynamoTunnel tDynamo) {
             // Add TT Laser hatches
-            final MTEHatchDynamoTunnel tDynamo = (MTEHatchDynamoTunnel) aMetaTileEntity;
             processOutputHatch(tDynamo, aBaseCasingIndex);
             return mDynamoTunnelsTT.add(tDynamo);
-        } else if (aMetaTileEntity instanceof MTEHatchDynamoMulti) {
+        } else if (aMetaTileEntity instanceof MTEHatchDynamoMulti tDynamo) {
             // Add TT hatches
-            final MTEHatchDynamoMulti tDynamo = (MTEHatchDynamoMulti) aMetaTileEntity;
             processOutputHatch(tDynamo, aBaseCasingIndex);
             return mDynamoHatchesTT.add(tDynamo);
+        } else if (aMetaTileEntity instanceof MTEHatchDynamo tDynamo) {
+            // Add GT hatches
+            processOutputHatch(tDynamo, aBaseCasingIndex);
+            return mDynamoHatches.add(tDynamo);
         }
         return false;
     }
@@ -355,7 +353,7 @@ public class MTELapotronicSuperCapacitor extends MTEEnhancedMultiBlockBase<MTELa
             .addInfo("Loses energy equal to 1% of the total capacity every 24 hours")
             .addInfo(
                 "Capped at " + EnumChatFormatting.RED
-                    + GTUtility.formatNumbers(max_passive_drain_eu_per_tick_per_uhv_cap)
+                    + formatNumber(max_passive_drain_eu_per_tick_per_uhv_cap)
                     + EnumChatFormatting.GRAY
                     + " EU/t passive loss per "
                     + GTValues.TIER_COLORS[9]
@@ -383,14 +381,13 @@ public class MTELapotronicSuperCapacitor extends MTEEnhancedMultiBlockBase<MTELa
                     + "+ capacitor in the multiblock.")
             .addInfo(
                 "When enabled every " + EnumChatFormatting.BLUE
-                    + GTUtility
-                        .formatNumbers(ItemBlockLapotronicEnergyUnit.LSC_time_between_wireless_rebalance_in_ticks)
+                    + formatNumber(ItemBlockLapotronicEnergyUnit.LSC_time_between_wireless_rebalance_in_ticks)
                     + EnumChatFormatting.GRAY
                     + " ticks the LSC will attempt to re-balance against your")
             .addInfo("wireless EU network.")
             .addInfo(
                 "If there is less than " + EnumChatFormatting.RED
-                    + GTUtility.formatNumbers(ItemBlockLapotronicEnergyUnit.LSC_wireless_eu_cap)
+                    + formatNumber(ItemBlockLapotronicEnergyUnit.LSC_wireless_eu_cap)
                     + EnumChatFormatting.GRAY
                     + "("
                     + GTValues.TIER_COLORS[9]
@@ -890,11 +887,11 @@ public class MTELapotronicSuperCapacitor extends MTEEnhancedMultiBlockBase<MTELa
         ll.add(
             translateToLocalFormatted(
                 "kekztech.infodata.lapotronic_super_capacitor.eu_in",
-                GTUtility.formatNumbers(inputLastTick)));
+                formatNumber(inputLastTick)));
         ll.add(
             translateToLocalFormatted(
                 "kekztech.infodata.lapotronic_super_capacitor.eu_out",
-                GTUtility.formatNumbers(outputLastTick)));
+                formatNumber(outputLastTick)));
         ll.add(
             translateToLocalFormatted(
                 "kekztech.infodata.lapotronic_super_capacitor.avg_eu_in.sec",
