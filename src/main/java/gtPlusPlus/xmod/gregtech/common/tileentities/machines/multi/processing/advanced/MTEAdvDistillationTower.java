@@ -377,7 +377,8 @@ public class MTEAdvDistillationTower extends GTPPMultiBlockBase<MTEAdvDistillati
     public int getMaxParallelRecipes() {
         return switch (mMode) {
             case DistillationTower -> DT_MODE_MAX_PARALLELS;
-            case Distillery -> (int) (2 * Math.floor((mHeight + 1) / 3f)) * GTUtility.getTier(this.getMaxInputVoltage());
+            case Distillery -> (int) (2 * Math.floor((mHeight + 1) / 3f))
+                * GTUtility.getTier(this.getMaxInputVoltage());
         };
     }
 
