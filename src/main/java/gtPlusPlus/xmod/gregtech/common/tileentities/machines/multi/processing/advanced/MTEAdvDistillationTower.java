@@ -188,8 +188,8 @@ public class MTEAdvDistillationTower extends GTPPMultiBlockBase<MTEAdvDistillati
             .addInfo("Stats dictated by tower mode")
             .addInfo("Right click the controller with screwdriver to change mode.")
             .addSeparator()
-            .addInfo("Distillery Mode (requires full height tower)")
-            .addInfo(TooltipHelper.parallelText("8 * Voltage Tier") + " Parallels")
+            .addInfo("Distillery Mode")
+            .addInfo(TooltipHelper.parallelText("(2 * floor(Height / 3)) * Voltage Tier") + " Parallels")
             .addStaticSpeedInfo(2f)
             .addStaticEuEffInfo(0.15f)
             .addSeparator()
@@ -275,13 +275,7 @@ public class MTEAdvDistillationTower extends GTPPMultiBlockBase<MTEAdvDistillati
             // not top
             mHeight++;
         }
-        boolean check = mTopLayerFound && mHeight >= 2 && mCasing >= 7 && checkHatch();
-        if (check && mHeight < 11) {
-            // force the mode to DT if not in full height
-            mMode = Mode.DistillationTower;
-            mLastRecipe = null;
-        }
-        return check;
+        return mTopLayerFound && mHeight >= 2 && mCasing >= 7 && checkHatch();
     }
 
     @Override
@@ -322,10 +316,6 @@ public class MTEAdvDistillationTower extends GTPPMultiBlockBase<MTEAdvDistillati
 
     @Override
     public void onModeChangeByScrewdriver(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ) {
-        if (mHeight < 11) {
-            GTUtility.sendChatToPlayer(aPlayer, "Cannot switch mode if not in full height.");
-            return;
-        }
         mMode = mMode.next();
         GTUtility.sendChatToPlayer(aPlayer, "Now running in " + mMode + " Mode.");
         mLastRecipe = null;
@@ -387,7 +377,7 @@ public class MTEAdvDistillationTower extends GTPPMultiBlockBase<MTEAdvDistillati
     public int getMaxParallelRecipes() {
         return switch (mMode) {
             case DistillationTower -> DT_MODE_MAX_PARALLELS;
-            case Distillery -> 8 * GTUtility.getTier(this.getMaxInputVoltage());
+            case Distillery -> (int) (2 * Math.floor((mHeight + 1) / 3f)) * GTUtility.getTier(this.getMaxInputVoltage());
         };
     }
 
@@ -465,10 +455,8 @@ public class MTEAdvDistillationTower extends GTPPMultiBlockBase<MTEAdvDistillati
         ButtonWidget modeButton = new ButtonWidget();
 
         builder.widget(modeButton.setOnClick((clickData, widget) -> {
-            if (mHeight >= 11) {
-                mMode = mMode.next();
-                mLastRecipe = null;
-            }
+            mMode = mMode.next();
+            mLastRecipe = null;
             widget.notifyTooltipChange();
         })
             .setPlayClickSound(true)
