@@ -133,8 +133,8 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.GTUtility.ItemId;
 import gregtech.api.util.MultiblockTooltipBuilder;
-import kubatech.api.DynamicInventory;
 import gregtech.common.misc.GTStructureChannels;
+import kubatech.api.DynamicInventory;
 import kubatech.api.implementations.KubaTechGTMultiBlockBase;
 import kubatech.client.effect.MegaApiaryBeesRenderer;
 

@@ -14,6 +14,7 @@ import static gregtech.api.metatileentity.BaseTileEntity.STALLED_STUTTERING_TOOL
 import static gregtech.api.metatileentity.BaseTileEntity.STALLED_VENT_TOOLTIP;
 import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 import static gregtech.api.metatileentity.BaseTileEntity.UNUSED_SLOT_TOOLTIP;
+import static gregtech.api.util.GTRecipeConstants.COMPRESSION_TIER;
 import static gregtech.api.util.GTRecipeConstants.EXPLODE;
 import static gregtech.api.util.GTRecipeConstants.ON_FIRE;
 import static gregtech.api.util.GTUtility.moveMultipleItemStacks;
@@ -22,6 +23,7 @@ import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 import static net.minecraftforge.common.util.ForgeDirection.DOWN;
 import static net.minecraftforge.common.util.ForgeDirection.UNKNOWN;
 import static net.minecraftforge.common.util.ForgeDirection.UP;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -85,7 +87,6 @@ import gregtech.api.objects.overclockdescriber.EUOverclockDescriber;
 import gregtech.api.objects.overclockdescriber.OverclockDescriber;
 import gregtech.api.recipe.BasicUIProperties;
 import gregtech.api.recipe.RecipeMap;
-import gregtech.api.recipe.metadata.CompressionTierKey;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTClientPreference;
 import gregtech.api.util.GTLog;
@@ -899,18 +900,18 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         return new String[] {
             translateToLocalFormatted(
                 "GT5U.infodata.progress",
-                EnumChatFormatting.GREEN + GTUtility.formatNumbers((mProgresstime / 20)) + EnumChatFormatting.RESET,
-                EnumChatFormatting.YELLOW + GTUtility.formatNumbers(mMaxProgresstime / 20) + EnumChatFormatting.RESET),
+                EnumChatFormatting.GREEN + formatNumber((mProgresstime / 20)) + EnumChatFormatting.RESET,
+                EnumChatFormatting.YELLOW + formatNumber(mMaxProgresstime / 20) + EnumChatFormatting.RESET),
             translateToLocalFormatted(
                 "GT5U.infodata.energy",
-                EnumChatFormatting.GREEN + GTUtility.formatNumbers(getBaseMetaTileEntity().getStoredEU())
+                EnumChatFormatting.GREEN + formatNumber(getBaseMetaTileEntity().getStoredEU())
                     + EnumChatFormatting.RESET,
-                EnumChatFormatting.YELLOW + GTUtility.formatNumbers(getBaseMetaTileEntity().getEUCapacity())
+                EnumChatFormatting.YELLOW + formatNumber(getBaseMetaTileEntity().getEUCapacity())
                     + EnumChatFormatting.RESET),
             translateToLocalFormatted(
                 "GT5U.infodata.currently_uses",
-                EnumChatFormatting.RED + GTUtility.formatNumbers(mEUt) + EnumChatFormatting.RESET,
-                EnumChatFormatting.RED + GTUtility.formatNumbers(mEUt == 0 ? 0 : mAmperage)
+                EnumChatFormatting.RED + formatNumber(mEUt) + EnumChatFormatting.RESET,
+                EnumChatFormatting.RED + formatNumber(mEUt == 0 ? 0 : mAmperage)
                     + EnumChatFormatting.RESET) };
     }
 
@@ -1077,8 +1078,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
             getBaseMetaTileEntity().setOnFire();
             return DID_NOT_FIND_RECIPE;
         }
-        if (tRecipe.getMetadataOrDefault(CompressionTierKey.INSTANCE, 0) > 0)
-            return FOUND_RECIPE_BUT_DID_NOT_MEET_REQUIREMENTS;
+        if (tRecipe.getMetadataOrDefault(COMPRESSION_TIER, 0) > 0) return FOUND_RECIPE_BUT_DID_NOT_MEET_REQUIREMENTS;
         if (GTMod.proxy.mLowGravProcessing && (tRecipe.mSpecialValue == -100 || tRecipe.mSpecialValue == -300)
             && !isValidForLowGravity(tRecipe, getBaseMetaTileEntity().getWorld().provider.dimensionId))
             return FOUND_RECIPE_BUT_DID_NOT_MEET_REQUIREMENTS;
@@ -1192,14 +1192,14 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
                         currenttip.add(
                             translateToLocalFormatted(
                                 "GT5U.waila.energy.use_with_amperage",
-                                GTUtility.formatNumbers(mEUt),
+                                formatNumber(mEUt),
                                 GTUtility.getAmperageForTier(mEUt, (byte) getInputTier()),
                                 GTUtility.getColoredTierNameFromTier((byte) getInputTier())));
                     } else if (mEUt < 0) {
                         currenttip.add(
                             translateToLocalFormatted(
                                 "GT5U.waila.energy.produce_with_amperage",
-                                GTUtility.formatNumbers(-mEUt),
+                                formatNumber(-mEUt),
                                 GTUtility.getAmperageForTier(-mEUt, (byte) getOutputTier()),
                                 GTUtility.getColoredTierNameFromTier((byte) getOutputTier())));
                     }
@@ -1208,13 +1208,13 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
                         currenttip.add(
                             translateToLocalFormatted(
                                 "GTPP.waila.steam.use",
-                                GTUtility.formatNumbers(mEUt * 40L),
+                                formatNumber(mEUt * 40L),
                                 GTUtility.getColoredTierNameFromVoltage(mEUt)));
                     } else if (mEUt < 0) {
                         currenttip.add(
                             translateToLocalFormatted(
                                 "GTPP.waila.steam.use",
-                                GTUtility.formatNumbers(-mEUt * 40L),
+                                formatNumber(-mEUt * 40L),
                                 GTUtility.getColoredTierNameFromVoltage(-mEUt)));
                     }
                 }

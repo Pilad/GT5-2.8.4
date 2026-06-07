@@ -19,6 +19,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_PROCESSING_AR
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_PROCESSING_ARRAY_GLOW;
 import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 import static gregtech.api.metatileentity.implementations.MTEBasicMachine.isValidForLowGravity;
+import static gregtech.api.util.GTRecipeConstants.COMPRESSION_TIER;
 import static gregtech.api.util.GTUtility.validMTEList;
 
 import java.util.List;
@@ -69,7 +70,6 @@ import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
-import gregtech.api.recipe.metadata.CompressionTierKey;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.ExoticEnergyInputHelper;
 import gregtech.api.util.GTRecipe;
@@ -246,8 +246,7 @@ public class MTEProcessingArray extends MTEExtendedPowerMultiBlockBase<MTEProces
             @Nonnull
             @Override
             protected CheckRecipeResult validateRecipe(@Nonnull GTRecipe recipe) {
-                if (recipe.getMetadataOrDefault(CompressionTierKey.INSTANCE, 0) > 0)
-                    return CheckRecipeResultRegistry.NO_RECIPE;
+                if (recipe.getMetadataOrDefault(COMPRESSION_TIER, 0) > 0) return CheckRecipeResultRegistry.NO_RECIPE;
                 if (GTMod.gregtechproxy.mLowGravProcessing && recipe.mSpecialValue == -100
                     && !isValidForLowGravity(recipe, getBaseMetaTileEntity().getWorld().provider.dimensionId)) {
                     return SimpleCheckRecipeResult.ofFailure("high_gravity");

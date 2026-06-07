@@ -10,6 +10,7 @@ import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
+import static gregtech.api.util.GTRecipeConstants.COMPRESSION_TIER;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTUtility.validMTEList;
 
@@ -56,7 +57,6 @@ import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import gregtech.api.recipe.metadata.CompressionTierKey;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
@@ -341,8 +341,7 @@ public class MTEIndustrialMultiMachine extends GTPPMultiBlockBase<MTEIndustrialM
             @NotNull
             @Override
             protected CheckRecipeResult validateRecipe(@NotNull GTRecipe recipe) {
-                if (recipe.getMetadataOrDefault(CompressionTierKey.INSTANCE, 0) > 0)
-                    return CheckRecipeResultRegistry.NO_RECIPE;
+                if (recipe.getMetadataOrDefault(COMPRESSION_TIER, 0) > 0) return CheckRecipeResultRegistry.NO_RECIPE;
                 return super.validateRecipe(recipe);
             }
         }.setSpeedBonus(1F / 3.5F)

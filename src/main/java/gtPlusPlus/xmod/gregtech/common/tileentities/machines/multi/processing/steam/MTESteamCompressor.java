@@ -6,6 +6,7 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose
 import static gregtech.api.GregTechAPI.sBlockCasings1;
 import static gregtech.api.GregTechAPI.sBlockCasings2;
 import static gregtech.api.GregTechAPI.sBlockMetal6;
+import static gregtech.api.util.GTRecipeConstants.COMPRESSION_TIER;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
 import java.util.ArrayList;
@@ -50,7 +51,6 @@ import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import gregtech.api.recipe.metadata.CompressionTierKey;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.MultiblockTooltipBuilder;
@@ -346,8 +346,7 @@ public class MTESteamCompressor extends MTESteamMultiBase<MTESteamCompressor> im
                 if (availableVoltage < recipe.mEUt) {
                     return CheckRecipeResultRegistry.insufficientPower(recipe.mEUt);
                 }
-                if (recipe.getMetadataOrDefault(CompressionTierKey.INSTANCE, 0) > 0)
-                    return CheckRecipeResultRegistry.NO_RECIPE;
+                if (recipe.getMetadataOrDefault(COMPRESSION_TIER, 0) > 0) return CheckRecipeResultRegistry.NO_RECIPE;
                 return CheckRecipeResultRegistry.SUCCESSFUL;
             }
 
