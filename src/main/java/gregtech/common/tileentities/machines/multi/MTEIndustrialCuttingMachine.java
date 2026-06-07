@@ -52,6 +52,7 @@ import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.common.misc.GTStructureChannels;
 import gregtech.common.pollution.PollutionConfig;
 import gregtech.common.render.IMTERenderer;
 import gtPlusPlus.core.material.MaterialsAlloy;
@@ -170,6 +171,7 @@ public class MTEIndustrialCuttingMachine extends MTEExtendedPowerMultiBlockBase<
             .addEnergyHatch("Any Casing", 1)
             .addMaintenanceHatch("Any Casing", 1)
             .addMufflerHatch("Any Casing", 1)
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .addStructureAuthors(EnumChatFormatting.LIGHT_PURPLE + "Auynonymous")
             .toolTipFinisher();
         return tt;

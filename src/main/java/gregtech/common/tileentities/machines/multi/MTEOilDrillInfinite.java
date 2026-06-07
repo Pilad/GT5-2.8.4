@@ -28,6 +28,7 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.common.misc.GTStructureChannels;
 
 public class MTEOilDrillInfinite extends MTEOilDrillBase {
 
@@ -121,6 +122,7 @@ public class MTEOilDrillInfinite extends MTEOilDrillBase {
             .addMaintenanceHatch("Any Mining Neutronium Casing", 1)
             .addInputBus("Programmed Circuits, optional, any Mining Neutronium Casing", 1)
             .addOutputHatch("Any Mining Neutronium Casing", 1)
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .addStructureAuthors(EnumChatFormatting.GOLD + "Pix3lated")
             .toolTipFinisher();
         return tt;

@@ -134,6 +134,7 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.GTUtility.ItemId;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import kubatech.api.DynamicInventory;
+import gregtech.common.misc.GTStructureChannels;
 import kubatech.api.implementations.KubaTechGTMultiBlockBase;
 import kubatech.client.effect.MegaApiaryBeesRenderer;
 
@@ -400,6 +401,7 @@ public class MTEMegaIndustrialApiary extends KubaTechGTMultiBlockBase<MTEMegaInd
             .addOutputBus("Any Casing", 1)
             .addEnergyHatch("Any Casing", 1)
             .addMaintenanceHatch("Any Casing", 1)
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .toolTipFinisher(GTValues.AuthorKuba, "Runakai");
         return tt;
     }

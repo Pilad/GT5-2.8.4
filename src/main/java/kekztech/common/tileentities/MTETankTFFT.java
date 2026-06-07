@@ -230,7 +230,7 @@ public class MTETankTFFT extends MTEEnhancedMultiBlockBase<MTETankTFFT> implemen
         translateToLocal("tile.kekztech_tfftstoragefield_block.hint.4"), // Glass
     };
 
-    // height channel for height
+    // length channel for length
     // field channel for field
     private static final IStructureDefinition<MTETankTFFT> STRUCTURE_DEFINITION = IStructureDefinition
         .<MTETankTFFT>builder()
@@ -366,14 +366,14 @@ public class MTETankTFFT extends MTEEnhancedMultiBlockBase<MTETankTFFT> implemen
             .addStructureInfo("Use MIOH with conduits or fluid storage buses to see all fluids at once.")
             .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .addSubChannelUsage(GTStructureChannels.TFFT_FIELD)
-            .addSubChannelUsage(GTStructureChannels.STRUCTURE_HEIGHT)
+            .addSubChannelUsage(GTStructureChannels.STRUCTURE_LENGTH)
             .toolTipFinisher();
         return tt;
     }
 
     @Override
     public void construct(ItemStack stackSize, boolean hintsOnly) {
-        int layer = GTStructureChannels.STRUCTURE_HEIGHT
+        int layer = GTStructureChannels.STRUCTURE_LENGTH
             .getValueClamped(stackSize, DEFAULT_LAYER_AMOUNT, MAX_LAYER_AMOUNT);
         buildPiece(STRUCTURE_PIECE_TOP, stackSize, hintsOnly, 2, 2, 0);
         for (int i = 1; i <= layer; i++) {
@@ -387,7 +387,7 @@ public class MTETankTFFT extends MTEEnhancedMultiBlockBase<MTETankTFFT> implemen
         if (mMachine) return -1;
         int build = survivalBuildPiece(STRUCTURE_PIECE_TOP, stackSize, 2, 2, 0, elementBudget, env, false, true);
         if (build >= 0) return build;
-        int layer = GTStructureChannels.STRUCTURE_HEIGHT
+        int layer = GTStructureChannels.STRUCTURE_LENGTH
             .getValueClamped(stackSize, DEFAULT_LAYER_AMOUNT, MAX_LAYER_AMOUNT);
         for (int i = 1; i <= layer; i++) {
             build = survivalBuildPiece(STRUCTURE_PIECE_MID, stackSize, 2, 2, -i, elementBudget, env, false, true);

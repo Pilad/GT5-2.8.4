@@ -29,6 +29,7 @@ import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBas
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.common.misc.GTStructureChannels;
 import gregtech.common.pollution.PollutionConfig;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
@@ -75,6 +76,7 @@ public class MTEIndustrialMolecularTransformer extends MTEExtendedPowerMultiBloc
             .addEnergyHatch("Any Molecular Containment Casing", 1)
             .addMaintenanceHatch("Any Molecular Containment Casing", 1)
             .addMufflerHatch("Any Molecular Containment Casing", 1)
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .addStructureAuthors(EnumChatFormatting.GOLD + "Fox")
             .toolTipFinisher();
         return tt;

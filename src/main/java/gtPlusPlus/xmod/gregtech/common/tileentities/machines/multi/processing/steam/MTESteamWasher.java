@@ -60,6 +60,7 @@ import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
+import gregtech.common.misc.GTStructureChannels;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
@@ -382,6 +383,8 @@ public class MTESteamWasher extends MTESteamMultiBase<MTESteamWasher> implements
             .addStructureInfo(EnumChatFormatting.GOLD + "24x" + EnumChatFormatting.GRAY + " Any Tiered Glass")
             .addStructureInfo(EnumChatFormatting.GOLD + "12x" + EnumChatFormatting.GRAY + " Steel Pipe Casing")
             .addStructureInfo(EnumChatFormatting.GOLD + "8x" + EnumChatFormatting.GRAY + " Steel Gear Box Casing")
+            .addStructureInfo("")
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .toolTipFinisher(GTValues.AuthorEvgenWarGold);
         return tt;
     }

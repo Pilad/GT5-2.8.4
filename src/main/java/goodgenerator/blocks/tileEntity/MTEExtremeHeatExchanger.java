@@ -51,6 +51,7 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.IGTHatchAdder;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.common.misc.GTStructureChannels;
 import gregtech.common.tileentities.machines.IRecipeProcessingAwareHatch;
 import gregtech.common.tileentities.machines.MTEHatchInputME;
 
@@ -267,6 +268,7 @@ public class MTEExtremeHeatExchanger extends MTETooltipMultiBlockBaseEM
                 "SH Steam/SC Steam, any top layer Casing",
                 2)
             .addMaintenanceHatch("Any Casing", 1, 2, 5)
+            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .toolTipFinisher();
         return tt;
     }
