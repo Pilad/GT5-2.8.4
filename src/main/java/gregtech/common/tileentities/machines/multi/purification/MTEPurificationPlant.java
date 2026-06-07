@@ -1,5 +1,6 @@
 package gregtech.common.tileentities.machines.multi.purification;
 
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.isAir;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
@@ -22,7 +23,6 @@ import static net.minecraft.util.StatCollector.translateToLocal;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -83,7 +83,6 @@ public class MTEPurificationPlant extends MTEExtendedPowerMultiBlockBase<MTEPuri
     implements ISurvivalConstructable {
 
     private static final String STRUCTURE_PIECE_MAIN = "main";
-    private static final String STRUCTURE_PIECE_MAIN_SURVIVAL = "main_survival";
 
     /**
      * Maximum distance in each axis between the purification plant main controller and the controller blocks of the
@@ -107,20 +106,12 @@ public class MTEPurificationPlant extends MTEExtendedPowerMultiBlockBase<MTEPuri
      * for players to more easily debug their automation setups.
      */
     private boolean debugMode = false;
+    private boolean needsWaterFill = false;
     public static final int CYCLE_TIME_IN_DEBUG = 30 * SECONDS;
 
     private static final IStructureDefinition<MTEPurificationPlant> STRUCTURE_DEFINITION = StructureDefinition
         .<MTEPurificationPlant>builder()
         .addShape(STRUCTURE_PIECE_MAIN, PurificationPlantStructureString.STRUCTURE_STRING)
-        // Create an identical structure for survival autobuild, with water replaced with air
-        .addShape(
-            STRUCTURE_PIECE_MAIN_SURVIVAL,
-            Arrays.stream(PurificationPlantStructureString.STRUCTURE_STRING)
-                .map(
-                    sa -> Arrays.stream(sa)
-                        .map(s -> s.replaceAll("F", " "))
-                        .toArray(String[]::new))
-                .toArray(String[][]::new))
         // Superplasticizer-treated high strength concrete
         .addElement('A', ofBlock(GregTechAPI.sBlockCasings9, 3))
         // Sterile Water Plant Casing
@@ -129,7 +120,7 @@ public class MTEPurificationPlant extends MTEExtendedPowerMultiBlockBase<MTEPuri
         .addElement('C', ofBlock(GregTechAPI.sBlockCasings9, 5))
         // Tinted Industrial Glass
         .addElement('D', ofBlockAnyMeta(GregTechAPI.sBlockTintedGlass, 0))
-        .addElement('F', ofAnyWater())
+        .addElement('F', ofChain(ofAnyWater(false), isAir()))
         .addElement('G', ofFrame(Materials.Tungsten))
         // Hatch space
         .addElement(
@@ -159,12 +150,8 @@ public class MTEPurificationPlant extends MTEExtendedPowerMultiBlockBase<MTEPuri
 
     @Override
     public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
-        int built = survivalBuildPiece(STRUCTURE_PIECE_MAIN_SURVIVAL, stackSize, 3, 6, 0, elementBudget, env, true);
-        if (built == -1) {
-            GTUtility.sendChatTrans(env.getActor(), "GT5U.chat.auto_place.done.water");
-            return 0;
-        }
-        return built;
+        if (mMachine) return -1;
+        return survivalBuildPiece(STRUCTURE_PIECE_MAIN, stackSize, 3, 6, 0, elementBudget, env, false, true);
     }
 
     @Override
@@ -322,8 +309,20 @@ public class MTEPurificationPlant extends MTEExtendedPowerMultiBlockBase<MTEPuri
 
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        needsWaterFill = false;
+
         // Check self
         if (!checkPiece(STRUCTURE_PIECE_MAIN, 3, 6, 0)) {
+            // Even if structure check failed, check if water is present at the 'F' positions
+            // so we know whether missing water is the issue
+            needsWaterFill = GTStructureUtility.hasWaterAtStructurePosition(
+                aBaseMetaTileEntity,
+                getExtendedFacing(),
+                PurificationPlantStructureString.STRUCTURE_STRING,
+                3,
+                6,
+                0,
+                'F');
             return false;
         }
 
@@ -333,7 +332,12 @@ public class MTEPurificationPlant extends MTEExtendedPowerMultiBlockBase<MTEPuri
         }
 
         // using nano forge method of detecting hatches.
-        return checkExoticAndNormalEnergyHatches();
+        if (!checkExoticAndNormalEnergyHatches()) {
+            return false;
+        }
+
+        needsWaterFill = true;
+        return true;
     }
 
     private boolean checkHatches() {
@@ -350,6 +354,20 @@ public class MTEPurificationPlant extends MTEExtendedPowerMultiBlockBase<MTEPuri
         super.onPostTick(aBaseMetaTileEntity, aTick);
 
         if (aBaseMetaTileEntity.isServerSide()) {
+            // Periodically try to fill water into the structure if needed
+            if (needsWaterFill && aTick % 20 == 0) {
+                if (GTStructureUtility.fillStructureWithWater(
+                    aBaseMetaTileEntity,
+                    getExtendedFacing(),
+                    PurificationPlantStructureString.STRUCTURE_STRING,
+                    3,
+                    6,
+                    0,
+                    'F')) {
+                    needsWaterFill = false;
+                }
+            }
+
             // Trigger structure check of linked units, but never all in the same tick, and at most once per cycle.
             for (int i = 0; i < mLinkedUnits.size(); ++i) {
                 if (aTick % CYCLE_TIME_TICKS == i) {

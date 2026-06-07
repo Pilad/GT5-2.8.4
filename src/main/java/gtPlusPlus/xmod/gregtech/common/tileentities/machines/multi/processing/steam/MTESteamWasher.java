@@ -222,7 +222,7 @@ public class MTESteamWasher extends MTESteamMultiBase<MTESteamWasher> implements
                         (t, m) -> t.tierPipeCasing = m,
                         t -> t.tierPipeCasing))
                 .addElement('D', chainAllGlasses())
-                .addElement('E', ofChain(isAir(), ofAnyWater()))
+                .addElement('E', ofChain(ofAnyWater(false), isAir()))
                 .addElement(
                     'A',
                     ofChain(

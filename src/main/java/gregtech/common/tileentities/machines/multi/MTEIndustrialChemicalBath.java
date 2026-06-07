@@ -15,11 +15,8 @@ import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofAnyWater;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.structurelib.alignment.IAlignmentLimits;
@@ -119,7 +116,7 @@ public class MTEIndustrialChemicalBath extends MTEExtendedPowerMultiBlockBase<MT
                         .casingIndex(Casings.WashPlantCasing.textureId)
                         .dot(1)
                         .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.WashPlantCasing.asElement())))
-                .addElement('F', ofChain(isAir(), ofAnyWater(false)))
+                .addElement('F', ofChain(ofAnyWater(false), isAir()))
                 .build();
         }
         return STRUCTURE_DEFINITION;
@@ -234,36 +231,16 @@ public class MTEIndustrialChemicalBath extends MTEExtendedPowerMultiBlockBase<MT
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         super.onPostTick(aBaseMetaTileEntity, aTick);
         if (aBaseMetaTileEntity.isServerSide() && needsWaterFill && aTick % 20 == 0) {
-            World world = aBaseMetaTileEntity.getWorld();
-            boolean allFilled = true;
-            int controllerX = aBaseMetaTileEntity.getXCoord();
-            int controllerY = aBaseMetaTileEntity.getYCoord();
-            int controllerZ = aBaseMetaTileEntity.getZCoord();
-
-            for (int sliceZ = 0; sliceZ < structure.length; sliceZ++) {
-                String[] layers = structure[sliceZ];
-                for (int layerY = 0; layerY < layers.length; layerY++) {
-                    String row = layers[layerY];
-                    for (int charX = 0; charX < row.length(); charX++) {
-                        if (row.charAt(charX) != 'F') continue;
-
-                        int[] abc = new int[] { charX - OFFSET_X, layerY - OFFSET_Y, sliceZ - OFFSET_Z };
-                        int[] xyz = new int[] { 0, 0, 0 };
-                        this.getExtendedFacing()
-                            .getWorldOffset(abc, xyz);
-                        int wx = controllerX + xyz[0];
-                        int wy = controllerY + xyz[1];
-                        int wz = controllerZ + xyz[2];
-                        Block block = world.getBlock(wx, wy, wz);
-                        if (GTUtility.canReplaceBlockWithWater(world, wx, wy, wz)) {
-                            world.setBlock(wx, wy, wz, Blocks.water, 0, 3);
-                        } else if (!GTUtility.isSourceWater(block, world, wx, wy, wz)) {
-                            allFilled = false;
-                        }
-                    }
-                }
+            if (GTStructureUtility.fillStructureWithWater(
+                aBaseMetaTileEntity,
+                getExtendedFacing(),
+                structure,
+                OFFSET_X,
+                OFFSET_Y,
+                OFFSET_Z,
+                'F')) {
+                needsWaterFill = false;
             }
-            if (allFilled) needsWaterFill = false;
         }
     }
 
