@@ -2815,14 +2815,15 @@ public enum ItemList implements IItemContainer {
     IntegratedOreFactory,
     CryogenicFreezer,
     IndustrialMixer,
+    MegaChemicalReactor,
     InfiniteFluidDrillingRig,
+    MegaOilCracker,
 
     CokeOvenController,
     CokeOvenCasing,
     CokeOvenHatch,
     Gravitational_Lens,
 
-    MegaChemicalReactor,
     // semicolon after the comment to reduce merge conflicts
     ;
 

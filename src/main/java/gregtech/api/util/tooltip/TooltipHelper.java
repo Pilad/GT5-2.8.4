@@ -7,6 +7,7 @@ import net.minecraft.util.EnumChatFormatting;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.util.GTUtility;
+import gregtech.api.util.NumberFormatUtil;
 
 /**
  * A list of helper methods that can be useful in creating tooltips.
@@ -161,21 +162,21 @@ public class TooltipHelper {
      * @return The given EU, formatted.
      */
     public static String euText(long eu) {
-        return EU_VOLT_COLOR + GTUtility.formatNumbers(eu) + EnumChatFormatting.GRAY;
+        return EU_VOLT_COLOR + NumberFormatUtil.formatNumber(eu) + EnumChatFormatting.GRAY;
     }
 
     /**
      * @return The given EU/t, formatted in the form "[Number] EU/t".
      */
     public static String euRateText(long eu) {
-        return EU_VOLT_COLOR + GTUtility.formatNumbers(eu) + TIER_COLOR + " EU/t" + EnumChatFormatting.GRAY;
+        return EU_VOLT_COLOR + NumberFormatUtil.formatNumber(eu) + TIER_COLOR + " EU/t" + EnumChatFormatting.GRAY;
     }
 
     /**
      * @return The given number of EU, formatted.
      */
     public static String euCapacityText(long capacity) {
-        return CAPACITY_COLOR + GTUtility.formatNumbers(capacity) + EU_AMOUNT_COLOR + " EU";
+        return CAPACITY_COLOR + NumberFormatUtil.formatNumber(capacity) + EU_AMOUNT_COLOR + " EU";
     }
 
     /**
@@ -183,15 +184,15 @@ public class TooltipHelper {
      */
     public static String voltageText(long voltage) {
         final byte tier = GTUtility.getTier(voltage);
-        return EU_VOLT_COLOR + GTUtility
-            .formatNumbers(voltage) + EnumChatFormatting.GRAY + " (" + voltageTierText(tier, false) + ")";
+        return EU_VOLT_COLOR + NumberFormatUtil
+            .formatNumber(voltage) + EnumChatFormatting.GRAY + " (" + voltageTierText(tier, false) + ")";
     }
 
     /**
      * @return The given number of amps, formatted.
      */
     public static String ampText(long amps) {
-        return AMP_COLOR + GTUtility.formatNumbers(amps) + EnumChatFormatting.GRAY;
+        return AMP_COLOR + NumberFormatUtil.formatNumber(amps) + EnumChatFormatting.GRAY;
     }
 
     /**
@@ -200,14 +201,14 @@ public class TooltipHelper {
     public static String cableLossText(long lossPerMeter) {
         return GTUtility.translate(
             "GT5U.item.cable.loss.eu_volt",
-            CABLE_LOSS_COLOR + GTUtility.formatNumbers(lossPerMeter) + EnumChatFormatting.GRAY);
+            CABLE_LOSS_COLOR + NumberFormatUtil.formatNumber(lossPerMeter) + EnumChatFormatting.GRAY);
     }
 
     /**
      * @return The given number of L, formatted.
      */
     public static String fluidText(long liters) {
-        String text = GTUtility.formatNumbers(liters) + GTUtility.translate("gt.unit.liter");
+        String text = NumberFormatUtil.formatNumber(liters) + GTUtility.translate("gt.unit.liter");
         return coloredText(text, L_COLOR);
     }
 
@@ -215,7 +216,7 @@ public class TooltipHelper {
      * @return The given number of L per sec, formatted.
      */
     public static String fluidRateText(long litersPerSecond) {
-        String text = GTUtility.formatNumbers(litersPerSecond) + GTUtility.translate("gt.unit.liter_per_second");
+        String text = NumberFormatUtil.formatNumber(litersPerSecond) + GTUtility.translate("gt.unit.liter_per_second");
         return coloredText(text, L_COLOR);
     }
 }

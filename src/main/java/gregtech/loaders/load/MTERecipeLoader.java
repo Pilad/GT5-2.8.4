@@ -1693,10 +1693,6 @@ public class MTERecipeLoader implements Runnable {
             new Object[] { "PhP", "SFS", "PwP", 'P', OrePrefixes.plate.get(Materials.StainlessSteel), 'S',
                 OrePrefixes.plate.get(Materials.Steel), 'F', OrePrefixes.frameGt.get(Materials.StainlessSteel) });
 
-        GTModHandler.addShapelessCraftingRecipe(
-            ItemList.IndustrialArcFurnace.get(1),
-            new Object[] { GregtechItemList.Industrial_Arc_Furnace.get(1) });
-
         // High Current Industrial Arc Furnace
         GTValues.RA.stdBuilder()
             .itemInputs(
@@ -2154,24 +2150,29 @@ public class MTERecipeLoader implements Runnable {
             .eut(TierEU.RECIPE_LuV)
             .addTo(assemblerRecipes);
 
-        // Mega Vaccum Freezer -> Endothermic Fridge Conversion Recipe
-        // Assembler to avoid accidental softlocks (due to tiering change)
-        GTValues.RA.stdBuilder()
-            .itemInputs((ItemRegistry.megaMachines[1]))
-            .itemOutputs(ItemList.EndothermicFridge.get(1))
-            .duration(TICKS)
-            .eut(TierEU.RECIPE_ZPM)
-            .addTo(assemblerRecipes);
-
-        // Infinite Fluid Drilling Rig Conversion Recipe
+        // Mega Vacuum Freezer -> Endothermic Fridge Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
-            ItemList.InfiniteFluidDrillingRig.get(1),
-            new Object[] { ItemList.OilDrillInfinite.get(1) });
+            ItemList.EndothermicFridge.get(1),
+            new Object[] { ItemRegistry.megaMachines[1] });
 
         // Mega Electric Blast Furnace -> Exothermic Hearth Conversion Recipe
         GTModHandler.addShapelessCraftingRecipe(
             ItemList.ExothermicHearth.get(1),
             new Object[] { ItemRegistry.megaMachines[0] });
+
+        // Mega Oil Cracker Conversion Recipe
+        GTModHandler
+            .addShapelessCraftingRecipe(ItemList.MegaOilCracker.get(1), new Object[] { ItemRegistry.megaMachines[4] });
+
+        // Industrial Arc Furnace Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.IndustrialArcFurnace.get(1),
+            new Object[] { GregtechItemList.Industrial_Arc_Furnace.get(1) });
+
+        // Infinite Fluid Drilling Rig Conversion Recipe
+        GTModHandler.addShapelessCraftingRecipe(
+            ItemList.InfiniteFluidDrillingRig.get(1),
+            new Object[] { ItemList.OilDrillInfinite.get(1) });
 
         GTModHandler.addCraftingRecipe(
             ItemList.LATEX.get(1),
