@@ -3,6 +3,7 @@ package gregtech.api.util.tooltip;
 import java.text.DecimalFormat;
 
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.VoltageIndex;
@@ -155,7 +156,7 @@ public class TooltipHelper {
         if (voltageIndex < VoltageIndex.ULV || voltageIndex > VoltageIndex.MAX) return "Invalid Voltage Tier";
         return GTValues.TIER_COLORS[voltageIndex] + GTValues.VN[voltageIndex]
             + EnumChatFormatting.GRAY
-            + (withTierSuffix ? "-tier" : "");
+            + (withTierSuffix ? StatCollector.translateToLocal("gt.voltage.tier") : "");
     }
 
     /**

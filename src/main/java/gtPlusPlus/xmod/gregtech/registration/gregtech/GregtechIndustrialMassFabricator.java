@@ -50,6 +50,24 @@ public class GregtechIndustrialMassFabricator {
             .eut(TierEU.RECIPE_LV)
             .addTo(multiblockMassFabricatorRecipes);
 
+        // Boosted UUA1
+        GTValues.RA.stdBuilder()
+            .itemInputs(GTUtility.getIntegratedCircuit(10), ItemList.IC2_Scrap.get(9L))
+            .fluidInputs(Materials.UUMatter.getFluid(1L))
+            .fluidOutputs(Materials.UUAmplifier.getFluid(10L))
+            .duration(9 * SECONDS)
+            .eut(TierEU.RECIPE_LV)
+            .addTo(multiblockMassFabricatorRecipes);
+
+        // Boosted UUA2
+        GTValues.RA.stdBuilder()
+            .itemInputs(GTUtility.getIntegratedCircuit(20), ItemList.IC2_Scrapbox.get(1L))
+            .fluidInputs(Materials.UUMatter.getFluid(1L))
+            .fluidOutputs(Materials.UUAmplifier.getFluid(10L))
+            .duration(9 * SECONDS)
+            .eut(TierEU.RECIPE_LV)
+            .addTo(multiblockMassFabricatorRecipes);
+
         // Basic UUM
         GTValues.RA.stdBuilder()
             .itemInputs(GTUtility.getIntegratedCircuit(1))

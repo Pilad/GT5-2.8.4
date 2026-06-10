@@ -91,6 +91,7 @@ gt.crop.transformium.name=Transformium
 gt.crop.trollplant.name=Trollplant
 gt.crop.withereed.name=Withereed
 gt.crop.zomplant.name=Zomplant
+gt.voltage.tier=-tier
 
 # Tooltip for Block Machines
 gt.blockmachines.cable.desc=Max Voltage: %s\nMax Amperage: %s\nLoss/Meter/Ampere: %s

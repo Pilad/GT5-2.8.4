@@ -24,6 +24,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
@@ -52,6 +53,7 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.config.MachineStats;
 import gregtech.common.pollution.PollutionConfig;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
@@ -98,18 +100,30 @@ public class MTEMassFabricator extends GTPPMultiBlockBase<MTEMassFabricator> imp
     protected MultiblockTooltipBuilder createTooltip() {
         MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
         tt.addMachineType(getMachineType())
-            .addInfo("Parallel: Scrap = 64 | UU = 8 * Tier")
+            .addInfo(
+                "Parallel: Scrap = " + TooltipHelper.parallelText(64)
+                    + " | UU = "
+                    + TooltipHelper.parallelText(8)
+                    + " per "
+                    + TooltipHelper.tierText("Voltage")
+                    + " Tier")
             .addStaticSpeedInfo(1f)
             .addStaticEuEffInfo(0.8f)
             .addInfo("Produces UU-A, UU-M & Scrap")
             .addInfo("Change mode with screwdriver")
+            .addInfo(
+                EnumChatFormatting.LIGHT_PURPLE + "+10%"
+                    + EnumChatFormatting.GRAY
+                    + " scrap chance per "
+                    + TooltipHelper.tierText("Voltage")
+                    + " Tier in recycler mode")
             .addPerfectOCInfo()
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(5, 4, 5, true)
             .addController("Front bottom center")
             .addCasingInfoMin(mCasingName3, 9, false)
             .addCasingInfoMin(mCasingName2, 24, false)
-            .addCasingInfoMin(mCasingName1, 36, false)
+            .addCasingInfoMin(mCasingName1, 35, false)
             .addInputBus("Any Casing", 1)
             .addOutputBus("Any Casing", 1)
             .addInputHatch("Any Casing", 1)
@@ -214,7 +228,7 @@ public class MTEMassFabricator extends GTPPMultiBlockBase<MTEMassFabricator> imp
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         mCasing = 0;
-        return checkPiece(mName, 2, 3, 0) && mCasing >= 36 && checkHatch();
+        return checkPiece(mName, 2, 3, 0) && mCasing >= 35 && checkHatch();
     }
 
     @Override
@@ -275,9 +289,11 @@ public class MTEMassFabricator extends GTPPMultiBlockBase<MTEMassFabricator> imp
                             GTRecipe recipe = new GTRecipe(
                                 false,
                                 new ItemStack[] { GTUtility.copyAmount(1, item) },
-                                aPotentialOutput == null ? null : new ItemStack[] { aPotentialOutput },
+                                aPotentialOutput == null ? null
+                                    : new ItemStack[] { aPotentialOutput, aPotentialOutput },
                                 null,
-                                new int[] { 2000 },
+                                new int[] { 1250 + GTUtility.getTier(getMaxInputVoltage()) * 1000,
+                                    Math.max(1250 + GTUtility.getTier(getMaxInputVoltage()) * 1000 - 10000, 0) },
                                 null,
                                 null,
                                 40,
