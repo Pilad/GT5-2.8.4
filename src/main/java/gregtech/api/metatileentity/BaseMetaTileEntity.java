@@ -4,6 +4,7 @@ import static gregtech.GTMod.GT_FML_LOGGER;
 import static gregtech.api.enums.GTValues.NW;
 import static gregtech.api.enums.GTValues.V;
 import static gregtech.api.objects.XSTR.XSTR_INSTANCE;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -723,36 +724,36 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         final ArrayList<String> tList = new ArrayList<>();
         if (aLogLevel > 2) {
             tList.add(
-                "Meta-ID: " + EnumChatFormatting.BLUE
-                    + mID
-                    + EnumChatFormatting.RESET
-                    + (canAccessData() ? EnumChatFormatting.GREEN + " valid" + EnumChatFormatting.RESET
-                        : EnumChatFormatting.RED + " invalid" + EnumChatFormatting.RESET)
+                GTUtility.translate(
+                    "GT5U.scanner.debug.meta_id",
+                    mID,
+                    canAccessData() ? GTUtility.translate("GT5U.multiblock.scanner.valid")
+                        : GTUtility.translate("GT5U.multiblock.scanner.invalid"))
                     + (mMetaTileEntity == null
                         ? EnumChatFormatting.RED + " MetaTileEntity == null!" + EnumChatFormatting.RESET
-                        : " "));
+                        : ""));
         }
         if (aLogLevel > 1 && mMetaTileEntity != null) {
             addProfilingInformation(tList);
             tList.add(
-                "Is" + (mMetaTileEntity.isAccessAllowed(aPlayer) ? " "
-                    : EnumChatFormatting.RED + " not " + EnumChatFormatting.RESET) + "accessible for you");
+                GTUtility.translate(
+                    mMetaTileEntity.isAccessAllowed(aPlayer) ? "GT5U.scanner.debug.accessible"
+                        : "GT5U.scanner.debug.not_accessible"));
             tList.add(
-                "Recorded " + GTUtility.formatNumbers(mMetaTileEntity.mSoundRequests)
-                    + " sound requests in "
-                    + GTUtility.formatNumbers(mTickTimer - mLastCheckTick)
-                    + " ticks.");
+                GTUtility.translate(
+                    "GT5U.scanner.debug.sound_requests",
+                    formatNumber(mMetaTileEntity.mSoundRequests),
+                    formatNumber(mTickTimer - mLastCheckTick)));
             mLastCheckTick = mTickTimer;
             mMetaTileEntity.mSoundRequests = 0;
         }
         if (aLogLevel > 0) {
             tList.add(
-                "Machine is " + (mActive ? EnumChatFormatting.GREEN + "active" + EnumChatFormatting.RESET
-                    : EnumChatFormatting.RED + "inactive" + EnumChatFormatting.RESET));
-            if (!mHasEnoughEnergy) tList
-                .add(EnumChatFormatting.RED + "ATTENTION: This Device needs more power." + EnumChatFormatting.RESET);
+                GTUtility
+                    .translate(mActive ? "GT5U.scanner.debug.machine_active" : "GT5U.scanner.debug.machine_inactive"));
+            if (!mHasEnoughEnergy) tList.add(GTUtility.translate("GT5U.scanner.debug.needs_power"));
         }
-        if (joinedIc2Enet) tList.add("Joined IC2 ENet");
+        if (joinedIc2Enet) tList.add(GTUtility.translate("GT5U.scanner.debug.ic2_enet"));
         return mMetaTileEntity.getSpecialDebugInfo(this, aPlayer, aLogLevel, tList);
     }
 

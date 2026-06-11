@@ -1,6 +1,7 @@
 package gregtech.api.metatileentity;
 
 import static gregtech.GTMod.GT_FML_LOGGER;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.List;
 
@@ -227,23 +228,22 @@ public abstract class CommonBaseMetaTileEntity extends CoverableTileEntity imple
             int samples = mTimeStatistics.length - amountOfZero;
             if (samples > 0) {
                 tList.add(
-                    "Average CPU load of ~" + GTUtility.formatNumbers(tAverageTime / samples)
-                        + "ns over "
-                        + GTUtility.formatNumbers(samples)
-                        + " ticks with worst time of "
-                        + GTUtility.formatNumbers(tWorstTime)
-                        + "ns.");
+                    GTUtility.translate(
+                        "GT5U.scanner.debug.tick_stats",
+                        formatNumber(tAverageTime / samples),
+                        formatNumber(samples),
+                        formatNumber(tWorstTime)));
             }
         } else {
             startTimeStatistics();
-            tList.add("Just started tick time statistics.");
+            tList.add(GTUtility.translate("GT5U.scanner.debug.tick_stats_started"));
         }
         if (mLagWarningCount > 0) {
             tList.add(
-                "Caused " + (mLagWarningCount >= 10 ? "more than 10" : mLagWarningCount)
-                    + " Lag Spike Warnings (anything taking longer than "
-                    + GregTechAPI.MILLISECOND_THRESHOLD_UNTIL_LAG_WARNING
-                    + "ms) on the Server.");
+                GTUtility.translate(
+                    mLagWarningCount >= 10 ? "GT5U.scanner.debug.lag_warnings_many" : "GT5U.scanner.debug.lag_warnings",
+                    mLagWarningCount >= 10 ? GregTechAPI.MILLISECOND_THRESHOLD_UNTIL_LAG_WARNING : mLagWarningCount,
+                    GregTechAPI.MILLISECOND_THRESHOLD_UNTIL_LAG_WARNING));
         }
     }
 
