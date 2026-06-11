@@ -17,6 +17,7 @@ import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTStructureUtility.ofAnyWater;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitBase.WATER_BOOST_BONUS_CHANCE;
 import static gregtech.common.tileentities.machines.multi.purification.MTEPurificationUnitBase.WATER_BOOST_NEEDED_FLUID;
 import static net.minecraft.util.StatCollector.translateToLocal;
@@ -88,7 +89,7 @@ public class MTEPurificationPlant extends MTEExtendedPowerMultiBlockBase<MTEPuri
      * Maximum distance in each axis between the purification plant main controller and the controller blocks of the
      * purification plant units.
      */
-    public static final int MAX_UNIT_DISTANCE = 32;
+    public static final int MAX_UNIT_DISTANCE = 64;
 
     /**
      * Time in ticks for a full processing cycle to complete.
@@ -187,13 +188,13 @@ public class MTEPurificationPlant extends MTEExtendedPowerMultiBlockBase<MTEPuri
             .addInfo("Every recipe has a base chance of success. Success rate can be boosted")
             .addInfo("by using a portion of the target output as a secondary input")
             .addInfo(
-                EnumChatFormatting.RED + GTUtility.formatNumbers(WATER_BOOST_NEEDED_FLUID * 100)
+                EnumChatFormatting.RED + formatNumber(WATER_BOOST_NEEDED_FLUID * 100)
                     + "%"
                     + EnumChatFormatting.GRAY
                     + " of output yield will be consumed in exchange for an")
             .addInfo(
                 "additive " + EnumChatFormatting.RED
-                    + GTUtility.formatNumbers(WATER_BOOST_BONUS_CHANCE * 100)
+                    + formatNumber(WATER_BOOST_BONUS_CHANCE * 100)
                     + "%"
                     + EnumChatFormatting.GRAY
                     + " increase to success")
