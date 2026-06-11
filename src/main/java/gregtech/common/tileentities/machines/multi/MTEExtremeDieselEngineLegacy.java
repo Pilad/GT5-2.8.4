@@ -40,12 +40,22 @@ public class MTEExtremeDieselEngineLegacy extends MTEDieselEngineLegacy {
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
         final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
+
+        String lubricantRate = TooltipHelper.fluidText(8000);
+        String oxygenRate = TooltipHelper.fluidRateText(40);
+        String defaultOutput = TooltipHelper.euRateText(10900);
+        String defaultEfficiency = TooltipHelper.effText(1.0f);
+        String boostedOutput = TooltipHelper.euRateText(32700);
+        String boostedEfficiency = TooltipHelper.effText(1.5f);
+        String waitPower = TooltipHelper.effText(3.0f);
+
         tt.addMachineType("Combustion Generator, ECE")
-            .addInfo("Supply high rating fuel and 8000L of Lubricant per hour to run")
-            .addInfo("Supply 40L/s of Liquid Oxygen to boost output (optional)")
-            .addInfo("Default: Produces 10900EU/t at 100% fuel efficiency")
-            .addInfo("Boosted: Produces 32700EU/t at 150% fuel efficiency")
-            .addInfo("You need to wait for it to reach 300% to output full power")
+            .addInfo(GTUtility.translate("gt.multiblock.DieselEngine.desc1_1", lubricantRate))
+            .addInfo(GTUtility.translate("gt.multiblock.DieselEngine.desc2_1", oxygenRate))
+            .addInfo(GTUtility.translate("gt.multiblock.DieselEngine.default_output", defaultOutput, defaultEfficiency))
+            .addInfo(GTUtility.translate("gt.multiblock.DieselEngine.boosted_output", boostedOutput, boostedEfficiency))
+            .addInfo(GTUtility.translate("gt.multiblock.DieselEngine.wait_power", waitPower))
+            .addInfo(GTUtility.translate("gt.multiblock.DieselEngine.intake_warning2"))
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(3, 3, 4, false)
             .addController("Front center")

@@ -109,7 +109,7 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
                         }
                     }
                     aList.add(
-                        translate(
+                        translateToLocalFormatted(
                             "gt.tileentity.eup_store",
                             TooltipHelper.euCapacityText(gtTileEntity.getEUCapacity())));
                 }
