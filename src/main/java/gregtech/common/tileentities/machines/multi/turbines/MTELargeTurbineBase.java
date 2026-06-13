@@ -5,6 +5,7 @@ import static gregtech.api.enums.HatchElement.*;
 import static gregtech.api.enums.Textures.BlockIcons.*;
 import static gregtech.api.util.GTStructureUtility.*;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -390,11 +391,7 @@ public abstract class MTELargeTurbineBase extends MTEExtendedPowerMultiBlockBase
         }
 
         return new String[] {
-            tRunning + ": "
-                + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(lEUt)
-                + EnumChatFormatting.RESET
-                + " EU/t",
+            tRunning + ": " + EnumChatFormatting.RED + formatNumber(lEUt) + EnumChatFormatting.RESET + " EU/t",
             tMaintainance,
             StatCollector.translateToLocal("GT5U.turbine.efficiency") + ": "
                 + EnumChatFormatting.YELLOW
@@ -403,16 +400,16 @@ public abstract class MTELargeTurbineBase extends MTEExtendedPowerMultiBlockBase
                 + "%",
             StatCollector.translateToLocal("GT5U.multiblock.energy") + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(storedEnergy)
+                + formatNumber(storedEnergy)
                 + EnumChatFormatting.RESET
                 + " EU / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(maxEnergy)
+                + formatNumber(maxEnergy)
                 + EnumChatFormatting.RESET
                 + " EU",
             StatCollector.translateToLocal("GT5U.turbine.flow") + ": "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(GTUtility.safeInt((long) realOptFlow))
+                + formatNumber(GTUtility.safeInt((long) realOptFlow))
                 + EnumChatFormatting.RESET
                 + " L/"
                 + (this.mMaxProgresstime == 1 ? 't' : 's')
@@ -423,7 +420,7 @@ public abstract class MTELargeTurbineBase extends MTEExtendedPowerMultiBlockBase
                 + ")",
             StatCollector.translateToLocal("GT5U.turbine.fuel") + ": "
                 + EnumChatFormatting.GOLD
-                + GTUtility.formatNumbers(storedFluid)
+                + formatNumber(storedFluid)
                 + EnumChatFormatting.RESET
                 + "L",
             StatCollector.translateToLocal(
