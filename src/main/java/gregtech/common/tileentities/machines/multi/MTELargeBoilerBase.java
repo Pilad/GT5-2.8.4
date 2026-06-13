@@ -122,7 +122,7 @@ public abstract class MTELargeBoilerBase extends MTEExtendedPowerMultiBlockBase<
                     "   C ",
                     " CCC ",
                     "CC~CC",
-                    "CFFFC"
+                    "FFFFF"
                 }, {
                     "  CCC",
                     "  C C",
@@ -136,32 +136,26 @@ public abstract class MTELargeBoilerBase extends MTEExtendedPowerMultiBlockBase<
                     "   C ",
                     " CCC ",
                     "CCCCC",
-                    "CFFFC"
+                    "FFFFF"
                 }})
             //spotless:on
-            .addElement(
-                'P',
-                buildHatchAdder(MTELargeBoilerBase.class).atLeast(InputHatch, InputBus, OutputHatch)
-                    .casingIndex(pipeCasing.getTextureId())
-                    .dot(1)
-                    .buildAndChain(
-                        onElementPass(
-                            MTELargeBoilerBase::onCasingAdded,
-                            ofBlock(pipeCasing.getBlock(), pipeCasing.getBlockMeta()))))
+            .addElement('P', ofBlock(pipeCasing.getBlock(), pipeCasing.getBlockMeta()))
             .addElement(
                 'C',
-                buildHatchAdder(MTELargeBoilerBase.class).atLeast(Maintenance, InputBus, Muffler)
+                buildHatchAdder(MTELargeBoilerBase.class)
+                    .atLeast(InputHatch, InputBus, OutputHatch, Maintenance, Muffler)
                     .casingIndex(casing.getTextureId())
-                    .dot(2)
+                    .dot(1)
                     .buildAndChain(
                         onElementPass(
                             MTELargeBoilerBase::onCasingAdded,
                             ofBlock(casing.getBlock(), casing.getBlockMeta()))))
             .addElement(
                 'F',
-                buildHatchAdder(MTELargeBoilerBase.class).atLeast(Maintenance, InputBus, Muffler)
+                buildHatchAdder(MTELargeBoilerBase.class)
+                    .atLeast(InputHatch, InputBus, OutputHatch, Maintenance, Muffler)
                     .casingIndex(fireboxCasing.getTextureId())
-                    .dot(2)
+                    .dot(1)
                     .buildAndChain(
                         onElementPass(
                             MTELargeBoilerBase::onFireboxAdded,
@@ -227,8 +221,8 @@ public abstract class MTELargeBoilerBase extends MTEExtendedPowerMultiBlockBase<
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(5, 6, 3, false)
             .addController("Front center, 2nd layer")
-            .addCasingInfoMin(getCasingMaterial() + " " + getCasingBlockType() + " Casing", 24, false)
-            .addOtherStructurePart(getCasingMaterial() + " Firebox Casing", "Bottom layer, 3 minimum")
+            .addCasingInfoMin(getCasingMaterial() + " " + getCasingBlockType() + " Casing", 20, false)
+            .addOtherStructurePart(getCasingMaterial() + " Firebox Casing", "Bottom layer, 5 minimum")
             .addOtherStructurePart(getCasingMaterial() + " Pipe Casing Block", "Inner 3 blocks")
             .addMaintenanceHatch("Any Firebox Casing", 1)
             .addMufflerHatch("Any Firebox Casing", 1)
@@ -501,8 +495,8 @@ public abstract class MTELargeBoilerBase extends MTEExtendedPowerMultiBlockBase<
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         casingAmount = 0;
         fireboxAmount = 0;
-        return checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z) && casingAmount >= 24
-            && fireboxAmount >= 3
+        return checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z) && casingAmount >= 20
+            && fireboxAmount >= 5
             && !mMufflerHatches.isEmpty();
     }
 
