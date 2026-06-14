@@ -1,6 +1,7 @@
 package gregtech.api.metatileentity.implementations;
 
 import static gregtech.api.enums.Mods.GalacticraftCore;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -306,6 +307,7 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable {
 
         aBaseMetaTileEntity.markDirty();
         aBaseMetaTileEntity.issueBlockUpdate();
+        aBaseMetaTileEntity.issueTileUpdate();
 
         // 7) Reconnect the *new* cable to the old sides (modified for both cables and machines)
         if (newCable.getBaseMetaTileEntity() != null) {
@@ -749,18 +751,18 @@ public class MTECable extends MetaPipeEntity implements IMetaTileEntityCable {
         return new String[] {
             StatCollector.translateToLocalFormatted(
                 "GT5U.infodata.cable.amperage",
-                EnumChatFormatting.GREEN + GTUtility.formatNumbers(currAmp) + EnumChatFormatting.RESET,
-                EnumChatFormatting.YELLOW + GTUtility.formatNumbers(mAmperage) + EnumChatFormatting.RESET),
+                EnumChatFormatting.GREEN + formatNumber(currAmp) + EnumChatFormatting.RESET,
+                EnumChatFormatting.YELLOW + formatNumber(mAmperage) + EnumChatFormatting.RESET),
             StatCollector.translateToLocalFormatted(
                 "GT5U.infodata.cable.voltage_out",
-                EnumChatFormatting.GREEN + GTUtility.formatNumbers(currVoltage) + EnumChatFormatting.RESET,
-                EnumChatFormatting.YELLOW + GTUtility.formatNumbers(maxVoltageOut) + EnumChatFormatting.RESET),
+                EnumChatFormatting.GREEN + formatNumber(currVoltage) + EnumChatFormatting.RESET,
+                EnumChatFormatting.YELLOW + formatNumber(maxVoltageOut) + EnumChatFormatting.RESET),
             StatCollector.translateToLocalFormatted(
                 "GT5U.infodata.cable.avg_amperage",
-                EnumChatFormatting.YELLOW + GTUtility.formatNumbers(avgAmp) + EnumChatFormatting.RESET),
+                EnumChatFormatting.YELLOW + formatNumber(avgAmp) + EnumChatFormatting.RESET),
             StatCollector.translateToLocalFormatted(
                 "GT5U.infodata.cable.avg_output",
-                EnumChatFormatting.YELLOW + GTUtility.formatNumbers(avgVoltage) + EnumChatFormatting.RESET) };
+                EnumChatFormatting.YELLOW + formatNumber(avgVoltage) + EnumChatFormatting.RESET) };
     }
 
     @Override
