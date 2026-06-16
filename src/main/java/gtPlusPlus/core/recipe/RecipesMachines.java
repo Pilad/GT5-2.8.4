@@ -43,6 +43,7 @@ import gregtech.api.enums.Mods;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
 import gregtech.api.enums.ToolDictNames;
+import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
@@ -1904,7 +1905,7 @@ public class RecipesMachines {
                 ItemUtils.getItemStackOfAmountFromOreDict("pipeTinySteel", 1),
                 ItemList.MV_Coil.get(1),
                 ItemList.IC2_Plantball.get(4),
-                GTOreDictUnificator.get(OrePrefixes.plank, Materials.Wood, 8))
+                new OreDictItemStack("plankWood", 8))
             .itemOutputs(RECIPE_TreeFarmFrame)
             .fluidInputs(GTModHandler.getDistilledWater(2_000))
             .duration(10 * SECONDS)
