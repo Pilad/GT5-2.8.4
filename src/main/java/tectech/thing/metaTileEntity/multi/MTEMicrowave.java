@@ -258,7 +258,7 @@ public class MTEMicrowave extends TTMultiblockBase implements ISurvivalConstruct
             .addOtherStructurePart(
                 translateToLocal("tt.keyword.Structure.DataConnector"),
                 translateToLocal("tt.keyword.Structure.AnyOuterCasingOnBottom"),
-                2) // Output Bus: Any outer casing on the bottom layer
+                1) // Output Bus: Any outer casing on the bottom layer
             .addEnergyHatch(translateToLocal("tt.keyword.Structure.AnyOuterCasingOnBottom"), 1) // Energy Hatch: Any
                                                                                                 // outer casing on
                                                                                                 // the bottom layer
