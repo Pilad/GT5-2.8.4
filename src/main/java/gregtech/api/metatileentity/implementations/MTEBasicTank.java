@@ -1,5 +1,7 @@
 package gregtech.api.metatileentity.implementations;
 
+import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -333,6 +335,31 @@ public abstract class MTEBasicTank extends MTETieredMachineBlock implements IAdd
             })
             .addTooltip(StatCollector.translateToLocal("GT5U.machines.muffled"))
             .setPos(getGUIWidth() - 16, 4)
+            .setSize(12, 12);
+    }
+
+    protected Widget createPowerSwitchButton() {
+        return new ButtonWidget().setOnClick((clickData, widget) -> {
+            if (getBaseMetaTileEntity().isClientSide()) return;
+            if (getBaseMetaTileEntity().isAllowedToWork()) {
+                getBaseMetaTileEntity().disableWorking();
+            } else {
+                getBaseMetaTileEntity().enableWorking();
+            }
+        })
+            .setPlayClickSound(true)
+            .setBackground(() -> {
+                List<UITexture> ret = new ArrayList<>();
+                if (getBaseMetaTileEntity().isAllowedToWork()) {
+                    ret.add(GTUITextures.OVERLAY_BUTTON_POWER_SWITCH_ON);
+                } else {
+                    ret.add(GTUITextures.OVERLAY_BUTTON_POWER_SWITCH_OFF);
+                }
+                return ret.toArray(new IDrawable[0]);
+            })
+            .addTooltip(StatCollector.translateToLocal("GT5U.gui.button.power_switch"))
+            .setTooltipShowUpDelay(TOOLTIP_DELAY)
+            .setPos(getGUIWidth() - 16, 18)
             .setSize(12, 12);
     }
 
