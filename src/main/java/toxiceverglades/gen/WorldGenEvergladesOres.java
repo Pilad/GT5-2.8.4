@@ -73,8 +73,8 @@ public class WorldGenEvergladesOres {
 
     public static WorldGenEvergladesOreLayer Vein5 = new WorldGenEvergladesOreLayer(
         "vein5",
-        30,
-        128,
+        15,
+        58,
         20,
         2,
         48,
@@ -95,8 +95,8 @@ public class WorldGenEvergladesOres {
         MaterialsOres.IRARSITE);
     public static WorldGenEvergladesOreLayer Vein7 = new WorldGenEvergladesOreLayer(
         "vein7",
-        40,
-        128,
+        20,
+        58,
         20,
         2,
         48,
@@ -140,8 +140,8 @@ public class WorldGenEvergladesOres {
         MaterialsOres.RADIOBARITE);
     public static WorldGenEvergladesOreLayer Vein11 = new WorldGenEvergladesOreLayer(
         "vein11",
-        30,
-        70,
+        18,
+        58,
         20,
         1,
         48,
@@ -151,8 +151,8 @@ public class WorldGenEvergladesOres {
         MaterialsOres.CRYOLITE);
     public static WorldGenEvergladesOreLayer Vein12 = new WorldGenEvergladesOreLayer(
         "vein12",
-        40,
-        80,
+        22,
+        58,
         20,
         3,
         32,
