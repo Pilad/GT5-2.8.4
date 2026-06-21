@@ -104,6 +104,17 @@ public class RecipeGenFluids extends RecipeGenBase {
 
             }
 
+            // Small Gear
+            if (material.getGearSmall(1) != null) {
+                GTValues.RA.stdBuilder()
+                    .itemInputs(ItemList.Shape_Mold_Gear_Small.get(0))
+                    .itemOutputs(material.getGearSmall(1))
+                    .fluidInputs(material.getFluidStack(144))
+                    .duration(3 * SECONDS)
+                    .eut(material.vVoltageMultiplier)
+                    .addTo(fluidSolidifierRecipes);
+            }
+
             // Blocks
             if (material.getBlock(1) != null) {
                 GTValues.RA.stdBuilder()
