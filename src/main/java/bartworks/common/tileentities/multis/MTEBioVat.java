@@ -201,8 +201,7 @@ public class MTEBioVat extends MTEEnhancedMultiBlockBase<MTEBioVat> implements I
             .addCasingInfoMin("Clean Stainless Steel Casing", 19, false)
             .addOtherStructurePart(
                 StatCollector.translateToLocal("tooltip.bw.structure.glass"),
-                "Hollow two middle layers",
-                2)
+                "Hollow two middle layers")
             .addCasingInfoExactly("Any Tiered Glass", 32, true)
             .addStructureInfo("Some Recipes need more advanced Glass Types")
             .addMaintenanceHatch("Any Casing", 1)

@@ -105,12 +105,13 @@ public class MTESolarTower extends GTPPMultiBlockBase<MTESolarTower> implements 
             .beginVariableStructureBlock(15, 31, 28, 28, 15, 31, false)
             .addController("Top center")
             .addCasingInfoMin("Structural Solar Casing", 229, false)
+            .addCasingInfoRange("Solar Reflector", 36, 340, false)
             .addCasingInfoMin("Thermally Insulated Casing", 60, false)
             .addCasingInfoMin("Salt Containment Casing", 66, false)
             .addCasingInfoMin("Thermal Containment Casing", 60, false)
-            .addInputHatch("Any 2 dot hint(min 1)", 2)
-            .addOutputHatch("Any 2 dot hint(min 1)", 2)
-            .addMaintenanceHatch("Any 2 dot hint", 2)
+            .addInputHatch("Hint block with dot 2 (Min 1)", 2)
+            .addOutputHatch("Hint block with dot 2 (Min 1)", 2)
+            .addMaintenanceHatch("Hint block with dot 2", 2)
             .toolTipFinisher();
         return tt;
     }
