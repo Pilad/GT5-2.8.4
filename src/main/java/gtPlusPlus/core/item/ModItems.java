@@ -1117,6 +1117,10 @@ public final class ModItems {
         // Gear
         MaterialUtils.generateComponentAndAssignToAMaterial(ComponentTypes.GEAR, MaterialsElements.STANDALONE.RHUGNOR);
 
+        // Small Gear
+        MaterialUtils
+            .generateComponentAndAssignToAMaterial(ComponentTypes.SMALLGEAR, MaterialsElements.STANDALONE.HYPOGEN);
+
         // Special Sillyness
 
         if (ItemUtils.getItemStackOfAmountFromOreDictNoBroken("plateSodium", 1) == null) {
