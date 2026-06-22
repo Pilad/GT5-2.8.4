@@ -352,8 +352,8 @@ public class MTENanoForge extends MTEExtendedPowerMultiBlockBase<MTENanoForge>
         .addElement('Q', ofBlock(GregTechAPI.sBlockCasings13, 9))
         .addElement(
             'V',
-            buildHatchAdder(MTENanoForge.class).atLeast(
-                ImmutableMap.of(InputHatch, 1, OutputBus, 1, InputBus, 1, Maintenance, 0, Energy.or(ExoticEnergy), 1))
+            buildHatchAdder(MTENanoForge.class)
+                .atLeast(ImmutableMap.of(InputHatch, 1, OutputBus, 1, InputBus, 1, Energy.or(ExoticEnergy), 1))
                 .dot(1)
                 .casingIndex(((BlockCasings13) GregTechAPI.sBlockCasings13).getTextureIndex(6))
                 .buildAndChain(onElementPass(MTENanoForge::onCasingAdded, ofBlock(GregTechAPI.sBlockCasings13, 6))))
@@ -648,7 +648,7 @@ public class MTENanoForge extends MTEExtendedPowerMultiBlockBase<MTENanoForge>
             }
         } else if (aStack != null && aStack.isItemEqual(MaterialsUEVplus.Eternity.getNanite(1))) {
             casingAmount = 0;
-            if (checkPiece(STRUCTURE_PIECE_TIER4_BASE, 20, 33, 0) && casingAmount >= 2784) {
+            if (checkPiece(STRUCTURE_PIECE_TIER4_BASE, 20, 33, 0) && casingAmount >= 2780) {
                 if (renderActive) {
                     if (checkPiece(STRUCTURE_PIECE_TIER4_AIR_RENDER, 20, 50, 0)) {
                         mSpecialTier = 4;
