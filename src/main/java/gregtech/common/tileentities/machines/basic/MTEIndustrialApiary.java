@@ -21,6 +21,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_INDUSTRIAL_APIA
 import static gregtech.api.metatileentity.BaseTileEntity.STALLED_STUTTERING_TOOLTIP;
 import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 import static gregtech.api.util.GTUtility.moveMultipleItemStacks;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -1238,17 +1239,10 @@ public class MTEIndustrialApiary extends MTEBasicMachine
                 .setTextureGetter(
                     i -> i == 0 ? GTUITextures.OVERLAY_BUTTON_POWER_SWITCH_OFF
                         : GTUITextures.OVERLAY_BUTTON_POWER_SWITCH_ON)
+                .setVariableBackgroundGetter(
+                    i -> i == 0 ? new IDrawable[] { GTUITextures.BUTTON_STANDARD }
+                        : new IDrawable[] { GTUITextures.BUTTON_STANDARD_PRESSED })
                 .setGTTooltip(() -> mTooltipCache.getData("GT5U.gui.button.power_switch"))
-                .setBackground(() -> {
-                    if (this.getBaseMetaTileEntity()
-                        .isAllowedToWork()) {
-                        return new IDrawable[] { GTUITextures.BUTTON_STANDARD_PRESSED,
-                            GTUITextures.OVERLAY_BUTTON_POWER_SWITCH_ON };
-                    } else {
-                        return new IDrawable[] { GTUITextures.BUTTON_STANDARD,
-                            GTUITextures.OVERLAY_BUTTON_POWER_SWITCH_OFF };
-                    }
-                })
                 .setTooltipShowUpDelay(TOOLTIP_DELAY)
                 .setPos(7, 8)
                 .setSize(18, 18))
@@ -1259,6 +1253,7 @@ public class MTEIndustrialApiary extends MTEBasicMachine
                     .setTooltipShowUpDelay(TOOLTIP_DELAY)
                     .setPos(7, 26)
                     .setSize(18, 18))
+
             .widget(
                 new CycleButtonWidget().setToggle(() -> mAutoQueen, x -> mAutoQueen = x)
                     .setTextureGetter(
@@ -1271,7 +1266,7 @@ public class MTEIndustrialApiary extends MTEBasicMachine
             .widget(
                 new DrawableWidget().setDrawable(GTUITextures.PICTURE_INFORMATION)
                     .setGTTooltip(() -> {
-                        final String energyreq = GTUtility.formatNumbers(
+                        final String energyreq = formatNumber(
                             (int) ((float) MTEIndustrialApiary.baseEUtUsage * getEnergyModifier() * getAcceleration())
                                 + getAdditionalEnergyUsage());
                         // The localization in Forestry is written like this.
@@ -1333,7 +1328,7 @@ public class MTEIndustrialApiary extends MTEBasicMachine
                     () -> mTooltipCache.getUncachedTooltipData(
                         mLockedSpeed ? SPEED_LOCKED_TOOLTIP : SPEED_TOOLTIP,
                         getAcceleration(),
-                        GTUtility.formatNumbers(getAdditionalEnergyUsage())))
+                        formatNumber(getAdditionalEnergyUsage())))
                 .attachSyncer(
                     new FakeSyncWidget.IntegerSyncer(() -> mSpeed, val -> mSpeed = val),
                     builder,
