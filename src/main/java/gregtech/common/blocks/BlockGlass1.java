@@ -4,9 +4,12 @@ import static com.gtnewhorizon.gtnhlib.util.AnimatedTooltipHandler.translatedTex
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -34,6 +37,9 @@ public class BlockGlass1 extends BlockCasingsAbstract {
         register(4, ItemList.Hawking_Glass, translatedText("gt.casing.hawking-focus"));
         register(5, ItemList.NaniteShieldingGlass);
 
+        register(10, ItemList.ReinforcedGlass);
+        ItemList.ReinforcedGlass.registerOre("glassReinforced");
+        ItemList.ReinforcedGlass.set(new ItemStack(this.setResistance(108.0f), 1, 10));
     }
 
     @Override
@@ -73,6 +79,8 @@ public class BlockGlass1 extends BlockCasingsAbstract {
             case 3 -> Textures.BlockIcons.GLASS_QUARK_CONTAINMENT.getIcon();
             case 4 -> Textures.BlockIcons.HAWKING_GLASS.getIcon();
             case 5 -> Textures.BlockIcons.NANITE_SHIELDING_FRAME.getIcon();
+            case 10 -> Textures.BlockIcons.REINFORCED_GLASS.getIcon();
+
             default -> Textures.BlockIcons.MACHINE_CASING_ROBUST_TUNGSTENSTEEL.getIcon();
         };
     }
@@ -98,5 +106,18 @@ public class BlockGlass1 extends BlockCasingsAbstract {
         }
 
         return super.shouldSideBeRendered(worldIn, x, y, z, side);
+    }
+
+    @Override
+    public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX,
+        double explosionY, double explosionZ) {
+        if (world == null) {
+            return 0.0F;
+        }
+        int meta = world.getBlockMetadata(x, y, z);
+        return switch (meta) {
+            case 10 -> 108.0F;
+            default -> super.getExplosionResistance(entity, world, x, y, z, explosionX, explosionY, explosionZ);
+        };
     }
 }

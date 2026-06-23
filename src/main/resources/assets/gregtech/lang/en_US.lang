@@ -124,6 +124,7 @@ gt.blockcasings10.name=Machine Casing
 gt.blockcasings11.name=Machine Casing
 gt.blockcasingsNH.name=Machine Casing
 gt.blockconcretes.name=Concrete
+gt.blockpad=Pad
 gt.blockframes.name=Frame
 gt.blockgem1.name=Block
 gt.blockgem2.name=Block
@@ -2315,6 +2316,9 @@ gt.sawblade.tooltip.base=Used in Industrial Cutting Factory\nAllows a %sCutting 
 gt.sawblade.tooltip.hatch_tier_limit=Energy Hatches up to %s%s
 gt.sawblade.tooltip.hatch_tier_unlimited=Energy Hatches of any tier
 gt.sawblade.tooltip.exotic=%s%sCan Use Multi-Amp Hatches\n%sLimit to one energy hatch if using Multi-Amp
+# Pads
+gt.blockpad.0.name=Bounce Pad
+gt.blockpad.1.name=Sticky Pad
 gt.item.t1sawblade.name=Tungsten Titanium Carbide Sawblade
 gt.item.t2sawblade.name=Mysterious Crystal Sawblade
 gt.item.t3sawblade.name=Neutronium Sawblade
@@ -4649,6 +4653,7 @@ gt.blockglass1.5.name=Nanite Shielding Glass
 gt.blockglass1.6.name=Chamber Grate
 gt.blockglass1.7.name=Exo-Foundry Containment Glass
 gt.blockglass1.8.name=Nanochip Complex Glass
+gt.blockglass1.10.name=Reinforced Glass
 gt.blocktintedglass.0.name=Tinted Industrial Glass (White)
 gt.blocktintedglass.1.name=Tinted Industrial Glass (Light Gray)
 gt.blocktintedglass.2.name=Tinted Industrial Glass (Gray)
@@ -4704,6 +4709,7 @@ gt.blockreinforced.9.name=Titanium Reinforced Block
 gt.blockreinforced.10.name=Naquadah Reinforced Block
 gt.blockreinforced.11.name=Neutronium Reinforced Block
 gt.blockreinforced.12.name=Raw Deep Dark Portal Block
+gt.blockreinforced.13.name=Reinforced Block
 
 # BlockStones
 gt.blockstones.0.name=Marble
@@ -4722,6 +4728,9 @@ gt.blockstones.12.name=Cracked Basalt Bricks
 gt.blockstones.13.name=Mossy Basalt Bricks
 gt.blockstones.14.name=Chiseled Basalt
 gt.blockstones.15.name=Smooth Basalt
+
+#Fences
+gt.blockfencemetal.0.name=Iron Fence
 gt.tile.data_server.name=GT-Data Server
 gt.item.gravitational_lens.name=Gravitational Lens
 gt.item.gravitational_lens.tooltip=Portable gravitational well

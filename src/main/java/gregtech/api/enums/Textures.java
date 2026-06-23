@@ -72,6 +72,8 @@ public class Textures {
 
         HIDDEN_FACE,
 
+        REINFORCED_GLASS,
+
         MACHINE_CASING_TANK_1,
         MACHINE_CASING_TANK_2,
         MACHINE_CASING_TANK_3,
@@ -612,6 +614,15 @@ public class Textures {
         BLOCK_PLASCRETE,
         BLOCK_TSREIN,
         BLOCK_POWDER,
+        BLOCK_REINFORCED_CONCRETE,
+
+        // IC2 Replacements
+        BLOCK_BOUNCE_PAD_SIDE,
+        BLOCK_BOUNCE_PAD_TOP,
+        BLOCK_STICKY_PAD_TOP,
+        BLOCK_STICKY_PAD_SIDE,
+        BLOCK_STICKY_PAD_BOTTOM,
+        BLOCK_IRON_FENCE,
 
         OVERLAY_LOCKER,
         OVERLAY_LOCKER_000,
