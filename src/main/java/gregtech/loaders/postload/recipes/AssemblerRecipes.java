@@ -8,7 +8,6 @@ import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.enums.Mods.GalacticraftCore;
 import static gregtech.api.enums.Mods.GalacticraftMars;
 import static gregtech.api.enums.Mods.IC2NuclearControl;
-import static gregtech.api.enums.Mods.IndustrialCraft2;
 import static gregtech.api.enums.Mods.IronChests;
 import static gregtech.api.enums.Mods.IronTanks;
 import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
@@ -2429,7 +2428,7 @@ public class AssemblerRecipes implements Runnable {
             .itemInputs(
                 GTOreDictUnificator.get(OrePrefixes.stick, Materials.Iron, 1),
                 GTUtility.getIntegratedCircuit(1))
-            .itemOutputs(GTModHandler.getIC2Item("ironFence", 1))
+            .itemOutputs(ItemList.FenceIron.get(1L))
             .duration(5 * SECONDS)
             .eut(4)
             .addTo(assemblerRecipes);
@@ -2456,7 +2455,7 @@ public class AssemblerRecipes implements Runnable {
             .itemInputs(
                 GTOreDictUnificator.get(OrePrefixes.stick, Materials.WroughtIron, 1),
                 GTUtility.getIntegratedCircuit(1))
-            .itemOutputs(GTModHandler.getIC2Item("ironFence", 1))
+            .itemOutputs(ItemList.FenceIron.get(1L))
             .duration(5 * SECONDS)
             .eut(4)
             .addTo(assemblerRecipes);
@@ -3400,7 +3399,7 @@ public class AssemblerRecipes implements Runnable {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
-                GTModHandler.getModItem(IndustrialCraft2.ID, "blockAlloyGlass", 3L),
+                ItemList.ReinforcedGlass.get(3L),
                 GTOreDictUnificator.get(OrePrefixes.plateTriple, Materials.Silver, 1),
                 GTOreDictUnificator.get(OrePrefixes.plate, Materials.WroughtIron, 2),
                 GTOreDictUnificator.get(OrePrefixes.pipeSmall, Materials.Steel, 1),
@@ -3412,9 +3411,9 @@ public class AssemblerRecipes implements Runnable {
 
         GTOreDictUnificator.addItemDataFromInputs(
             ItemList.Machine_HP_Solar.get(1L),
-            GTModHandler.getModItem(IndustrialCraft2.ID, "blockAlloyGlass", 1L),
-            GTModHandler.getModItem(IndustrialCraft2.ID, "blockAlloyGlass", 1L),
-            GTModHandler.getModItem(IndustrialCraft2.ID, "blockAlloyGlass", 1L),
+            ItemList.ReinforcedGlass.get(1L),
+            ItemList.ReinforcedGlass.get(1L),
+            ItemList.ReinforcedGlass.get(1L),
             GTOreDictUnificator.get(OrePrefixes.plateTriple, Materials.Silver, 1),
             GTOreDictUnificator.get(OrePrefixes.plate, Materials.WroughtIron, 1),
             GTOreDictUnificator.get(OrePrefixes.plate, Materials.WroughtIron, 1),

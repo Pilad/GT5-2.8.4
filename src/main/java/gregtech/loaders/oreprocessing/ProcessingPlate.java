@@ -200,7 +200,7 @@ public class ProcessingPlate implements gregtech.api.interfaces.IOreRecipeRegist
                 .itemOutputs(GTUtility.copyAmount(1, aStack))
                 .fluidInputs(Materials.Glue.getFluid(10L))
                 .duration(3 * SECONDS + 4 * TICKS)
-                .eut(8)
+                .eut(TierEU.RECIPE_ULV)
                 .addTo(assemblerRecipes);
         }
 
@@ -250,7 +250,7 @@ public class ProcessingPlate implements gregtech.api.interfaces.IOreRecipeRegist
                 .itemOutputs(GTUtility.copyAmount(1, aStack))
                 .fluidInputs(Materials.Glue.getFluid(20L))
                 .duration(4 * SECONDS + 16 * TICKS)
-                .eut(8)
+                .eut(TierEU.RECIPE_ULV)
                 .addTo(assemblerRecipes);
         }
 
@@ -303,7 +303,7 @@ public class ProcessingPlate implements gregtech.api.interfaces.IOreRecipeRegist
                 .itemOutputs(GTUtility.copyAmount(1, aStack))
                 .fluidInputs(Materials.Glue.getFluid(30L))
                 .duration(6 * SECONDS + 8 * TICKS)
-                .eut(8)
+                .eut(TierEU.RECIPE_ULV)
                 .addTo(assemblerRecipes);
         }
         if (!aNoSmashing) {
@@ -495,18 +495,18 @@ public class ProcessingPlate implements gregtech.api.interfaces.IOreRecipeRegist
                     .itemInputs(GTModHandler.getIC2Item("generator", 1L), GTUtility.copyAmount(4, aStack))
                     .itemOutputs(GTModHandler.getIC2Item("windMill", 1L))
                     .duration(5 * MINUTES + 20 * SECONDS)
-                    .eut(8)
+                    .eut(TierEU.RECIPE_ULV)
                     .addTo(assemblerRecipes);
 
                 GTValues.RA.stdBuilder()
                     .itemInputs(GTUtility.copyAmount(1, aStack), new ItemStack(Blocks.glass, 3, WILDCARD))
-                    .itemOutputs(GTModHandler.getIC2Item("reinforcedGlass", 4L))
+                    .itemOutputs(ItemList.ReinforcedGlass.get(4L))
                     .duration(20 * SECONDS)
                     .eut(4)
                     .addTo(alloySmelterRecipes);
                 GTValues.RA.stdBuilder()
                     .itemInputs(GTUtility.copyAmount(1, aStack), Materials.Glass.getDust(3))
-                    .itemOutputs(GTModHandler.getIC2Item("reinforcedGlass", 4L))
+                    .itemOutputs(ItemList.ReinforcedGlass.get(4L))
                     .duration(20 * SECONDS)
                     .eut(4)
                     .addTo(alloySmelterRecipes);
@@ -514,13 +514,13 @@ public class ProcessingPlate implements gregtech.api.interfaces.IOreRecipeRegist
             case "plateAlloyAdvanced" -> {
                 RA.stdBuilder()
                     .itemInputs(GTUtility.copyAmount(1, aStack), new ItemStack(Blocks.glass, 3, WILDCARD))
-                    .itemOutputs(GTModHandler.getIC2Item("reinforcedGlass", 4L))
+                    .itemOutputs(ItemList.ReinforcedGlass.get(4L))
                     .duration(20 * SECONDS)
                     .eut(4)
                     .addTo(alloySmelterRecipes);
                 RA.stdBuilder()
                     .itemInputs(GTUtility.copyAmount(1, aStack), Materials.Glass.getDust(3))
-                    .itemOutputs(GTModHandler.getIC2Item("reinforcedGlass", 4L))
+                    .itemOutputs(ItemList.ReinforcedGlass.get(4L))
                     .duration(20 * SECONDS)
                     .eut(4)
                     .addTo(alloySmelterRecipes);
