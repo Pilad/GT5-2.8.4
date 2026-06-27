@@ -14,12 +14,18 @@ import static gregtech.api.enums.Textures.BlockIcons.TURBINE_NEW;
 import static gregtech.api.enums.Textures.BlockIcons.TURBINE_NEW_ACTIVE;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
@@ -40,13 +46,17 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.GTUtilityClient;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.pollution.PollutionConfig;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
 import gtPlusPlus.core.material.MaterialsAlloy;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
 
 public class MTEIndustrialCentrifuge extends MTEExtendedPowerMultiBlockBase<MTEIndustrialCentrifuge>
     implements ISurvivalConstructable {
 
+    private static final String MOMENTUM_NBT = "momentum";
     private static IStructureDefinition<MTEIndustrialCentrifuge> STRUCTURE_DEFINITION = null;
     private static final String STRUCTURE_PIECE_MAIN = "main";
     protected final List<RenderOverlay.OverlayTicket> overlayTickets = new ArrayList<>();
@@ -55,9 +65,14 @@ public class MTEIndustrialCentrifuge extends MTEExtendedPowerMultiBlockBase<MTEI
     private static final int OFFSET_Y = 2;
     private static final int OFFSET_Z = 1;
 
-    private static final int PARALLEL_PER_TIER = 6;
-    private static final float SPEED = 2.25f;
+    private static final int BASE_PARALLEL_PER_TIER = 4;
+    private static final float SPEED = 2f;
+    private static final float EXTRA_SPEED = 1f;
+    private static final float MAX_SPEED = SPEED + EXTRA_SPEED;
     private static final float EU_EFFICIENCY = 0.9f;
+
+    private int momentum = 0;
+    private int runningTickCounter = 0;
 
     public MTEIndustrialCentrifuge(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
@@ -148,7 +163,19 @@ public class MTEIndustrialCentrifuge extends MTEExtendedPowerMultiBlockBase<MTEI
     protected MultiblockTooltipBuilder createTooltip() {
         MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
         tt.addMachineType("Centrifuge")
-            .addBulkMachineInfo(PARALLEL_PER_TIER, SPEED, EU_EFFICIENCY)
+            .addInfo(
+                TooltipHelper.parallelText(BASE_PARALLEL_PER_TIER) + " - "
+                    + TooltipHelper.parallelText(BASE_PARALLEL_PER_TIER * 2)
+                    + " Parallels per "
+                    + TooltipHelper.coloredText("Voltage", TooltipHelper.TIER_COLOR)
+                    + " Tier")
+            .addInfo(TooltipHelper.speedText(SPEED) + " - " + TooltipHelper.speedText(MAX_SPEED) + " Speed")
+            .addInfo(
+                TooltipHelper.coloredText("Parallels", TooltipHelper.PARALLEL_COLOR) + " and "
+                    + TooltipHelper.coloredText("Speed", TooltipHelper.SPEED_COLOR)
+                    + " increase as the machine gains momentum")
+            .addInfo("Momentum is lost at four times the rate it is gained")
+            .addStaticEuEffInfo(EU_EFFICIENCY)
             .addInfo("Disable animations with a screwdriver")
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(5, 5, 5, true)
@@ -171,13 +198,18 @@ public class MTEIndustrialCentrifuge extends MTEExtendedPowerMultiBlockBase<MTEI
     @Override
     protected ProcessingLogic createProcessingLogic() {
         return new ProcessingLogic().setEuModifier(EU_EFFICIENCY)
-            .setSpeedBonus(1F / SPEED)
+            .setSpeedBonusSupplier(this::getSpeedWithMomentum)
             .setMaxParallelSupplier(this::getTrueParallel);
+    }
+
+    private Double getSpeedWithMomentum() {
+        return 1D / (SPEED + EXTRA_SPEED * momentum / 100);
     }
 
     @Override
     public int getMaxParallelRecipes() {
-        return (PARALLEL_PER_TIER * GTUtility.getTier(this.getMaxInputVoltage()));
+        return (int) ((BASE_PARALLEL_PER_TIER + BASE_PARALLEL_PER_TIER * momentum / 100F)
+            * GTUtility.getTier(this.getMaxInputVoltage()));
     }
 
     private int casingAmount;
@@ -233,6 +265,39 @@ public class MTEIndustrialCentrifuge extends MTEExtendedPowerMultiBlockBase<MTEI
     }
 
     @Override
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setInteger(MOMENTUM_NBT, momentum);
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        if (nbt.hasKey(MOMENTUM_NBT)) momentum = nbt.getInteger(MOMENTUM_NBT);
+    }
+
+    @Override
+    public boolean onRunningTick(ItemStack stack) {
+        runningTickCounter++;
+        if (runningTickCounter % 10 == 0 && momentum < 100) {
+            runningTickCounter = 0;
+            momentum++;
+        }
+        return super.onRunningTick(stack);
+    }
+
+    @Override
+    public void onPostTick(IGregTechTileEntity baseMetaTileEntity, long tick) {
+        super.onPostTick(baseMetaTileEntity, tick);
+        if (!baseMetaTileEntity.isServerSide()) return;
+        if (mMaxProgresstime == 0 && momentum > 0) {
+            if (tick % 5 == 0) {
+                momentum = Math.max(momentum - 2, 0);
+            }
+        }
+    }
+
+    @Override
     public void onTextureUpdate() {
         updateTurbineOverlay();
     }
@@ -276,7 +341,19 @@ public class MTEIndustrialCentrifuge extends MTEExtendedPowerMultiBlockBase<MTEI
     }
 
     @Override
-    public boolean supportsSingleRecipeLocking() {
-        return true;
+    public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
+        int z) {
+        super.getWailaNBTData(player, tile, tag, world, x, y, z);
+        tag.setInteger("momentum", momentum);
+    }
+
+    @Override
+    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
+        IWailaConfigHandler config) {
+        super.getWailaBody(itemStack, currentTip, accessor, config);
+        final NBTTagCompound tag = accessor.getNBTData();
+        currentTip.add(
+            StatCollector
+                .translateToLocalFormatted("GT5U.Centrifuge.momentum", formatNumber(tag.getInteger("momentum"))));
     }
 }

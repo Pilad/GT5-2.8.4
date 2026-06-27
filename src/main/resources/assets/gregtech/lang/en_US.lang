@@ -1016,6 +1016,8 @@ gt.casing.chemical-resistant=Able to resist the most extreme chemical conditions
 gt.casing.hawking-focus=Controls the outward flow of Hawking Radiation to stabilize a black hole.
 gt.casings.advanced-filter=Less than five 0.1μm particles per m^3
 
+GT5U.Centrifuge.momentum=Momentum: §a%s§r%%
+
 # Machine types
 gt.recipe.alloysmelter=Alloy Smelter
 gt.recipe.alloysmelter.description=HighTech combination Smelter

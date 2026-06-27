@@ -195,11 +195,6 @@ public class MTENeutronActivator extends MTETooltipMultiBlockBaseEM implements I
             .addInfo("It will output correct products with Specific Neutron Kinetic Energy")
             .addInfo("Otherwise it will output trash")
             .addInfo("The Neutron Kinetic Energy will decrease 72KeV/s when no Neutron Accelerator is running")
-            .addInfo(
-                "It will explode when the Neutron Kinetic Energy is over" + EnumChatFormatting.RED
-                    + " 1200MeV"
-                    + EnumChatFormatting.GRAY
-                    + ".")
             .addInfo("Inputting Graphite/Beryllium dust can reduce 10MeV per dust immediately.")
             .addController("Front bottom center")
             .addCasingInfoRange("Clean Stainless Steel Machine Casing", 7, 31, false)

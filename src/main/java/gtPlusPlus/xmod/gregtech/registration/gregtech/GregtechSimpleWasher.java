@@ -19,10 +19,12 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.SubTag;
+import gregtech.api.enums.TierEU;
 import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe;
 import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe.SpecialEffects;
 import gregtech.api.util.GTOreDictUnificator;
 import gtPlusPlus.core.lib.GTPPCore;
+import gtPlusPlus.core.material.Material;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 public class GregtechSimpleWasher {
@@ -136,6 +138,14 @@ public class GregtechSimpleWasher {
             addSimpleWashRecipe(dustPure, dustClean);
         }
 
+        for (Material v : Material.mMaterialMap) {
+            dustClean = v.getDust(1);
+            dustDirty = v.getDustImpure(1);
+            dustPure = v.getDustPurified(1);
+            addSimpleWashRecipe(dustDirty, dustClean);
+            addSimpleWashRecipe(dustPure, dustClean);
+        }
+
         return simpleWasherRecipes.getAllRecipes()
             .size() > mRecipeCount;
     }
@@ -161,6 +171,12 @@ public class GregtechSimpleWasher {
             addSimpleWashRecipe(crushedDirty, crushedClean);
         }
 
+        for (Material v : Material.mMaterialMap) {
+            crushedClean = v.getCrushedPurified(1);
+            crushedDirty = v.getCrushed(1);
+            addSimpleWashRecipe(crushedDirty, crushedClean);
+        }
+
         return simpleWasherRecipes.getAllRecipes()
             .size() > mRecipeCount;
     }
@@ -172,7 +188,7 @@ public class GregtechSimpleWasher {
                 .itemOutputs(aOutput)
                 .fluidInputs(Materials.Water.getFluid(100))
                 .duration(5 * TICKS)
-                .eut(8)
+                .eut(TierEU.RECIPE_ULV)
                 .addTo(simpleWasherRecipes);
         }
     }
