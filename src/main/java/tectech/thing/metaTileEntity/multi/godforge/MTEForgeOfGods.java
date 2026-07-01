@@ -1,5 +1,6 @@
 package tectech.thing.metaTileEntity.multi.godforge;
 
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.isAir;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
@@ -322,7 +323,7 @@ public class MTEForgeOfGods extends TTMultiblockBase implements IConstructable, 
                 .dot(2)
                 .buildAndChain(GodforgeCasings, 0))
         .addElement('K', ofBlock(GodforgeCasings, 6))
-        .addElement('L', ofBlock(Blocks.air, 0))
+        .addElement('L', isAir())
         .build();
 
     public MTEForgeOfGods(int aID, String aName, String aNameRegional) {
