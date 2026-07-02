@@ -2090,11 +2090,6 @@ public class MTERecipeLoader implements Runnable {
             ItemList.SCSteamTurbineXL.get(1),
             new Object[] { GregtechItemList.Large_SCSteam_Turbine.get(1) });
 
-        // Maceration Stack conversion Recipe
-        GTModHandler.addShapelessCraftingRecipe(
-            ItemList.MacerationStack.get(1),
-            new Object[] { GregtechItemList.Industrial_MacerationStack.get(1) });
-
         // Industrial Maceration Stack
         GTModHandler.addCraftingRecipe(
             ItemList.MacerationStack.get(1),

@@ -26,6 +26,7 @@ import java.util.List;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -48,6 +49,7 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.recipe.Scanning;
+import gregtech.common.tileentities.machines.multi.MTEIndustrialMacerator;
 import gtPlusPlus.core.block.ModBlocks;
 import gtPlusPlus.core.item.ModItems;
 import gtPlusPlus.core.item.crafting.ItemDummyResearch;
@@ -1431,6 +1433,26 @@ public class RecipesMachines {
             IV_MACHINE_Macerator,
             "plateTungstenCarbide",
             GregtechItemList.Maceration_Upgrade_Chip.get(1));
+
+        // Maceration Stack T2 Shapeless Craft
+        ItemStack t2MacerationStack = ItemList.MacerationStack.get(1);
+        NBTTagCompound upgradeTag = new NBTTagCompound();
+        upgradeTag.setByte(MTEIndustrialMacerator.TIER, (byte) 2);
+        t2MacerationStack.setTagCompound(upgradeTag);
+
+        GTModHandler.addShapelessCraftingRecipe(
+            t2MacerationStack,
+            GTModHandler.RecipeBits.BUFFERED | GTModHandler.RecipeBits.OVERWRITE_NBT,
+            grid -> {
+                for (int i = 0; i < grid.getSizeInventory(); i++) {
+                    ItemStack stack = grid.getStackInSlot(i);
+                    if (!ItemList.MacerationStack.isStackEqual(stack, false, true)) continue;
+                    if (stack.hasTagCompound() && stack.getTagCompound()
+                        .getByte(MTEIndustrialMacerator.TIER) >= 2) return false;
+                }
+                return true;
+            },
+            new Object[] { ItemList.MacerationStack, GregtechItemList.Maceration_Upgrade_Chip });
 
         // Industrial Wire Factory
         RECIPE_IndustrialWireFactoryFrame = GregtechItemList.Casing_WireFactory.get(1);

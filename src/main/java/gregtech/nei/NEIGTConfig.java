@@ -62,7 +62,8 @@ public class NEIGTConfig implements IConfigureNEI {
 
     private static ListMultimap<RecipeCategory, RecipeMapWorkable> RECIPE_CATALYST_INDEX;
 
-    private static GTNEIImprintHandler CAL_IMPRINT_HANDLER = new GTNEIImprintHandler();
+    private static final GTNEIImprintHandler CAL_IMPRINT_HANDLER = new GTNEIImprintHandler();
+    private static final GTNEIMacerationStackConversion MACERATOR_UPGRADE_HANDLER = new GTNEIMacerationStackConversion();
 
     public static boolean sIsAdded = true;
 
@@ -98,6 +99,9 @@ public class NEIGTConfig implements IConfigureNEI {
 
         GuiCraftingRecipe.craftinghandlers.add(CAL_IMPRINT_HANDLER);
         GuiUsageRecipe.usagehandlers.add(CAL_IMPRINT_HANDLER);
+
+        GuiCraftingRecipe.craftinghandlers.add(MACERATOR_UPGRADE_HANDLER);
+        GuiUsageRecipe.usagehandlers.add(MACERATOR_UPGRADE_HANDLER);
     }
 
     private void registerCatalysts() {
@@ -163,6 +167,12 @@ public class NEIGTConfig implements IConfigureNEI {
                 .setDisplayStack(
                     BWMetaItems.getCircuitParts()
                         .getStack(0))
+                .build());
+
+        event.registerHandlerInfo(
+            new HandlerInfo.Builder(MACERATOR_UPGRADE_HANDLER.getOverlayIdentifier(), "GregTech", Mods.ModIDs.GREG_TECH)
+                .setMaxRecipesPerPage(100)
+                .setDisplayStack(ItemList.MacerationStack.get(1))
                 .build());
     }
 
