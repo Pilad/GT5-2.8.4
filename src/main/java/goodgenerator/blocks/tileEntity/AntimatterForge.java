@@ -78,6 +78,9 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
         MaterialsUEVplus.MagnetohydrodynamicallyConstrainedStarMatter.getMolten(1L) };
     private static final FluidStack[] activationUpgrades = { GGMaterial.naquadahBasedFuelMkVDepleted.getFluidOrGas(1),
         GGMaterial.naquadahBasedFuelMkVIDepleted.getFluidOrGas(1) };
+    private static final FluidStack ZERO_ANTIMATTER = MaterialsUEVplus.Antimatter.getFluid(0);
+
+    public static final String MAIN_NAME = "antimatterForge";
 
     private static final int MAGNETIC_ID = 0;
     private static final int GRAVITY_ID = 1;
@@ -85,21 +88,18 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
     private static final int ACTIVATION_ID = 3;
 
     private static final int BASE_CONSUMPTION = 10_000_000;
-    private static final int passiveBaseMult = 1_000;
-    private static final int activeBaseMult = 10_000;
+    private static final int PASSIVE_BASE_MULT = 1_000;
+    private static final int ACTIVE_BASE_MULT = 10_000;
 
-    private static final float passiveBaseExp = 1.5f;
-    private static final float activeBaseExp = 1.5f;
-    private static final float coefficientBaseExp = 0.5f;
-    private static final float baseSkew = 0.2f;
+    private static final float PASSIVE_BASE_EXP = 1.5f;
+    private static final float ACTIVE_BASE_EXP = 1.5f;
+    private static final float COEFFICIENT_BASE_EXP = 0.5f;
+    private static final float BASE_SKEW = 0.2f;
 
     private final float[] modifiers = { 0.0f, 0.0f, 0.0f, 0.0f };
     private final FluidStack[] upgradeFluids = { null, null, null, null };
     private final int[] fluidConsumptions = { 0, 0, 0, 0 };
 
-    private static final FluidStack ZERO_ANTIMATTER = MaterialsUEVplus.Antimatter.getFluid(0);
-
-    public static final String MAIN_NAME = "antimatterForge";
     private final int speed = 20;
     private long rollingCost = 0L;
     private boolean isLoadedChunk;
@@ -176,15 +176,15 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
             .addInfo("Converts protomatter into antimatter")
             .addInfo("Use screwdriver to disable rendering")
             .addInfo(
-                "Passively consumes " + GTUtility.formatNumbers(BASE_CONSUMPTION)
+                "Passively consumes " + formatNumber(BASE_CONSUMPTION)
                     + " + ("
                     + EnumChatFormatting.DARK_AQUA
                     + "Antimatter"
                     + EnumChatFormatting.GRAY
                     + " * "
-                    + passiveBaseMult
+                    + PASSIVE_BASE_MULT
                     + ")^("
-                    + passiveBaseExp
+                    + PASSIVE_BASE_EXP
                     + " - "
                     + EnumChatFormatting.GREEN
                     + EnumChatFormatting.BOLD
@@ -199,9 +199,9 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
                     + "Antimatter"
                     + EnumChatFormatting.GRAY
                     + " * "
-                    + GTUtility.formatNumbers(activeBaseMult)
+                    + formatNumber(ACTIVE_BASE_MULT)
                     + ")^("
-                    + activeBaseExp
+                    + ACTIVE_BASE_EXP
                     + " - "
                     + EnumChatFormatting.DARK_PURPLE
                     + EnumChatFormatting.BOLD
@@ -226,7 +226,7 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
                     + "Antimatter"
                     + EnumChatFormatting.GRAY
                     + "^("
-                    + coefficientBaseExp
+                    + COEFFICIENT_BASE_EXP
                     + " + "
                     + EnumChatFormatting.GOLD
                     + EnumChatFormatting.BOLD
@@ -237,7 +237,7 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
                     + ")) of antimatter each cycle")
             .addInfo("Each hatch multiplies the base production per hatch with a random number pulled from")
             .addInfo(
-                "a normal distribution with a mean of " + baseSkew
+                "a normal distribution with a mean of " + BASE_SKEW
                     + " + "
                     + EnumChatFormatting.AQUA
                     + EnumChatFormatting.BOLD
@@ -434,20 +434,12 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         super.onPostTick(aBaseMetaTileEntity, aTick);
         if (aBaseMetaTileEntity.isServerSide()) {
-            FluidStack[] antimatterStored = new FluidStack[16];
-            long totalAntimatterAmount = 0;
-            for (int i = 0; i < amOutputHatches.size(); i++) {
-                if (amOutputHatches.get(i) == null || !amOutputHatches.get(i)
-                    .isValid()
-                    || amOutputHatches.get(i)
-                        .getFluid() == null)
-                    continue;
-                antimatterStored[i] = amOutputHatches.get(i)
-                    .getFluid()
-                    .copy();
-                totalAntimatterAmount += antimatterStored[i].amount;
+            long totalAntimatterAmount = calculateContainedAntimatter();
+
+            if (!amOutputHatches.isEmpty()) {
+                drainEnergyInput(calculateEnergyContainmentCost(totalAntimatterAmount));
             }
-            drainEnergyInput(calculateEnergyContainmentCost(totalAntimatterAmount));
+            this.guiAntimatterAmount = totalAntimatterAmount;
 
             if ((this.mProgresstime >= this.mMaxProgresstime) && (!isAllowedToWork())) {
                 setProtoRender(false);
@@ -572,7 +564,6 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
         }
 
         this.guiAntimatterChange = ratioLosses + antimatterChange;
-        this.guiAntimatterAmount = calculateContainedAntimatter();
 
         if (this.canRender) {
             updateAntimatterSize(this.guiAntimatterAmount);
@@ -609,7 +600,7 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
     // How much energy is consumed when machine does one cycle
     // Base formula: (Antimatter * 10000) ^ (1.5)
     private long calculateEnergyCost(long antimatterAmount) {
-        long value = (long) Math.pow(antimatterAmount * activeBaseMult, activeBaseExp + modifiers[GRAVITY_ID]);
+        long value = (long) Math.pow(antimatterAmount * ACTIVE_BASE_MULT, ACTIVE_BASE_EXP + modifiers[GRAVITY_ID]);
         this.guiActiveEnergy = value;
         return value;
     }
@@ -636,7 +627,7 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
         for (AntimatterOutputHatch hatch : hatches) {
             // Skewed normal distribution multiplied by coefficient from antimatter amount
             // We round up so you are guaranteed to be antimatter positive on the first run (reduces startup RNG)
-            int change = (int) (Math.ceil((r.nextGaussian() + baseSkew + modifiers[ACTIVATION_ID]) * (coeff / 16)));
+            int change = (int) (Math.ceil((r.nextGaussian() + BASE_SKEW + modifiers[ACTIVATION_ID]) * (coeff / 16)));
             difference += change;
             if (change >= 0) {
                 hatch.fill(MaterialsUEVplus.Antimatter.getFluid(change), true);
@@ -835,6 +826,8 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
     public void saveNBTData(NBTTagCompound aNBT) {
         super.saveNBTData(aNBT);
         aNBT.setBoolean("canRender", this.canRender);
+        aNBT.setLong("rollingCost", this.rollingCost);
+        aNBT.setFloat("currentMagneticModifier", this.modifiers[MAGNETIC_ID]);
     }
 
     @Override
@@ -842,6 +835,12 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
         super.loadNBTData(aNBT);
         if (aNBT.hasKey("canRender")) {
             this.canRender = aNBT.getBoolean("canRender");
+        }
+        if (aNBT.hasKey("rollingCost")) {
+            this.rollingCost = aNBT.getLong("rollingCost");
+        }
+        if (aNBT.hasKey("currentMagneticModifier")) {
+            this.modifiers[MAGNETIC_ID] = aNBT.getFloat("currentMagneticModifier");
         }
     }
 

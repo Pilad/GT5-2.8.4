@@ -1089,6 +1089,11 @@ public class MultiblockTooltipBuilder {
         return this;
     }
 
+    public MultiblockTooltipBuilder addSubChannel(IStructureChannels channel) {
+        sLines.add(translateToLocalFormatted("GT5U.MBTT.subchannel", channel.get(), channel.getDefaultTooltip()));
+        return this;
+    }
+
     /**
      * Use this method to add non-standard structural info.<br>
      * (indent)info

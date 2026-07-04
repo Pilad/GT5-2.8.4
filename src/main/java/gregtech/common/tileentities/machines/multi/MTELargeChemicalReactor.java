@@ -105,6 +105,7 @@ public class MTELargeChemicalReactor extends MTEEnhancedMultiBlockBase<MTELargeC
         final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
         tt.addMachineType("Chemical Reactor, LCR")
             .addInfo("Accepts fluids instead of fluid cells")
+            .addInfo("Can perform several direct recipes that skip intermediate compounds")
             .addPerfectOCInfo()
             .beginStructureBlock(3, 3, 3, false)
             .addController("Front center")
@@ -121,7 +122,7 @@ public class MTELargeChemicalReactor extends MTEEnhancedMultiBlockBase<MTELargeC
             .addOutputBus("Any Casing", 1)
             .addOutputHatch("Any Casing", 1)
             .addStructureInfo("You can have multiple hatches/buses")
-            .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
+            .addSubChannel(GTStructureChannels.HEATING_COIL)
             .toolTipFinisher();
         return tt;
     }
@@ -267,7 +268,7 @@ public class MTELargeChemicalReactor extends MTEEnhancedMultiBlockBase<MTELargeC
         @Override
         public PlaceResult survivalPlaceBlock(MTELargeChemicalReactor t, World world, int x, int y, int z,
             ItemStack trigger, AutoPlaceEnvironment env) {
-            if (t.mCoilAmount > 0) return PlaceResult.SKIP;
+            if (t.mCoilAmount > 0) return PlaceResult.REJECT;
             if (check(t, world, x, y, z)) return PlaceResult.SKIP;
             if (doesBlockMatchTrigger(world.getBlock(x, y, z), world.getBlockMetadata(x, y, z), trigger))
                 return PlaceResult.SKIP;
