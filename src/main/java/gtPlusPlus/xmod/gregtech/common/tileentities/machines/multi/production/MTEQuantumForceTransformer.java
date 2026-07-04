@@ -7,7 +7,6 @@ import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.ExoticEnergy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
-import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTOreDictUnificator.getAssociation;
@@ -89,10 +88,11 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
     protected int mFocusingTier = 0;
     protected int mMaxParallel = 0;
     private boolean mFluidMode = false, doFermium = false, doNeptunium = false;
+    private boolean renderDisabled = false;
     private static final Fluid mNeptunium = MaterialsElements.getInstance().NEPTUNIUM.getPlasma();
     private static final Fluid mFermium = MaterialsElements.getInstance().FERMIUM.getPlasma();
     private static final String MAIN_PIECE = "main";
-    private final ArrayList<MTEHatchBulkCatalystHousing> catalystHounsings = new ArrayList<>();
+    private final ArrayList<MTEHatchBulkCatalystHousing> catalystHousings = new ArrayList<>();
     // spotless:off
     // y-axis offset by +0.5 to counter the coordinate adjustment when rendering
     private static final double[][] FORCE_FIELD_BASE_COORDINATES = {
@@ -153,20 +153,15 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
         .addElement(
             'H',
             buildHatchAdder(MTEQuantumForceTransformer.class)
-                .atLeast(
-                    InputBus,
-                    InputHatch,
-                    Maintenance,
-                    Energy.or(ExoticEnergy),
-                    SpecialHatchElement.CatalystHousing)
+                .atLeast(InputBus, InputHatch, Energy.or(ExoticEnergy), SpecialHatchElement.CatalystHousing)
                 .casingIndex(TAE.getIndexFromPage(0, 10))
-                .dot(4)
+                .dot(1)
                 .buildAndChain(onElementPass(x -> ++x.mCasing, ofBlock(ModBlocks.blockCasings2Misc, 12))))
         .addElement(
             'T',
-            buildHatchAdder(MTEQuantumForceTransformer.class).atLeast(OutputBus, OutputHatch, Maintenance)
+            buildHatchAdder(MTEQuantumForceTransformer.class).atLeast(OutputBus, OutputHatch)
                 .casingIndex(TAE.getIndexFromPage(0, 10))
-                .dot(5)
+                .dot(2)
                 .buildAndChain(onElementPass(x -> ++x.mCasing, ofBlock(ModBlocks.blockCasings2Misc, 12))))
         .build();
 
@@ -204,6 +199,7 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
             .addInfo("Consumes 4 * " + focusText("Focus Tier") + " * sqrt(" + TooltipHelper.parallelText("parallels") + ") L " + EnumChatFormatting.DARK_GREEN + "Fermium Plasma" + EnumChatFormatting.GRAY + " to " + EnumChatFormatting.DARK_GREEN + "boost all outputs")
             .addSeparator()
             .addInfo("Use a screwdriver to enable "+EnumChatFormatting.BLUE+"Fluid mode")
+            .addInfo("Sneak + screwdriver to disable animations")
             .addInfo("Fluid mode turns all possible outputs into their fluid variant, if avaliable")
             .addUnlimitedTierSkips()
             .addTecTechHatchInfo()
@@ -238,14 +234,8 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
         this.mCasing = 0;
         this.mCraftingTier = 0;
         this.mFocusingTier = 0;
-        catalystHounsings.clear();
+        catalystHousings.clear();
         if (!checkPiece(MAIN_PIECE, 7, 20, 4)) {
-            return false;
-        }
-
-        // Maintenance hatch not required but left for compatibility.
-        // Don't allow more than 1, no free casing spam!
-        if (mMaintenanceHatches.size() > 1) {
             return false;
         }
 
@@ -378,11 +368,11 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
                 ItemStack requiredCatalyst = recipe.getMetadata(GTRecipeConstants.QFT_CATALYST);
                 assert requiredCatalyst != null;
                 int catalystMeta = requiredCatalyst.getItemDamage();
-                if (catalystHounsings.isEmpty()) {
+                if (catalystHousings.isEmpty()) {
                     return SimpleCheckRecipeResult.ofFailure("no_catalyst");
                 }
                 boolean catalystsFound = false;
-                for (MTEHatchBulkCatalystHousing catalystHousing : catalystHounsings) {
+                for (MTEHatchBulkCatalystHousing catalystHousing : catalystHousings) {
                     ItemStack storedCatalysts = catalystHousing.getItemStack();
                     int storedCatalystMeta = catalystHousing.getStoredCatalystMeta();
                     if (storedCatalysts == null || storedCatalystMeta != catalystMeta) {
@@ -640,6 +630,12 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
     @Override
     public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
         ItemStack aTool) {
+        if (aPlayer.isSneaking()) {
+            renderDisabled = !renderDisabled;
+            getBaseMetaTileEntity().issueTileUpdate();
+            GTUtility.sendChatTrans(aPlayer, "GT5U.machines.animations." + (renderDisabled ? "disabled" : "enabled"));
+            return;
+        }
         mFluidMode = !mFluidMode;
         GTUtility.sendChatToPlayer(
             aPlayer,
@@ -651,7 +647,7 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
         IMetaTileEntity metaTileEntity = tileEntity.getMetaTileEntity();
         if (metaTileEntity instanceof MTEHatchBulkCatalystHousing catalystHousing) {
             catalystHousing.updateTexture(baseCasingIndex);
-            this.catalystHounsings.add(catalystHousing);
+            this.catalystHousings.add(catalystHousing);
             return true;
         }
         return false;
@@ -664,7 +660,7 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
 
             @Override
             public long count(MTEQuantumForceTransformer gtMetaTileEntityQFT) {
-                return gtMetaTileEntityQFT.catalystHounsings.size();
+                return gtMetaTileEntityQFT.catalystHousings.size();
             }
         };
 
@@ -699,6 +695,7 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
     @Override
     public void saveNBTData(NBTTagCompound aNBT) {
         aNBT.setBoolean("mFluidMode", mFluidMode);
+        aNBT.setBoolean("renderDisabled", renderDisabled);
         aNBT.setBoolean("doFermium", doFermium);
         aNBT.setBoolean("doNeptunium", doNeptunium);
         aNBT.setInteger("mMaxParallel", mMaxParallel);
@@ -715,9 +712,24 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
             batchMode = aNBT.getBoolean("mBatchMode");
         }
         mFluidMode = aNBT.getBoolean("mFluidMode");
+        renderDisabled = aNBT.getBoolean("renderDisabled");
         doFermium = aNBT.getBoolean("doFermium");
         doNeptunium = aNBT.getBoolean("doNeptunium");
         mMaxParallel = aNBT.getInteger("mMaxParallel");
+    }
+
+    @Override
+    public NBTTagCompound getDescriptionData() {
+        NBTTagCompound data = super.getDescriptionData();
+        if (data == null) data = new NBTTagCompound();
+        data.setBoolean("renderDisabled", renderDisabled);
+        return data;
+    }
+
+    @Override
+    public void onDescriptionPacket(NBTTagCompound data) {
+        super.onDescriptionPacket(data);
+        renderDisabled = data.getBoolean("renderDisabled");
     }
 
     @Override
@@ -787,7 +799,7 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
     public boolean renderInWorld(ISBRWorldContext ctx) {
         Tessellator tes = Tessellator.instance;
         IIcon forceField = TexturesGtBlock.ForceField.getIcon();
-        if (getBaseMetaTileEntity().isActive()) {
+        if (getBaseMetaTileEntity().isActive() && !renderDisabled) {
             double minU = forceField.getMinU();
             double maxU = forceField.getMaxU();
             double minV = forceField.getMinV();
