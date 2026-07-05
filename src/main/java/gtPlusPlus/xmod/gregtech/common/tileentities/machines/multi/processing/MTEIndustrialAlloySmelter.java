@@ -126,7 +126,7 @@ public class MTEIndustrialAlloySmelter extends GTPPMultiBlockBase<MTEIndustrialA
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(3, 5, 3, true)
             .addController("Front bottom center")
-            .addCasingInfoMin("Inconel Reinforced Casing", 8, false)
+            .addCasingInfoMin("Inconel Reinforced Casing", 5, false)
             .addOtherStructurePart("Integral Encasement V", "Middle Layer")
             .addOtherStructurePart("Heating Coil", "Above and below Integral Encasements")
             .addInputBus("Any Inconel Reinforced Casing", 1)
@@ -182,7 +182,7 @@ public class MTEIndustrialAlloySmelter extends GTPPMultiBlockBase<MTEIndustrialA
         mCasing = 0;
         mLevel = 0;
         setCoilLevel(HeatingCoilLevel.None);
-        return checkPiece(mName, 1, 4, 0) && mCasing >= 8
+        return checkPiece(mName, 1, 4, 0) && mCasing >= 5
             && getCoilLevel() != HeatingCoilLevel.None
             && (mLevel = getCoilLevel().getTier() + 1) > 0
             && checkHatch();
