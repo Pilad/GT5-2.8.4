@@ -103,20 +103,15 @@ public class MTELargeNaquadahReactor extends TTMultiblockBase implements ISurviv
         .addShape(
             STRUCTURE_PIECE_MAIN,
             new String[][] {
-                { "  AAA  ", "   A   ", "   C   ", "   C   ", "   A   ", "  AAA  ", "   A   ", "   C   ", "   C   ",
-                    "   A   ", "  A~A  " },
-                { " AAAAA ", "  ACA  ", "       ", "   A   ", "  BBB  ", " ABBBA ", "  BBB  ", "   A   ", "       ",
-                    "  ACA  ", " AAAAA " },
-                { "AAAAAAA", " ACACA ", "   A   ", "  BBB  ", " BBBBB ", "ABBBBBA", " BBBBB ", "  BBB  ", "   A   ",
-                    " ACACA ", "AAAAAAA" },
-                { "AAAAAAA", "ACAAACA", "C A A C", "CABBBAC", "ABBBBBA", "ABBBBBA", "ABBBBBA", "CABBBAC", "C A A C",
-                    "ACA ACA", "AAAAAAA" },
-                { "AAAAAAA", " ACACA ", "   A   ", "  BBB  ", " BBBBB ", "ABBBBBA", " BBBBB ", "  BBB  ", "   A   ",
-                    " ACACA ", "AAAAAAA" },
-                { " AAAAA ", "  ACA  ", "       ", "   A   ", "  BBB  ", " ABBBA ", "  BBB  ", "       ", "       ",
-                    "  ACA  ", " AAAAA " },
-                { "  AAA  ", "   A   ", "   C   ", "   C   ", "   A   ", "  AAA  ", "   A   ", "   C   ", "   C   ",
-                    "   A   ", "  AAA  " } })
+                // spotless:off
+                { "  AAA  ", "   A   ", "   C   ", "   C   ", "   A   ", "  AAA  ", "   A   ", "   C   ", "   C   ", "   A   ", "  A~A  " },
+                { " AAAAA ", "  ACA  ", "       ", "   A   ", "  BBB  ", " ABBBA ", "  BBB  ", "   A   ", "       ", "  ACA  ", " AAAAA " },
+                { "AAAAAAA", " ACACA ", "   A   ", "  BBB  ", " BBBBB ", "ABBBBBA", " BBBBB ", "  BBB  ", "   A   ", " ACACA ", "AAAAAAA" },
+                { "AAAAAAA", "ACAAACA", "C A A C", "CABBBAC", "ABBBBBA", "ABBBBBA", "ABBBBBA", "CABBBAC", "C A A C", "ACA ACA", "AAAAAAA" },
+                { "AAAAAAA", " ACACA ", "   A   ", "  BBB  ", " BBBBB ", "ABBBBBA", " BBBBB ", "  BBB  ", "   A   ", " ACACA ", "AAAAAAA" },
+                { " AAAAA ", "  ACA  ", "       ", "   A   ", "  BBB  ", " ABBBA ", "  BBB  ", "   A   ", "       ", "  ACA  ", " AAAAA " },
+                { "  AAA  ", "   A   ", "   C   ", "   C   ", "   A   ", "  AAA  ", "   A   ", "   C   ", "   C   ", "   A   ", "  AAA  " } })
+                // spotless:on
         .addElement(
             'A',
             ofChain(
@@ -415,7 +410,7 @@ public class MTELargeNaquadahReactor extends TTMultiblockBase implements ISurviv
             .addController("Front bottom center")
             .addCasingInfoMin("Naquadah Reactor Casing", 130, false)
             .addCasingInfoExactly("Field Restriction Casing", 81, false)
-            .addCasingInfoExactly("Radiation Proof Steel Frame Box", 36, false)
+            .addCasingInfoExactly("Radiation Proof Steel Frame Box", 32, false)
             .addDynamoHatch("Any Naquadah Reactor Casing, only accepts ONE!", 1)
             .addInputHatch("Any Naquadah Reactor Casing", 1)
             .addOutputHatch("Any Naquadah Reactor Casing", 1)
