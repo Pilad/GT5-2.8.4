@@ -47,6 +47,7 @@ import gregtech.api.util.tooltip.TooltipTier;
  * addMufflerHatch<br>
  * addInputBus/addInputHatch/addOutputBus/addOutputHatch, in that order<br>
  * Use addStructureInfo for any comments on nonstandard structure info wherever needed <br>
+ * Use addStructureFooter for any final comments on nonstandard structure info at the bottom<br>
  * toolTipFinisher goes at the very end<br>
  * <br>
  * Originally created by kekzdealer
@@ -1027,6 +1028,18 @@ public class MultiblockTooltipBuilder {
      */
     public MultiblockTooltipBuilder addStructureInfo(String info) {
         sLines.add(TAB + info);
+        return this;
+    }
+
+    /**
+     * Use this method to add non-standard structural info without indent:<br>
+     * info
+     *
+     * @param info The line to be added
+     * @return Instance this method was called on.
+     */
+    public MultiblockTooltipBuilder addStructureFooter(String info) {
+        sLines.add(info);
         return this;
     }
 
