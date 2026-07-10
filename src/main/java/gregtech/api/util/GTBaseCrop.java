@@ -38,7 +38,7 @@ public class GTBaseCrop extends CropCard implements ICropCardInfo {
     private int mAfterHarvestSize = 0;
     private int mHarvestSize = 0;
     private final int[] mStats = new int[5];
-    private final int mGrowthSpeed = 0;
+    private int mGrowthSpeed = 0;
     private ItemStack mDrop = null;
     private ItemStack[] mSpecialDrops = null;
     private Materials mBlock = null;
@@ -113,6 +113,7 @@ public class GTBaseCrop extends CropCard implements ICropCardInfo {
             mMaxSize = Math.max(3, aMaxSize);
             mHarvestSize = Math.min(Math.max(aHarvestSize, 2), mMaxSize);
             mAfterHarvestSize = Math.min(Math.max(aAfterHarvestSize, 1), mMaxSize - 1);
+            mGrowthSpeed = aGrowthSpeed;
             mStats[0] = aStatChemical;
             mStats[1] = aStatFood;
             mStats[2] = aStatDefensive;
@@ -147,8 +148,12 @@ public class GTBaseCrop extends CropCard implements ICropCardInfo {
 
     @Override
     public int growthDuration(ICropTile aCrop) {
-        if (mGrowthSpeed < 200) return super.growthDuration(aCrop);
-        return tier() * mGrowthSpeed;
+        if (GregTechAPI.sIC2GrowTime) {
+            if (mGrowthSpeed < 200) return super.growthDuration(aCrop);
+            return tier() * mGrowthSpeed;
+        } else {
+            return Math.max(1, GTMod.proxy.mGrowTime * tier());
+        }
     }
 
     @Override

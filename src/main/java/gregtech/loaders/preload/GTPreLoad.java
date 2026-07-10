@@ -368,10 +368,12 @@ public class GTPreLoad {
         GregTechAPI.sTimber = Gregtech.general.timber;
         GregTechAPI.sDrinksAlwaysDrinkable = Gregtech.general.drinksAlwaysDrinkable;
         GregTechAPI.sDoShowAllItemsInCreative = Gregtech.general.doShowAllItemsInCreative;
+        GregTechAPI.sIC2GrowTime = Gregtech.general.IC2GrowTime;
         GregTechAPI.sMultiThreadedSounds = Gregtech.general.multiThreadedSounds;
         GTMod.proxy.mMaxEqualEntitiesAtOneSpot = Gregtech.general.maxEqualEntitiesAtOneSpot;
         GTMod.proxy.mFlintChance = Gregtech.general.flintChance;
         GTMod.proxy.mItemDespawnTime = Gregtech.general.itemDespawnTime;
+        GTMod.proxy.mGrowTime = Gregtech.general.GrowTime;
         GTMod.proxy.mAllowSmallBoilerAutomation = Gregtech.general.allowSmallBoilerAutomation;
         GTMod.proxy.mDisableVanillaOres = Worldgen.general.disableVanillaOres;
         GTMod.proxy.mIncreaseDungeonLoot = Gregtech.general.increaseDungeonLoot;

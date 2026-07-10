@@ -182,6 +182,11 @@ public class Gregtech {
         @Config.RequiresMcRestart
         public boolean doShowAllItemsInCreative;
 
+        @Config.Comment("if true, use growth time from IC2.")
+        @Config.DefaultBoolean(true)
+        @Config.RequiresMcRestart
+        public boolean IC2GrowTime;
+
         @Config.Comment("if true, makes the GT5U sounds multi-threaded.")
         @Config.DefaultBoolean(false)
         @Config.RequiresMcRestart
@@ -201,6 +206,11 @@ public class Gregtech {
         @Config.DefaultInt(6000)
         @Config.RequiresMcRestart
         public int itemDespawnTime;
+
+        @Config.Comment("Plant growth time in ticks, if IC2GrowTime false.")
+        @Config.DefaultInt(100)
+        @Config.RequiresMcRestart
+        public int GrowTime;
 
         @Config.Comment("If true, allows small boiler automation.")
         @Config.DefaultBoolean(false)
