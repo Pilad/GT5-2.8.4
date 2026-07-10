@@ -805,7 +805,11 @@ public class MTEIndustrialApiary extends MTEBasicMachine
     @Override
     public EnumTemperature getTemperature() {
         if (BiomeHelper.isBiomeHellish(getBiome())) return EnumTemperature.HELLISH;
-        return EnumTemperature.getFromValue(getBiome().temperature + temperatureMod);
+        float biomeTemperature = getBiome().getFloatTemperature(
+            getBaseMetaTileEntity().getXCoord(),
+            getBaseMetaTileEntity().getYCoord(),
+            getBaseMetaTileEntity().getZCoord());
+        return EnumTemperature.getFromValue(biomeTemperature + temperatureMod);
     }
 
     @Override
