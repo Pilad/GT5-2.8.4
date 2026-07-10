@@ -5,12 +5,10 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.MultiAmpEnergy;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
@@ -39,19 +37,20 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
+import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
 import forestry.api.arboriculture.IToolGrafter;
 import forestry.api.arboriculture.ITree;
@@ -223,30 +222,24 @@ public class MTEIndustrialTreeFarm extends MTEExtendedPowerMultiBlockBase<MTEInd
                     int wy = aBaseMetaTileEntity.getYCoord() + xyz[1];
                     int wz = aBaseMetaTileEntity.getZCoord() + xyz[2];
 
-                    Block block = aBaseMetaTileEntity.getWorld()
-                        .getBlock(wx, wy, wz);
+                    World world = aBaseMetaTileEntity.getWorld();
 
                     switch (marker) {
-                        case 'D':
-                            if (block == Blocks.dirt) {
-                                aBaseMetaTileEntity.getWorld()
-                                    .setBlock(wx, wy, wz, Blocks.grass, 0, 3);
+                        case 'D' -> {
+                            if (world.getBlock(wx, wy, wz) == Blocks.dirt) {
+                                world.setBlock(wx, wy, wz, Blocks.grass, 0, 3);
                             }
-                            break;
-                        case 'F':
-                            if (block == Blocks.air) {
-                                aBaseMetaTileEntity.getWorld()
-                                    .setBlock(wx, wy, wz, Blocks.leaves, 0, 3);
+                        }
+                        case 'F' -> {
+                            if (world.isAirBlock(wx, wy, wz)) {
+                                world.setBlock(wx, wy, wz, Blocks.leaves, 0, 3);
                             }
-                            break;
-                        case 'G':
-                            if (block == Blocks.air) {
-                                aBaseMetaTileEntity.getWorld()
-                                    .setBlock(wx, wy, wz, Blocks.log, 0, 3);
+                        }
+                        case 'G' -> {
+                            if (world.isAirBlock(wx, wy, wz)) {
+                                world.setBlock(wx, wy, wz, Blocks.log, 0, 3);
                             }
-                            break;
-                        default:
-                            break;
+                        }
                     }
                 }
             }
@@ -305,20 +298,13 @@ public class MTEIndustrialTreeFarm extends MTEExtendedPowerMultiBlockBase<MTEInd
                 .addElement(
                     'C',
                     buildHatchAdder(MTEIndustrialTreeFarm.class)
-                        .atLeast(
-                            InputHatch,
-                            OutputHatch,
-                            InputBus,
-                            OutputBus,
-                            Maintenance,
-                            Energy.or(MultiAmpEnergy),
-                            Muffler)
+                        .atLeast(InputBus, OutputBus, Maintenance, Energy.or(MultiAmpEnergy), Muffler)
                         .casingIndex(Casings.SterileFarmCasing.textureId)
                         .dot(1)
                         .buildAndChain(onElementPass(x -> ++x.casingAmount, Casings.SterileFarmCasing.asElement())))
                 .addElement('D', ofChain(ofBlock(Blocks.dirt, 0), ofBlock(Blocks.grass, 0)))
-                .addElement('F', ofChain(ofBlock(Blocks.air, 0), ofBlock(Blocks.leaves, 0)))
-                .addElement('G', ofChain(ofBlock(Blocks.air, 0), ofBlock(Blocks.log, 0)))
+                .addElement('F', ofChain(StructureUtility.isAir(), ofBlock(Blocks.leaves, 0)))
+                .addElement('G', ofChain(StructureUtility.isAir(), ofBlock(Blocks.log, 0)))
                 .build();
         }
         return STRUCTURE_DEFINITION;
