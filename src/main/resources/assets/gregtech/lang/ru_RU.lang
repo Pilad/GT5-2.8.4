@@ -3728,6 +3728,8 @@ GT5U.scanner.debug.not_accessible=§cНедоступно§r для вас
 GT5U.scanner.debug.sound_requests=Зафиксировано §6%s§r звуковых запросов за §6%s§r тиков.
 GT5U.scanner.debug.machine_active=Механизм §aактивен§r
 GT5U.scanner.debug.machine_inactive=Механизм §cнеактивен§r
+GT5U.scanner.debug.machine_allowed_to_work=Механизму §aразрешено§r работать
+GT5U.scanner.debug.machine_not_allowed_to_work=Механизму §cне разрешено§r работать
 GT5U.scanner.debug.needs_power=§cВНИМАНИЕ: Устройству не хватает питания.§r
 GT5U.scanner.debug.ic2_enet=Подключён к IC2 ENet
 # Block Granites
