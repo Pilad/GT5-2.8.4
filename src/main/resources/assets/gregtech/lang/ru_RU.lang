@@ -794,14 +794,15 @@ GT5U.MBTT.EuDiscountBase=Uses %s of the EU normally required
 GT5U.MBTT.EuDiscountTiered=Uses %s less EU per %s Tier
 GT5U.MBTT.Parallel_Multiplicative=%s Parallels per %s Tier
 GT5U.MBTT.StructureBy=Structure by
-gt.unit.liter=L
-gt.unit.liter_per_second=L/s
+gt.unit.liter=Л
+gt.unit.liter_per_second=Л/сек
 
 GT5U.MBTT.Parallel.Base=%s Parallels
 GT5U.MBTT.Parallel.Additional=%s Parallels per %s Tier
 GT5U.MBTT.Parallel.Singular=%s Parallel
 GT5U.MBTT.Speed.Base=%s Speed
 GT5U.MBTT.Speed.Additional=%s Speed per %s Tier
+
 GT5U.MBTT.Speed.Absolute=Speed is %s times %s Tier
 GT5U.MBTT.EuDiscount.Base=%s EU Usage
 GT5U.MBTT.EuDiscount.Additional=%s EU Usage per %s Tier
@@ -1712,7 +1713,13 @@ GT5U.item.pipe.gas_proof.yes=Да
 GT5U.item.pipe.gas_proof.no=Нет
 GT5U.item.pipe.amount=Количество труб
 GT5U.item.pipe.empty=Пусто
-GT5U.item.pipe.swap=Pipe Swapped:
+GT5U.item.pipe.swap.s=Труба заменена: %s
+GT5U.item.pipe.swap.items=предметов
+GT5U.item.pipe.swap.routing=маршрутизация
+GT5U.item.pipe.swap.now_gas_proof=Теперь газонепроницаема
+GT5U.item.pipe.swap.no_longer_gas_proof=Больше не газонепроницаема
+GT5U.item.pipe.swap.now_restrictive=Теперь ограничительная
+GT5U.item.pipe.swap.no_longer_restrictive=Больше не ограничительная
 
 gt.behaviour.paintspray.infinite.gui.header=Выберите цвет
 gt.behaviour.paintspray.infinite.gui.lock_error=§eБанка спрея §cзаблокирована§e! §bCtrl+средняя копка мыши разблокировать.

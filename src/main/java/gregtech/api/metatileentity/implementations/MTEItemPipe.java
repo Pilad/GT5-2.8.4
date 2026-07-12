@@ -2,6 +2,7 @@ package gregtech.api.metatileentity.implementations;
 
 import static gregtech.api.enums.GTValues.ALL_VALID_SIDES;
 import static gregtech.api.enums.Textures.BlockIcons.PIPE_RESTRICTOR;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntityHopper;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.GTMod;
@@ -304,41 +309,56 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
         newPipe.setBaseMetaTileEntity(aBaseMetaTileEntity);
 
         // Construct a change message if needed
-        StringBuilder message = new StringBuilder();
+        IChatComponent message = new ChatComponentText("");
+        boolean hasContent = false;
 
         // Compare item throughput
         if (oldCapacity != newPipe.getMaxPipeCapacity()) {
             int newCapacity = newPipe.getMaxPipeCapacity();
-            message.append(oldCapacity)
-                .append(" > ");
-            message.append(newCapacity > oldCapacity ? EnumChatFormatting.GREEN : EnumChatFormatting.RED)
-                .append(newCapacity)
-                .append(" items")
-                .append(EnumChatFormatting.RESET);
+            EnumChatFormatting capacityColor = newCapacity > oldCapacity ? EnumChatFormatting.GREEN
+                : EnumChatFormatting.RED;
+            message.appendText(formatNumber(oldCapacity) + " > ");
+            message.appendSibling(
+                new ChatComponentText(formatNumber(newCapacity) + " ")
+                    .setChatStyle(new ChatStyle().setColor(capacityColor)));
+            message.appendSibling(
+                new ChatComponentTranslation("GT5U.item.pipe.swap.items")
+                    .setChatStyle(new ChatStyle().setColor(capacityColor)));
+            hasContent = true;
         }
 
         // Compare routing value (step size)
         if (oldStepSize != newPipe.mStepSize) {
-            if (message.length() > 0) message.append(" | ");
-            message.append(oldStepSize)
-                .append(" > ");
-            message.append(newPipe.mStepSize > oldStepSize ? EnumChatFormatting.GREEN : EnumChatFormatting.RED)
-                .append(newPipe.mStepSize)
-                .append(" routing")
-                .append(EnumChatFormatting.RESET);
+            if (hasContent) message.appendText(" | ");
+            EnumChatFormatting stepSizeColor = newPipe.mStepSize > oldStepSize ? EnumChatFormatting.GREEN
+                : EnumChatFormatting.RED;
+            message.appendText(formatNumber(oldStepSize) + " > ");
+            message.appendSibling(
+                new ChatComponentText(formatNumber(newPipe.mStepSize) + " ")
+                    .setChatStyle(new ChatStyle().setColor(stepSizeColor)));
+            message.appendSibling(
+                new ChatComponentTranslation("GT5U.item.pipe.swap.routing")
+                    .setChatStyle(new ChatStyle().setColor(stepSizeColor)));
+            hasContent = true;
         }
 
         // Compare restrictive flag
         if (oldRestrictive != newPipe.mIsRestrictive) {
-            if (message.length() > 0) message.append(" | ");
-            message.append(newPipe.mIsRestrictive ? EnumChatFormatting.RED : EnumChatFormatting.GREEN)
-                .append(newPipe.mIsRestrictive ? "Now Restrictive" : "No Longer Restrictive")
-                .append(EnumChatFormatting.RESET);
+            if (hasContent) message.appendText(" | ");
+            EnumChatFormatting restrictiveColor = newPipe.mIsRestrictive ? EnumChatFormatting.RED
+                : EnumChatFormatting.GREEN;
+            message.appendSibling(
+                new ChatComponentTranslation(
+                    newPipe.mIsRestrictive ? "GT5U.item.pipe.swap.now_restrictive"
+                        : "GT5U.item.pipe.swap.no_longer_restrictive")
+                            .setChatStyle(new ChatStyle().setColor(restrictiveColor)));
+            hasContent = true;
         }
 
-        // Send a chat message if anything changed
-        if (message.length() > 0) {
-            GTUtility.sendChatTrans(aPlayer, "GT5U.item.pipe.swap.s", message.toString());
+        // Send a chat message if anything changed. Only send server-side, since this method also runs
+        // client-side for responsive placement and would otherwise send the message twice.
+        if (hasContent && aBaseMetaTileEntity.isServerSide()) {
+            GTUtility.sendChatTrans(aPlayer, "GT5U.item.pipe.swap.s", message);
         }
 
         // Force updates to sync changes
@@ -541,13 +561,13 @@ public class MTEItemPipe extends MetaPipeEntity implements IMetaTileEntityItemPi
     @Override
     public String[] getDescription() {
         if (mTickTime == 20) return new String[] { "Item Capacity: %%%" + getMaxPipeCapacity() + "%%% Stacks/sec",
-            "Routing Value: %%%" + GTUtility.formatNumbers(mStepSize) };
+            "Routing Value: %%%" + formatNumber(mStepSize) };
         else if (mTickTime % 20 == 0) return new String[] {
             "Item Capacity: %%%" + getMaxPipeCapacity() + "%%% Stacks/%%%" + (mTickTime / 20) + "%%% sec",
-            "Routing Value: %%%" + GTUtility.formatNumbers(mStepSize) };
+            "Routing Value: %%%" + formatNumber(mStepSize) };
         else return new String[] {
             "Item Capacity: %%%" + getMaxPipeCapacity() + "%%% Stacks/%%%" + mTickTime + "%%% ticks",
-            "Routing Value: %%%" + GTUtility.formatNumbers(mStepSize) };
+            "Routing Value: %%%" + formatNumber(mStepSize) };
     }
 
     private boolean isInventoryEmpty() {
