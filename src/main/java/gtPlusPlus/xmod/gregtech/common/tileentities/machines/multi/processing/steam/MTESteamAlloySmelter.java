@@ -166,7 +166,7 @@ public class MTESteamAlloySmelter extends MTESteamMultiBase<MTESteamAlloySmelter
             .addStructureInfo(EnumChatFormatting.GOLD + "2x" + EnumChatFormatting.GRAY + " Steel Pipe Casing")
             .addCasingInfoExactly("Any Tiered Glass", 4, true)
             .addStructureInfo("")
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .toolTipFinisher();
         return tt;
     }
