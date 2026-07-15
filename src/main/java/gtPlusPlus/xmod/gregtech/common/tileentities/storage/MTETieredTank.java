@@ -1,5 +1,7 @@
 package gtPlusPlus.xmod.gregtech.common.tileentities.storage;
 
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,10 +52,8 @@ public class MTETieredTank extends MTEBasicTank {
 
         if (this.mFluid != null) {
             description.add(
-                GTUtility.translate(
-                    "gtpp.tiered_tank.desc.fluid",
-                    mFluid.getLocalizedName(),
-                    GTUtility.formatNumbers(mFluid.amount)));
+                GTUtility
+                    .translate("gtpp.tiered_tank.desc.fluid", mFluid.getLocalizedName(), formatNumber(mFluid.amount)));
         }
 
         description.add(GTPPCore.GT_Tooltip.get());
@@ -89,8 +89,7 @@ public class MTETieredTank extends MTEBasicTank {
                 tooltip.add(
                     GTUtility.translate(
                         "gtpp.tiered_tank.tooltip.amount",
-                        EnumChatFormatting.GREEN + GTUtility.formatNumbers(tContents.amount)
-                            + EnumChatFormatting.GRAY));
+                        EnumChatFormatting.GREEN + formatNumber(tContents.amount) + EnumChatFormatting.GRAY));
             }
         }
     }

@@ -10,6 +10,7 @@ import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase.GTPPHatchElement.TTDynamo;
 
 import java.util.ArrayList;
@@ -156,7 +157,7 @@ public abstract class MTELargerTurbineBaseLegacy extends GTPPMultiBlockBase<MTEL
         } else if (getTurbineType().contains("Steam")) {
             tt.addInfo("Dense types of steam are so energy packed, they only require 1/1000th of the original flow");
         }
-        tt.addTecTechHatchInfo();
+        tt.addSupportAny();
         tt.addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(7, 9, 7, false)
             .addController("Top center")
@@ -577,7 +578,7 @@ public abstract class MTELargerTurbineBaseLegacy extends GTPPMultiBlockBase<MTEL
                 (long) (100.0f / MetaGeneratedTool.getToolMaxDamage(aTurbine)
                     * (MetaGeneratedTool.getToolDamage(aTurbine)) + 1));
             aTurbineDamage.append(EnumChatFormatting.RED)
-                .append(GTUtility.formatNumbers(tDura))
+                .append(formatNumber(tDura))
                 .append(EnumChatFormatting.RESET)
                 .append("% | ");
         }
@@ -600,27 +601,27 @@ public abstract class MTELargerTurbineBaseLegacy extends GTPPMultiBlockBase<MTEL
             // 8 Lines available for information panels
             tRunning + ": "
                 + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(((lEUt * mEfficiency) / 10000))
+                + formatNumber(((lEUt * mEfficiency) / 10000))
                 + EnumChatFormatting.RESET
                 + " EU/t",
             tMaintenance,
             StatCollector.translateToLocal("GT5U.turbine.efficiency") + ": "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers((mEfficiency / 100F))
+                + formatNumber((mEfficiency / 100F))
                 + EnumChatFormatting.RESET
                 + "%",
             StatCollector.translateToLocal("GT5U.multiblock.energy") + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(storedEnergy)
+                + formatNumber(storedEnergy)
                 + EnumChatFormatting.RESET
                 + " EU / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(maxEnergy)
+                + formatNumber(maxEnergy)
                 + EnumChatFormatting.RESET
                 + " EU",
             StatCollector.translateToLocal("GT5U.turbine.flow") + ": " + EnumChatFormatting.YELLOW
             // Divides optimal flow by 1000 if it's a dense steam
-                + GTUtility.formatNumbers(MathUtils.safeInt((long) realOptFlow) / (isDenseSteam() ? 1000 : 1))
+                + formatNumber(MathUtils.safeInt((long) realOptFlow) / (isDenseSteam() ? 1000 : 1))
                 + EnumChatFormatting.RESET
                 + " L/"
                 + (getTurbineType().equals("Plasma") ? 's' : 't') // based on turbine type changes flow timing
@@ -631,7 +632,7 @@ public abstract class MTELargerTurbineBaseLegacy extends GTPPMultiBlockBase<MTEL
                 + ")",
             StatCollector.translateToLocal("GT5U.turbine.fuel") + ": "
                 + EnumChatFormatting.GOLD
-                + GTUtility.formatNumbers(storedFluid)
+                + formatNumber(storedFluid)
                 + EnumChatFormatting.RESET
                 + "L",
             StatCollector.translateToLocal("GT5U.turbine.dmg") + ": " + aTurbineDamage,

@@ -12,6 +12,7 @@ import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static java.lang.Math.min;
 import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
@@ -61,7 +62,6 @@ import gregtech.api.metatileentity.implementations.MTEHatchMaintenance;
 import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
-import gregtech.api.util.GTUtility;
 import gregtech.api.util.IGTHatchAdder;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.shutdown.ShutDownReason;
@@ -551,7 +551,7 @@ public class MTETeslaTower extends TTMultiblockBase implements ISurvivalConstruc
                                                                                             // Windings need to
             // be at least the same tier as
             // the Tesla Capacitor
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(7, 17, 7, false)
             .addController("Front bottom center")
             .addOtherStructurePart(
@@ -951,13 +951,13 @@ public class MTETeslaTower extends TTMultiblockBase implements ISurvivalConstruc
         data.add(
             translateToLocalFormatted(
                 "tt.infodata.multi.energy_hatches",
-                EnumChatFormatting.GREEN + GTUtility.formatNumbers(getTeslaStoredEnergy()) + EnumChatFormatting.RESET,
-                EnumChatFormatting.YELLOW + GTUtility.formatNumbers(energyCapacity) + EnumChatFormatting.RESET));
+                EnumChatFormatting.GREEN + formatNumber(getTeslaStoredEnergy()) + EnumChatFormatting.RESET,
+                EnumChatFormatting.YELLOW + formatNumber(energyCapacity) + EnumChatFormatting.RESET));
         data.add(
             translateToLocalFormatted(
                 "tt.infodata.multi.current_output",
-                EnumChatFormatting.GREEN + GTUtility.formatNumbers(getTeslaOutputCurrent()) + EnumChatFormatting.RESET,
-                EnumChatFormatting.YELLOW + GTUtility.formatNumbers(outputCurrentMax) + EnumChatFormatting.RESET));
+                EnumChatFormatting.GREEN + formatNumber(getTeslaOutputCurrent()) + EnumChatFormatting.RESET,
+                EnumChatFormatting.YELLOW + formatNumber(outputCurrentMax) + EnumChatFormatting.RESET));
 
         return data.toArray(new String[0]);
     }

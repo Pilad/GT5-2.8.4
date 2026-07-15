@@ -416,7 +416,7 @@ public class MTEBlackHoleCompressor extends MTEExtendedPowerMultiBlockBase<MTEBl
                     + "uncapped"
                     + EnumChatFormatting.GRAY
                     + " for recipes that do not require a black hole.")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addInfo(
                 EnumChatFormatting.RED
                     + "Recipe tier is limited to hatch tier + 1. Will not perform overclocks above the hatch tier")

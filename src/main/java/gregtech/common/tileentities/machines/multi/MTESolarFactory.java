@@ -426,8 +426,9 @@ public class MTESolarFactory extends MTEExtendedPowerMultiBlockBase<MTESolarFact
             .addOutputBus("Any Machine Casing", 1)
             .addEnergyHatch("Any Machine Casing", 1)
             .addMaintenanceHatch("Any Machine Casing", 1)
-            .addSubChannelUsage(GTStructureChannels.PRASS_UNIT_CASING)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
+            .addSubChannel(GTStructureChannels.PRASS_UNIT_CASING)
             .toolTipFinisher(GTValues.AuthorPureBluez);
         return tt;
     }

@@ -1,6 +1,7 @@
 package tectech.thing.metaTileEntity.hatch;
 
 import static gregtech.api.enums.GTValues.V;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
@@ -166,7 +167,7 @@ public class MTEHatchEnergyMulti extends MTEHatch implements IHideTooltipEnergyI
         currenttip.add(
             GTUtility.translate(
                 "gt.tileentity.throughput",
-                EnumChatFormatting.YELLOW + GTUtility.formatNumbers(
+                EnumChatFormatting.YELLOW + formatNumber(
                     accessor.getNBTData()
                         .getLong("amperage") * V[mTier])
                     + EnumChatFormatting.RESET
@@ -177,9 +178,7 @@ public class MTEHatchEnergyMulti extends MTEHatch implements IHideTooltipEnergyI
     public String[] getInfoData() {
         return new String[] { GTUtility.translate(
             "gt.tileentity.throughput",
-            EnumChatFormatting.YELLOW + GTUtility.formatNumbers(Amperes * V[mTier])
-                + EnumChatFormatting.RESET
-                + " EU/t") };
+            EnumChatFormatting.YELLOW + formatNumber(Amperes * V[mTier]) + EnumChatFormatting.RESET + " EU/t") };
     }
 
     @Override

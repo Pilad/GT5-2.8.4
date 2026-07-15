@@ -202,7 +202,7 @@ public class MTEQuantumForceTransformer extends MTEExtendedPowerMultiBlockBase<M
             .addInfo("Sneak + screwdriver to disable animations")
             .addInfo("Fluid mode turns all possible outputs into their fluid variant, if avaliable")
             .addUnlimitedTierSkips()
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(15, 21, 15, true)
             .addController("Front bottom center")

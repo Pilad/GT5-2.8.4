@@ -115,7 +115,8 @@ public class MTEPyrolyseOven extends MTEExtendedPowerMultiBlockBase<MTEPyrolyseO
             .addInputHatch("Any top layer Casing", 2)
             .addOutputBus("Any bottom layer Casing", 1)
             .addOutputHatch("Any bottom layer Casing", 1)
-            .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.HEATING_COIL)
             .addStructureAuthors(EnumChatFormatting.GOLD + "Ya9yu")
             .toolTipFinisher();
         return tt;

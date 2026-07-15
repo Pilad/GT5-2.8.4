@@ -2,6 +2,7 @@ package gregtech.common.tileentities.machines;
 
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ME_FLUID_HATCH;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ME_FLUID_HATCH_ACTIVE;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -524,7 +525,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
             StatCollector.translateToLocalFormatted(
                 "GT5U.waila.hatch.output_me.fluid_cache_capacity",
                 EnumChatFormatting.GOLD,
-                GTUtility.formatNumbers(tag.getLong("cacheCapacity")),
+                formatNumber(tag.getLong("cacheCapacity")),
                 EnumChatFormatting.RESET));
 
         if (!GuiScreen.isShiftKeyDown()) {
@@ -555,7 +556,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
                         "%s: %s%s L%s",
                         stack.getLocalizedName(),
                         EnumChatFormatting.GOLD,
-                        GTUtility.formatNumbers(stackTag.getLong("Amount")),
+                        formatNumber(stackTag.getLong("Amount")),
                         EnumChatFormatting.RESET));
             }
 
@@ -704,9 +705,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
         ss.add(
             StatCollector.translateToLocalFormatted(
                 "GT5U.infodata.hatch.output_me.cache_capacity",
-                EnumChatFormatting.GOLD + GTUtility.formatNumbers(getCacheCapacity())
-                    + " L"
-                    + EnumChatFormatting.RESET));
+                EnumChatFormatting.GOLD + formatNumber(getCacheCapacity()) + " L" + EnumChatFormatting.RESET));
         if (fluidCache.isEmpty()) {
             ss.add(StatCollector.translateToLocal("GT5U.infodata.hatch.output_me.empty"));
         } else {
@@ -718,7 +717,7 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
                     s.getFluidStack()
                         .getLocalizedName() + ": "
                         + EnumChatFormatting.GOLD
-                        + GTUtility.formatNumbers(s.getStackSize())
+                        + formatNumber(s.getStackSize())
                         + " L"
                         + EnumChatFormatting.RESET);
                 if (++counter > 100) break;

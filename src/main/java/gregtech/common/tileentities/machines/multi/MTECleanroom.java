@@ -7,6 +7,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_CLEANROOM_ACTIV
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_CLEANROOM_ACTIVE_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_CLEANROOM_GLOW;
 import static gregtech.api.util.GlassTier.getGlassBlockTier;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +50,6 @@ import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTLog;
-import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
 import gregtech.common.config.MachineStats;
@@ -805,7 +805,7 @@ public class MTECleanroom extends MTETooltipMultiBlockBase
                 new TextWidget()
                     .setStringSupplier(
                         () -> StatCollector.translateToLocal("GT5U.multiblock.efficiency") + ": "
-                            + GTUtility.formatNumbers(mEfficiency / 100D)
+                            + formatNumber(mEfficiency / 100D)
                             + "%")
                     .setTextAlignment(Alignment.CenterLeft)
                     .setDefaultColor(COLOR_TEXT_WHITE.get()))

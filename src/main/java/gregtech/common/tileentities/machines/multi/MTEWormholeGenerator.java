@@ -980,7 +980,7 @@ public class MTEWormholeGenerator extends MTEEnhancedMultiBlockBase<MTEWormholeG
             .addInfo("Consumes an AE2 Singularity from an input bus each time the wormhole is kick-started")
             .addInfo("Right click the controller with a screwdriver to disable overclocking")
             .addGlassEnergyLimitInfo()
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(7, 9, 7, false)
             .addController("Front center")
             .addCasingInfoExactly("Molecular Casing", 2 * 12, false)
@@ -992,7 +992,8 @@ public class MTEWormholeGenerator extends MTEEnhancedMultiBlockBase<MTEWormholeG
             .addInputBus("§61§r (dot 1)")
             .addDynamoHatch("§60§r - §64§r (laser only, dot 2)")
             .addEnergyHatch("§60§r - §64§r (laser only, dot 2)")
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .toolTipFinisher(GTValues.AuthorPineapple + EnumChatFormatting.GRAY + ", Rendering by: " + EnumChatFormatting.WHITE + "BucketBrigade");
         // spotless:on
 

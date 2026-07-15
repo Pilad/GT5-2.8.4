@@ -5,7 +5,6 @@ import static gregtech.api.enums.GTValues.VN;
 import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 import static gregtech.api.recipe.check.SingleRecipeCheck.getDisplayString;
 import static gregtech.api.util.GTUtility.filterValidMTEs;
-import static gregtech.api.util.GTUtility.formatNumbers;
 import static gregtech.api.util.GTUtility.formatShortenedLong;
 import static gregtech.api.util.GTUtility.min;
 import static gregtech.api.util.GTUtility.truncateText;
@@ -2447,14 +2446,14 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
                     currentTip.add(
                         translateToLocalFormatted(
                             "GT5U.waila.energy.use_with_amperage",
-                            formatNumbers(actualEnergyUsage),
+                            formatNumber(actualEnergyUsage),
                             GTUtility.getAmperageForTier(actualEnergyUsage, (byte) energyTier),
                             GTUtility.getColoredTierNameFromTier((byte) energyTier)));
                 } else if (actualEnergyUsage < 0) {
                     currentTip.add(
                         translateToLocalFormatted(
                             "GT5U.waila.energy.produce_with_amperage",
-                            formatNumbers(-actualEnergyUsage),
+                            formatNumber(-actualEnergyUsage),
                             GTUtility.getAmperageForTier(-actualEnergyUsage, (byte) energyTier),
                             GTUtility.getColoredTierNameFromTier((byte) energyTier)));
                 }
@@ -2463,13 +2462,13 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
                     currentTip.add(
                         translateToLocalFormatted(
                             "GT5U.waila.energy.use",
-                            formatNumbers(actualEnergyUsage),
+                            formatNumber(actualEnergyUsage),
                             GTUtility.getColoredTierNameFromVoltage(actualEnergyUsage)));
                 } else if (actualEnergyUsage < 0) {
                     currentTip.add(
                         translateToLocalFormatted(
                             "GT5U.waila.energy.produce",
-                            formatNumbers(-actualEnergyUsage),
+                            formatNumber(-actualEnergyUsage),
                             GTUtility.getColoredTierNameFromVoltage(-actualEnergyUsage)));
                 }
             }
@@ -2497,18 +2496,18 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
                     currentTip.add(
                         "  " + tag.getString("outputItem" + i)
                             + " x "
-                            + formatNumbers(tag.getInteger("outputItemCount" + i)));
+                            + formatNumber(tag.getInteger("outputItemCount" + i)));
                 }
                 for (int i = 0; i < min(3 - outputItemLength, outputFluidLength); i++) {
                     currentTip.add(
                         "  " + tag.getString("outputFluid" + i)
                             + " x "
-                            + formatNumbers(tag.getInteger("outputFluidCount" + i))
+                            + formatNumber(tag.getInteger("outputFluidCount" + i))
                             + "L");
                 }
                 if (totalOutputs > 3) {
                     currentTip.add(
-                        translateToLocalFormatted("GT5U.waila.producing.andmore", formatNumbers((totalOutputs - 3))));
+                        translateToLocalFormatted("GT5U.waila.producing.andmore", formatNumber((totalOutputs - 3))));
                 }
             }
         }
@@ -2522,7 +2521,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         if (GTMod.proxy.wailaAverageNS && tag.hasKey("averageNS")) {
             int tAverageTime = tag.getInteger("averageNS");
             currentTip
-                .add(translateToLocalFormatted("GT5U.waila.multiblock.status.cpu_load", formatNumbers(tAverageTime)));
+                .add(translateToLocalFormatted("GT5U.waila.multiblock.status.cpu_load", formatNumber(tAverageTime)));
         }
 
         if (tag.getInteger("maxParallelRecipes") > 1) {
@@ -3478,13 +3477,13 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
             ret.append(EnumChatFormatting.RESET);
             ret.append(
                 amountText + EnumChatFormatting.GOLD
-                    + formatNumbers(amount)
+                    + formatNumber(amount)
                     + (isLiquid ? "L" : "")
                     + EnumChatFormatting.RESET);
             ret.append("\n");
             ret.append(
                 perSecondText + EnumChatFormatting.GOLD
-                    + formatNumbers(roundNumber.apply(perSecond))
+                    + formatNumber(roundNumber.apply(perSecond))
                     + (isLiquid ? "L" : "")
                     + (perSecond > 1_000_000
                         ? EnumChatFormatting.WHITE + " ["
@@ -3497,7 +3496,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
             ret.append("\n");
             ret.append(
                 perMinuteText + EnumChatFormatting.GOLD
-                    + formatNumbers(roundNumber.apply(perMinute))
+                    + formatNumber(roundNumber.apply(perMinute))
                     + (isLiquid ? "L" : "")
                     + (perMinute > 1_000_000
                         ? EnumChatFormatting.WHITE + " ["
@@ -3510,7 +3509,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
             ret.append("\n");
             ret.append(
                 perHourText + EnumChatFormatting.GOLD
-                    + formatNumbers(roundNumber.apply(perHour))
+                    + formatNumber(roundNumber.apply(perHour))
                     + (isLiquid ? "L" : "")
                     + (perHour > 1_000_000
                         ? EnumChatFormatting.WHITE + " ["
@@ -3523,7 +3522,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
             ret.append("\n");
             ret.append(
                 perDayText + EnumChatFormatting.GOLD
-                    + formatNumbers(roundNumber.apply(perDay))
+                    + formatNumber(roundNumber.apply(perDay))
                     + (isLiquid ? "L" : "")
                     + (perDay > 1_000_000
                         ? EnumChatFormatting.WHITE + " ["

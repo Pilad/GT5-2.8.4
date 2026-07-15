@@ -147,7 +147,7 @@ public class MTENetworkSwitch extends TTMultiblockBase
         tt.addInfo(translateToLocal("gt.blockmachines.multimachine.em.switch.desc.4"));
         tt.addInfo(translateToLocal("gt.blockmachines.multimachine.em.switch.desc.5"));
 
-        tt.addTecTechHatchInfo();
+        tt.addSupportAny();
 
         tt.beginStructureBlock();
         tt.addController(translateToLocal("tt.keyword.Structure.FrontCenter"));

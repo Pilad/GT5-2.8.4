@@ -235,7 +235,8 @@ public class MTEDissolutionTank extends MTEEnhancedMultiBlockBase<MTEDissolution
             .addOutputHatch("Any Stainless Steel Casing")
             .addOutputBus("Any Stainless Steel Casing")
             .addMaintenanceHatch("Any Stainless Steel Casing")
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .toolTipFinisher();
 
         return tt;

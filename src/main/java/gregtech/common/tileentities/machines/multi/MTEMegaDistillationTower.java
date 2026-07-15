@@ -604,7 +604,7 @@ public class MTEMegaDistillationTower extends MTEExtendedPowerMultiBlockBase<MTE
             .addStaticEuEffInfo(TOWER_EU_EFFICIENCY)
             .addInfo("Fluids output to their corresponding layer only")
             .addSeparator()
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addUnlimitedTierSkips()
             .addSeparator()
             .addInfo(EnumChatFormatting.GOLD + "Big Oil will be pleased with this!")

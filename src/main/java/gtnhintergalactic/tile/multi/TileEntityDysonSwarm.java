@@ -7,6 +7,7 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 import static gregtech.api.util.GTUtility.filterValidMTEs;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static net.minecraft.util.EnumChatFormatting.*;
 import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
@@ -44,7 +45,6 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchDynamo;
 import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.render.TextureFactory;
-import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.common.items.IDMetaTool01;
 import gregtech.common.items.MetaGeneratedTool01;
@@ -445,7 +445,7 @@ public class TileEntityDysonSwarm extends TTMultiblockBase implements ISurvivalC
                         .getLocalizedName()))
             .addInfo(translateToLocal("gt.blockmachines.multimachine.ig.dyson.desc6"))
             .addInfo(translateToLocal("gt.blockmachines.multimachine.ig.dyson.desc7"))
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(16, 20, 16, false)
             .addController("Front bottom center of the Dyson Swarm Energy Receiver Base")
             .addDynamoHatch(translateToLocal("ig.dyson.structure.dynamo"), 1)
@@ -476,17 +476,14 @@ public class TileEntityDysonSwarm extends TTMultiblockBase implements ISurvivalC
     @Override
     public String[] getInfoData() {
         return new String[] { LIGHT_PURPLE + "Operational Data:" + RESET,
-            "Modules: " + YELLOW + GTUtility.formatNumbers(moduleCount) + RESET,
-            "Power Factor: " + (powerFactor < 1.0f ? RED : GREEN)
-                + GTUtility.formatNumbers(powerFactor * 100.0)
-                + "%"
-                + RESET,
+            "Modules: " + YELLOW + formatNumber(moduleCount) + RESET,
+            "Power Factor: " + (powerFactor < 1.0f ? RED : GREEN) + formatNumber(powerFactor * 100.0) + "%" + RESET,
             "Theoretical Output: " + YELLOW
-                + GTUtility.formatNumbers((long) moduleCount * IGConfig.dysonSwarm.euPerModule * powerFactor)
+                + formatNumber((long) moduleCount * IGConfig.dysonSwarm.euPerModule * powerFactor)
                 + RESET
                 + " EU/t",
-            "Current Output: " + YELLOW + GTUtility.formatNumbers(euPerTick) + RESET + " EU/t",
-            "Computation required: " + YELLOW + GTUtility.formatNumbers(eRequiredData) + RESET + "/t",
+            "Current Output: " + YELLOW + formatNumber(euPerTick) + RESET + " EU/t",
+            "Computation required: " + YELLOW + formatNumber(eRequiredData) + RESET + "/t",
             "---------------------------------------------" };
     }
 

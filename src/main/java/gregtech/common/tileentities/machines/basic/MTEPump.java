@@ -1,6 +1,7 @@
 package gregtech.common.tileentities.machines.basic;
 
 import static gregtech.api.enums.GTValues.debugBlockPump;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -75,11 +76,11 @@ public class MTEPump extends MTEBasicMachine {
             StatCollector.translateToLocalFormatted(
                 "GT5U.tooltip.pump.1",
                 TooltipHelper.euText(getEuUsagePerTier(aTier)),
-                GTUtility.formatNumbers(GTUtility.safeInt(160 / 20 / (long) GTUtility.powInt(2, aTier)))),
+                formatNumber(GTUtility.safeInt(160 / 20 / (long) GTUtility.powInt(2, aTier)))),
             StatCollector.translateToLocalFormatted(
                 "GT5U.tooltip.pump.2",
-                GTUtility.formatNumbers(getMaxDistanceForTier(aTier) * 2 + 1),
-                GTUtility.formatNumbers(getMaxDistanceForTier(aTier) * 2 + 1)),
+                formatNumber(getMaxDistanceForTier(aTier) * 2 + 1),
+                formatNumber(getMaxDistanceForTier(aTier) * 2 + 1)),
             StatCollector.translateToLocal("GT5U.tooltip.pump.3"),
             StatCollector.translateToLocal("GT5U.tooltip.pump.4"),
             StatCollector.translateToLocal("GT5U.tooltip.pump.5"),

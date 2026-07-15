@@ -10,7 +10,7 @@ import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTUtility.filterValidMTEs;
-import static gregtech.api.util.GTUtility.formatNumbers;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static java.lang.Math.floor;
 import static java.lang.Math.log;
 import static java.lang.Math.max;
@@ -2796,15 +2796,15 @@ public class MTEForgeOfGods extends TTMultiblockBase implements IConstructable, 
             }
             case 3 -> {
                 calculateSpeedBonusForModules(module, this);
-                relevantInfo = String.valueOf(formatNumbers(module.getSpeedBonus()));
+                relevantInfo = String.valueOf(formatNumber(module.getSpeedBonus()));
             }
             case 4 -> {
                 calculateEnergyDiscountForModules(module, this);
-                relevantInfo = String.valueOf(formatNumbers(module.getEnergyDiscount()));
+                relevantInfo = String.valueOf(formatNumber(module.getEnergyDiscount()));
             }
             case 5 -> {
                 setMiscModuleParameters(module, this);
-                relevantInfo = String.valueOf(formatNumbers(module.getOverclockTimeFactor()));
+                relevantInfo = String.valueOf(formatNumber(module.getOverclockTimeFactor()));
             }
             case 6 -> {
                 calculateProcessingVoltageForModules(module, this, fuelFactor);

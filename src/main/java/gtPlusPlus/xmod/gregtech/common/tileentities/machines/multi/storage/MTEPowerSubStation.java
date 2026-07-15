@@ -12,6 +12,7 @@ import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofHatchAdderOptional;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase.GTPPHatchElement.TTDynamo;
 import static gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase.GTPPHatchElement.TTEnergy;
 
@@ -687,22 +688,18 @@ public class MTEPowerSubStation extends GTPPMultiBlockBase<MTEPowerSubStation> i
 
         String storedEnergyText;
         if (this.getEUVar() > this.mBatteryCapacity) {
-            storedEnergyText = EnumChatFormatting.RED + GTUtility.formatNumbers(this.getEUVar())
-                + EnumChatFormatting.RESET;
+            storedEnergyText = EnumChatFormatting.RED + formatNumber(this.getEUVar()) + EnumChatFormatting.RESET;
         } else {
-            storedEnergyText = EnumChatFormatting.GREEN + GTUtility.formatNumbers(this.getEUVar())
-                + EnumChatFormatting.RESET;
+            storedEnergyText = EnumChatFormatting.GREEN + formatNumber(this.getEUVar()) + EnumChatFormatting.RESET;
         }
 
         int errorCode = getErrorDisplayID();
         boolean mMaint = (errorCode != 0);
 
         return new String[] { "Ergon Energy - District Sub-Station", "Stored EU: " + storedEnergyText,
-            "Capacity: " + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(this.maxEUStore())
-                + EnumChatFormatting.RESET,
+            "Capacity: " + EnumChatFormatting.YELLOW + formatNumber(this.maxEUStore()) + EnumChatFormatting.RESET,
             "Running Costs: " + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(this.computeEnergyTax())
+                + formatNumber(this.computeEnergyTax())
                 + EnumChatFormatting.RESET
                 + " EU/t",
             "Controller Mode: " + mode,
@@ -716,23 +713,23 @@ public class MTEPowerSubStation extends GTPPMultiBlockBase<MTEPowerSubStation> i
                 + "]",
             EnumChatFormatting.STRIKETHROUGH + "----------------------", "Stats for Nerds",
             "Average Input: " + EnumChatFormatting.BLUE
-                + GTUtility.formatNumbers(this.getAverageEuAdded())
+                + formatNumber(this.getAverageEuAdded())
                 + EnumChatFormatting.RESET
                 + " EU",
             "Average Output: " + EnumChatFormatting.GOLD
-                + GTUtility.formatNumbers(this.getAverageEuConsumed())
+                + formatNumber(this.getAverageEuConsumed())
                 + EnumChatFormatting.RESET
                 + " EU",
             "Total Input: " + EnumChatFormatting.BLUE
-                + GTUtility.formatNumbers(this.mTotalEnergyAdded)
+                + formatNumber(this.mTotalEnergyAdded)
                 + EnumChatFormatting.RESET
                 + " EU",
             "Total Output: " + EnumChatFormatting.GOLD
-                + GTUtility.formatNumbers(this.mTotalEnergyConsumed)
+                + formatNumber(this.mTotalEnergyConsumed)
                 + EnumChatFormatting.RESET
                 + " EU",
             "Total Costs: " + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(this.mTotalEnergyLost)
+                + formatNumber(this.mTotalEnergyLost)
                 + EnumChatFormatting.RESET
                 + " EU", };
     }

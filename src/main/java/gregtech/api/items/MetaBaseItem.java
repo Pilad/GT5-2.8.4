@@ -2,7 +2,7 @@ package gregtech.api.items;
 
 import static gregtech.api.enums.GTValues.D1;
 import static gregtech.api.enums.GTValues.V;
-import static gregtech.api.util.GTUtility.formatNumbers;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
@@ -240,7 +240,7 @@ public abstract class MetaBaseItem extends GTGenericItem
                     EnumChatFormatting.AQUA
                         + translateToLocalFormatted(
                             "gt.item.desc.stored_eu",
-                            formatNumbers(tStats[3]),
+                            formatNumber(tStats[3]),
                             "" + (tStats[2] >= 0 ? tStats[2] : 0))
                         + EnumChatFormatting.GRAY);
             } else {
@@ -254,9 +254,9 @@ public abstract class MetaBaseItem extends GTGenericItem
                         EnumChatFormatting.AQUA
                             + translateToLocalFormatted(
                                 "gt.item.desc.eu_info",
-                                formatNumbers(tCharge),
-                                formatNumbers(Math.abs(tStats[0])),
-                                formatNumbers(V[voltageTier]))
+                                formatNumber(tCharge),
+                                formatNumber(Math.abs(tStats[0])),
+                                formatNumber(V[voltageTier]))
                             + EnumChatFormatting.GRAY);
                 }
             }
@@ -272,8 +272,8 @@ public abstract class MetaBaseItem extends GTGenericItem
                 EnumChatFormatting.BLUE
                     + translateToLocalFormatted(
                         "gt.item.desc.fluid_info",
-                        tFluid == null ? 0 : formatNumbers(tFluid.amount),
-                        formatNumbers(tStats[0]))
+                        tFluid == null ? 0 : formatNumber(tFluid.amount),
+                        formatNumber(tStats[0]))
                     + EnumChatFormatting.GRAY);
         }
 

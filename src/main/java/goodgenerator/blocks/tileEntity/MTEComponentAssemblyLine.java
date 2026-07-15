@@ -222,7 +222,7 @@ public class MTEComponentAssemblyLine extends MTEExtendedPowerMultiBlockBase<MTE
             .addInfo("Using casings above the required recipe tier provides a speed bonus:")
             .addInfo(EnumChatFormatting.YELLOW + "Halves recipe time per tier above recipe")
             .addInfo(EnumChatFormatting.ITALIC + "Much more efficient than other competing brands!")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addUnlimitedTierSkips()
             .beginStructureBlock(9, 10, 33, false)
             .addController("Front center, 8th layer")

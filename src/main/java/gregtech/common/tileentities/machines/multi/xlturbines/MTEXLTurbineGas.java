@@ -183,7 +183,7 @@ public class MTEXLTurbineGas extends MTEXLTurbineBase {
             .addInfo("Right-click with screwdriver to enable loose fit")
             .addInfo("Optimal flow will increase or decrease depending on fitting")
             .addInfo("Loose fit increases flow in exchange for efficiency")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(9, 9, 26, false)
             .addController("Front center")

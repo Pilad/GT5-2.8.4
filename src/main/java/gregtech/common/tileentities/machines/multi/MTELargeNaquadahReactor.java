@@ -405,7 +405,7 @@ public class MTELargeNaquadahReactor extends TTMultiblockBase implements ISurviv
             .addInfo(getExcitedTextFormatted("Molten Naquadah", "20", ExcitedLiquidCoe[2]))
             .addInfo(getExcitedTextFormatted("Molten Atomic Separation Catalyst", "20", ExcitedLiquidCoe[1]))
             .addInfo(getExcitedTextFormatted("Spatially Enlarged Fluid", "20", ExcitedLiquidCoe[0]))
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(7, 11, 7, false)
             .addController("Front bottom center")
             .addCasingInfoMin("Naquadah Reactor Casing", 130, false)

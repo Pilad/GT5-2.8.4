@@ -2,7 +2,7 @@ package tectech.thing.casing;
 
 import static com.google.common.math.LongMath.pow;
 import static gregtech.api.enums.GTValues.AuthorColen;
-import static gregtech.api.util.GTUtility.formatNumbers;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class ItemCasingsSpacetime extends ItemCasings {
                 tooltip.add(
                     StatCollector.translateToLocalFormatted(
                         "tt.eoh.spacetime.standard.tooltip.0",
-                        formatNumbers(pow(10, 5 + aStack.getItemDamage()))));
+                        formatNumber(pow(10, 5 + aStack.getItemDamage()))));
                 tooltip.add(
                     StatCollector
                         .translateToLocalFormatted("tt.eoh.spacetime.standard.tooltip.1", aStack.getItemDamage() + 1));

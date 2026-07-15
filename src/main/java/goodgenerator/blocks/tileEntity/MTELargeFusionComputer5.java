@@ -1,6 +1,7 @@
 package goodgenerator.blocks.tileEntity;
 
 import static gregtech.api.enums.Textures.BlockIcons.MACHINE_CASING_FUSION_GLASS;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -44,11 +45,11 @@ public class MTELargeFusionComputer5 extends MTELargeFusionComputerPP {
         tt.addMachineType("Fusion Reactor")
             .addInfo("Galaxy Collapse")
             .addInfo(
-                EnumChatFormatting.AQUA + GTUtility.formatNumbers(getSingleHatchPower())
+                EnumChatFormatting.AQUA + formatNumber(getSingleHatchPower())
                     + EnumChatFormatting.GRAY
                     + " EU/t and "
                     + EnumChatFormatting.AQUA
-                    + GTUtility.formatNumbers(capableStartupCanonical() / 32 / M)
+                    + formatNumber(capableStartupCanonical() / 32 / M)
                     + "M"
                     + EnumChatFormatting.GRAY
                     + " EU capacity per Energy Hatch")
@@ -60,7 +61,7 @@ public class MTELargeFusionComputer5 extends MTELargeFusionComputerPP {
                     + " , you can't do it either")
             .addInfo("Performs 4/4 overclock")
             .addInfo(createParallelText())
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(47, 7, 47, false)
             .addCasingInfoMin("Fusion Machine Casing MK IV", 1664, false)
             .addCasingInfoMin("Compact Fusion Coil MK-II Finaltype", 560, false)

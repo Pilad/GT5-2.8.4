@@ -134,7 +134,7 @@ public class MTEDataBank extends TTMultiblockBase implements ISurvivalConstructa
             .addInfo(translateToLocal("gt.blockmachines.multimachine.em.databank.desc.3")) // Use screwdriver to
                                                                                            // toggle
                                                                                            // wireless mode
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(5, 3, 3, false)
             .addController("Front center")
             .addCasingInfoExactly("Computer Heat Vent", 18, false)

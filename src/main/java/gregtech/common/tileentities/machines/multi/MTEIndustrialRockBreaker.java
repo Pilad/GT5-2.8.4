@@ -116,7 +116,9 @@ public class MTEIndustrialRockBreaker extends MTEExtendedPowerMultiBlockBase<MTE
             .addEnergyHatch("Any Thermal Processing Casing", 1)
             .addMaintenanceHatch("Any Thermal Processing Casing", 1)
             .addMufflerHatch("Any Thermal Processing Casing", 1)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addStructureFooter("The water and lava is spawned for free once formed")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .addStructureAuthors(EnumChatFormatting.GOLD + "VorTex")
             .toolTipFinisher();
         return tt;

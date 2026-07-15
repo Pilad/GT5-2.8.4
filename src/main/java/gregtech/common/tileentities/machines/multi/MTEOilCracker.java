@@ -142,7 +142,8 @@ public class MTEOilCracker extends MTEEnhancedMultiBlockBase<MTEOilCracker> impl
             .addStructureInfo("Input/Output Hatches must be on opposite sides!")
             .addInputBus("Any middle ring Casing, optional for programmed circuit automation", 1)
             .addStructureHint("GT5U.cracker.io_side")
-            .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.HEATING_COIL)
             .toolTipFinisher();
         return tt;
     }

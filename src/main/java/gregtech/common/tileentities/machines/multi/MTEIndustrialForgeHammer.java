@@ -83,7 +83,8 @@ public class MTEIndustrialForgeHammer extends MTEExtendedPowerMultiBlockBase<MTE
             .addEnergyHatch("Any Forge Casing", 1)
             .addMaintenanceHatch("Any Forge Casing", 1)
             .addMufflerHatch("Any Forge Casing", 1)
-            .addSubChannelUsage(GTStructureChannels.SOLENOID)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.SOLENOID)
             .addStructureAuthors(EnumChatFormatting.GOLD + "PCGMatt")
             .toolTipFinisher();
         return tt;

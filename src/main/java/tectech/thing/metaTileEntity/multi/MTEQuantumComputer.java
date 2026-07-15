@@ -8,6 +8,7 @@ import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.recipe.RecipeMaps.quantumComputerFakeRecipes;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
@@ -49,7 +50,6 @@ import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
-import gregtech.api.util.GTUtility;
 import gregtech.api.util.IGTHatchAdder;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.shutdown.ShutDownReason;
@@ -250,8 +250,7 @@ public class MTEQuantumComputer extends TTMultiblockBase implements ISurvivalCon
         final long computation = accessor.getNBTData()
             .getLong("Computation");
         if (computation > 0) {
-            currentTip
-                .add(translateToLocalFormatted("tt.waila.multi.computation", GTUtility.formatNumbers(computation)));
+            currentTip.add(translateToLocalFormatted("tt.waila.multi.computation", formatNumber(computation)));
         }
         super.getWailaBody(itemStack, currentTip, accessor, config);
     }
@@ -378,7 +377,7 @@ public class MTEQuantumComputer extends TTMultiblockBase implements ISurvivalCon
             .addInfo(translateToLocal("gt.blockmachines.multimachine.em.computer.desc.2")) // Use screwdriver to
                                                                                            // toggle
                                                                                            // wireless mode
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginVariableStructureBlock(2, 2, 4, 4, 5, 16, false)
             .addController("Front left, 2nd layer")
             .addOtherStructurePart(

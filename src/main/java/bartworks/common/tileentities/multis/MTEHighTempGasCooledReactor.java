@@ -24,6 +24,7 @@ import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTRecipeBuilder.HOURS;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -163,7 +164,7 @@ public class MTEHighTempGasCooledReactor extends MTEEnhancedMultiBlockBase<MTEHi
             .addInfo("and affects total recipe time (at 100% eff, -50% total recipe time")
             .addInfo(
                 "Reactor will take 4 000L/s of coolant multiplied by efficiency and by fuel coolant value (check tooltips)")
-            .addInfo("Uses " + GTUtility.formatNumbers(powerUsage) + " EU/t")
+            .addInfo("Uses " + formatNumber(powerUsage) + " EU/t")
             .addInfo("One Operation takes 1 hour")
             .beginStructureBlock(11, 12, 11, true)
             .addController("Front bottom center")
@@ -405,8 +406,8 @@ public class MTEHighTempGasCooledReactor extends MTEEnhancedMultiBlockBase<MTEHi
                     : StatCollector.translateToLocal("BW.infoData.htgr.mode.normal")),
             StatCollector.translateToLocalFormatted(
                 "BW.infoData.htgr.progress",
-                GTUtility.formatNumbers(this.mProgresstime / 20),
-                GTUtility.formatNumbers(this.mMaxProgresstime / 20)),
+                formatNumber(this.mProgresstime / 20),
+                formatNumber(this.mMaxProgresstime / 20)),
             StatCollector.translateToLocalFormatted(
                 "BW.infoData.htgr.fuel_type",
                 this.fueltype == -1 ? StatCollector.translateToLocal("BW.infoData.htgr.fuel_type.none")
@@ -414,14 +415,12 @@ public class MTEHighTempGasCooledReactor extends MTEEnhancedMultiBlockBase<MTEHi
                         "BW.infoData.htgr.fuel_type.triso",
                         // TODO: check how to get fuel type localized name
                         HTGRMaterials.sHTGR_Fuel[this.fueltype].sEnglish)),
-            StatCollector
-                .translateToLocalFormatted("BW.infoData.htgr.fuel_amount", GTUtility.formatNumbers(this.fuelsupply)),
+            StatCollector.translateToLocalFormatted("BW.infoData.htgr.fuel_amount", formatNumber(this.fuelsupply)),
             StatCollector.translateToLocalFormatted(
                 "BW.infoData.htr.helium_level",
-                GTUtility.formatNumbers(this.HeliumSupply),
-                GTUtility.formatNumbers(MTEHighTempGasCooledReactor.HELIUM_NEEDED)),
-            StatCollector
-                .translateToLocalFormatted("BW.infoData.htgr.coolant", GTUtility.formatNumbers(this.coolanttaking)),
+                formatNumber(this.HeliumSupply),
+                formatNumber(MTEHighTempGasCooledReactor.HELIUM_NEEDED)),
+            StatCollector.translateToLocalFormatted("BW.infoData.htgr.coolant", formatNumber(this.coolanttaking)),
             StatCollector.translateToLocalFormatted(
                 "BW.infoData.htr.problems",
                 String.valueOf(this.getIdealStatus() - this.getRepairStatus())) };

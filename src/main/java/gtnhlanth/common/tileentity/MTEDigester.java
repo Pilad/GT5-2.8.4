@@ -211,7 +211,8 @@ public class MTEDigester extends MTEEnhancedMultiBlockBase<MTEDigester> implemen
             .addOutputBus("Hint block with dot 1")
             .addMaintenanceHatch("Hint block with dot 1")
             .addMufflerHatch("Hint block with dot 1")
-            .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.HEATING_COIL)
             .toolTipFinisher();
         return tt;
     }

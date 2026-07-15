@@ -155,8 +155,9 @@ public class MTEAssemblyLine extends MTEExtendedPowerMultiBlockBase<MTEAssemblyL
                 StatCollector.translateToLocal("GT5U.tooltip.structure.data_access_hatch"),
                 "Any Grate Machine Casing NOT on the first slice",
                 2)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
-            .addSubChannelUsage(GTStructureChannels.STRUCTURE_LENGTH)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
+            .addSubChannel(GTStructureChannels.STRUCTURE_LENGTH)
             .toolTipFinisher();
         return tt;
     }

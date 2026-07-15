@@ -76,7 +76,8 @@ public class MTEIndustrialMolecularTransformer extends MTEExtendedPowerMultiBloc
             .addEnergyHatch("Any Molecular Containment Casing", 1)
             .addMaintenanceHatch("Any Molecular Containment Casing", 1)
             .addMufflerHatch("Any Molecular Containment Casing", 1)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .addStructureAuthors(EnumChatFormatting.GOLD + "Fox")
             .toolTipFinisher();
         return tt;

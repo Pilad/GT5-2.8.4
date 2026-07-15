@@ -210,7 +210,7 @@ public class MTELargeEssentiaSmeltery extends MTETooltipMultiBlockBaseEM
             .addInfo("Diffusion Cell Tiers start from 0, Length is full multi length")
             .addInfo("Energy Hatch tier: HV+")
             .addInfo("You can find more information about this machine in the Thaumonomicon")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginVariableStructureBlock(5, 5, 5, 5, 5, 8, true)
             .addController("Front center")

@@ -2,6 +2,7 @@ package goodgenerator.blocks.tileEntity;
 
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FUSION1;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FUSION1_GLOW;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -47,11 +48,11 @@ public class MTELargeFusionComputer1 extends MTELargeFusionComputer {
         tt.addMachineType("Fusion Reactor")
             .addInfo("Power overload!!!")
             .addInfo(
-                EnumChatFormatting.AQUA + GTUtility.formatNumbers(getSingleHatchPower())
+                EnumChatFormatting.AQUA + formatNumber(getSingleHatchPower())
                     + EnumChatFormatting.GRAY
                     + " EU/t and "
                     + EnumChatFormatting.AQUA
-                    + GTUtility.formatNumbers(capableStartupCanonical() / 32 / M)
+                    + formatNumber(capableStartupCanonical() / 32 / M)
                     + "M"
                     + EnumChatFormatting.GRAY
                     + " EU capacity per Energy Hatch")
@@ -62,7 +63,7 @@ public class MTELargeFusionComputer1 extends MTELargeFusionComputer {
                     + EnumChatFormatting.GRAY
                     + " , you can't do it either")
             .addInfo(createParallelText())
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(47, 7, 47, false)
             .addCasingInfoMin("LuV Machine Casing", 1664, false)
             .addCasingInfoMin("Ameliorated Superconduct Coil", 560, false)

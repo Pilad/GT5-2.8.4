@@ -64,7 +64,7 @@ public class MTEXLTurbineHPSteam extends MTEXLTurbineBase {
             .addInfo("Optimal flow will increase or decrease depending on fitting")
             .addInfo("Loose fit increases flow in exchange for efficiency")
             .addInfo("Dense types of steam are so energy packed, they only require 1/1000th of the original flow")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(9, 9, 29, false)
             .addController("Front center")

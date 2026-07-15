@@ -184,7 +184,7 @@ public class MTEXLTurbinePlasma extends MTEXLTurbineBase {
             .addInfo("Loose fit increases flow in exchange for efficiency")
             .addInfo("Plasma fuel efficiency is lower for high tier turbines when using low-grade plasmas")
             .addInfo("Efficiency = ((FuelValue / 200,000)^2) / (EU per Turbine)")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(9, 9, 26, false)
             .addController("Front center")

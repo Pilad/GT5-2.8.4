@@ -800,7 +800,7 @@ public class MTENanoForge extends MTEExtendedPowerMultiBlockBase<MTENanoForge>
                     + "perfect overclocks"
                     + EnumChatFormatting.GRAY
                     + " on lower-tier recipes")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addUnlimitedTierSkips()
             .beginStructureBlock(30, 38, 13, false)
             .addController("Front bottom center")

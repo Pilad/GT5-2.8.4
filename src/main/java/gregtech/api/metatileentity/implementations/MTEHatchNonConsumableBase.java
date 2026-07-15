@@ -1,6 +1,7 @@
 package gregtech.api.metatileentity.implementations;
 
 import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static net.minecraft.util.StatCollector.translateToLocal;
 
 import java.util.List;
@@ -161,7 +162,7 @@ public abstract class MTEHatchNonConsumableBase extends MTEHatch
                 tooltip.add(
                     GTLanguageManager.addStringLocalization("TileEntity_CHEST_AMOUNT", "Item Amount: ")
                         + EnumChatFormatting.GREEN
-                        + GTUtility.formatNumbers(tSize)
+                        + formatNumber(tSize)
                         + EnumChatFormatting.GRAY);
             }
         }

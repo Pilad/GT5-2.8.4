@@ -656,7 +656,7 @@ public class MTEPlasmaForge extends MTEExtendedPowerMultiBlockBase<MTEPlasmaForg
             .addOutputBus("Any Casing", 3)
             .addStructureInfo("")
             .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .toolTipFinisher(AuthorColen);
         return tt;
     }

@@ -310,7 +310,7 @@ public class MTEPreciseAssembler extends MTEExtendedPowerMultiBlockBase<MTEPreci
                     + "UHV"
                     + EnumChatFormatting.GRAY
                     + "-tier Machine Casing unlocks all.")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addNoTierSkips()
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(9, 5, 5, true)
@@ -325,9 +325,10 @@ public class MTEPreciseAssembler extends MTEExtendedPowerMultiBlockBase<MTEPreci
             .addEnergyHatch("Any Casing")
             .addMufflerHatch("Any Casing")
             .addMaintenanceHatch("Any Casing")
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
-            .addSubChannelUsage(GTStructureChannels.PRASS_UNIT_CASING)
-            .addSubChannelUsage(GTStructureChannels.TIER_MACHINE_CASING)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.PRASS_UNIT_CASING)
+            .addSubChannel(GTStructureChannels.BOROGLASS)
+            .addSubChannel(GTStructureChannels.TIER_MACHINE_CASING)
             .toolTipFinisher();
         return tt;
     }

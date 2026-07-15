@@ -229,7 +229,7 @@ public class MTEElectricImplosionCompressorLegacy
             .addInfo(createParallelText(EnumChatFormatting.LIGHT_PURPLE, "Spacetime", 64))
             .addInfo(createParallelText(EnumChatFormatting.DARK_AQUA, "Universium", 256))
             .addMaxTierSkips(1)
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(3, 9, 3, false)
             .addController("Front center, 3rd layer")
             .addCasingInfoMin("Solid Steel Machine Casing", 8, false)

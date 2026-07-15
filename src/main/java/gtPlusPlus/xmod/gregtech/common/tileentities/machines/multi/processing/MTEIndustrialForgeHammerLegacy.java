@@ -15,6 +15,7 @@ import static gregtech.api.enums.Mods.EnderIO;
 import static gregtech.api.enums.Mods.Railcraft;
 import static gregtech.api.enums.Mods.ThaumicBases;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -272,7 +273,7 @@ public class MTEIndustrialForgeHammerLegacy extends GTPPMultiBlockBase<MTEIndust
         currentTip.add(
             StatCollector.translateToLocal("GT5U.machines.tier") + ": "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(tag.getInteger("tier"))
+                + formatNumber(tag.getInteger("tier"))
                 + EnumChatFormatting.RESET);
     }
 }

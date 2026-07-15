@@ -1,5 +1,7 @@
 package gregtech.api.metatileentity.implementations;
 
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
+
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
@@ -215,9 +217,7 @@ public abstract class MTEHatch extends MTEBasicTank implements ICraftingIconProv
         System.arraycopy(lines, 0, desc, 0, lines.length);
         desc[lines.length] = GTUtility.translate(
             "gt.tileentity.throughput",
-            EnumChatFormatting.YELLOW + GTUtility.formatNumbers(amp * GTValues.V[tier])
-                + EnumChatFormatting.RESET
-                + " EU/t");
+            EnumChatFormatting.YELLOW + formatNumber(amp * GTValues.V[tier]) + EnumChatFormatting.RESET + " EU/t");
         desc[lines.length + 1] = GTUtility.translate(
             isDynamo ? "gt.tileentity.eup_out" : "gt.tileentity.eup_in",
             TooltipHelper.voltageText(GTValues.V[tier]));

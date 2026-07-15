@@ -1,5 +1,7 @@
 package gtPlusPlus.xmod.gregtech.api.metatileentity.implementations;
 
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +54,7 @@ public class MTEHatchSolidifier extends MTEHatchInput implements IConfigurationC
     public String[] getDescription() {
         return new String[] {
             "Fluid Input with Mold for " + EnumChatFormatting.YELLOW + "Fluid Shaper" + EnumChatFormatting.RESET,
-            "Capacity: " + GTUtility.formatNumbers(getCapacity()) + "L",
+            "Capacity: " + formatNumber(getCapacity()) + "L",
             "Added by: " + EnumChatFormatting.AQUA
                 + "Quetz4l"
                 + " - "

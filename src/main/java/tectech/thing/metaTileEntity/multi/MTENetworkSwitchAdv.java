@@ -3,6 +3,7 @@ package tectech.thing.metaTileEntity.multi;
 import static gregtech.api.enums.HatchElement.Dynamo;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 import static tectech.thing.CustomItemList.Machine_Multi_Switch;
@@ -393,20 +394,16 @@ public class MTENetworkSwitchAdv extends TTMultiblockBase
             .widget(new FakeSyncWidget.LongSyncer(() -> wastedComputation, value -> wastedComputation = value));
 
         screenElements.widget(
-            TextWidget
-                .dynamicString(
-                    () -> GTUtility.translate(
-                        "GT5U.machines.computation_hatch.pending_computation",
-                        GTUtility.formatNumbers(pendingComputation)))
+            TextWidget.dynamicString(
+                () -> GTUtility
+                    .translate("GT5U.machines.computation_hatch.pending_computation", formatNumber(pendingComputation)))
                 .setSynced(false)
                 .setTextAlignment(Alignment.CenterLeft)
                 .setEnabled(w -> mMaxProgresstime > 0));
         screenElements.widget(
-            TextWidget
-                .dynamicString(
-                    () -> GTUtility.translate(
-                        "GT5U.machines.computation_hatch.wasted_computation",
-                        GTUtility.formatNumbers(wastedComputation)))
+            TextWidget.dynamicString(
+                () -> GTUtility
+                    .translate("GT5U.machines.computation_hatch.wasted_computation", formatNumber(wastedComputation)))
                 .setSynced(false)
                 .setTextAlignment(Alignment.CenterLeft)
                 .setEnabled(w -> mMaxProgresstime > 0));

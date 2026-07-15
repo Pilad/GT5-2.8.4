@@ -208,7 +208,7 @@ public class MTENaquadahFuelRefinery extends TTMultiblockBase implements ISurviv
                 "Gains " + TooltipHelper.parallelText(4) + " Parallels per " + EnumChatFormatting.WHITE + "Coil Tier")
             .addInfo("Needs field restriction coils to control the fatal radiation")
             .addInfo("Use higher tier coils to unlock more fuel types and perform more perfect overclocks")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addUnlimitedTierSkips()
             .beginStructureBlock(5, 27, 27, false)
             .addController("Front center")
@@ -223,6 +223,7 @@ public class MTENaquadahFuelRefinery extends TTMultiblockBase implements ISurviv
             .addOutputHatch("Any Naquadah Fuel Refinery Casing", 1)
             .addEnergyHatch("Any Naquadah Fuel Refinery Casing", 1)
             .addDynamoHatch("Any Naquadah Fuel Refinery Casing", 1)
+            .addStructureInfo("")
             .addStructureAuthors("GregTech Odyssey")
             .toolTipFinisher();
         return tt;

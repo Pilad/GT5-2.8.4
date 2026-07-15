@@ -10,6 +10,7 @@ import static gregtech.api.recipe.RecipeMaps.scannerFakeRecipes;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTUtility.getTier;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static mcp.mobius.waila.api.SpecialChars.GREEN;
 import static mcp.mobius.waila.api.SpecialChars.RED;
 import static mcp.mobius.waila.api.SpecialChars.RESET;
@@ -340,7 +341,7 @@ public class MTEResearchStation extends TTMultiblockBase implements ISurvivalCon
             .addInfo(translateToLocal("gt.blockmachines.multimachine.em.research.desc.4"))
             .addInfo(translateToLocal("gt.blockmachines.multimachine.em.research.desc.5"))
             .addInfo(translateToLocal("gt.blockmachines.multimachine.em.research.desc.6"))
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(3, 7, 7, false)
             .addController("Front center on the frontside of the main body")
             // Object Holder: Center of the front pillar
@@ -379,23 +380,23 @@ public class MTEResearchStation extends TTMultiblockBase implements ISurvivalCon
         }
 
         return new String[] { translateToLocalFormatted("tt.keyphrase.Energy_Hatches", clientLocale) + ":",
-            EnumChatFormatting.GREEN + GTUtility.formatNumbers(storedEnergy)
+            EnumChatFormatting.GREEN + formatNumber(storedEnergy)
                 + EnumChatFormatting.RESET
                 + " EU / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(maxEnergy)
+                + formatNumber(maxEnergy)
                 + EnumChatFormatting.RESET
                 + " EU",
             (mEUt <= 0 ? translateToLocalFormatted("tt.keyphrase.Probably_uses", clientLocale) + ": "
                 : translateToLocalFormatted("tt.keyphrase.Probably_makes", clientLocale) + ": ")
                 + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(Math.abs(mEUt))
+                + formatNumber(Math.abs(mEUt))
                 + EnumChatFormatting.RESET
                 + " EU/t "
                 + translateToLocalFormatted("tt.keyword.at", clientLocale)
                 + " "
                 + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(eAmpereFlow)
+                + formatNumber(eAmpereFlow)
                 + EnumChatFormatting.RESET
                 + " A",
             translateToLocalFormatted("tt.keyphrase.Tier_Rating", clientLocale) + ": "
@@ -410,7 +411,7 @@ public class MTEResearchStation extends TTMultiblockBase implements ISurvivalCon
                 + translateToLocalFormatted("tt.keyphrase.Amp_Rating", clientLocale)
                 + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(eMaxAmpereFlow)
+                + formatNumber(eMaxAmpereFlow)
                 + EnumChatFormatting.RESET
                 + " A",
             translateToLocalFormatted("tt.keyword.Problems", clientLocale) + ": "
@@ -435,18 +436,18 @@ public class MTEResearchStation extends TTMultiblockBase implements ISurvivalCon
                 + eSafeVoid,
             translateToLocalFormatted("tt.keyphrase.Computation_Available", clientLocale) + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(eAvailableData)
+                + formatNumber(eAvailableData)
                 + EnumChatFormatting.RESET
                 + " / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(eRequiredData)
+                + formatNumber(eRequiredData)
                 + EnumChatFormatting.RESET,
             translateToLocalFormatted("tt.keyphrase.Computation_Remaining", clientLocale) + ":",
-            EnumChatFormatting.GREEN + GTUtility.formatNumbers(computationRemaining / 20L)
+            EnumChatFormatting.GREEN + formatNumber(computationRemaining / 20L)
                 + EnumChatFormatting.RESET
                 + " / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(getComputationRequired()) };
+                + formatNumber(getComputationRequired()) };
     }
 
     @Override
@@ -633,7 +634,7 @@ public class MTEResearchStation extends TTMultiblockBase implements ISurvivalCon
                             "GT5U.gui.text.research_progress",
                             getComputationConsumed(),
                             getComputationRequired(),
-                            GTUtility.formatNumbers(getComputationProgress())))
+                            formatNumber(getComputationProgress())))
                     .setTextAlignment(Alignment.CenterLeft)
                     .setEnabled(
                         widget -> computationRequired > 0 && clientOutputName != null && !clientOutputName.isEmpty()))

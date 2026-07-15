@@ -92,7 +92,8 @@ public class MTEIndustrialChisel extends MTEExtendedPowerMultiBlockBase<MTEIndus
             .addEnergyHatch("Any Sturdy Printer Casing", 1)
             .addMaintenanceHatch("Any Sturdy Printer Casing", 1)
             .addMufflerHatch("Any Sturdy Printer Casing", 1)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .addStructureAuthors(EnumChatFormatting.GOLD + "IX")
             .toolTipFinisher();
         return tt;

@@ -321,7 +321,7 @@ public class MTEAdvAssLine extends MTEExtendedPowerMultiBlockBase<MTEAdvAssLine>
             .addInfo(EnumChatFormatting.BOLD + "Does not overclock beyond 1 tick")
             .addSeparator(EnumChatFormatting.GOLD, 67)
             .addInfo("Constructed identically to the Assembly Line")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginVariableStructureBlock(5, 16, 4, 4, 3, 3, false)
             .addStructureInfo("From Bottom to Top, Left to Right")
             .addStructureInfo("Layer 1 - Solid Steel Machine Casing, Input Bus, Solid Steel Machine Casing")
@@ -339,8 +339,9 @@ public class MTEAdvAssLine extends MTEExtendedPowerMultiBlockBase<MTEAdvAssLine>
                 StatCollector.translateToLocal("GT5U.tooltip.structure.data_access_hatch"),
                 "Any Grate Machine Casing NOT on the first slice",
                 2)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
-            .addSubChannelUsage(GTStructureChannels.STRUCTURE_LENGTH)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.STRUCTURE_LENGTH)
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .toolTipFinisher(EnumChatFormatting.GRAY, 67);
         return tt;
     }

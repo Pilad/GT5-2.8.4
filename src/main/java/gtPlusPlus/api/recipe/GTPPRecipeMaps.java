@@ -3,6 +3,7 @@ package gtPlusPlus.api.recipe;
 import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeConstants.LFTR_OUTPUT_POWER;
 import static gregtech.api.util.GTRecipeConstants.QFT_CATALYST;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +27,6 @@ import gregtech.api.recipe.maps.FluidOnlyFrontend;
 import gregtech.api.recipe.maps.FuelBackend;
 import gregtech.api.recipe.maps.LargeNEIFrontend;
 import gregtech.api.util.GTRecipe;
-import gregtech.api.util.GTUtility;
 import gregtech.nei.formatter.FuelSpecialValueFormatter;
 import gregtech.nei.formatter.HeatingCoilSpecialValueFormatter;
 import gregtech.nei.formatter.SimpleSpecialValueFormatter;
@@ -50,9 +50,8 @@ public class GTPPRecipeMaps {
         .maxIO(0, 0, 1, 0)
         .neiSpecialInfoFormatter(
             recipeInfo -> Collections.singletonList(
-                StatCollector.translateToLocalFormatted(
-                    "GT5U.nei.fuel",
-                    GTUtility.formatNumbers(recipeInfo.recipe.mSpecialValue * 3000L))))
+                StatCollector
+                    .translateToLocalFormatted("GT5U.nei.fuel", formatNumber(recipeInfo.recipe.mSpecialValue * 3000L))))
         .build();
     public static final RecipeMap<RecipeMapBackend> quantumForceTransformerRecipes = RecipeMapBuilder
         .of("gtpp.recipe.quantumforcesmelter")
@@ -101,7 +100,7 @@ public class GTPPRecipeMaps {
             final long eut = recipeInfo.recipe.getMetadataOrDefault(LFTR_OUTPUT_POWER, 0);
             final int duration = recipeInfo.recipe.mDuration;
             return Arrays.asList(
-                StatCollector.translateToLocalFormatted("gtpp.nei.lftr.power", GTUtility.formatNumbers(eut)),
+                StatCollector.translateToLocalFormatted("gtpp.nei.lftr.power", formatNumber(eut)),
                 StatCollector
                     .translateToLocalFormatted("gtpp.nei.lftr.dynamo", MathUtils.formatNumbers(duration * eut)),
                 StatCollector

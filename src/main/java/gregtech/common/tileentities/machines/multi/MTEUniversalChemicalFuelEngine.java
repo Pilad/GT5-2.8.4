@@ -207,7 +207,7 @@ public class MTEUniversalChemicalFuelEngine extends TTMultiblockBase implements 
                     + EnumChatFormatting.YELLOW
                     + "without outputting energy")
             .addInfo("The efficiency is up to 150%")
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(7, 7, 13, false)
             .addController("Front center")
             .addCasingInfoMin("Stable Titanium Machine Casing", 100, false)

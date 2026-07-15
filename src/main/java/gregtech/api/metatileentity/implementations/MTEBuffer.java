@@ -12,6 +12,7 @@ import static gregtech.api.enums.Textures.BlockIcons.ARROW_UP_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.MACHINE_CASINGS;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_PIPE_OUT;
 import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -503,7 +504,7 @@ public abstract class MTEBuffer extends MTETieredMachineBlock implements IAddUIW
     private GTTooltipDataCache.TooltipData getEmitEnergyButtonTooltip() {
         return mTooltipCache.getData(
             EMIT_ENERGY_TOOLTIP,
-            EnumChatFormatting.GREEN + GTUtility.formatNumbers(V[mTier])
+            EnumChatFormatting.GREEN + formatNumber(V[mTier])
                 + " ("
                 + GTUtility.getColoredTierNameFromTier(mTier)
                 + EnumChatFormatting.GREEN
