@@ -771,6 +771,17 @@ public class MultiblockTooltipBuilder {
 
     /**
      * Add a line of information about the structure:<br>
+     * Supports Multi-Amp and Laser Hatches!
+     *
+     * @return Instance this method was called on.
+     */
+    public MultiblockTooltipBuilder addSupportAny() {
+        iLines.add(EnumChatFormatting.GREEN + StatCollector.translateToLocal("GT5U.MBTT.SupportAny"));
+        return this;
+    }
+
+    /**
+     * Add a line of information about the structure:<br>
      * Supports TecTech Multi-Amp Hatches!
      *
      * @return Instance this method was called on.
