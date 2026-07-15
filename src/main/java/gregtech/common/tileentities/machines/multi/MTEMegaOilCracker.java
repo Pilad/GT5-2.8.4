@@ -49,7 +49,6 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
 import gregtech.api.metatileentity.implementations.MTEHatch;
-import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.metatileentity.implementations.MTEHatchInput;
 import gregtech.api.metatileentity.implementations.MTEHatchMultiInput;
 import gregtech.api.metatileentity.implementations.MTEHatchOutput;
@@ -219,7 +218,7 @@ public class MTEMegaOilCracker extends MTEExtendedPowerMultiBlockBase<MTEMegaOil
                     + " more cracked fluid")
             .addInfo(TooltipHelper.italicText("In comparison to a chemical reactor"))
             .addSeparator()
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addMinGlassForLaser(VoltageIndex.UV)
             .addGlassEnergyLimitInfo()
             .addUnlimitedTierSkips()
@@ -236,8 +235,9 @@ public class MTEMegaOilCracker extends MTEExtendedPowerMultiBlockBase<MTEMegaOil
             .addInputHatch("Left Side Section, Uncracked Fluid Only", 2)
             .addInputHatch("Top Side Section, Steam/Hydrogen Only", 3)
             .addOutputHatch("Right Side Section", 4)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
-            .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
+            .addSubChannel(GTStructureChannels.HEATING_COIL)
             .toolTipFinisher();
         return tt;
     }
@@ -296,11 +296,8 @@ public class MTEMegaOilCracker extends MTEExtendedPowerMultiBlockBase<MTEMegaOil
                 if (hatch.getConnectionType() == MTEHatch.ConnectionType.LASER) {
                     return false;
                 }
-                if (this.glassTier < hatch.mTier) {
-                    return false;
-                }
             }
-            for (MTEHatchEnergy mEnergyHatch : this.mEnergyHatches) {
+            for (MTEHatch mEnergyHatch : this.getExoticAndNormalEnergyHatchList()) {
                 if (this.glassTier < mEnergyHatch.mTier) {
                     return false;
                 }

@@ -28,6 +28,7 @@ import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
@@ -48,6 +49,7 @@ import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.misc.GTStructureChannels;
 
 public class MTEMegaChemicalReactorLegacy extends MegaMultiBlockBase<MTEMegaChemicalReactorLegacy>
@@ -67,10 +69,17 @@ public class MTEMegaChemicalReactorLegacy extends MegaMultiBlockBase<MTEMegaChem
     public MultiblockTooltipBuilder createTooltip() {
         final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
         tt.addMachineType("Chemical Reactor, MCR")
-            .addInfo("What molecule do you want to synthesize ?")
-            .addInfo("Or you want to replace something in this molecule ?")
+            .addInfo(
+                TooltipHelper.coloredText(
+                    TooltipHelper.italicText("\"What molecule do you want to synthesize?\""),
+                    EnumChatFormatting.DARK_GRAY))
+            .addInfo(
+                TooltipHelper.coloredText(
+                    TooltipHelper.italicText("\"Or do you want to replace something in this molecule?\""),
+                    EnumChatFormatting.DARK_GRAY))
             .addStaticParallelInfo(Configuration.Multiblocks.megaMachinesMax)
             .addPerfectOCInfo()
+            .addSeparator()
             .addSupportAny()
             .addMinGlassForLaser(VoltageIndex.UV)
             .addGlassEnergyLimitInfo()

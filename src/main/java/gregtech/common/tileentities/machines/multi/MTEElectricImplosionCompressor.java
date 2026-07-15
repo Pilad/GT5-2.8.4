@@ -40,7 +40,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.casing.Casings;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
-import gregtech.api.enums.VoltageIndex;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -133,18 +132,14 @@ public class MTEElectricImplosionCompressor extends MTEExtendedPowerMultiBlockBa
             .addInfo(createParallelText(EnumChatFormatting.DARK_GRAY, "Transcendent Metal", 16))
             .addInfo(createParallelText(EnumChatFormatting.LIGHT_PURPLE, "Spacetime", 64))
             .addInfo(createParallelText(EnumChatFormatting.DARK_AQUA, "Universium", 256))
-            .addInfo("Energy Hatch Tier is limited by Glass Tier")
-            .addInfo(
-                GTUtility.getColoredTierNameFromTier((byte) 12) + EnumChatFormatting.GRAY
-                    + "-glass unlocks all above energy tiers")
             .addMaxTierSkips(1)
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .beginStructureBlock(15, 7, 7, false)
             .addController("Front bottom center")
             .addCasingInfoMin("Naquadah Reinforced Block", 230, false)
             .addCasingInfoExactly("Naquadah Frame Box", 2, false)
             .addCasingInfoExactly("PTFE Pipe Casing", 20, false)
-            .addCasingInfoExactly("Any Tiered Glass", 22, true)
+            .addCasingInfoExactly("Any Tiered Glass", 22, false)
             .addCasingInfoExactly("Robust Tungstensteel Machine Casing", 36, false)
             .addCasingInfoExactly("Containment Block", 24, true)
             .addMaintenanceHatch("Any Naquadah Reinforced Block", 1)
@@ -153,8 +148,9 @@ public class MTEElectricImplosionCompressor extends MTEExtendedPowerMultiBlockBa
             .addOutputBus("Any Naquadah Reinforced Block", 1)
             .addOutputHatch("Any Naquadah Reinforced Block", 1)
             .addEnergyHatch("Any Naquadah Reinforced Block", 1)
-            .addSubChannelUsage(GTStructureChannels.EIC_PISTON)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.EIC_PISTON)
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .addStructureAuthors(EnumChatFormatting.GOLD + "Pix3lated")
             .toolTipFinisher();
         return tt;
@@ -233,9 +229,6 @@ public class MTEElectricImplosionCompressor extends MTEExtendedPowerMultiBlockBa
 
         List<MTEHatch> energyHatches = getExoticAndNormalEnergyHatchList();
         for (MTEHatch hatch : energyHatches) {
-            if (glassTier < VoltageIndex.UMV && hatch.mTier > glassTier) {
-                return false;
-            }
             mMaxHatchTier = Math.max(mMaxHatchTier, hatch.mTier);
         }
 

@@ -65,7 +65,6 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
 import gregtech.api.metatileentity.implementations.MTEHatch;
-import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.check.CheckRecipeResult;
@@ -246,7 +245,7 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
                     + EnumChatFormatting.GRAY
                     + " with the parallel multiplier")
             .addSeparator()
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addMinGlassForLaser(VoltageIndex.UV)
             .addGlassEnergyLimitInfo()
             .addUnlimitedTierSkips()
@@ -257,12 +256,12 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
             .addController("Front center, 4th layer")
             .addCasingInfoMin("Hearth Casing", 1800, false)
             .addCasingInfoExactly("Heat Proof Machine Casing", 925, false)
-            .addCasingInfoExactly("Heating Coil", 864, true)
+            .addCasingInfoExactly("Heating Coil", 860, true)
             .addCasingInfoExactly("Thermal Containment Casing", 780, false)
             .addCasingInfoExactly("Radiant Naquadah Alloy Casing", 426, false)
             .addCasingInfoExactly("Any Tiered Glass", 332, true)
             .addCasingInfoExactly("Black Plutonium Item Pipe Casing", 308, false)
-            .addCasingInfoExactly("Blast Smelter Heat Containment Coil", 208, false)
+            .addCasingInfoExactly("Blast Smelter Heat Containment Coil", 280, false)
             .addCasingInfoExactly("Tungstensteel Pipe Casing", 131, false)
             .addCasingInfoExactly("Prismatic Naquadah Frame Box", 56, false)
             .addStructureInfo("The glass tier limits the Energy Input tier")
@@ -273,8 +272,9 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
             .addMufflerHatch("Top middle", 2)
             .addOutputBus("Any Hearth Casing", 1)
             .addOutputHatch("Any Hearth Casing", 1)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
-            .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.HEATING_COIL)
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .addStructureAuthors("GregTech Odyssey")
             .toolTipFinisher();
         return tt;
@@ -529,16 +529,9 @@ public class MTEExothermicHearth extends MTEExtendedPowerMultiBlockBase<MTEExoth
                 }
             }
         }
-        if (this.glassTier < VoltageIndex.UV) {
-            for (MTEHatch mEnergyHatch : this.mExoticEnergyHatches) {
-                if (this.glassTier < mEnergyHatch.mTier) {
-                    return false;
-                }
-            }
-            for (MTEHatchEnergy mEnergyHatch : this.mEnergyHatches) {
-                if (this.glassTier < mEnergyHatch.mTier) {
-                    return false;
-                }
+        for (MTEHatch mEnergyHatch : this.getExoticAndNormalEnergyHatchList()) {
+            if (this.glassTier < mEnergyHatch.mTier) {
+                return false;
             }
         }
 

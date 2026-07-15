@@ -487,6 +487,26 @@ public class MultiblockTooltipBuilder {
 
     /**
      * Add a line of information about the structure:<br>
+     * (indent)count name (Tiered)
+     *
+     * @param count    Number of casings
+     * @param name     Name of casing
+     * @param isTiered Flag for the (Tiered) tag
+     * @return Instance this method was called on.
+     */
+    public MultiblockTooltipBuilder addCasing(String count, String name, boolean isTiered) {
+        sLines.add(
+            TAB + EnumChatFormatting.GOLD
+                + count
+                + " "
+                + EnumChatFormatting.WHITE
+                + name
+                + (isTiered ? " " + TT_tiered : ""));
+        return this;
+    }
+
+    /**
+     * Add a line of information about the structure:<br>
      * (indent)countx casingName (tiered)
      *
      * @param casingName Name of the Casing.

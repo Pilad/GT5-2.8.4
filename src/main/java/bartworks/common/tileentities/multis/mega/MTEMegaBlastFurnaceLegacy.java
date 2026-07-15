@@ -356,7 +356,7 @@ public class MTEMegaBlastFurnaceLegacy extends MegaMultiBlockBase<MTEMegaBlastFu
                 }
             }
         }
-        for (MTEHatch mEnergyHatch : this.getExoticAndNormalEnergyHatchList) {
+        for (MTEHatch mEnergyHatch : this.getExoticAndNormalEnergyHatchList()) {
             if (this.glassTier < mEnergyHatch.mTier) {
                 return false;
             }
