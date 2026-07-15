@@ -131,7 +131,6 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.Textures;
-import gregtech.api.enums.VoltageIndex;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -347,7 +346,7 @@ public class MTEExtremeEntityCrusher extends KubaTechGTMultiBlockBase<MTEExtreme
             .addInfo(
                 "You can enable batch mode with wire cutters. Providing " + EnumChatFormatting.BLUE
                     + " 16x Time, Output, Weapon Damage")
-            .addGlassEnergyLimitInfo(VoltageIndex.UV)
+            .addGlassEnergyLimitInfo()
             .beginStructureBlock(5, 7, 5, true)
             .addController("Front bottom center")
             .addCasingInfoMin("Solid Steel Machine Casing", 35, false)
@@ -359,7 +358,8 @@ public class MTEExtremeEntityCrusher extends KubaTechGTMultiBlockBase<MTEExtreme
             .addOutputHatch("Any bottom Casing", 1)
             .addEnergyHatch("Any bottom Casing", 1)
             .addMaintenanceHatch("Any bottom Casing", 1)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .toolTipFinisher(GTValues.AuthorKuba);
         return tt;
     }
@@ -904,8 +904,7 @@ public class MTEExtremeEntityCrusher extends KubaTechGTMultiBlockBase<MTEExtreme
         mCasing = 0;
         if (!checkPiece(STRUCTURE_PIECE_MAIN, 2, 6, 0)) return false;
         if (mCasing < 35 || mEnergyHatches.isEmpty()) return false;
-        if (glassTier < VoltageIndex.UV)
-            for (MTEHatchEnergy hatch : mEnergyHatches) if (hatch.mTier > glassTier) return false;
+        for (MTEHatchEnergy hatch : mEnergyHatches) if (hatch.mTier > glassTier) return false;
         checkRitualConnection();
         return true;
     }

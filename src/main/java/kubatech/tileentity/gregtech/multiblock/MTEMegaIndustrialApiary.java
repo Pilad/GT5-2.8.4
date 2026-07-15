@@ -121,7 +121,6 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.Textures;
-import gregtech.api.enums.VoltageIndex;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -364,6 +363,7 @@ public class MTEMegaIndustrialApiary extends KubaTechGTMultiBlockBase<MTEMegaInd
             .addInfo("The ideal home for your bees")
             .addInfo("Use screwdriver to change primary mode (INPUT/OUTPUT/OPERATING)")
             .addInfo("Use screwdriver + shift to change operation mode (NORMAL/SWARMER)")
+            .addGlassEnergyLimitInfo()
             .addSeparator()
             .addInfo(EnumChatFormatting.GOLD + "Input Mode:")
             .addInfo("- Does not take power")
@@ -407,7 +407,9 @@ public class MTEMegaIndustrialApiary extends KubaTechGTMultiBlockBase<MTEMegaInd
             .addOutputBus("Any Casing", 1)
             .addEnergyHatch("Any Casing", 1)
             .addMaintenanceHatch("Any Casing", 1)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addStructureFooter("Use regular or distilled water, place manually")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .toolTipFinisher(GTValues.AuthorKuba, "Runakai");
         return tt;
     }
@@ -743,7 +745,7 @@ public class MTEMegaIndustrialApiary extends KubaTechGTMultiBlockBase<MTEMegaInd
 
         if (!checkPiece(STRUCTURE_PIECE_MAIN, 7, 8, 0)) return false;
 
-        if (this.glassTier < VoltageIndex.UEV && !this.mEnergyHatches.isEmpty())
+        if (!this.mEnergyHatches.isEmpty())
             for (MTEHatchEnergy hatchEnergy : this.mEnergyHatches) if (this.glassTier < hatchEnergy.mTier) return false;
 
         boolean valid = this.mMaintenanceHatches.size() == 1 && !this.mEnergyHatches.isEmpty() && this.mCasing >= 190;

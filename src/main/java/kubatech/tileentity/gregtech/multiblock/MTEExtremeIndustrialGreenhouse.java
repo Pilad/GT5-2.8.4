@@ -316,8 +316,7 @@ public class MTEExtremeIndustrialGreenhouse extends KubaTechGTMultiBlockBase<MTE
                 'w');
             return false;
         }
-
-        if (this.glassTier < 8 && !this.mEnergyHatches.isEmpty())
+        if (!this.mEnergyHatches.isEmpty())
             for (MTEHatchEnergy hatchEnergy : this.mEnergyHatches) if (this.glassTier < hatchEnergy.mTier) return false;
 
         boolean valid = this.mMaintenanceHatches.size() == 1 && !this.mEnergyHatches.isEmpty() && this.mCasing >= 70;
@@ -399,7 +398,9 @@ public class MTEExtremeIndustrialGreenhouse extends KubaTechGTMultiBlockBase<MTE
             .addOutputBus("Any Casing", 1)
             .addInputHatch("Any Casing", 1)
             .addEnergyHatch("Any Casing", 1)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addStructureFooter("The dirt is tilled and the water is spawned for free once formed")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .toolTipFinisher(GTValues.AuthorKuba);
         return tt;
     }

@@ -14,6 +14,7 @@ import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static gregtech.api.util.GTStructureUtility.ofCoil;
 import static gregtech.api.util.GTUtility.validMTEList;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -51,6 +52,7 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
+import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.api.util.tooltip.TooltipTier;
 import gregtech.common.misc.GTStructureChannels;
 import gtPlusPlus.api.recipe.GTPPRecipeMaps;
@@ -168,7 +170,7 @@ public class MTEMegaAlloyBlastSmelter extends MTEExtendedPowerMultiBlockBase<MTE
             @NotNull
             @Override
             protected CheckRecipeResult validateRecipe(@NotNull GTRecipe recipe) {
-                if (glassTier < VoltageIndex.UMV && glassTier < GTUtility.getTier(recipe.mEUt)) {
+                if (glassTier < GTUtility.getTier(recipe.mEUt)) {
                     return CheckRecipeResultRegistry.insufficientMachineTier(GTUtility.getTier(recipe.mEUt));
                 }
                 return CheckRecipeResultRegistry.SUCCESSFUL;
@@ -210,13 +212,7 @@ public class MTEMegaAlloyBlastSmelter extends MTEExtendedPowerMultiBlockBase<MTE
         if (!checkPiece("main", 5, 16, 0)) return false;
         if (coilType == CoilType.BasicCoil) coilLevel = HeatingCoilLevel.None;
         if (mMufflerHatches.size() != 1) return false;
-        if (this.glassTier < VoltageIndex.UMV && !getExoticAndNormalEnergyHatchList().isEmpty()) {
-            for (MTEHatch hatchEnergy : getExoticAndNormalEnergyHatchList()) {
-                if (this.glassTier < hatchEnergy.mTier) {
-                    return false;
-                }
-            }
-        }
+
         // Disallow lasers if the glass is below UV tier
         if (glassTier < VoltageIndex.UV) {
             for (MTEHatch hatchEnergy : getExoticEnergyHatches()) {
@@ -267,31 +263,25 @@ public class MTEMegaAlloyBlastSmelter extends MTEExtendedPowerMultiBlockBase<MTE
     protected MultiblockTooltipBuilder createTooltip() {
         MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
         tt.addMachineType("Fluid Alloy Cooker, MABS")
+            .addInfo(
+                TooltipHelper.coloredText(
+                    TooltipHelper.italicText("\"all it does is make metals hot\""),
+                    EnumChatFormatting.DARK_GRAY))
             .addStaticParallelInfo(Configuration.Multiblocks.megaMachinesMax)
             .addInfo(
-                "Gains a " + EnumChatFormatting.AQUA
-                    + "5%"
-                    + EnumChatFormatting.GRAY
-                    + " Speed Bonus per "
-                    + EnumChatFormatting.WHITE
-                    + "Heating Coil Tier")
-            .addInfo("Furthermore, a multiplicative energy discount is granted for using coils above the recipe tier")
-            .addDynamicEuEffInfo(0.05f, TooltipTier.COIL)
+                TooltipHelper.speedText("-5%") + " Recipe Time per "
+                    + TooltipHelper.tierText(TooltipTier.COIL)
+                    + " Tier above TPV (additive)")
             .addInfo(
-                EnumChatFormatting.ITALIC
-                    + "Can also use normal ABS coils in their place instead, if you don't like the bonuses :)"
-                    + EnumChatFormatting.RESET
-                    + EnumChatFormatting.GRAY)
-            .addGlassEnergyLimitInfo(VoltageIndex.UEV)
-            .addTecTechHatchInfo()
+                TooltipHelper.effText("-5%") + " EU Usage per "
+                    + TooltipHelper.tierText(TooltipTier.COIL)
+                    + " Tier above the Recipe Tier (multiplicative)")
+            .addSeparator()
+            .addInfo("Recipe Tier limited by " + TooltipHelper.tierText(TooltipTier.GLASS) + " Tier")
+            .addInfo("Can also use normal ABS coils in their place instead, if you don't like the bonuses :)")
+            .addSeparator()
+            .addSupportAny()
             .addMinGlassForLaser(VoltageIndex.UV)
-            .addUnlimitedTierSkips()
-            .addInfo(
-                EnumChatFormatting.RED + ""
-                    + EnumChatFormatting.ITALIC
-                    + "\"all it does is make metals hot\""
-                    + EnumChatFormatting.RESET
-                    + EnumChatFormatting.GRAY)
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(11, 20, 11, false)
             .addController("Front center")
@@ -305,8 +295,9 @@ public class MTEMegaAlloyBlastSmelter extends MTEExtendedPowerMultiBlockBase<MTE
                 "Bottom Casing",
                 1)
             .addMufflerHatch("1 in the center of the top layer", 3)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
-            .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
+            .addSubChannel(GTStructureChannels.HEATING_COIL)
             .toolTipFinisher(EnumChatFormatting.AQUA + "MadMan310");
         return tt;
     }
@@ -335,34 +326,34 @@ public class MTEMegaAlloyBlastSmelter extends MTEExtendedPowerMultiBlockBase<MTE
                 + "------------",
             StatCollector.translateToLocal("GT5U.multiblock.Progress") + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(mProgresstime)
+                + formatNumber(mProgresstime)
                 + EnumChatFormatting.RESET
                 + "t / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(mMaxProgresstime)
+                + formatNumber(mMaxProgresstime)
                 + EnumChatFormatting.RESET
                 + "t",
             StatCollector.translateToLocal("GT5U.multiblock.energy") + ": "
                 + EnumChatFormatting.GREEN
-                + GTUtility.formatNumbers(storedEnergy)
+                + formatNumber(storedEnergy)
                 + EnumChatFormatting.RESET
                 + " EU / "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(maxEnergy)
+                + formatNumber(maxEnergy)
                 + EnumChatFormatting.RESET
                 + " EU",
             StatCollector.translateToLocal("GT5U.multiblock.usage") + ": "
                 + EnumChatFormatting.RED
-                + GTUtility.formatNumbers(-lEUt)
+                + formatNumber(-lEUt)
                 + EnumChatFormatting.RESET
                 + " EU/t",
             StatCollector.translateToLocal("GT5U.multiblock.mei") + ": "
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(getAverageInputVoltage())
+                + formatNumber(getAverageInputVoltage())
                 + EnumChatFormatting.RESET
                 + " EU/t(*"
                 + EnumChatFormatting.YELLOW
-                + GTUtility.formatNumbers(getMaxInputAmps())
+                + formatNumber(getMaxInputAmps())
                 + EnumChatFormatting.RESET
                 + "A) "
                 + StatCollector.translateToLocal("GT5U.machines.tier")

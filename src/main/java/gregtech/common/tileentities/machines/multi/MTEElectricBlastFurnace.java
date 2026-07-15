@@ -153,7 +153,8 @@ public class MTEElectricBlastFurnace extends MTEAbstractMultiFurnace<MTEElectric
             .addInputHatch("Any bottom layer Casing", 1)
             .addOutputBus("Any bottom layer Casing", 1)
             .addOutputHatch("Any Heat Proof Machine Casing", 1, 3)
-            .addSubChannelUsage(GTStructureChannels.HEATING_COIL)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.HEATING_COIL)
             .toolTipFinisher();
         return tt;
     }
