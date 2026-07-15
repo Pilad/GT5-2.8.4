@@ -43,7 +43,6 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.implementations.MTEHatch;
-import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.render.TextureFactory;
@@ -71,9 +70,8 @@ public class MTEMegaChemicalReactorLegacy extends MegaMultiBlockBase<MTEMegaChem
             .addInfo("What molecule do you want to synthesize ?")
             .addInfo("Or you want to replace something in this molecule ?")
             .addStaticParallelInfo(Configuration.Multiblocks.megaMachinesMax)
-            .addGlassEnergyLimitInfo()
             .addPerfectOCInfo()
-            .addTecTechHatchInfo()
+            .addSupportAny()
             .addMinGlassForLaser(VoltageIndex.UV)
             .addGlassEnergyLimitInfo()
             .addUnlimitedTierSkips()
@@ -89,7 +87,7 @@ public class MTEMegaChemicalReactorLegacy extends MegaMultiBlockBase<MTEMegaChem
             .addInputBus("Hint block ", 1)
             .addOutputBus("Hint block ", 1)
             .addOutputHatch("Hint block ", 1)
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .toolTipFinisher();
         return tt;
     }
@@ -182,11 +180,8 @@ public class MTEMegaChemicalReactorLegacy extends MegaMultiBlockBase<MTEMegaChem
                 if (hatch.getConnectionType() == MTEHatch.ConnectionType.LASER) {
                     return false;
                 }
-                if (this.glassTier < hatch.mTier) {
-                    return false;
-                }
             }
-            for (MTEHatchEnergy mEnergyHatch : this.mEnergyHatches) {
+            for (MTEHatch mEnergyHatch : this.getExoticAndNormalEnergyHatchList()) {
                 if (this.glassTier < mEnergyHatch.mTier) {
                     return false;
                 }
