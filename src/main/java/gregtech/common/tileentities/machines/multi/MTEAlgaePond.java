@@ -183,7 +183,7 @@ public class MTEAlgaePond extends MTEExtendedPowerMultiBlockBase<MTEAlgaePond> i
             && mMaintenanceHatches.size() == 1
             && mEnergyHatches.size() == 1) {
             int inputTier = (int) getInputVoltageTier();
-            if (glassTier < glassTier) {
+            if (glassTier < inputTier) {
                 return false;
             }
             tier = inputTier;
