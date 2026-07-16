@@ -59,6 +59,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     public boolean mOutputFluid = false, mVoidFluidPart = false, mVoidFluidFull = false, mLockFluid = false;
     protected String lockedFluidName = null;
     public boolean mAllowInputFromOutputSide = false;
+    public boolean mDisableFilter = true;
 
     public MTEDigitalTankBase(int aID, String aName, String aNameRegional, int aTier) {
         super(
@@ -166,6 +167,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
         if (mLockFluid && GTUtility.isStringValid(lockedFluidName)) aNBT.setString("lockedFluidName", lockedFluidName);
         else aNBT.removeTag("lockedFluidName");
         aNBT.setBoolean("mAllowInputFromOutputSide", this.mAllowInputFromOutputSide);
+        aNBT.setBoolean("mDisableFilter", this.mDisableFilter);
     }
 
     @Override
@@ -181,6 +183,7 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
             setLockedFluidName(null);
         }
         mAllowInputFromOutputSide = aNBT.getBoolean("mAllowInputFromOutputSide");
+        mDisableFilter = !aNBT.hasKey("mDisableFilter") || aNBT.getBoolean("mDisableFilter");
     }
 
     @Override
@@ -292,7 +295,11 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     @Override
     public final void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
         ItemStack aTool) {
-        if (side == getBaseMetaTileEntity().getFrontFacing()) {
+        if (side != getBaseMetaTileEntity().getFrontFacing()) return;
+        if (aPlayer.isSneaking()) {
+            mDisableFilter = !mDisableFilter;
+            GTUtility.sendChatTrans(aPlayer, "GT5U.hatch.disableFilter." + mDisableFilter);
+        } else {
             mAllowInputFromOutputSide = !mAllowInputFromOutputSide;
             GTUtility.sendChatToPlayer(
                 aPlayer,
@@ -439,6 +446,15 @@ public abstract class MTEDigitalTankBase extends MTEBasicTank
     @Override
     public boolean isLiquidInput(ForgeDirection side) {
         return mAllowInputFromOutputSide || side != getBaseMetaTileEntity().getFrontFacing();
+    }
+
+    @Override
+    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
+        ItemStack aStack) {
+        if (!super.allowPutStack(aBaseMetaTileEntity, aIndex, side, aStack)) return false;
+        if (mDisableFilter) return true;
+        FluidStack tFluid = GTUtility.getFluidForFilledItem(aStack, true);
+        return tFluid == null || isFluidInputAllowed(tFluid);
     }
 
     public boolean allowOverflow() {
