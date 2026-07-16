@@ -22,8 +22,10 @@ import static gtPlusPlus.api.recipe.GTPPRecipeMaps.simpleWasherRecipes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -137,6 +139,14 @@ public class MTEIntegratedOreFactoryLegacy extends MTEExtendedPowerMultiBlockBas
     private int sMode = 0;
     private boolean sVoidStone = false;
     private int currentParallelism = 0;
+
+    private static final Set<ItemStack> VOIDABLE_STONE_DUSTS = new HashSet<>(
+        Arrays.asList(
+            Materials.Stone.getDust(1),
+            Materials.Netherrack.getDust(1),
+            Materials.Endstone.getDust(1),
+            Materials.Marble.getDust(1),
+            Materials.GraniteRed.getDust(1)));
 
     @SuppressWarnings("ForLoopReplaceableByForEach")
     private static void initHash() {
@@ -816,11 +826,8 @@ public class MTEIntegratedOreFactoryLegacy extends MTEExtendedPowerMultiBlockBas
         HashMap<Integer, Integer> rProduct = new HashMap<>();
         for (ItemStack stack : aList) {
             int tID = GTUtility.stackToInt(stack);
-            if (sVoidStone) {
-                if (GTUtility.areStacksEqual(Materials.Stone.getDust(1), stack)) {
-                    continue;
-                }
-            }
+            if (sVoidStone && VOIDABLE_STONE_DUSTS.stream()
+                .anyMatch(dust -> GTUtility.areStacksEqual(dust, stack))) continue;
             if (tID != 0) {
                 if (rProduct.containsKey(tID)) {
                     rProduct.put(tID, rProduct.get(tID) + stack.stackSize);
