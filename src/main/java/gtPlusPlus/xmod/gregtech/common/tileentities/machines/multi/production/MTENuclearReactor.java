@@ -399,7 +399,7 @@ public class MTENuclearReactor extends GTPPMultiBlockBase<MTENuclearReactor> imp
         // Warm up for 4~ minutes
         if (mEfficiency < this.getMaxEfficiency(null)) {
             this.mMaxProgresstime = 1;
-            this.mEfficiencyIncrease = 2;
+            this.mEfficiencyIncrease = 40;
             this.lEUt = 0;
             return SimpleCheckRecipeResult.ofSuccess("warm_up");
         }

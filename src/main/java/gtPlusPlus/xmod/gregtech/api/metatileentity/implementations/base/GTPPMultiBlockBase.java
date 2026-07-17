@@ -108,6 +108,7 @@ public abstract class GTPPMultiBlockBase<T extends MTEExtendedPowerMultiBlockBas
     public ArrayList<MTEHatchOutputBattery> mDischargeHatches = new ArrayList<>();
     public ArrayList<MTEHatch> mAllEnergyHatches = new ArrayList<>();
     public ArrayList<MTEHatch> mAllDynamoHatches = new ArrayList<>();
+    public ArrayList<MTEHatchDynamoMulti> mExoticDynamoHatches = new ArrayList<>();
 
     public GTPPMultiBlockBase(final int aID, final String aName, final String aNameRegional) {
         super(aID, aName, aNameRegional);
@@ -444,9 +445,13 @@ public abstract class GTPPMultiBlockBase<T extends MTEExtendedPowerMultiBlockBas
             updateMasterEnergyHatchList(aMetaTileEntity);
             return added;
         }
-        if (isThisHatchMultiDynamo(aMetaTileEntity)) {
-            log("Found isThisHatchMultiDynamo");
-            boolean added = addToMachineListInternal(mTecTechDynamoHatches, aMetaTileEntity, aBaseCasingIndex);
+        // [NEW] HatchElement.Dynamo uses mDynamoHatches for the count, but I'm uncertain where GT++
+        // actually uses the TTDynamoHatch list, so I'm just excluding 4A hatches to be added here
+        // and be caught past the lower comment currently in the MTEHatchDynamo section.
+        if (aMetaTileEntity instanceof MTEHatchDynamoMulti multiDynamoHatch && multiDynamoHatch.getAmperes() > 4) {
+            log("Found isThisHatchMultiDynamo (>4A)");
+            boolean added = addToMachineListInternal(mTecTechDynamoHatches, multiDynamoHatch, aBaseCasingIndex);
+            mExoticDynamoHatches.add(multiDynamoHatch);
             updateMasterDynamoHatchList(aMetaTileEntity);
             return added;
         }
@@ -667,8 +672,8 @@ public abstract class GTPPMultiBlockBase<T extends MTEExtendedPowerMultiBlockBas
         if (aMetaTileEntity == null) {
             return false;
         }
-        if (isThisHatchMultiDynamo(aTileEntity)) {
-            return addToMachineListInternal(mTecTechDynamoHatches, aMetaTileEntity, aBaseCasingIndex);
+        if (aMetaTileEntity instanceof MTEHatchDynamoMulti hatch) {
+            return addToMachineListInternal(mTecTechDynamoHatches, hatch, aBaseCasingIndex);
         }
         return false;
     }
@@ -774,18 +779,14 @@ public abstract class GTPPMultiBlockBase<T extends MTEExtendedPowerMultiBlockBas
         // Do Things
         if (this.getBaseMetaTileEntity()
             .isServerSide()) {
-            // Logger.INFO("Right Clicked Controller.");
             ItemStack tCurrentItem = aPlayer.inventory.getCurrentItem();
             if (tCurrentItem != null) {
-                // Logger.INFO("Holding Item.");
                 if (tCurrentItem.getItem() instanceof MetaGeneratedTool) {
-                    // Logger.INFO("Is MetaGeneratedTool.");
                     int[] aOreID = OreDictionary.getOreIDs(tCurrentItem);
                     for (int id : aOreID) {
                         // Plunger
                         if (OreDictionary.getOreName(id)
                             .equals("craftingToolPlunger")) {
-                            // Logger.INFO("Is Plunger.");
                             return onPlungerRightClick(aPlayer, side, aX, aY, aZ);
                         }
                     }
