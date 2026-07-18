@@ -2,6 +2,7 @@ package gregtech.api.util;
 
 import static cpw.mods.fml.common.registry.GameRegistry.findBlock;
 import static gregtech.api.enums.GTValues.VN;
+import static gregtech.api.enums.Mods.AppliedEnergistics2;
 import static gregtech.api.enums.Mods.BloodArsenal;
 import static gregtech.api.enums.Mods.Botania;
 import static gregtech.api.enums.Mods.EnderIO;
@@ -164,15 +165,19 @@ public class GlassTier {
             addCustomGlass(ItemRegistry.bw_realglas, 1, 4, 0);
             addCustomGlass(GregTechAPI.sBlockGlass1, 0, 4, 1);
             addCustomGlass(GregTechAPI.sBlockGlass1, 10, 4, 2);
-            addCustomGlass(IndustrialCraft2.ID, "blockAlloyGlass", 0, 4, 3);
+            if (AppliedEnergistics2.isModLoaded()) {
+                addCustomGlass(AppliedEnergistics2.ID, "tile.BlockQuartzGlass", 0, 4, 3);
+                addCustomGlass(AppliedEnergistics2.ID, "tile.BlockQuartzLamp", 0, 4, 4);
+            }
+            addCustomGlass(IndustrialCraft2.ID, "blockAlloyGlass", 0, 4, 5);
             if (BloodArsenal.isModLoaded()) {
-                addCustomGlass(BloodArsenal.ID, "blood_stained_glass", 0, 4, 4);
+                addCustomGlass(BloodArsenal.ID, "blood_stained_glass", 0, 4, 6);
             }
             if (Botania.isModLoaded()) {
-                addCustomGlass(Botania.ID, "manaGlass", 0, 4, 5);
+                addCustomGlass(Botania.ID, "manaGlass", 0, 4, 7);
             }
             for (int i = 0; i < 16; i++) {
-                addCustomGlass(GregTechAPI.sBlockTintedGlass, i, 4, i + 6);
+                addCustomGlass(GregTechAPI.sBlockTintedGlass, i, 4, i + 8);
             }
 
             // --- IV ---
