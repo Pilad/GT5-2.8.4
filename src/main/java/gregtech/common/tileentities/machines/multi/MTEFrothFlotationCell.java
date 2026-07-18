@@ -63,6 +63,7 @@ public class MTEFrothFlotationCell extends MTEExtendedPowerMultiBlockBase<MTEFro
     private static final int OFFSET_X = 5;
     private static final int OFFSET_Y = 3;
     private static final int OFFSET_Z = 0;
+    private static final int TOP_CASING_AMOUNT = 28;
 
     private int casingAmount;
     private boolean needsWaterFill = false;
@@ -119,7 +120,7 @@ public class MTEFrothFlotationCell extends MTEExtendedPowerMultiBlockBase<MTEFro
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(11, 5, 11, false)
             .addController("Front center, 2nd layer")
-            .addCasingInfoMin("Inconel Reinforced Casing", 118, false)
+            .addCasingInfoMin("Inconel Reinforced Casing", 110, false)
             .addCasingInfoExactly("Flotation Cell Casing", 31, false)
             .addCasingInfoExactly("Staballoy Frame Box", 20, false)
             .addCasingInfoExactly("Inconel-690 Frame Box", 8, false)
@@ -209,7 +210,8 @@ public class MTEFrothFlotationCell extends MTEExtendedPowerMultiBlockBase<MTEFro
                 'W');
             return false;
         }
-        boolean valid = checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z) && casingAmount >= 90
+        boolean valid = checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z)
+            && (casingAmount + TOP_CASING_AMOUNT) >= 110
             && checkHatch();
         if (valid) needsWaterFill = true;
         return valid;
