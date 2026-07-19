@@ -246,7 +246,7 @@ public class MTEExtremeHeatExchanger extends MTETooltipMultiBlockBaseEM
             .addInfo(GTUtility.translate("gt.multiblock.ExtremeHeatExchanger.plasma2"))
             .addSeparator()
             .addInfo(GTUtility.translate("gt.multiblock.ExtremeHeatExchanger.throttle1"))
-            .addInfo(GTUtility.translate("gt.multiblock.ExtremeHeatExchanger.throttle2"))
+            .addInfo(GTUtility.translate("gt.multiblock.ExtremeHeatExchanger.throttle2", getFluidUnit()))
             .addController("Front bottom center")
             .addCasingInfoRange("Robust Tungstensteel Machine Casing", 25, 120, false)
             .addCasingInfoExactly("Tiered Glass (EV+)", 72, false)
