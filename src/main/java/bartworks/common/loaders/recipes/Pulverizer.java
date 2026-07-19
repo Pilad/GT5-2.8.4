@@ -22,14 +22,14 @@ public class Pulverizer implements Runnable {
             .itemInputs(new ItemStack(ItemRegistry.bw_glasses[0], 1, 1))
             .itemOutputs(Materials.BorosilicateGlass.getDust(9), Materials.Titanium.getDust(8))
             .duration(40 * SECONDS)
-            .eut(TierEU.RECIPE_EV)
+            .eut(TierEU.RECIPE_HV)
             .addTo(maceratorRecipes);
 
         GTValues.RA.stdBuilder()
             .itemInputs(new ItemStack(ItemRegistry.bw_glasses[0], 1, 2))
             .itemOutputs(Materials.BorosilicateGlass.getDust(9), Materials.TungstenSteel.getDust(8))
             .duration(40 * SECONDS)
-            .eut(TierEU.RECIPE_IV)
+            .eut(TierEU.RECIPE_EV)
             .addTo(maceratorRecipes);
 
         GTValues.RA.stdBuilder()
@@ -38,21 +38,21 @@ public class Pulverizer implements Runnable {
                 Materials.BorosilicateGlass.getDust(9),
                 WerkstoffLoader.LuVTierMaterial.get(OrePrefixes.dust, 8))
             .duration(40 * SECONDS)
-            .eut(TierEU.RECIPE_LuV)
+            .eut(TierEU.RECIPE_IV)
             .addTo(maceratorRecipes);
 
         GTValues.RA.stdBuilder()
             .itemInputs(new ItemStack(ItemRegistry.bw_glasses[0], 1, 4))
             .itemOutputs(Materials.BorosilicateGlass.getDust(9), Materials.Iridium.getDust(8))
             .duration(40 * SECONDS)
-            .eut(TierEU.RECIPE_ZPM)
+            .eut(TierEU.RECIPE_LuV)
             .addTo(maceratorRecipes);
 
         GTValues.RA.stdBuilder()
             .itemInputs(new ItemStack(ItemRegistry.bw_glasses[0], 1, 5))
             .itemOutputs(Materials.BorosilicateGlass.getDust(9), Materials.Osmium.getDust(8))
             .duration(40 * SECONDS)
-            .eut(TierEU.RECIPE_UV)
+            .eut(TierEU.RECIPE_ZPM)
             .addTo(maceratorRecipes);
 
         GTValues.RA.stdBuilder()
