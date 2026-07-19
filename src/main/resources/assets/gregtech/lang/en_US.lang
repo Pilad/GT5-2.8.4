@@ -4762,3 +4762,5 @@ gt.blockfencemetal.0.name=Iron Fence
 gt.tile.data_server.name=GT-Data Server
 gt.item.gravitational_lens.name=Gravitational Lens
 gt.item.gravitational_lens.tooltip=Portable gravitational well
+
+gt.loading.progress.post_init.loading_gt=Post Initialization: loading GregTech

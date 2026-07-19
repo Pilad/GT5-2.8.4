@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import net.minecraft.util.StatCollector;
+
 import alexiil.mods.load.MinecraftDisplayer;
 import alexiil.mods.load.ProgressDisplayer;
 import cpw.mods.fml.common.ProgressManager;
@@ -108,8 +110,9 @@ public class GTCLSCompat {
     public static void pushToDisplayProgress() {
         MinecraftDisplayer.isReplacingVanillaMaterials = false;
         try {
-            ProgressDisplayer
-                .displayProgress("Post Initialization: loading GregTech", MinecraftDisplayer.getLastPercent());
+            ProgressDisplayer.displayProgress(
+                StatCollector.translateToLocal("gt.loading.progress.post_init.loading_gt"),
+                MinecraftDisplayer.getLastPercent());
         } catch (IOException e) {
             GTMod.GT_FML_LOGGER.error("Exception caught when updating loading screen", e);
         }
