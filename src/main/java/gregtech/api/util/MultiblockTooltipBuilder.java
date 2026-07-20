@@ -791,6 +791,44 @@ public class MultiblockTooltipBuilder {
 
     /**
      * Add a line of information about the structure:<br>
+     * /**
+     * Add a line of information about the structure:<br>
+     * (indent)count name: info
+     *
+     * @param count Number of hatches (ie. 1+)
+     * @param name  Name of hatch
+     * @param info  Location description
+     * @param dots  Hint block(s)
+     * @return Instance this method was called on.
+     */
+    public MultiblockTooltipBuilder addMiscHatch(String count, String name, String info, int... dots) {
+        sLines.add(
+            TAB + EnumChatFormatting.YELLOW
+                + count
+                + " "
+                + EnumChatFormatting.WHITE
+                + name
+                + COLON
+                + EnumChatFormatting.GRAY
+                + info);
+        for (int dot : dots) hBlocks.put(dot, name);
+        return this;
+    }
+
+    /**
+     * Add a line of information about the structure:<br>
+     * (indent)Mandatory Air: info
+     *
+     * @param info Location description
+     * @return Instance this method was called on.
+     */
+    public MultiblockTooltipBuilder addAir(String info) {
+        sLines.add(TAB + EnumChatFormatting.WHITE + TT_air + COLON + EnumChatFormatting.GRAY + info);
+        return this;
+    }
+
+    /**
+     * Add a line of information about the structure:<br>
      * Supports Multi-Amp and Laser Hatches!
      *
      * @return Instance this method was called on.
