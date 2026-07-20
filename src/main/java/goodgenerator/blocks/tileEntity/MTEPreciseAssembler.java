@@ -125,14 +125,7 @@ public class MTEPreciseAssembler extends MTEExtendedPowerMultiBlockBase<MTEPreci
                     'C',
                     GTStructureChannels.PRASS_UNIT_CASING.use(
                         buildHatchAdder(MTEPreciseAssembler.class)
-                            .atLeast(
-                                InputBus,
-                                InputHatch,
-                                OutputHatch,
-                                OutputBus,
-                                Maintenance,
-                                Muffler,
-                                ExoticEnergy.or(Energy))
+                            .atLeast(InputBus, InputHatch, OutputBus, Maintenance, Muffler, ExoticEnergy.or(Energy))
                             .casingIndex(CASING_INDEX)
                             .dot(1)
                             .buildAndChain(
@@ -320,7 +313,6 @@ public class MTEPreciseAssembler extends MTEExtendedPowerMultiBlockBase<MTEPreci
             .addCasingInfoRange("Precise Electronic Unit Casing", 42, 86, true)
             .addInputHatch("Any Casing")
             .addInputBus("Any Casing")
-            .addOutputHatch("Any Casing")
             .addOutputBus("Any Casing")
             .addEnergyHatch("Any Casing")
             .addMufflerHatch("Any Casing")
