@@ -84,6 +84,7 @@ public class MTESourceChamber extends MTEEnhancedMultiBlockBase<MTESourceChamber
                     .casingIndex(CASING_INDEX)
                     .dot(4)
                     .adder(MTESourceChamber::addBeamLineOutputHatch)
+                    .exclusive()
                     .build())
             .addElement(
                 'i',

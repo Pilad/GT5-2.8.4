@@ -95,6 +95,12 @@ gt.voltage.tier=-tier
 
 # Tooltip for Block Machines
 gt.blockmachines.cable.desc=Max Voltage: %s\nMax Amperage: %s\nLoss/Meter/Ampere: %s
+
+gt.hatch_element_or= or
+gt.hatch_element_of_type=of type
+gt.hatch_element_of_class=of class
+gt.hatch_element_of_id=of id
+
 gt.behaviour.scanning=Can scan Blocks in World
 gt.behaviour.scanning.result=Block scan data result:
 

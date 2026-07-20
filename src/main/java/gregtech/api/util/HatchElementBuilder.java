@@ -23,7 +23,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.structurelib.StructureLibAPI;
@@ -34,6 +37,7 @@ import com.gtnewhorizon.structurelib.structure.IStructureElementChain;
 import com.gtnewhorizon.structurelib.structure.IStructureElementNoPlacement;
 import com.gtnewhorizon.structurelib.util.ItemStackPredicate;
 
+import blockrenderer6343.api.utils.CreativeItemSource;
 import gnu.trove.TIntCollection;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.set.hash.TIntHashSet;
@@ -87,9 +91,13 @@ public class HatchElementBuilder<T> {
                         .collect(Collectors.toList()))
                     .cacheHint(
                         () -> Arrays.stream(elements)
-                            .map(IHatchElement::name)
+                            .map(IHatchElement::getDisplayName)
                             .sorted()
-                            .collect(Collectors.joining(" or ", "of type ", "")));
+                            .collect(
+                                Collectors.joining(
+                                    StatCollector.translateToLocal("gt.hatch_element_or"),
+                                    StatCollector.translateToLocal("gt.hatch_element_of_type"),
+                                    "")));
     }
 
     /**
@@ -177,9 +185,13 @@ public class HatchElementBuilder<T> {
                     .cacheHint(
                         () -> elements.keySet()
                             .stream()
-                            .map(IHatchElement::name)
+                            .map(IHatchElement::getDisplayName)
                             .sorted()
-                            .collect(Collectors.joining(" or ", "of type ", "")));
+                            .collect(
+                                Collectors.joining(
+                                    StatCollector.translateToLocal("gt.hatch_element_or"),
+                                    StatCollector.translateToLocal("gt.hatch_element_of_type"),
+                                    "")));
     }
     // endregion
 
@@ -282,6 +294,13 @@ public class HatchElementBuilder<T> {
         mCacheHint = true;
         return this;
     }
+
+    private String getHint() {
+        if (mHatchItemType != null) {
+            return mHatchItemType.get();
+        }
+        return "unspecified GT hatch";
+    }
     // endregion
 
     public HatchElementBuilder<T> continueIfSuccess() {
@@ -331,7 +350,7 @@ public class HatchElementBuilder<T> {
     // region intermediate
     public HatchElementBuilder<T> hatchClass(Class<? extends IMetaTileEntity> clazz) {
         return hatchItemFilter(c -> is -> clazz.isInstance(ItemMachines.getMetaTileEntity(is)))
-            .cacheHint(() -> "of class " + clazz.getSimpleName())
+            .cacheHint(() -> StatCollector.translateToLocal("gt.hatch_element_of_class") + clazz.getSimpleName())
             .shouldSkip(
                 (BiPredicate<? super T, ? super IGregTechTileEntity> & Builtin) (c, t) -> clazz
                     .isInstance(t.getMetaTileEntity()));
@@ -348,7 +367,11 @@ public class HatchElementBuilder<T> {
             () -> list.stream()
                 .map(Class::getSimpleName)
                 .sorted()
-                .collect(Collectors.joining(" or ", "of class ", "")))
+                .collect(
+                    Collectors.joining(
+                        StatCollector.translateToLocal("gt.hatch_element_or"),
+                        StatCollector.translateToLocal("gt.hatch_element_of_class"),
+                        "")))
             .shouldSkip(
                 (BiPredicate<? super T, ? super IGregTechTileEntity> & Builtin) (c, t) -> t != null && list.stream()
                     .anyMatch(clazz -> clazz.isInstance(t.getMetaTileEntity())));
@@ -357,7 +380,7 @@ public class HatchElementBuilder<T> {
     public HatchElementBuilder<T> hatchId(int aId) {
         return hatchItemFilter(
             c -> is -> GTUtility.isStackValid(is) && is.getItem() instanceof ItemMachines && is.getItemDamage() == aId)
-                .cacheHint(() -> "of id " + aId)
+                .cacheHint(() -> StatCollector.translateToLocal("gt.hatch_element_of_id") + aId)
                 .shouldSkip(
                     (BiPredicate<? super T, ? super IGregTechTileEntity> & Builtin) (c, t) -> t != null
                         && t.getMetaTileID() == aId);
@@ -373,7 +396,11 @@ public class HatchElementBuilder<T> {
                     () -> Arrays.stream(coll.toArray())
                         .sorted()
                         .mapToObj(String::valueOf)
-                        .collect(Collectors.joining(" or ", "of id ", "")))
+                        .collect(
+                            Collectors.joining(
+                                StatCollector.translateToLocal("gt.hatch_element_or"),
+                                StatCollector.translateToLocal("gt.hatch_element_of_id"),
+                                "")))
                     .shouldSkip(
                         (BiPredicate<? super T, ? super IGregTechTileEntity> & Builtin) (c, t) -> t != null
                             && coll.contains(t.getMetaTileID()));
@@ -428,13 +455,15 @@ public class HatchElementBuilder<T> {
         }
         return new IStructureElement<>() {
 
-            private String mHint = mHatchItemType == null ? "unspecified GT hatch" : mHatchItemType.get();
-
             @Override
             public boolean check(T t, World world, int x, int y, int z) {
                 TileEntity tileEntity = world.getTileEntity(x, y, z);
                 return tileEntity instanceof IGregTechTileEntity
                     && mAdder.apply(t, (IGregTechTileEntity) tileEntity, (short) mCasingIndex);
+            }
+
+            private String getHint() {
+                return HatchElementBuilder.this.getHint();
             }
 
             @Override
@@ -457,24 +486,23 @@ public class HatchElementBuilder<T> {
             }
 
             @Override
-            public boolean placeBlock(T t, World world, int i, int i1, int i2, ItemStack itemStack) {
-                // TODO
-                return false;
-            }
-
-            private String getHint() {
-                if (mHint != null) return mHint;
-                String tHint = mHatchItemType.get();
-                if (tHint == null) return "?";
-                // TODO move this to some .lang instead of half ass it into the crappy gt lang file
-                tHint = GTLanguageManager.addStringLocalization("Hatch_Type_" + tHint.replace(' ', '_'), tHint);
-                if (mCacheHint) {
-                    mHint = tHint;
-                    if (mHint != null)
-                        // yeet the getter, since its product is retrieved and cached
-                        mHatchItemType = null;
+            public boolean placeBlock(T t, World world, int x, int y, int z, ItemStack trigger) {
+                EntityPlayerMP player = null;
+                if (t instanceof IMetaTileEntity metaTile) {
+                    player = GTUtility.getFakePlayer(metaTile.getBaseMetaTileEntity());
                 }
-                return tHint;
+                if (player == null && world instanceof WorldServer) {
+                    try {
+                        player = FakePlayerFactory.getMinecraft((WorldServer) world);
+                    } catch (Exception e) {
+                        return false;
+                    }
+                }
+
+                AutoPlaceEnvironment env = AutoPlaceEnvironment
+                    .fromLegacy(CreativeItemSource.instance, player, chat -> {});
+                PlaceResult result = survivalPlaceBlock(t, world, x, y, z, trigger, env);
+                return result == PlaceResult.ACCEPT || result == PlaceResult.ACCEPT_STOP;
             }
 
             @Override

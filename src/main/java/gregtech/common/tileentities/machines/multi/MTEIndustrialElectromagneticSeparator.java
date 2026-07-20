@@ -142,6 +142,7 @@ public class MTEIndustrialElectromagneticSeparator
                 .hatchClass(MTEHatchMagnet.class)
                 .casingIndex(((BlockCasings10) GregTechAPI.sBlockCasings10).getTextureIndex(0))
                 .dot(2)
+                .exclusive()
                 .build())
         .build();
 

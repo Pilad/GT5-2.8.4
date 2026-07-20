@@ -466,9 +466,9 @@ public class MTESynchrotron extends MTEExtendedPowerMultiBlockBase<MTESynchrotro
                 .addElement('i', buildHatchAdder(MTESynchrotron.class).atLeast(ImmutableMap.of(InputHatch, 2)).dot(4).casingIndex(CASING_INDEX).build())
                 .addElement('o', buildHatchAdder(MTESynchrotron.class).atLeast(ImmutableMap.of(OutputHatch, 2)).dot(5).casingIndex(CASING_INDEX).build())
                 .addElement('v', buildHatchAdder(MTESynchrotron.class).hatchClass(MTEHatchInputBeamline.class).casingIndex(CASING_INDEX)
-                        .dot(1).adder(MTESynchrotron::addBeamlineInputHatch).build())
+                        .dot(1).adder(MTESynchrotron::addBeamlineInputHatch).exclusive().build())
                 .addElement('b', buildHatchAdder(MTESynchrotron.class).hatchClass(MTEHatchOutputBeamline.class).casingIndex(CASING_INDEX)
-                        .dot(2).adder(MTESynchrotron::addBeamlineOutputHatch).build())
+                        .dot(2).adder(MTESynchrotron::addBeamlineOutputHatch).exclusive().build())
                 .addElement('g', chainAllGlasses(-1, (te, t) -> te.glassTier = t, te -> te.glassTier))
                 .addElement('j',
                 		buildHatchAdder(MTESynchrotron.class).atLeast(Maintenance).dot(3).casingIndex(CASING_INDEX)

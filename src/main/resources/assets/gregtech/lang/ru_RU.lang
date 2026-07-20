@@ -95,6 +95,11 @@ gt.crop.zomplant.name=Zomplant
 # Tooltip for Block Machines
 gt.blockmachines.cable.desc=Макс. вольтаж: %s\nМакс. ампераж: %s\nПотеря на блок/ампер: %s
 
+gt.hatch_element_or= или
+gt.hatch_element_of_type=of type
+gt.hatch_element_of_class=of class
+gt.hatch_element_of_id=of id
+
 # Tooltip info of tile-entities
 gt.tileentity.eup_in=Входной вольтаж: %s
 gt.tileentity.eup_out=Выходной вольтаж: %s
