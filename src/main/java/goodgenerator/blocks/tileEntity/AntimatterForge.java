@@ -439,7 +439,10 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
             if (!amOutputHatches.isEmpty()) {
                 drainEnergyInput(calculateEnergyContainmentCost(totalAntimatterAmount));
             }
-            this.guiAntimatterAmount = totalAntimatterAmount;
+
+            if (!aBaseMetaTileEntity.isActive()) {
+                this.guiAntimatterAmount = totalAntimatterAmount;
+            }
 
             if ((this.mProgresstime >= this.mMaxProgresstime) && (!isAllowedToWork())) {
                 setProtoRender(false);
@@ -564,6 +567,7 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
         }
 
         this.guiAntimatterChange = ratioLosses + antimatterChange;
+        this.guiAntimatterAmount = totalAntimatterAmount;
 
         if (this.canRender) {
             updateAntimatterSize(this.guiAntimatterAmount);
@@ -828,6 +832,7 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
         aNBT.setBoolean("canRender", this.canRender);
         aNBT.setLong("rollingCost", this.rollingCost);
         aNBT.setFloat("currentMagneticModifier", this.modifiers[MAGNETIC_ID]);
+        aNBT.setLong("guiAntimatterAmount", this.guiAntimatterAmount);
     }
 
     @Override
@@ -841,6 +846,9 @@ public class AntimatterForge extends MTEExtendedPowerMultiBlockBase<AntimatterFo
         }
         if (aNBT.hasKey("currentMagneticModifier")) {
             this.modifiers[MAGNETIC_ID] = aNBT.getFloat("currentMagneticModifier");
+        }
+        if (aNBT.hasKey("guiAntimatterAmount")) {
+            this.guiAntimatterAmount = aNBT.getLong("guiAntimatterAmount");
         }
     }
 
