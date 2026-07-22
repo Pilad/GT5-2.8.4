@@ -27,7 +27,6 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.casing.Casings;
-import gregtech.api.enums.MetaTileEntityIDs;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -111,16 +110,16 @@ public class MTECryogenicFreezer extends MTEExtendedPowerMultiBlockBase<MTECryog
                 .addElement(
                     'B',
                     ofChain(
-                        buildHatchAdder(MTECryogenicFreezer.class).atLeast(CryotheumHatch)
-                            .hatchId(MetaTileEntityIDs.Hatch_Input_Cryotheum.ID)
-                            .shouldReject(
-                                x -> !x.getCryotheumHatches()
-                                    .isEmpty())
-                            .casingIndex(Casings.AdvancedCryogenicCasing.textureId)
-                            .dot(1)
-                            .build(),
                         buildHatchAdder(MTECryogenicFreezer.class)
-                            .atLeast(InputBus, OutputBus, Maintenance, Energy, Muffler, InputHatch, OutputHatch)
+                            .atLeast(
+                                InputBus,
+                                OutputBus,
+                                Maintenance,
+                                Energy,
+                                Muffler,
+                                InputHatch,
+                                OutputHatch,
+                                CryotheumHatch)
                             .casingIndex(Casings.AdvancedCryogenicCasing.textureId)
                             .dot(1)
                             .build(),
@@ -153,9 +152,10 @@ public class MTECryogenicFreezer extends MTEExtendedPowerMultiBlockBase<MTECryog
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         casingAmount = 0;
+        mCryotheumHatches.clear();
         return checkPiece(STRUCTURE_PIECE_MAIN, OFFSET_X, OFFSET_Y, OFFSET_Z) && casingAmount >= 46
             && mMufflerHatches.size() == 1
-            && !getCryotheumHatches().isEmpty();
+            && !mCryotheumHatches.isEmpty();
     }
 
     @Override

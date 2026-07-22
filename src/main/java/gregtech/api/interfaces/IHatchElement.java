@@ -34,6 +34,11 @@ public interface IHatchElement<T> {
 
     long count(T t);
 
+    default boolean matchesHatch(IMetaTileEntity mte) {
+        return mteClasses().stream()
+            .anyMatch(c -> c.isInstance(mte));
+    }
+
     default <T2 extends T> IHatchElement<T2> withMteClass(Class<? extends IMetaTileEntity> aClass) {
         if (aClass == null) throw new IllegalArgumentException();
         return withMteClasses(Collections.singletonList(aClass));
@@ -174,6 +179,11 @@ class HatchElementEither<T> implements IHatchElement<T> {
     public long count(T t) {
         return first.count(t) + second.count(t);
     }
+
+    @Override
+    public boolean matchesHatch(IMetaTileEntity mte) {
+        return first.matchesHatch(mte) || second.matchesHatch(mte);
+    }
 }
 
 class HatchElement<T> implements IHatchElement<T> {
@@ -217,6 +227,11 @@ class HatchElement<T> implements IHatchElement<T> {
     @Override
     public long count(T t) {
         return mCount == null ? mBacking.count(t) : mCount.applyAsLong(t);
+    }
+
+    @Override
+    public boolean matchesHatch(IMetaTileEntity mte) {
+        return mBacking.matchesHatch(mte);
     }
 
     @Override

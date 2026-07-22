@@ -1210,5 +1210,10 @@ public class GTStructureUtility {
         public long count(T t) {
             return proxiedHatch.count(t);
         }
+
+        @Override
+        public boolean matchesHatch(IMetaTileEntity mte) {
+            return proxiedHatch.matchesHatch(mte);
+        }
     }
 }

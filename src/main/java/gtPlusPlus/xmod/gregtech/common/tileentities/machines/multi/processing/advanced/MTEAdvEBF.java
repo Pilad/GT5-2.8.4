@@ -42,7 +42,6 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.HeatingCoilLevel;
-import gregtech.api.enums.MetaTileEntityIDs;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TAE;
 import gregtech.api.interfaces.IIconContainer;
@@ -166,16 +165,16 @@ public class MTEAdvEBF extends GTPPMultiBlockBase<MTEAdvEBF> implements ISurviva
                 .addElement(
                     'C',
                     ofChain(
-                        buildHatchAdder(MTEAdvEBF.class).atLeast(PyrotheumHatch)
-                            .hatchId(MetaTileEntityIDs.Hatch_Input_Pyrotheum.ID)
-                            .shouldReject(
-                                x -> !x.getPyrotheumHatches()
-                                    .isEmpty())
-                            .casingIndex(CASING_TEXTURE_ID)
-                            .dot(1)
-                            .build(),
                         buildHatchAdder(MTEAdvEBF.class)
-                            .atLeast(InputBus, OutputBus, Maintenance, Energy, Muffler, InputHatch, OutputHatch)
+                            .atLeast(
+                                InputBus,
+                                OutputBus,
+                                Maintenance,
+                                Energy,
+                                Muffler,
+                                InputHatch,
+                                OutputHatch,
+                                PyrotheumHatch)
                             .casingIndex(CASING_TEXTURE_ID)
                             .dot(1)
                             .build(),
@@ -210,7 +209,7 @@ public class MTEAdvEBF extends GTPPMultiBlockBase<MTEAdvEBF> implements ISurviva
 
     @Override
     public boolean checkHatch() {
-        return super.checkHatch() && !getPyrotheumHatches().isEmpty();
+        return super.checkHatch() && !mPyrotheumHatches.isEmpty();
     }
 
     @Override
