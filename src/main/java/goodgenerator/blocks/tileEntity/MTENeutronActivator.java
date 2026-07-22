@@ -345,8 +345,8 @@ public class MTENeutronActivator extends MTETooltipMultiBlockBaseEM implements I
             }
 
             for (MTENeutronAccelerator tHatch : mNeutronAccelerator) {
-                if (tHatch.getBaseMetaTileEntity()
-                    .isActive() && this.getRepairStatus() == this.getIdealStatus()) {
+                IGregTechTileEntity baseTile = tHatch.getBaseMetaTileEntity();
+                if (baseTile != null && baseTile.isActive() && this.getRepairStatus() == this.getIdealStatus()) {
                     anyWorking = true;
                     this.eV += Math.max(
                         (R.nextInt(tHatch.getMaxEUConsume() + 1) + tHatch.getMaxEUConsume()) * 10
