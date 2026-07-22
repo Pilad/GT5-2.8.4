@@ -210,7 +210,8 @@ public class MTENeutronActivator extends MTETooltipMultiBlockBaseEM implements I
             .addMaintenanceHatch("Hint block with dot 2")
             .addOtherStructurePart("Neutron Accelerator", "Hint block with dot 2")
             .addOtherStructurePart("Neutron Sensor", "Hint block with dot 2")
-            .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.BOROGLASS)
             .toolTipFinisher();
         return tt;
     }

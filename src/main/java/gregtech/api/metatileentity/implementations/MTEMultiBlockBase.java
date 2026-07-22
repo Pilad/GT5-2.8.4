@@ -222,6 +222,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
     protected List<MTEHatch> mExoticEnergyHatches = new ArrayList<>();
     protected List<MTEHatch> mExoticDynamoHatches = new ArrayList<>();
     protected List<MTEHatch> mCryotheumHatches = new ArrayList<>();
+    protected List<MTEHatch> mPyrotheumHatches = new ArrayList<>();
 
     protected final ProcessingLogic processingLogic;
     @SideOnly(Side.CLIENT)
@@ -504,6 +505,7 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         mDualInputHatches.clear();
         mSmartInputHatches.clear();
         mCryotheumHatches.clear();
+        mPyrotheumHatches.clear();
 
         mCoils.clear();
         deactivateCoilLease();
@@ -2179,6 +2181,19 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
         return false;
     }
 
+    public boolean addPyrotheumHatchToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
+        if (aTileEntity == null) return false;
+        IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
+        if (aMetaTileEntity == null) return false;
+        if (aMetaTileEntity instanceof MTEHatchCustomFluidBase mteHatchPyrotheum
+            && mteHatchPyrotheum.mLockedFluid == TFFluids.fluidPyrotheum) {
+            mteHatchPyrotheum.updateTexture(aBaseCasingIndex);
+            mteHatchPyrotheum.updateCraftingIcon(this.getMachineCraftingIcon());
+            return mPyrotheumHatches.add(mteHatchPyrotheum);
+        }
+        return false;
+    }
+
     public boolean addMufflerToMachineList(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
         if (aTileEntity == null) return false;
         IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
@@ -2678,6 +2693,10 @@ public abstract class MTEMultiBlockBase extends MetaTileEntity implements IContr
 
     public List<MTEHatch> getCryotheumHatches() {
         return mCryotheumHatches;
+    }
+
+    public List<MTEHatch> getPyrotheumHatches() {
+        return mPyrotheumHatches;
     }
 
     /**

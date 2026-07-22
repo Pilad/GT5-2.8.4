@@ -40,7 +40,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
@@ -931,8 +930,7 @@ public class MTEEyeOfHarmony extends TTMultiblockBase implements IConstructable,
     public final void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
         ItemStack aTool) {
         animationsEnabled = !animationsEnabled;
-        aPlayer.addChatMessage(
-            new ChatComponentText("Animations are now " + (animationsEnabled ? "enabled" : "disabled") + "."));
+        GTUtility.sendChatTrans(aPlayer, "GT5U.machines.animations." + (animationsEnabled ? "enabled" : "disabled"));
     }
 
     @Override
@@ -957,11 +955,10 @@ public class MTEEyeOfHarmony extends TTMultiblockBase implements IConstructable,
                     astralArrayAmount = 0;
                 }
                 if (originalAmount - astralArrayAmount > 0) {
-                    GTUtility.sendChatToPlayer(
+                    GTUtility.sendChatTrans(
                         aPlayer,
-                        StatCollector.translateToLocalFormatted(
-                            "eoh.rightclick.wirecutter.2",
-                            formatNumber(originalAmount - astralArrayAmount)));
+                        "eoh.rightclick.wirecutter.2",
+                        formatNumber(originalAmount - astralArrayAmount));
                 }
             }
         }

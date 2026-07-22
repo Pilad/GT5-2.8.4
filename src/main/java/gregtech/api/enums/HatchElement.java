@@ -23,6 +23,7 @@ import gregtech.api.util.IGTHatchAdder;
 import gregtech.common.tileentities.machines.multi.purification.MTEHatchLensHousing;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
 import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoTunnel;
 
 public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
@@ -123,11 +124,21 @@ public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
                 .size();
         }
     },
-    CryotheumHatch("GT5U.MBTT.CryotheumHatch", MTEMultiBlockBase::addCryotheumHatchToMachineList) {
+    CryotheumHatch("GT5U.MBTT.CryotheumHatch", MTEMultiBlockBase::addCryotheumHatchToMachineList,
+        MTEHatchCustomFluidBase.class) {
 
         @Override
         public long count(MTEMultiBlockBase t) {
             return t.getCryotheumHatches()
+                .size();
+        }
+    },
+    PyrotheumHatch("GT5U.MBTT.PyrotheumHatch", MTEMultiBlockBase::addPyrotheumHatchToMachineList,
+        MTEHatchCustomFluidBase.class) {
+
+        @Override
+        public long count(MTEMultiBlockBase t) {
+            return t.getPyrotheumHatches()
                 .size();
         }
     },

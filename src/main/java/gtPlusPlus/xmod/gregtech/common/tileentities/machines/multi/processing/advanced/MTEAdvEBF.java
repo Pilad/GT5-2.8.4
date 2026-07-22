@@ -11,13 +11,13 @@ import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
+import static gregtech.api.enums.HatchElement.PyrotheumHatch;
 import static gregtech.api.util.GTStructureUtility.activeCoils;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofCoil;
 import static gregtech.api.util.GTUtility.validMTEList;
 import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -42,12 +42,14 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.HeatingCoilLevel;
+import gregtech.api.enums.MetaTileEntityIDs;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TAE;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
+import gregtech.api.metatileentity.implementations.MTEHatch;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.check.CheckRecipeResult;
@@ -72,10 +74,9 @@ public class MTEAdvEBF extends GTPPMultiBlockBase<MTEAdvEBF> implements ISurviva
     public static int CASING_TEXTURE_ID;
     public static String mHotFuelName = "Blazing Pyrotheum";
     public static String mCasingName = "Volcanus Casing";
-    public static String mHatchName = "Pyrotheum Hatch";
+    public static String mHatchName = "Pyrotheum Heating Hatch";
     private static IStructureDefinition<MTEAdvEBF> STRUCTURE_DEFINITION = null;
     private int mCasing;
-    private final ArrayList<MTEHatchCustomFluidBase> mPyrotheumHatches = new ArrayList<>();
 
     private HeatingCoilLevel mHeatingCapacity = HeatingCoilLevel.None;
 
@@ -165,9 +166,11 @@ public class MTEAdvEBF extends GTPPMultiBlockBase<MTEAdvEBF> implements ISurviva
                 .addElement(
                     'C',
                     ofChain(
-                        buildHatchAdder(MTEAdvEBF.class).adder(MTEAdvEBF::addPyrotheumHatch)
-                            .hatchId(968)
-                            .shouldReject(x -> !x.mPyrotheumHatches.isEmpty())
+                        buildHatchAdder(MTEAdvEBF.class).atLeast(PyrotheumHatch)
+                            .hatchId(MetaTileEntityIDs.Hatch_Input_Pyrotheum.ID)
+                            .shouldReject(
+                                x -> !x.getPyrotheumHatches()
+                                    .isEmpty())
                             .casingIndex(CASING_TEXTURE_ID)
                             .dot(1)
                             .build(),
@@ -207,26 +210,7 @@ public class MTEAdvEBF extends GTPPMultiBlockBase<MTEAdvEBF> implements ISurviva
 
     @Override
     public boolean checkHatch() {
-        return super.checkHatch() && !mPyrotheumHatches.isEmpty();
-    }
-
-    private boolean addPyrotheumHatch(IGregTechTileEntity aTileEntity, int aBaseCasingIndex) {
-        if (aTileEntity == null) {
-            return false;
-        } else {
-            IMetaTileEntity aMetaTileEntity = aTileEntity.getMetaTileEntity();
-            if (aMetaTileEntity instanceof MTEHatchCustomFluidBase && aMetaTileEntity.getBaseMetaTileEntity()
-                .getMetaTileID() == 968) {
-                return addToMachineListInternal(mPyrotheumHatches, aTileEntity, aBaseCasingIndex);
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public void updateSlots() {
-        for (MTEHatchCustomFluidBase tHatch : validMTEList(mPyrotheumHatches)) tHatch.updateSlots();
-        super.updateSlots();
+        return super.checkHatch() && !getPyrotheumHatches().isEmpty();
     }
 
     @Override
@@ -302,7 +286,7 @@ public class MTEAdvEBF extends GTPPMultiBlockBase<MTEAdvEBF> implements ISurviva
                 .hasWorkJustBeenEnabled()) {
                 if (aTick % 20 == 0 || this.getBaseMetaTileEntity()
                     .hasWorkJustBeenEnabled()) {
-                    if (!this.depleteInputFromRestrictedHatches(this.mPyrotheumHatches, 10)) {
+                    if (!drainPyrotheum(10)) {
                         this.causeMaintenanceIssue();
                         this.stopMachine(
                             ShutDownReasonRegistry.outOfFluid(new FluidStack(TFFluids.fluidPyrotheum, 10)));
@@ -310,6 +294,19 @@ public class MTEAdvEBF extends GTPPMultiBlockBase<MTEAdvEBF> implements ISurviva
                 }
             }
         }
+    }
+
+    private boolean drainPyrotheum(int amount) {
+        FluidStack toDrain = new FluidStack(TFFluids.fluidPyrotheum, amount);
+        for (MTEHatch hatch : validMTEList(mPyrotheumHatches)) {
+            if (!(hatch instanceof MTEHatchCustomFluidBase pyroHatch)) continue;
+            if (pyroHatch.getBaseMetaTileEntity() == null) continue;
+            FluidStack drained = pyroHatch.drain(ForgeDirection.UNKNOWN, toDrain, true);
+            if (drained != null && drained.amount >= amount) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -81,7 +82,10 @@ public class MTEDebugPowerGenerator extends MTETieredMachineBlock
     public final void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
         ItemStack aTool) {
         LASER = !LASER;
-        GTUtility.sendChatToPlayer(aPlayer, translateToLocalFormatted("tt.chat.debug.generator", LASER ? "ON" : "OFF"));
+        GTUtility.sendChatTrans(
+            aPlayer,
+            "tt.chat.debug.generator",
+            new ChatComponentTranslation("GT5U.gui.circuit.generic.data_display." + (LASER ? "on" : "off")));
     }
 
     @Override

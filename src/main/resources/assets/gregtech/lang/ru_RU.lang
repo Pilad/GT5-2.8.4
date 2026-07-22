@@ -944,6 +944,7 @@ GT5U.MBTT.subchannel=Использует подканал §6%s§r§7 для §
 
 GT5U.MBTT.CokeOvenHatch=Шлюз коксовой печи
 GT5U.MBTT.CryotheumHatch=Криотеумный охлаждающий шлюз
+GT5U.MBTT.PyrotheumHatch=Pyrotheum Heating Hatch
 
 GT5U.cracker.io_side=Входные/Выходные шлюзы должны быть на противоположных сторонах!
 
@@ -1429,6 +1430,8 @@ GT5U.machines.hatch_output.lockfluid.empty=Нет
 GT5U.machines.basic_tank.liquid_amount=Количество жидкости
 GT5U.machines.computation_hatch.pending_computation=§7Total Computation I/O: §b%d§r
 GT5U.machines.computation_hatch.wasted_computation=§7Wasted Computation: §b%d§r
+GT5U.machines.animations.enabled=Анимации сейчас включены
+GT5U.machines.animations.disabled=Анимации сейчас отключены
 gt.machines.cropharvestor.name=Автосадовник (%s)
 gt.machines.cropharvestor.description=Автоматический сбор урожая и уход за культурами IC2 в большой области
 gt.machines.cropharvestor.tooltip.0=Второй режим может Увлажнять/Удобрять/Средство от сорняков
@@ -1488,6 +1491,7 @@ GT5U.gui.button.voiding_mode_none=§7Ничего не удалять
 GT5U.gui.button.voiding_mode_item=§7Уничтожение излишек §6предметов
 GT5U.gui.button.voiding_mode_fluid=§7Уничтожение излишек §9жидкостей
 GT5U.gui.button.voiding_mode_all=§7Уничтожение излишек §6предметов §7и §9жидкостей
+GT5U.chat.voiding_mode_set=Режим уничтожения излишков: %s
 GT5U.gui.button.input_separation_on=Разделение входов: ВКЛ
 GT5U.gui.button.input_separation_off=Разделение входов: ВЫКЛ
 GT5U.gui.button.mode_switch=Переключатель режимов
@@ -1676,8 +1680,156 @@ GT5U.gui.config.machine_stats.mass_fabricator=Генератор материи
 GT5U.gui.config.machine_stats.teleporter=Телепорт
 GT5U.gui.config.machine_stats.cleanroom=Чистая комната
 GT5U.gui.config.worldgen=Worldgen
-GT5U.gui.config.worldgen.end_asteroids=Астероиды Энда
 GT5U.gui.config.worldgen.general=Общие
+GT5U.gui.config.worldgen.end_asteroids=Астероиды Энда
+
+GT5U.gui.text.cannot_change_when_running=Невозможно изменить конфигурацию во время работы!
+
+GT5U.gui.tooltip.drone_active_production=[Предупреждение] Эта функция является экспериментальной и может снизить производительность.
+GT5U.gui.tooltip.drone_maxrecord=Set max record quota. Each output from every machine consumes one quota. [Warning] Large numbers may cause performance issues!
+GT5U.gui.tooltip.drone_production_clear=Чистые производственные данные
+GT5U.gui.tooltip.drone_key=Prioritize connecting to the drone centre with the same key
+
+GT5U.gui.tooltip.purification_plant.debug_mode=Переключить в режим отладки.
+GT5U.gui.text.purification_plant.hit_to_start=Ударь киянкой для запуска.
+
+GT5U.gui.tooltip.redstone_circuit.toggle_output=Переключить вывод EU
+GT5U.gui.tooltip.redstone_circuit.toggle_active=Toggle Active State
+GT5U.gui.tooltip.redstone_circuit.change=Change Redstone Circuit
+
+GT5U.gui.tooltip.redstone_receiver.analog=ANALOG Mode\nOnly use this mode with ONE transmitter in total,\nno logic involved
+GT5U.gui.tooltip.hatch.crafting_input_me.place_manual_items=Place manual items
+GT5U.gui.tooltip.hatch.crafting_input_me.export=Вернуть все сохранённые внутри предметы обработано в AE
+GT5U.gui.text.fluid_limiter.threshold=§8Процентный порог
+GT5U.gui.text.volumetric_flask.capacity=Ёмкость
+GT5U.gui.text.volumetric_flask.max_capacity=Max Capacity of %s
+GT5U.gui.text.volumetric_flask.confirm=Confirm
+GT5U.gui.tooltip.hatch.crafting_pattern_provider=Pattern Storage for §eLarge Molecular Assembler (LMA)§r\nCapacity: %d Patterns
+
+GT5U.gui.text.wireless_maintenance_detector.extra.no_issues=§8Нет проблем
+GT5U.gui.text.wireless_maintenance_detector.extra.ge1_issues=§8>= 1 проблема
+GT5U.gui.text.wireless_maintenance_detector.extra.ge2_issues=§8>= 2 проблемы
+GT5U.gui.text.wireless_maintenance_detector.extra.ge3_issues=§8>= 3 проблемы
+GT5U.gui.text.wireless_maintenance_detector.extra.ge4_issues=§8>= 4 проблемы
+GT5U.gui.text.wireless_maintenance_detector.extra.ge5_issues=§8>= 5 проблем
+GT5U.gui.text.wireless_maintenance_detector.extra.rotor_lt20=§8Ротор < 20%
+GT5U.gui.text.wireless_maintenance_detector.extra.rotor_0=§8Ротор ≈ 0%
+
+GT5U.gui.text.fusion_computer.hit_to_start=Ударь киянкой для (пере)запуска механизма если он не запускается.
+GT5U.gui.text.fusion_computer.running_perfectly=Неполадок не обнаружено.
+
+GT5U.gui.text.structure_error.large_fluid_extractor_not_enough_casings=Not enough casings: need %d, but\nhave %d.
+GT5U.gui.text.wormhole_generator.missing_entangled_singularity=§7Отсутствует запутанная сингулярность§f
+GT5U.gui.text.wormhole_generator.status.no_destination=§7Статус Червоточины: §cНет пункта назначения§f
+GT5U.gui.text.wormhole_generator.status.decaying=§7Статус Червоточины: §6Распад§f
+GT5U.gui.text.wormhole_generator.status.active=§7Статус Червоточины: §bАктивен§f
+GT5U.gui.text.wormhole_generator.status.inactive=§7Статус Червоточины: Неактивен§f
+GT5U.gui.text.wormhole_generator.diameter=§7Диаметр червоточины: §b%,d§7 Å§f
+GT5U.gui.text.wormhole_generator.max_io=§7Max I/O per hatch: §b%,d§7 EU/t§f
+GT5U.gui.text.wormhole_generator.max_io.large=§7Max I/O per hatch: §b%3.3e§7 EU/t§f
+
+GT5U.gui.text.status.active=Активен
+GT5U.gui.text.status.online=В сети
+GT5U.gui.text.status.offline=Оффлайн
+GT5U.gui.text.status.disabled=Отключён
+GT5U.gui.text.status.incomplete=Незавершённая структура
+GT5U.gui.text.x=X:
+GT5U.gui.text.y=Y:
+GT5U.gui.text.z=Z:
+GT5U.gui.text.dim=Мир:
+GT5U.gui.text.dim.valid=Dim Valid: Yes
+GT5U.gui.text.dim.invalid=Dim Valid: No
+
+GT5U.gui.title.unknown=Неизвестно
+GT5U.gui.text.item_amount=Количество
+
+GT5U.gui.circuit.generic.data_display.off=ОТКЛ
+GT5U.gui.circuit.generic.data_display.on=ВКЛ
+GT5U.gui.circuit.data_description.delay=Задержка
+GT5U.gui.circuit.data_description.length=Длина
+GT5U.gui.circuit.data_description.rs_on=RS => Вкл
+GT5U.gui.circuit.data_description.rs_off=RS => Выкл
+
+GT5U.gui.circuit.basic.name=Базовая логика
+GT5U.gui.circuit.basic.description=Обычные логические гейты
+GT5U.gui.circuit.data_description.or=ИЛИ
+GT5U.gui.circuit.data_description.nor=NOR (или-не)
+GT5U.gui.circuit.data_description.xor=XOR (не-или)
+GT5U.gui.circuit.data_description.xnor=XNOR (исключающее или-не)
+GT5U.gui.circuit.data_description.and=И
+GT5U.gui.circuit.data_description.nand=NAND (и-не)
+GT5U.gui.circuit.data_description.invert=INVERT
+GT5U.gui.circuit.data_description.bit_or=BIT_OR
+GT5U.gui.circuit.data_description.bit_nor=BIT_NOR
+GT5U.gui.circuit.data_description.bit_xor=BIT_XOR
+GT5U.gui.circuit.data_description.bit_xnor=BIT_XNOR
+GT5U.gui.circuit.data_description.bit_and=BIT_AND
+GT5U.gui.circuit.data_description.bit_nand=BIT_NAND
+GT5U.gui.circuit.data_description.bit_invert=BIT_INVERT
+GT5U.gui.circuit.bit_and.name=Жестко закодировать Бит-AND
+GT5U.gui.circuit.bit_and.description=( сигнал & это ) != 0
+GT5U.gui.circuit.bit_and.data_description=Бит %d:
+GT5U.gui.circuit.combination_lock.name=Combination Lock
+GT5U.gui.circuit.combination_lock.description=Checks Combinations
+GT5U.gui.circuit.combination_lock.data_description=Мощность %d
+GT5U.gui.circuit.equals.name=Равно
+GT5U.gui.circuit.equals.description=сигнал == это
+GT5U.gui.circuit.equals.data_description.signal=Сигнал
+GT5U.gui.circuit.equals.data_description.equal=Equal
+GT5U.gui.circuit.equals.data_description.unequal=Unequal
+GT5U.gui.circuit.pulser.name=Pulser
+GT5U.gui.circuit.pulser.description=Limits & Lengthens
+GT5U.gui.circuit.pulser.data_description.rs_out=RS Out
+GT5U.gui.circuit.pulser.data_display.highest=HIGHEST
+GT5U.gui.circuit.pulser.data_display.lowest=LOWEST
+GT5U.gui.circuit.randomizer.name=Рандомизатор
+GT5U.gui.circuit.randomizer.description=Randomizes Redstone
+GT5U.gui.circuit.randomizer.data_description.status=Статус
+GT5U.gui.circuit.redstone_meter.name=Redstone Meter
+GT5U.gui.circuit.redstone_meter.description=Checks Boundaries
+GT5U.gui.circuit.redstone_meter.data_description.lower=Очень низкий
+GT5U.gui.circuit.redstone_meter.data_description.upper=Высокий
+GT5U.gui.circuit.redstone_meter.data_description.invert=Инверторный:
+GT5U.gui.circuit.redstone_meter.data_description.rs_out=RS Out:
+GT5U.gui.circuit.repeater.name=Повторитель
+GT5U.gui.circuit.repeater.description=Задержки RS-сигнала
+GT5U.gui.circuit.timer.name=Таймер
+GT5U.gui.circuit.timer.description=Pulses Redstone
+GT5U.gui.circuit.timer.data_description.pulses=Pulses
+GT5U.gui.circuit.timer.data_description.time=Время
+
+GT5U.gui.text.second=%s сек.
+GT5U.gui.text.second.plural=%s сек.
+GT5U.gui.text.minute=%s мин.
+GT5U.gui.text.minute.plural=%s мин.
+GT5U.gui.text.hour=%s ч.
+GT5U.gui.text.hour.plural=%s ч.
+GT5U.gui.text.day=%s дн.
+GT5U.gui.text.day.plural=%s дн.
+
+GT5U.gui.text.show-powerfail-layer=Показать сбои питания
+GT5U.gui.chat.powerfail=%s: %s. Измерение: %s. Количество сбоев: %s. Время: %s назад
+GT5U.gui.chat.powerfail.plural=%s: %s. Измерение: %s. Количество сбоев: %s. Время: %s назад
+GT5U.gui.chat.powerfail.waypoint=%s (кол-во сбоев: %s, время: %s назад)
+GT5U.gui.chat.powerfail.waypoint.plural=%s (кол-во сбоев: %s, время: %s назад)
+
+GT5U.gui.chat.powerfail.waypoint.tooltip=Механизм: %s\nМестоположение: %s\nКоличество: %s\nПоследнее появление: %s\nНажмите %s, чтобы очистить
+
+GT5U.gui.chat.powerfail.hint=§7Используйте /powerfails для получения информации
+
+GT5U.gui.chat.powerfail.login=У вас есть %s не устраннёный сбои питания.
+GT5U.gui.chat.powerfail.login.plural=У вас есть %s не устранённых сбоев питания.
+
+GT5U.gui.chat.powerfail.cleared=Устранены все сбои в питании.
+GT5U.gui.chat.powerfail.cleared-dim=Устранены все сбои в питания в текущем измерении.
+
+GT5U.gui.chat.powerfail.list.none=No powerfails have occurred.
+GT5U.gui.chat.powerfail.list.uncleared-header=Неустранённые сбои питания:
+GT5U.gui.chat.powerfail.list.entry=- %s
+GT5U.gui.chat.powerfail.list.truncated=%s additional powerfails truncated
+
+GT5U.gui.chat.powerfail.shown=Enabled powerfail overlay rendering.
+GT5U.gui.chat.powerfail.hidden=Disabled powerfail overlay rendering.
 
 # chats
 GT5U.chat.void_miner.mode.black_list=Mode: Blacklist

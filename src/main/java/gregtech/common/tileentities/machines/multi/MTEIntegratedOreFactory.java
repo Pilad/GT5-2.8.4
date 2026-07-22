@@ -30,7 +30,11 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -662,66 +666,14 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
     }
 
     private static List<String> getDisplayMode(ProcessingMode mode) {
-        final EnumChatFormatting AQUA = EnumChatFormatting.AQUA;
-        final String ARROW = " " + AQUA + "-> ";
-        final String CRUSH = StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor.Macerate");
-        final String WASH = StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor.Ore_Washer")
-            .replace(" ", " " + AQUA);
-        final String THERMAL = StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor.Thermal_Centrifuge")
-            .replace(" ", " " + AQUA);
-        final String CENTRIFUGE = StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor.Centrifuge");
-        final String SIFTER = StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor.Sifter");
-        final String CHEM_WASH = StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor.Chemical_Bathing")
-            .replace(" ", " " + AQUA);
-        final String HAMMER = StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor.Forge_Hammer");
-        final String SIM_WASHER = StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor.Simple_Washer");
-
+        final EnumChatFormatting GRAY = EnumChatFormatting.GRAY;
         List<String> lines = new ArrayList<>();
-        lines.add(StatCollector.translateToLocalFormatted("GT5U.multiblock.runningMode") + " ");
-
-        switch (mode) {
-            case MAC_WASH_THERMAL_MAC -> {
-                lines.add(AQUA + CRUSH + ARROW);
-                lines.add(AQUA + WASH + ARROW);
-                lines.add(AQUA + THERMAL + ARROW);
-                lines.add(AQUA + CRUSH + ' ');
-            }
-            case MAC_WASH_MAC_CENTRI -> {
-                lines.add(AQUA + CRUSH + ARROW);
-                lines.add(AQUA + WASH + ARROW);
-                lines.add(AQUA + CRUSH + ARROW);
-                lines.add(AQUA + CENTRIFUGE + ' ');
-            }
-            case MAC_MAC_CENTRI -> {
-                lines.add(AQUA + CRUSH + ARROW);
-                lines.add(AQUA + CRUSH + ARROW);
-                lines.add(AQUA + CENTRIFUGE + ' ');
-            }
-            case MAC_WASH_SIFT -> {
-                lines.add(AQUA + CRUSH + ARROW);
-                lines.add(AQUA + WASH + ARROW);
-                lines.add(AQUA + SIFTER + ' ');
-            }
-            case MAC_CHEM_MAC_CENTRI -> {
-                lines.add(AQUA + CRUSH + ARROW);
-                lines.add(AQUA + CHEM_WASH + ARROW);
-                lines.add(AQUA + CRUSH + ARROW);
-                lines.add(AQUA + CENTRIFUGE + ' ');
-            }
-            case MAC_CHEM_THERMAL_MAC -> {
-                lines.add(AQUA + CRUSH + ARROW);
-                lines.add(AQUA + CHEM_WASH + ARROW);
-                lines.add(AQUA + THERMAL + ARROW);
-                lines.add(AQUA + CRUSH + ' ');
-            }
-            case FORGE_FORGE_SIMPLEWASH -> {
-                lines.add(AQUA + HAMMER + ARROW);
-                lines.add(AQUA + HAMMER + ARROW);
-                lines.add(AQUA + SIM_WASHER + ' ');
-            }
-            default -> lines.add(StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor.WRONG_MODE"));
+        String[] steps = mode.stepKeys;
+        for (int i = 0; i < steps.length; i++) {
+            String step = StatCollector.translateToLocalFormatted(steps[i])
+                .replace(" ", " " + GRAY);
+            lines.add(GRAY + step + (i < steps.length - 1 ? " " + GRAY + "-> " : " "));
         }
-
         lines.add(StatCollector.translateToLocalFormatted("GT5U.machines.oreprocessor2", getRecipeTickTime(mode) / 20));
         return lines;
     }
@@ -778,7 +730,26 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
             return;
         }
         mode = mode.next();
-        GTUtility.sendChatTrans(aPlayer, String.join("", getDisplayMode(mode)));
+        GTUtility.sendChatTrans(aPlayer, "GT5U.MULTI_MACHINE_CHANGE", getDisplayModeComponent(mode));
+    }
+
+    /**
+     * Lazily-translated equivalent of {@link #getDisplayMode(ProcessingMode)}, for chat messages sent to a specific
+     * player. getDisplayMode itself is only used client-side (tooltips/WAILA/GUI), where eager translation is fine.
+     */
+    private static IChatComponent getDisplayModeComponent(ProcessingMode mode) {
+        ChatStyle gray = new ChatStyle().setColor(EnumChatFormatting.GRAY);
+        IChatComponent result = new ChatComponentText("");
+
+        String[] steps = mode.stepKeys;
+        for (int i = 0; i < steps.length; i++) {
+            if (i > 0) result.appendSibling(new ChatComponentText(" -> ").setChatStyle(gray));
+            result.appendSibling(new ChatComponentTranslation(steps[i]).setChatStyle(gray));
+        }
+        result.appendText(" ")
+            .appendSibling(new ChatComponentTranslation("GT5U.machines.oreprocessor2", getRecipeTickTime(mode) / 20));
+
+        return result;
     }
 
     @Override
@@ -845,15 +816,25 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
 
     private enum ProcessingMode {
 
-        MAC_WASH_THERMAL_MAC,
-        MAC_WASH_MAC_CENTRI,
-        MAC_MAC_CENTRI,
-        MAC_WASH_SIFT,
-        MAC_CHEM_MAC_CENTRI,
-        MAC_CHEM_THERMAL_MAC,
-        FORGE_FORGE_SIMPLEWASH;
+        MAC_WASH_THERMAL_MAC(KEY_MACERATE, KEY_ORE_WASHER, KEY_THERMAL_CENTRIFUGE, KEY_MACERATE),
+        MAC_WASH_MAC_CENTRI(KEY_MACERATE, KEY_ORE_WASHER, KEY_MACERATE, KEY_CENTRIFUGE),
+        MAC_MAC_CENTRI(KEY_MACERATE, KEY_MACERATE, KEY_CENTRIFUGE),
+        MAC_WASH_SIFT(KEY_MACERATE, KEY_ORE_WASHER, KEY_SIFTER),
+        MAC_CHEM_MAC_CENTRI(KEY_MACERATE, KEY_CHEMICAL_BATHING, KEY_MACERATE, KEY_CENTRIFUGE),
+        MAC_CHEM_THERMAL_MAC(KEY_MACERATE, KEY_CHEMICAL_BATHING, KEY_THERMAL_CENTRIFUGE, KEY_MACERATE),
+        FORGE_FORGE_SIMPLEWASH(KEY_FORGE_HAMMER, KEY_FORGE_HAMMER, KEY_SIMPLE_WASHER);
 
         private static final ProcessingMode[] VALUES = values();
+
+        /**
+         * Translation keys for each processing step, shared by {@link #getDisplayMode} and
+         * {@link #getDisplayModeComponent}.
+         */
+        final String[] stepKeys;
+
+        ProcessingMode(String... stepKeys) {
+            this.stepKeys = stepKeys;
+        }
 
         public static ProcessingMode fromOrdinal(int ordinal) {
             if (0 <= ordinal && ordinal < VALUES.length) {
@@ -866,6 +847,15 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
             return fromOrdinal(this.ordinal() + 1);
         }
     }
+
+    private static final String KEY_MACERATE = "GT5U.machines.oreprocessor.Macerate";
+    private static final String KEY_ORE_WASHER = "GT5U.machines.oreprocessor.Ore_Washer";
+    private static final String KEY_THERMAL_CENTRIFUGE = "GT5U.machines.oreprocessor.Thermal_Centrifuge";
+    private static final String KEY_CENTRIFUGE = "GT5U.machines.oreprocessor.Centrifuge";
+    private static final String KEY_SIFTER = "GT5U.machines.oreprocessor.Sifter";
+    private static final String KEY_CHEMICAL_BATHING = "GT5U.machines.oreprocessor.Chemical_Bathing";
+    private static final String KEY_FORGE_HAMMER = "GT5U.machines.oreprocessor.Forge_Hammer";
+    private static final String KEY_SIMPLE_WASHER = "GT5U.machines.oreprocessor.Simple_Washer";
 
     @Override
     public boolean supportsSingleRecipeLocking() {
