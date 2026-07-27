@@ -726,7 +726,7 @@ public class MTEIndustrialTreeFarm extends MTEExtendedPowerMultiBlockBase<MTEInd
                 .getYield() * 10;
 
             fruit = fruit.copy();
-            fruit.stackSize = (int) (fruit.stackSize * yield);
+            fruit.stackSize = Math.max(1, (int) (fruit.stackSize * yield));
             adjustedMap.put(Mode.FRUIT, fruit);
         }
 
