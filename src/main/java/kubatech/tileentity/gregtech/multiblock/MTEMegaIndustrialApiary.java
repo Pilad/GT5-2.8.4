@@ -59,6 +59,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -254,8 +255,18 @@ public class MTEMegaIndustrialApiary extends KubaTechGTMultiBlockBase<MTEMegaInd
     @Override
     public void onRemoval() {
         super.onRemoval();
-        if (getBaseMetaTileEntity().isServerSide())
-            tryOutputAll(mStorage, s -> Collections.singletonList(s.queenStack));
+        IGregTechTileEntity bmte = getBaseMetaTileEntity();
+        for (BeeSimulator s : mStorage) {
+            EntityItem item = new EntityItem(
+                bmte.getWorld(),
+                bmte.getXCoord(),
+                bmte.getYCoord(),
+                bmte.getZCoord(),
+                s.queenStack);
+            item.delayBeforeCanPickup = 10;
+            bmte.getWorld()
+                .spawnEntityInWorld(item);
+        }
     }
 
     /**
