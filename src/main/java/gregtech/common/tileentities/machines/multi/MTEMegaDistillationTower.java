@@ -105,9 +105,9 @@ public class MTEMegaDistillationTower extends MTEExtendedPowerMultiBlockBase<MTE
                 {"        FFF    ","     EAEFDF    ","    E F EFFFFF ","   E  H  EFFBFF","   AFHCHFAFBDBF","   E  H  EFFBFF","    E F E  FFF ","     EAE       ","               "},
                 {"               ","     GGG D     ","    G   G      ","   G  H  G  B  ","   G HCH G BDB ","   G  H  G  B  ","    G   G      ","     GGG       ","               "},
                 {"               ","     EAE D     "," F  E   E    F "," F E  H  E  BF "," FFA HCH A BDB "," F E  H  E  BF "," F  E   E    F ","     EAE       ","               "},
-                {"               ","     EAE DDD   "," F  E   E    F ","H  E  H  E  B B","HHHHHHCH A BDBB","H  E  H  E  B B"," F  E   E    F ","     EAE       ","               "},
-                {"               ","     GGG   D   "," F  G   G    F ","HHHHHHH  G  BBB","3CCCCCCH G BDD2","HHHHHHH  G  BBB"," F  G   G    F ","     GGG       ","               "},
-                {"               ","     EAE   D   "," F  E   E    F ","H  E     E  B B","HHHHHHH  A BDBB","H  E     E  B B"," F  E   E    F ","     EAE       ","               "},
+                {"               ","     EAE DDD   "," F  E   E    F ","3  E  H  E  B B","3HHHHHCH A BDBB","3  E  H  E  B B"," F  E   E    F ","     EAE       ","               "},
+                {"               ","     GGG   D   "," F  G   G    F ","3HHHHHH  G  BBB","3CCCCCCH G BDD2","3HHHHHH  G  BBB"," F  G   G    F ","     GGG       ","               "},
+                {"               ","     EAE   D   "," F  E   E    F ","3  E     E  B B","3HHHHHH  A BDBB","3  E     E  B B"," F  E   E    F ","     EAE       ","               "},
                 {"     GGG   G   ","    GEAEG GDG  "," F GE   EGEGEF "," FGE     EGEBE "," FAA     AGBDB "," FGE     EGEBE "," F GE   EG   F ","    GEAEG      ","     GGG       "},
                 {"  EEG111GE111  "," EEEE   EEEDEE ","EEEE     EEEEEE","1EE       EEBE1","111       1BDB1","1EE       EEBE1","EEEE     EE1EEE"," EEEE   EEE1EE ","  EEG111GE111  "},
                 {" GEEG111GEGGGE "," E         D E ","EE           EE","G             G","G           D G","G             G","EE           EE"," E           E "," GEEG111GEGGGE "},
@@ -594,19 +594,20 @@ public class MTEMegaDistillationTower extends MTEExtendedPowerMultiBlockBase<MTE
             .addInfo("Has up to 5 middle slices and 1 top slice, the amount of middle slices is the 'Tower Height'")
             .addInfo("Each middle slice adds 2 output hatches, the top slice adds one output hatch")
             .addSeparator()
-            .addInfo("Distillery Mode")
+            .addInfo(EnumChatFormatting.WHITE + "Distillery Mode")
+            .addInfo("Outputs only one fluid in the first hatch")
             .addInfo(
                 TooltipHelper.parallelText(Configuration.Multiblocks.megaMachinesMax + " * (1 + Tower Height/2)")
                     + " Parallels")
             .addStaticSpeedInfo(DISTILLERY_SPEED)
             .addStaticEuEffInfo(DISTILLERY_EU_EFFICIENCY)
-            .addInfo("Fluids output to the first hatch only")
             .addSeparator()
-            .addInfo("Distillation Tower Mode")
+            .addInfo(EnumChatFormatting.WHITE + "Distillation Tower Mode")
+            .addInfo("Fluids are outputted one per layer based on the slot number in NEI")
+            .addInfo("Increase the height to output more fluid types")
             .addStaticParallelInfo(Configuration.Multiblocks.megaMachinesMax)
             .addStaticSpeedInfo(TOWER_SPEED)
             .addStaticEuEffInfo(TOWER_EU_EFFICIENCY)
-            .addInfo("Fluids output to their corresponding layer only")
             .addSeparator()
             .addSupportAny()
             .addUnlimitedTierSkips()
