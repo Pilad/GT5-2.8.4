@@ -3877,6 +3877,10 @@ gt.foundrycasings.32767.name=Любой подблок данного блока
 
 gt.loading.progress.post_init.loading_gt=Post Initialization: loading GregTech
 
+# Book
+gt.book.credits=Credits to %s for writing this Book. This was Book Nr. %d at its creation. Gotta get 'em all
+
+
 GT5U.scanner.title_base_info=Информация о блоке
 GT5U.scanner.title_fluid_handler_info=Информация о баке
 GT5U.scanner.title_reactor_info=Информация о реакторе

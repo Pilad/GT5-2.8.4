@@ -11,6 +11,7 @@ import static gregtech.api.enums.Materials.FLUID_MAP;
 import static gregtech.api.enums.Mods.Translocator;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
+import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 import static net.minecraftforge.common.util.ForgeDirection.DOWN;
 import static net.minecraftforge.common.util.ForgeDirection.EAST;
 import static net.minecraftforge.common.util.ForgeDirection.NORTH;
@@ -2370,11 +2371,7 @@ public class GTUtility {
             }
         }
         tNBTList.appendTag(
-            new NBTTagString(
-                "Credits to " + aAuthor
-                    + " for writing this Book. This was Book Nr. "
-                    + sBookCount
-                    + " at its creation. Gotta get 'em all!"));
+            new NBTTagString(StatCollector.translateToLocalFormatted("gt.book.credits", aAuthor, sBookCount)));
         tNBT.setTag("pages", tNBTList);
         rStack.setTagCompound(tNBT);
         GTLog.out.println(

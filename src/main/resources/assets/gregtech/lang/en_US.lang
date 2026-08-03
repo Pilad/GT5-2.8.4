@@ -4773,6 +4773,10 @@ gt.blockstones.15.name=Smooth Basalt
 
 #Fences
 gt.blockfencemetal.0.name=Iron Fence
+
+# Book
+gt.book.credits=Credits to %s for writing this Book. This was Book Nr. %d at its creation. Gotta get 'em all
+
 gt.tile.data_server.name=GT-Data Server
 gt.item.gravitational_lens.name=Gravitational Lens
 gt.item.gravitational_lens.tooltip=Portable gravitational well
