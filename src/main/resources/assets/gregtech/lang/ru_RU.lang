@@ -1537,6 +1537,7 @@ GT5U.gui.text.per_hour=§fВ час:
 GT5U.gui.text.per_day=§fВ день:
 GT5U.gui.text.generating=§aГенерация энергии
 GT5U.gui.text.no_recipe=§7Подходящий рецепт не найден
+GT5U.gui.text.tier_name_with_parentheses=(%s)
 GT5U.gui.text.item_output_full=§7Недостаточно места для вывода предметов
 GT5U.gui.text.fluid_output_full=§7Недостаточно места для вывода жидкости
 GT5U.gui.text.none=

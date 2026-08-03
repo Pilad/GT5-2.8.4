@@ -1560,6 +1560,7 @@ GT5U.gui.text.per_hour=§fPer hour:
 GT5U.gui.text.per_day=§fPer day:
 GT5U.gui.text.generating=§aGenerating power
 GT5U.gui.text.no_recipe=§7No valid recipe found
+GT5U.gui.text.tier_name_with_parentheses=(%s)
 GT5U.gui.text.item_output_full=§7Not enough item output space
 GT5U.gui.text.fluid_output_full=§7Not enough fluid output space
 GT5U.gui.text.none=
