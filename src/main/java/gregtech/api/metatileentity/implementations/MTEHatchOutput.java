@@ -422,13 +422,11 @@ public class MTEHatchOutput extends MTEHatch implements IFluidStore, IFluidLocka
                     + (mFluid == null ? StatCollector.translateToLocal("GT5U.infodata.hatch.output.fluid.none")
                         : mFluid.getLocalizedName())
                     + EnumChatFormatting.RESET),
-            EnumChatFormatting.GREEN + formatNumber(mFluid == null ? 0 : mFluid.amount)
-                + " L"
+            EnumChatFormatting.GREEN + formatFluid(mFluid == null ? 0 : mFluid.amount)
                 + EnumChatFormatting.RESET
                 + " "
                 + EnumChatFormatting.YELLOW
-                + formatNumber(getCapacity())
-                + " L"
+                + formatFluid(getCapacity())
                 + EnumChatFormatting.RESET,
             (!isFluidLocked() || lockedFluidName == null)
                 ? StatCollector.translateToLocal("GT5U.infodata.hatch.output.fluid.locked_to.none")

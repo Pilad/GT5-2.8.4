@@ -3,6 +3,7 @@ package gregtech.common.tileentities.machines;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ME_FLUID_HATCH;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_ME_FLUID_HATCH_ACTIVE;
 import static gregtech.api.util.NumberFormatUtil.formatNumber;
+import static gregtech.api.util.NumberFormatUtil.getFluidUnit;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -705,7 +706,10 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
         ss.add(
             StatCollector.translateToLocalFormatted(
                 "GT5U.infodata.hatch.output_me.cache_capacity",
-                EnumChatFormatting.GOLD + formatNumber(getCacheCapacity()) + " L" + EnumChatFormatting.RESET));
+                EnumChatFormatting.GOLD + formatNumber(getCacheCapacity())
+                    + " "
+                    + getFluidUnit()
+                    + EnumChatFormatting.RESET));
         if (fluidCache.isEmpty()) {
             ss.add(StatCollector.translateToLocal("GT5U.infodata.hatch.output_me.empty"));
         } else {
@@ -718,7 +722,8 @@ public class MTEHatchOutputME extends MTEHatchOutput implements IPowerChannelSta
                         .getLocalizedName() + ": "
                         + EnumChatFormatting.GOLD
                         + formatNumber(s.getStackSize())
-                        + " L"
+                        + " "
+                        + getFluidUnit()
                         + EnumChatFormatting.RESET);
                 if (++counter > 100) break;
             }

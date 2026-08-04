@@ -4,6 +4,7 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.*;
 import static goodgenerator.util.CharExchanger.formatNumber;
 import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 import static gregtech.api.util.GTStructureUtility.*;
+import static gregtech.api.util.NumberFormatUtil.getFluidUnit;
 import static java.lang.String.valueOf;
 import static net.minecraft.util.StatCollector.translateToLocal;
 
@@ -690,8 +691,12 @@ public class MTEYottaFluidTank extends MTETooltipMultiBlockBaseEM implements ICo
 
         screenElements
             .widget(
-                new TextWidget().setStringSupplier(
-                    () -> StatCollector.translateToLocal("gui.YOTTank.0") + " " + numberFormat.format(mStorage) + " L")
+                new TextWidget()
+                    .setStringSupplier(
+                        () -> StatCollector.translateToLocal("gui.YOTTank.0") + " "
+                            + numberFormat.format(mStorage)
+                            + " "
+                            + getFluidUnit())
                     .setTextAlignment(Alignment.CenterLeft)
                     .setDefaultColor(COLOR_TEXT_WHITE.get())
                     .setEnabled(widget -> getErrorDisplayID() == 0))
@@ -709,7 +714,8 @@ public class MTEYottaFluidTank extends MTETooltipMultiBlockBaseEM implements ICo
                         () -> StatCollector.translateToLocal("gui.YOTTank.2") + " "
                             + numberFormat.format(mStorageCurrent)
                             + EnumChatFormatting.RESET
-                            + " L"
+                            + " "
+                            + getFluidUnit()
                             + " ("
                             + EnumChatFormatting.GREEN
                             + getPercent()

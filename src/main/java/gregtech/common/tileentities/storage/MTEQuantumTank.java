@@ -1,6 +1,6 @@
 package gregtech.common.tileentities.storage;
 
-import static gregtech.api.util.NumberFormatUtil.formatNumber;
+import static gregtech.api.util.NumberFormatUtil.formatFluid;
 
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -35,13 +35,11 @@ public class MTEQuantumTank extends MTEDigitalTankBase {
                 EnumChatFormatting.GOLD
                     + StatCollector.translateToLocal("GT5U.infodata.digital_tank.stored_fluid.empty")
                     + EnumChatFormatting.RESET,
-                EnumChatFormatting.GREEN + Integer.toString(0)
-                    + " L"
+                EnumChatFormatting.GREEN + formatFluid(0)
                     + EnumChatFormatting.RESET
                     + " "
                     + EnumChatFormatting.YELLOW
-                    + formatNumber(getCapacity())
-                    + " L"
+                    + formatFluid(getCapacity())
                     + EnumChatFormatting.RESET };
         }
         return new String[] {
@@ -49,13 +47,11 @@ public class MTEQuantumTank extends MTEDigitalTankBase {
                 + EnumChatFormatting.RESET,
             StatCollector.translateToLocal("GT5U.infodata.digital_tank.stored_fluid"),
             EnumChatFormatting.GOLD + mFluid.getLocalizedName() + EnumChatFormatting.RESET,
-            EnumChatFormatting.GREEN + formatNumber(mFluid.amount)
-                + " L"
+            EnumChatFormatting.GREEN + formatFluid(mFluid.amount)
                 + EnumChatFormatting.RESET
                 + " "
                 + EnumChatFormatting.YELLOW
-                + formatNumber(getCapacity())
-                + " L"
+                + formatFluid(getCapacity())
                 + EnumChatFormatting.RESET };
     }
 }
