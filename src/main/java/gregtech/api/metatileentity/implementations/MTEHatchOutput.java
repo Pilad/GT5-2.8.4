@@ -2,6 +2,7 @@ package gregtech.api.metatileentity.implementations;
 
 import static gregtech.api.enums.Textures.BlockIcons.FLUID_OUT_SIGN;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_PIPE_OUT;
+import static gregtech.api.util.NumberFormatUtil.formatFluid;
 import static gregtech.api.util.NumberFormatUtil.formatNumber;
 
 import java.lang.ref.WeakReference;
