@@ -100,6 +100,9 @@ gt.hatch_element_of_type=of type
 gt.hatch_element_of_class=of class
 gt.hatch_element_of_id=of id
 
+#Behavious
+gt.behaviour.wrench=Вращает блоки по ПКМ
+
 # Tooltip info of tile-entities
 gt.tileentity.eup_in=Входной вольтаж: %s
 gt.tileentity.eup_out=Выходной вольтаж: %s
@@ -2160,6 +2163,10 @@ nei.options.tools.dump.gt5u.batch_mode=Отсутствует поддержка
 nei.options.tools.dump.gt5u.batch_modes=Отсутствует поддержка пакетного режима
 nei.options.tools.dump.gt5u.recipe_locking=Не поддерживает блокировка рецепта
 nei.options.tools.dump.gt5u.recipe_lockings=Поддерживает блокировка рецепта
+nei.options.tools.dump.gt5u.fuels=Turbine Fuel Data
+nei.options.tools.dump.gt5u.fuelss=Turbine Fuels dumped to dumps/fuels.json
+nei.options.tools.dump.gt5u.rotors=Turbine Rotor Data
+nei.options.tools.dump.gt5u.rotorss=Turbine Rotors dumped to dumps/rotors.json
 nei.options.tools.dump.gt5u.warn_env=Вы находитесь за пределами пака. Некоторые ID, присутствующие в полном паке, могут отсутствовать в этом дампе.
 nei.options.tools.dump.gt5u.mode.0=Свободные
 nei.options.tools.dump.gt5u.mode.1=Используемые
