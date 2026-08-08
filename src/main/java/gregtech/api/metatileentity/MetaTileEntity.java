@@ -45,6 +45,7 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTTooltipDataCache;
 import gregtech.api.util.GTUtility;
 import gregtech.common.capability.CleanroomReference;
+import gregtech.common.config.Client;
 import gregtech.mixin.interfaces.accessors.EntityPlayerMPAccessor;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -709,12 +710,14 @@ public abstract class MetaTileEntity extends CommonMetaTileEntity implements ICr
     @Override
     public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
-        currenttip.add(
-            StatCollector.translateToLocalFormatted(
-                "GT5U.waila.facing",
-                getFacingNameLocalized(
-                    mBaseMetaTileEntity.getFrontFacing()
-                        .ordinal())));
+        if (Client.waila.showFacing) {
+            currenttip.add(
+                StatCollector.translateToLocalFormatted(
+                    "GT5U.waila.facing",
+                    getFacingNameLocalized(
+                        mBaseMetaTileEntity.getFrontFacing()
+                            .ordinal())));
+        }
 
         if (this instanceof IPowerChannelState state) {
             final NBTTagCompound tag = accessor.getNBTData();
