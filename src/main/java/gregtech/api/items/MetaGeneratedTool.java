@@ -619,15 +619,15 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
                     EnumChatFormatting.WHITE
                         + translateToLocalFormatted(
                             "gt.item.desc.damage",
-                            "" + EnumChatFormatting.BLUE + getToolCombatDamage(aStack))
+                            EnumChatFormatting.BLUE + formatNumber(getToolCombatDamage(aStack)))
                         + EnumChatFormatting.GRAY);
                 aList.add(
                     tOffset + 3,
                     EnumChatFormatting.WHITE
                         + translateToLocalFormatted(
                             "gt.item.desc.mine_speed",
-                            "" + EnumChatFormatting.GOLD
-                                + Math.max(
+                            EnumChatFormatting.GOLD + formatNumber(
+                                Math.max(
                                     Float.MIN_NORMAL,
                                     tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).mToolSpeed))
                         + EnumChatFormatting.GRAY);
