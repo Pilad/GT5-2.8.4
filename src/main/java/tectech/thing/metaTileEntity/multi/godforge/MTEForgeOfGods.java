@@ -570,8 +570,10 @@ public class MTEForgeOfGods extends TTMultiblockBase implements IConstructable, 
                         if (allowModuleConnection(module, this)) {
                             module.connect();
                             calculateMaxHeatForModules(module, this);
-                            calculateSpeedBonusForModules(module, this);
+                            // parallel depend on heat
                             calculateMaxParallelForModules(module, this);
+                            // speed bonus depend on max parallel and heat
+                            calculateSpeedBonusForModules(module, this);
                             calculateEnergyDiscountForModules(module, this);
                             setMiscModuleParameters(module, this);
                             queryMilestoneStats(module, this);
