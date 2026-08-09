@@ -629,7 +629,7 @@ public abstract class MetaGeneratedTool extends MetaBaseItem
                             EnumChatFormatting.GOLD + formatNumber(
                                 Math.max(
                                     Float.MIN_NORMAL,
-                                    tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).mToolSpeed))
+                                    tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).mToolSpeed)))
                         + EnumChatFormatting.GRAY);
                 NBTTagCompound aNBT = aStack.getTagCompound();
                 if (aNBT != null) {
