@@ -904,7 +904,7 @@ public class MTEExtremeEntityCrusher extends KubaTechGTMultiBlockBase<MTEExtreme
         mCasing = 0;
         if (!checkPiece(STRUCTURE_PIECE_MAIN, 2, 6, 0)) return false;
         if (mCasing < 35 || mEnergyHatches.isEmpty()) return false;
-        for (MTEHatchEnergy hatch : mEnergyHatches) if (hatch.mTier > glassTier) return false;
+        for (MTEHatchEnergy hatch : mEnergyHatches) if (hatch.getTierForStructure() > glassTier) return false;
         checkRitualConnection();
         return true;
     }
