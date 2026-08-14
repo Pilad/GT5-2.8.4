@@ -1791,6 +1791,12 @@ public class BaseMetaTileEntity extends CommonBaseMetaTileEntity
         return 0;
     }
 
+    /** @return whether {@link #injectEnergyUnits} could still accept energy this tick. */
+    public boolean canAcceptEnergyThisTick() {
+        if (!canAccessData() || mMetaTileEntity.maxAmperesIn() <= mAcceptedAmperes) return false;
+        return mMetaTileEntity.getEUVar() < mMetaTileEntity.maxEUStore();
+    }
+
     @Override
     public boolean drainEnergyUnits(ForgeDirection side, long aVoltage, long aAmperage) {
         if (!canAccessData() || !mMetaTileEntity.isElectric()
