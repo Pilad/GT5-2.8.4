@@ -1838,24 +1838,26 @@ GT5U.gui.chat.powerfail.shown=Enabled powerfail overlay rendering.
 GT5U.gui.chat.powerfail.hidden=Disabled powerfail overlay rendering.
 
 # chats
-GT5U.chat.void_miner.mode.black_list=Mode: Blacklist
-GT5U.chat.void_miner.mode.white_list=Mode: Whitelist
-GT5U.chat.machine.batch_mode.enable=Batch Mode: Enabled
-GT5U.chat.machine.batch_mode.disable=Batch Mode: Disabled
-GT5U.chat.turbine.fitting.loose=Fitting: Loose - More Flow
-GT5U.chat.turbine.fitting.tight=Fitting: Tight - More Efficiency
-GT5U.chat.machine.processing.enable=Machine Processing: Enabled
-GT5U.chat.machine.processing.disable=Machine Processing: Disabled
-GT5U.chat.machine.redstone_output_set.strong=Redstone Output at Side %s set to: Strong
-GT5U.chat.machine.redstone_output_set.weak=Redstone Output at Side %s set to: Weak
-GT5U.chat.machine.auto_input.disable=Auto-Input: Disabled
-GT5U.chat.machine.auto_input.enable=Auto-Input: Enabled
-GT5U.chat.machine.auto_output.disable=Auto-Output: Disabled
-GT5U.chat.machine.auto_output.enable=Auto-Output: Enabled
-GT5U.chat.buffer.sort_mode.enable=Sort mode: Enabled
-GT5U.chat.buffer.sort_mode.disable=Sort mode: Disabled
-GT5U.chat.worm_hole_generator.overclocks.enable=Overclocks: §aEnabled§r
-GT5U.chat.worm_hole_generator.overclocks.disable=Overclocks: §cDisabled§r
+GT5U.chat.void_miner.mode.black_list=Режим: Чёрный список
+GT5U.chat.void_miner.mode.white_list=Режим: Белый список
+GT5U.chat.machine.batch_mode.enable=Пакетный режим: Включён
+GT5U.chat.machine.batch_mode.disable=Пакетный режим: Отключён
+GT5U.chat.turbine.fitting.loose=Режим: Форсированный - Увеличенный поток
+GT5U.chat.turbine.fitting.tight=Режим: Оптимальный - Высокая эффективность
+GT5U.chat.machine.processing.enable=Прогресс механизма: Включён
+GT5U.chat.machine.processing.disable=Прогресс механизма: Отключён
+GT5U.chat.pipe.processing.enable=Прогресс покрытия: Включён
+GT5U.chat.pipe.processing.disable=Прогресс покрытия: Отключён
+GT5U.chat.machine.redstone_output_set.strong=Выход красного камня на стороне %s установлен на: Сильный
+GT5U.chat.machine.redstone_output_set.weak=Выход красного камня на стороне %s установлен на: Слабый
+GT5U.chat.machine.auto_input.disable=Авто-ввод: Отключён
+GT5U.chat.machine.auto_input.enable=Авто-ввод: Включён
+GT5U.chat.machine.auto_output.disable=Авто-вывод: Отключён
+GT5U.chat.machine.auto_output.enable=Авто-вывод: Включён
+GT5U.chat.buffer.sort_mode.enable=Сортировка: Включёна
+GT5U.chat.buffer.sort_mode.disable=Сортировка: Отключена
+GT5U.chat.worm_hole_generator.overclocks.enable=Разгон: §aВключён§r
+GT5U.chat.worm_hole_generator.overclocks.disable=Разгон: §cОтключён§r
 
 # Note to translators: this translation entry is supposed to be a number indicating how many taunts you define here
 # Game will randomly display one of them
