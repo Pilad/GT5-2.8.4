@@ -2182,7 +2182,7 @@ GT5U.waila.energy.stored=Хранится: §a%s§r EU / §e%s§r EU
 GT5U.waila.energy.avg_in_with_amperage=Средний ввод: §a%s§r EU/t (%sA %s)
 GT5U.waila.energy.avg_out_with_amperage=Средний вывод: §c%s§r EU/t (%sA %s)
 GT5U.waila.energy.use=Сейчас используется: §e%s§r EU/t (%s)
-GT5U.waila.energy.use_with_amperage=Сейчас используется: §c%s EU/t (§a%s§7 A @ %s§c)
+GT5U.waila.energy.use_with_amperage=Сейчас используется: §e%s EU/t §7(§a%s§7 A @ %s§7)
 GT5U.waila.energy.produce=Сейчас генерирует: §a%s§r EU/t (%s)
 GT5U.waila.energy.produce_with_amperage=Сейчас генерирует: §a%s§r EU/t (%sA %s)
 GT5U.waila.stocking_bus.auto_pull.enabled=Авто-подача из МЭ: Включено
@@ -2217,6 +2217,8 @@ GT5U.waila.machine.input=§6Input:
 GT5U.waila.machine.output=§bOutput: §e%s
 GT5U.waila.machine.render_item=§a%s§7x %s
 GT5U.waila.machine.more_items=And %s more...
+GT5U.waila.machine.use_steam=Using §e%s Steam L/t
+GT5U.waila.machine.eu_bar=Stored energy: %s%%
 
 GT5U.waila.multiblock.status.incomplete=** НЕЗАВЕРШЕННАЯ СТРУКТУРА **
 GT5U.waila.multiblock.status.efficiency=  Эффективность: %f%%

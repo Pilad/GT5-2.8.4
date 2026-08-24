@@ -1192,16 +1192,30 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
         long maxEu = tag.getLong("MaxEu");
         int euT = tag.getInteger("eut");
         boolean isActive = tag.getBoolean("isActiveSingleBlock");
-        String euText = formatNumber(eu) + " / " + formatNumber(maxEu);
+        String euText = StatCollector.translateToLocalFormatted(
+            "GT5U.waila.machine.eu_bar",
+            maxEu > 0 ? Math.clamp((int) ((double) eu / maxEu * 100), 0, 100) : 0);
+
         List<ItemStack> inputItems = new ArrayList<>();
         List<ItemStack> outputItems = new ArrayList<>();
-        FluidStack inputFluid = null;
-        FluidStack outputFluid = null;
+        FluidStack inputFluid;
+        FluidStack outputFluid;
+        FluidStack outputRecipeFluid;
 
         getWailaItemsWithNBTTag(getAllInputs(), "inputItems", inputItems, tag);
         getWailaItemsWithNBTTag(getAllOutputs(), "outputItems", outputItems, tag);
+        getWailaItemsWithNBTTag(mOutputItems, "outputRecipeItems", outputItems, tag);
+
         inputFluid = getWailaFluidWithNBTTag("inputFluid", tag);
         outputFluid = getWailaFluidWithNBTTag("outputFluid", tag);
+        outputRecipeFluid = getWailaFluidWithNBTTag("outputRecipeFluid", tag);
+
+        if (outputRecipeFluid != null && outputFluid != null && outputRecipeFluid.isFluidEqual(outputFluid)) {
+            outputFluid.amount += outputRecipeFluid.amount;
+        }
+
+        inputItems = GTUtility.mergeAndSortItemStacks(inputItems);
+        outputItems = GTUtility.mergeAndSortItemStacks(outputItems);
 
         inputItems.sort(
             Comparator.<ItemStack, Boolean>comparing(stack -> !(stack.getItem() instanceof ItemIntegratedCircuit))
@@ -1211,32 +1225,33 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
             currenttip.add(translateToLocal(getWailaStutteringLine(tag)));
         } else {
             if (isActive) {
-                if (!isSteampowered()) {
-                    currenttip.add(
-                        TTRenderBar.create(
-                            euText,
-                            ColorUtils.euBarTop.getColor(),
-                            ColorUtils.euBarBottom.getColor(),
-                            (double) eu / maxEu));
-                }
-
                 currenttip.add(
                     GTWaila.getMachineProgressString(
                         true,
                         tag.getBoolean("isAllowedToWorkSingleBlock"),
                         tag.getInteger("maxProgressSingleBlock"),
                         tag.getInteger("progressSingleBlock")));
+            }
 
+            if (!isSteampowered()) {
+                currenttip.add(
+                    TTRenderBar.create(
+                        euText,
+                        ColorUtils.euBarTop.getColor(),
+                        ColorUtils.euBarBottom.getColor(),
+                        (double) eu / maxEu));
+            }
+
+            if (isActive) {
                 if (!isSteampowered()) {
                     if (euT > 0) {
                         double exactAmps = GTUtility.getExactAmperageForTier(euT, (byte) getInputTier());
-                        String ampString = String.format("%.2f", exactAmps);
 
                         currenttip.add(
                             translateToLocalFormatted(
                                 "GT5U.waila.energy.use_with_amperage",
                                 formatNumber(euT),
-                                ampString,
+                                String.format("%.2f", exactAmps),
                                 GTUtility.getColoredTierNameFromTier((byte) getInputTier())));
                     } else if (euT < 0) {
                         currenttip.add(
@@ -1247,18 +1262,11 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
                                 GTUtility.getColoredTierNameFromTier((byte) getOutputTier())));
                     }
                 } else {
-                    if (euT > 0) {
+                    if (euT != 0) {
                         currenttip.add(
                             translateToLocalFormatted(
-                                "GTPP.waila.steam.use",
-                                formatNumber(euT * 40L),
-                                GTUtility.getColoredTierNameFromVoltage(euT)));
-                    } else if (euT < 0) {
-                        currenttip.add(
-                            translateToLocalFormatted(
-                                "GTPP.waila.steam.use",
-                                formatNumber(-euT * 40L),
-                                GTUtility.getColoredTierNameFromVoltage(-euT)));
+                                "GT5U.waila.machine.use_steam",
+                                formatNumber(Math.abs(euT) * 40L)));
                     }
                 }
             }
@@ -1279,7 +1287,11 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
             getWailaRenderItems(currenttip, outputItems);
         }
 
-        getWailaRenderFluid(currenttip, outputFluid);
+        if (outputFluid != null) {
+            getWailaRenderFluid(currenttip, outputFluid);
+        } else {
+            getWailaRenderFluid(currenttip, outputRecipeFluid);
+        }
 
         if (Client.waila.showFacing) {
             if (gte != null) {
@@ -1323,7 +1335,7 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
             TTRenderStack.create(GTUtility.getFluidDisplayStack(fluidStack, false), true)
                 + StatCollector.translateToLocalFormatted(
                     "GT5U.waila.machine.render_item",
-                    fluidStack.amount,
+                    formatNumber(fluidStack.amount),
                     fluidStack.getLocalizedName()));
     }
 
@@ -1411,6 +1423,9 @@ public abstract class MTEBasicMachine extends MTEBasicTank implements RecipeMapW
 
         getWailaNBTTagWithFluid(fluidInput, "inputFluid", tag);
         getWailaNBTTagWithFluid(fluidOutput, "outputFluid", tag);
+
+        getWailaNBTTagWithItems(mOutputItems, "outputRecipeItems", tag);
+        getWailaNBTTagWithFluid(mOutputFluid, "outputRecipeFluid", tag);
     }
 
     @Nonnull
