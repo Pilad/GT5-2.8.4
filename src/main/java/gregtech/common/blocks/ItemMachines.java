@@ -50,6 +50,7 @@ import gregtech.api.util.GTItsNotMyFaultException;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
+import gregtech.common.config.Client;
 import gregtech.common.tileentities.storage.MTEDigitalTankBase;
 import gregtech.common.tileentities.storage.MTESuperChest;
 import gregtech.common.tileentities.storage.MTESuperTank;
@@ -112,10 +113,12 @@ public class ItemMachines extends ItemBlock implements IFluidContainerItem {
                                     TooltipHelper.ampText(gtTileEntity.getOutputAmperage())));
                         }
                     }
-                    aList.add(
-                        translateToLocalFormatted(
-                            "gt.tileentity.eup_store",
-                            TooltipHelper.euCapacityText(gtTileEntity.getEUCapacity())));
+                    if (Client.tooltip.showEnergyCapacity) {
+                        aList.add(
+                            translateToLocalFormatted(
+                                "gt.tileentity.eup_store",
+                                TooltipHelper.euCapacityText(gtTileEntity.getEUCapacity())));
+                    }
                 }
             }
             final NBTTagCompound aNBT = aStack.getTagCompound();
