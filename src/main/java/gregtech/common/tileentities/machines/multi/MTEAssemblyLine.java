@@ -89,12 +89,17 @@ public class MTEAssemblyLine extends MTEExtendedPowerMultiBlockBase<MTEAssemblyL
         .addElement(
             'e',
             ofChain(
-                Energy.newAny(16, 1, ForgeDirection.UP, ForgeDirection.NORTH, ForgeDirection.SOUTH),
+                buildHatchAdder(MTEAssemblyLine.class).atLeast(Energy)
+                    .casingIndex(16)
+                    .dot(4)
+                    .allowOnly(ForgeDirection.UP, ForgeDirection.NORTH, ForgeDirection.SOUTH)
+                    .continueIfSuccess()
+                    .build(),
                 ofBlock(GregTechAPI.sBlockCasings2, 0)))
         .addElement(
             'd',
             buildHatchAdder(MTEAssemblyLine.class).atLeast(DataHatchElement.DataAccess)
-                .dot(2)
+                .dot(3)
                 .casingIndex(42)
                 .allowOnly(ForgeDirection.NORTH)
                 .buildAndChain(GregTechAPI.sBlockCasings3, 10))
@@ -102,7 +107,7 @@ public class MTEAssemblyLine extends MTEExtendedPowerMultiBlockBase<MTEAssemblyL
             'b',
             buildHatchAdder(MTEAssemblyLine.class).atLeast(InputHatch, InputHatch, InputHatch, InputHatch, Maintenance)
                 .casingIndex(16)
-                .dot(3)
+                .dot(1)
                 .allowOnly(ForgeDirection.DOWN)
                 .buildAndChain(
                     ofBlock(GregTechAPI.sBlockCasings2, 0),
@@ -111,10 +116,10 @@ public class MTEAssemblyLine extends MTEExtendedPowerMultiBlockBase<MTEAssemblyL
             'I',
             ofChain(
                 // all blocks nearby use solid steel casing, so let's use the texture of that
-                InputBus.newAny(16, 4, ForgeDirection.DOWN),
+                InputBus.newAny(16, 2, ForgeDirection.DOWN),
                 ofHatchAdder(MTEAssemblyLine::addOutputToMachineList, 16, 3)))
-        .addElement('i', InputBus.newAny(16, 4, ForgeDirection.DOWN))
-        .addElement('o', OutputBus.newAny(16, 3, ForgeDirection.DOWN))
+        .addElement('i', InputBus.newAny(16, 2, ForgeDirection.DOWN))
+        .addElement('o', OutputBus.newAny(16, 1, ForgeDirection.DOWN))
         .build();
 
     public MTEAssemblyLine(int aID, String aName, String aNameRegional) {
