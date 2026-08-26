@@ -151,15 +151,15 @@ public class MTEAssemblyLine extends MTEExtendedPowerMultiBlockBase<MTEAssemblyL
             .addStructureInfo("Layer 4 - Empty, Solid Steel Machine Casing, Empty")
             .addStructureInfo("Up to 16 repeating slices, each one allows for 1 more item in recipes")
             .addController("Either Grate Machine Casing on the first slice")
-            .addEnergyHatch("Any layer 4 casing", 1)
-            .addMaintenanceHatch("Any layer 1 casing", 3)
-            .addInputBus("As specified on layer 1", 4)
-            .addInputHatch("Any layer 1 casing", 3)
-            .addOutputBus("Replaces Input Bus or Solid Steel Machine Casing on layer 1 of last slice", 3)
+            .addEnergyHatch("Any layer 4 casing", 4)
+            .addMaintenanceHatch("Any layer 1 casing", 1)
+            .addInputBus("As specified on layer 1", 2)
+            .addInputHatch("Any layer 1 casing", 1)
+            .addOutputBus("Replaces Input Bus or Solid Steel Machine Casing on layer 1 of last slice", 1)
             .addOtherStructurePart(
                 StatCollector.translateToLocal("GT5U.tooltip.structure.data_access_hatch"),
                 "Any Grate Machine Casing NOT on the first slice",
-                2)
+                3)
             .addStructureInfo("")
             .addSubChannel(GTStructureChannels.BOROGLASS)
             .addSubChannel(GTStructureChannels.STRUCTURE_LENGTH)
