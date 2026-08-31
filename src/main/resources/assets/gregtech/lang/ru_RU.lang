@@ -3318,8 +3318,10 @@ GT5U.tooltip.mega_apiary.only_producer=Будет производиться т�
 GT5U.tooltip.electric.tier=Тир: %d
 GT5U.tooltip.electric.tier.s=Тир: %s
 
-gt.coilheattooltip=Теплопроизводительность =
-gt.coilunittooltip= Кельвинов
+GT5U.tooltip.typefilter.set_to=Фильтр установлен на %s
+GT5U.tooltip.typefilter.ore_prefix=Префикс руды: %s
+GT5U.tooltip.typefilter.size=Размер фильтра: %s
+gt.coilheattooltip=Теплопроизводительность: %s Кельвинов
 
 GT5U.tootlip.tool.turbine.steam=Пар
 GT5U.tootlip.tool.turbine.loose=Форсированный
