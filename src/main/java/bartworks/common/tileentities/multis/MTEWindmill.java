@@ -35,6 +35,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -126,6 +127,11 @@ public class MTEWindmill extends MTEEnhancedMultiBlockBase<MTEWindmill>
                 return true;
             }
 
+            if (block == Blocks.stained_hardened_clay) {
+                t.mHardenedClay++;
+                return true;
+            }
+
             return false;
         }
 
@@ -151,45 +157,76 @@ public class MTEWindmill extends MTEEnhancedMultiBlockBase<MTEWindmill>
     private static final String STRUCTURE_PIECE_MAIN = "main";
     private static final IStructureDefinition<MTEWindmill> STRUCTURE_DEFINITION = StructureDefinition
         .<MTEWindmill>builder()
-        .addShape(
-            STRUCTURE_PIECE_MAIN,
-            transpose(
-                new String[][] { { "       ", "       ", "       ", "   p   ", "       ", "       ", "       " },
-                    { "       ", "       ", "  ppp  ", "  p p  ", "  ppp  ", "       ", "       " },
-                    { "       ", " ppppp ", " p   p ", " p   p ", " p   p ", " ppppp ", "       " },
-                    { " ppppp ", "p     p", "p     p", "p     p", "p     p", "p     p", " ppppp " },
-                    { " ppspp ", "p     p", "p     p", "p     p", "p     p", "p     p", " ppppp " },
-                    { " ppppp ", "p     p", "p     p", "p     p", "p     p", "p     p", " ppppp " },
-                    { "       ", " ppppp ", " p   p ", " p   p ", " p   p ", " ppppp ", "       " },
-                    { "       ", "  ccc  ", " c   c ", " c   c ", " c   c ", "  ccc  ", "       " },
-                    { "       ", "  ccc  ", " c   c ", " c   c ", " c   c ", "  cdc  ", "       " },
-                    { "       ", "  ccc  ", " c   c ", " c   c ", " c   c ", "  ccc  ", "       " },
-                    { "       ", "  ccc  ", " c   c ", " c   c ", " c   c ", "  ccc  ", "       " },
-                    { " bb~bb ", "bbbbbbb", "bbbbbbb", "bbbbbbb", "bbbbbbb", "bbbbbbb", " bbbbb " }, }))
+        // spotless:off
+        .addShape(STRUCTURE_PIECE_MAIN, transpose(new String[][] {
+            { "       ", "       ", "       ", "   p   ", "       ", "       ", "       " },
+            { "       ", "       ", "  ppp  ", "  p p  ", "  ppp  ", "       ", "       " },
+            { "       ", " ppppp ", " p   p ", " p   p ", " p   p ", " ppppp ", "       " },
+            { " ppppp ", "p     p", "p     p", "p     p", "p     p", "p     p", " ppppp " },
+            { " pprpp ", "p     p", "p     p", "p     p", "p     p", "p     p", " ppppp " },
+            { " ppppp ", "p     p", "p     p", "p     p", "p     p", "p     p", " ppppp " },
+            { "       ", " ppppp ", " p   p ", " p   p ", " p   p ", " ppppp ", "       " },
+            { "       ", "  ccc  ", " c   c ", " c   c ", " c   c ", "  ccc  ", "       " },
+            { "       ", "  ccc  ", " c   c ", " c   c ", " c   c ", "  cdc  ", "       " },
+            { "       ", "  ccc  ", " c   c ", " c   c ", " c   c ", "  ccc  ", "       " },
+            { "       ", "  ccc  ", " c   c ", " c   c ", " c   c ", "  ccc  ", "       " },
+            { " bb~bb ", "bbbbbbb", "bbbbbbb", "bbbbbbb", "bbbbbbb", "bbbbbbb", " bbbbb " }}))
+        // spotless:on
         .addElement('p', ofBlockAnyMeta(Blocks.planks))
-        .addElement(
-            'c',
-            ofChain(
-                onElementPass(t -> t.mHardenedClay++, ofBlock(Blocks.hardened_clay, 0)),
-                ofTileAdder(MTEWindmill::addDispenserToOutputSet, Blocks.hardened_clay, 0),
-                onElementPass(t -> t.mDoor++, new IStructureElementNoPlacement<MTEWindmill>() {
+        .addElement('c', ofChain(onElementPass(t -> t.mHardenedClay++, new IStructureElement<MTEWindmill>() {
 
-                    private final IStructureElement<MTEWindmill> delegate = ofBlock(Blocks.wooden_door, 0);
+            @Override
+            public boolean check(MTEWindmill t, World world, int x, int y, int z) {
+                Block block = world.getBlock(x, y, z);
+                return block == Blocks.hardened_clay || block == Blocks.stained_hardened_clay;
+            }
 
-                    @Override
-                    public boolean check(MTEWindmill gt_tileEntity_windmill, World world, int x, int y, int z) {
-                        return this.delegate.check(gt_tileEntity_windmill, world, x, y, z);
-                    }
+            @Override
+            public boolean couldBeValid(MTEWindmill t, World world, int x, int y, int z, ItemStack trigger) {
+                return check(t, world, x, y, z);
+            }
 
-                    @Override
-                    public boolean spawnHint(MTEWindmill gt_tileEntity_windmill, World world, int x, int y, int z,
-                        ItemStack trigger) {
-                        return this.delegate.spawnHint(gt_tileEntity_windmill, world, x, y, z, trigger);
-                    }
-                })))
+            @Override
+            public boolean spawnHint(MTEWindmill t, World world, int x, int y, int z, ItemStack trigger) {
+                StructureLibAPI.hintParticle(world, x, y, z, Blocks.hardened_clay, 0);
+                return true;
+            }
+
+            @Override
+            public boolean placeBlock(MTEWindmill t, World world, int x, int y, int z, ItemStack trigger) {
+                return world.setBlock(x, y, z, Blocks.hardened_clay, 0, 3);
+            }
+
+            @Override
+            public BlocksToPlace getBlocksToPlace(MTEWindmill t, World world, int x, int y, int z, ItemStack trigger,
+                AutoPlaceEnvironment env) {
+                Item plainItem = Item.getItemFromBlock(Blocks.hardened_clay);
+                Item stainedItem = Item.getItemFromBlock(Blocks.stained_hardened_clay);
+                return BlocksToPlace.create(is -> {
+                    Item item = is.getItem();
+                    return item == plainItem || item == stainedItem;
+                });
+            }
+        }),
+            ofTileAdder(MTEWindmill::addDispenserToOutputSet, Blocks.hardened_clay, 0),
+            onElementPass(t -> t.mDoor++, new IStructureElementNoPlacement<MTEWindmill>() {
+
+                private final IStructureElement<MTEWindmill> delegate = ofBlock(Blocks.wooden_door, 0);
+
+                @Override
+                public boolean check(MTEWindmill gt_tileEntity_windmill, World world, int x, int y, int z) {
+                    return this.delegate.check(gt_tileEntity_windmill, world, x, y, z);
+                }
+
+                @Override
+                public boolean spawnHint(MTEWindmill gt_tileEntity_windmill, World world, int x, int y, int z,
+                    ItemStack trigger) {
+                    return this.delegate.spawnHint(gt_tileEntity_windmill, world, x, y, z, trigger);
+                }
+            })))
         .addElement('d', DISPENSER_OR_CLAY)
         .addElement('b', ofBlock(Blocks.brick_block, 0))
-        .addElement('s', new IStructureElement<>() {
+        .addElement('r', new IStructureElement<>() {
 
             @Override
             public boolean check(MTEWindmill t, World world, int x, int y, int z) {
@@ -236,16 +273,53 @@ public class MTEWindmill extends MTEEnhancedMultiBlockBase<MTEWindmill>
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
         MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
-        tt.addMachineType("Macerator")
-            .addInfo("A primitive Grinder powered by Kinetic energy")
-            .addInfo("Speed and output will be affected by wind speed, recipe and rotor")
-            .addInfo("Please use the Primitive Rotor")
-            .addInfo("Macerates 16 items at a time")
-            .beginStructureBlock(7, 12, 7, false)
+        tt.addMachineType("Windmill, Macerator")
+            .addInfo("A primitive Grinder powered by " + EnumChatFormatting.AQUA + "Kinetic Energy")
+            .addInfo("Macerates up to" + EnumChatFormatting.GOLD + " 16 " + EnumChatFormatting.GRAY + "items at a time")
+            .addInfo("The amount of parallels is determined by " + EnumChatFormatting.AQUA + "Wind Speed")
+            .addInfo("Parallels determine how many items are processed per recipe")
+            .addInfo("Processing time is the same regardless of parallels")
+            .addInfo(
+                EnumChatFormatting.AQUA + "Wind Speed "
+                    + EnumChatFormatting.GRAY
+                    + "can be determined using the "
+                    + EnumChatFormatting.YELLOW
+                    + "Simple Wind Meter")
+            .addInfo("Rotor can be put in the " + EnumChatFormatting.BLUE + "Primitive Kinetic Shaftbox")
+            .addInfo("Will not work if wind is non-existent or too strong")
+            .addInfo(EnumChatFormatting.RED + "12.5% " + EnumChatFormatting.GRAY + "speed")
+            .addSeparator()
+            .addInfo(
+                EnumChatFormatting.GOLD + "2"
+                    + EnumChatFormatting.GRAY
+                    + " parallels: "
+                    + EnumChatFormatting.WHITE
+                    + "Low")
+            .addInfo(
+                EnumChatFormatting.GOLD + "4"
+                    + EnumChatFormatting.GRAY
+                    + " parallels: "
+                    + EnumChatFormatting.DARK_GREEN
+                    + "Common")
+            .addInfo(
+                EnumChatFormatting.GOLD + "8"
+                    + EnumChatFormatting.GRAY
+                    + " parallels: "
+                    + EnumChatFormatting.GOLD
+                    + "Rather strong")
+            .addInfo(
+                EnumChatFormatting.GOLD + "16"
+                    + EnumChatFormatting.GRAY
+                    + " parallels: "
+                    + EnumChatFormatting.DARK_RED
+                    + "Very Strong")
+            .beginStructureBlock(7, 12, 7, true)
             .addController("Front bottom center")
-            .addCasingInfoMin("Hardened Clay Block", 40, false)
-            .addOtherStructurePart("Dispenser", "Any Hardened Clay Block")
-            .addOtherStructurePart("0-1 Wooden door", "Any Hardened Clay Block")
+            .addCasing("44", "Bricks", false)
+            .addCasing("40-47", "Terracotta (any color)", false)
+            .addCasing("100", "Wooden Planks (any)", false)
+            .addCasing("1", "Primitive Kinetic Shaftbox", false)
+            .addOtherStructurePart("Dispenser", "Any Terracotta", 1)
             .addStructureHint("tile.BWRotorBlock.0.name", 1)
             .toolTipFinisher();
         return tt;
