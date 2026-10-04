@@ -5,6 +5,7 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.GregTechAPI.sBlockCasings1;
 import static gregtech.api.GregTechAPI.sBlockCasings2;
+import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
 import java.util.ArrayList;
@@ -138,6 +139,7 @@ public class MTESteamForgeHammer extends MTESteamMultiBase<MTESteamForgeHammer> 
         for (MTEHatch h : mSteamInputs) h.updateTexture(getCasingTextureID());
         for (MTEHatch h : mSteamOutputs) h.updateTexture(getCasingTextureID());
         for (MTEHatch h : mSteamInputFluids) h.updateTexture(getCasingTextureID());
+        for (MTEHatch h : mInputHatches) h.updateTexture(getCasingTextureID());
     }
 
     private int getCasingTextureID() {
@@ -212,7 +214,7 @@ public class MTESteamForgeHammer extends MTESteamMultiBase<MTESteamForgeHammer> 
                             .dot(1)
                             .build(),
                         buildHatchAdder(MTESteamForgeHammer.class)
-                            .atLeast(SteamHatchElement.InputBus_Steam, SteamHatchElement.OutputBus_Steam)
+                            .atLeast(SteamHatchElement.InputBus_Steam, SteamHatchElement.OutputBus_Steam, InputHatch)
                             .casingIndex(10)
                             .dot(1)
                             .buildAndChain(),
@@ -335,6 +337,7 @@ public class MTESteamForgeHammer extends MTESteamMultiBase<MTESteamForgeHammer> 
             .beginStructureBlock(6, 5, 5, false)
             .addController("Front center, 2nd layer")
             .addSteamInputBus(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + " Any casing", 1)
+            .addInputHatch(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + " Any casing", 1)
             .addSteamOutputBus(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + " Any casing", 1)
             .addStructureInfo(
                 EnumChatFormatting.WHITE + "Steam Input Hatch "
