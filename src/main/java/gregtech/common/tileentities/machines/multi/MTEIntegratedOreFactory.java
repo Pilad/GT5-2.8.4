@@ -4,7 +4,6 @@ import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.ExoticEnergy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
-import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ORE_FACTORY;
@@ -108,7 +107,7 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
         .addElement(
             'D',
             buildHatchAdder(MTEIntegratedOreFactory.class)
-                .atLeast(Energy, ExoticEnergy, InputBus, InputHatch, Muffler, OutputBus, Maintenance)
+                .atLeast(Energy, ExoticEnergy, InputBus, InputHatch, Muffler, OutputBus)
                 .casingIndex(Casings.CleanStainlessSteelMachineCasing.textureId)
                 .dot(1)
                 .buildAndChain(Casings.CleanStainlessSteelMachineCasing.asElement()))
@@ -653,7 +652,6 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
             .addCasingInfoExactly("Advanced Iridium Plated Machine Casing", 98, false)
             .addCasingInfoExactly("Advanced Iridium Plated Machine Casing", 462, false)
             .addEnergyHatch("Any Stainless Steel Casing", 1)
-            .addMaintenanceHatch("Any Stainless Steel Casing", 1)
             .addInputBus("Any Stainless Steel Casing", 1)
             .addInputHatch("Any Stainless Steel Casing", 1)
             .addMufflerHatch("Any Stainless Steel Casing", 1)
