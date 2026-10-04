@@ -229,7 +229,8 @@ public class MTECryogenicFreezer extends MTEExtendedPowerMultiBlockBase<MTECryog
                     if (!drainCryotheum(CRYOTHEUM_PER_SECOND)) {
                         this.causeMaintenanceIssue();
                         this.stopMachine(
-                            ShutDownReasonRegistry.outOfFluid(new FluidStack(TFFluids.fluidCryotheum, CRYOTHEUM_PER_SECOND)));
+                            ShutDownReasonRegistry
+                                .outOfFluid(new FluidStack(TFFluids.fluidCryotheum, CRYOTHEUM_PER_SECOND)));
                     }
 
                 }
