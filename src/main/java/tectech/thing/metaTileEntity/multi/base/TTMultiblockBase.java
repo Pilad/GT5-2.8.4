@@ -186,6 +186,12 @@ public abstract class TTMultiblockBase extends MTEExtendedPowerMultiBlockBase<TT
     /** Flag if the new long power variable should be used */
     protected boolean useLongPower = false;
 
+    /** Index of the energy hatch {@link #powerInput()} drains first on the next tick */
+    private int powerInputRotation = 0;
+
+    /** Index of the energy hatch {@link #powerInput_EM()} drains first on the next tick */
+    private int powerInputEMRotation = 0;
+
     // Locale-aware formatting of numbers.
     protected static NumberFormatMUI numberFormat;
     static {
@@ -1242,22 +1248,24 @@ public abstract class TTMultiblockBase extends MTEExtendedPowerMultiBlockBase<TT
     }
 
     protected final void powerInput() {
-        long euVar;
-        for (MTEHatchEnergy tHatch : validMTEList(mEnergyHatches)) {
+        List<MTEHatchEnergy> energyHatches = filterValidMTEs(mEnergyHatches);
+        List<MTEHatchEnergyMulti> energyMultis = filterValidMTEs(eEnergyMulti);
+        int hatchCount = energyHatches.size() + energyMultis.size();
+        if (hatchCount == 0) return;
+
+        // Rotate the hatch drained first each tick. Draining in a fixed order empties the first hatches early and
+        // leaves the last ones holding energy, which causes problems.
+        int start = powerInputRotation % hatchCount;
+        powerInputRotation = (start + 1) % hatchCount;
+
+        for (int i = 0; i < hatchCount; i++) {
             if (getEUVar() > getMinimumStoredEU()) {
                 break;
             }
-            euVar = Math.min(tHatch.maxEUInput() * tHatch.maxAmperesIn(), tHatch.getEUVar());
-            if (tHatch.getBaseMetaTileEntity()
-                .decreaseStoredEnergyUnits(euVar, false)) {
-                setEUVar(getEUVar() + euVar);
-            }
-        }
-        for (MTEHatchEnergyMulti tHatch : validMTEList(eEnergyMulti)) {
-            if (getEUVar() > getMinimumStoredEU()) {
-                break;
-            }
-            euVar = Math.min(tHatch.maxEUInput() * tHatch.maxAmperesIn(), tHatch.getEUVar());
+            int index = (start + i) % hatchCount;
+            MTEHatch tHatch = index < energyHatches.size() ? energyHatches.get(index)
+                : energyMultis.get(index - energyHatches.size());
+            long euVar = Math.min(tHatch.maxEUInput() * tHatch.maxAmperesIn(), tHatch.getEUVar());
             if (tHatch.getBaseMetaTileEntity()
                 .decreaseStoredEnergyUnits(euVar, false)) {
                 setEUVar(getEUVar() + euVar);
@@ -1266,25 +1274,36 @@ public abstract class TTMultiblockBase extends MTEExtendedPowerMultiBlockBase<TT
     }
 
     protected final void powerInput_EM() {
-        long euVar;
-        for (MTEHatchEnergy tHatch : validMTEList(mEnergyHatches)) {
+        List<MTEHatchEnergy> energyHatches = filterValidMTEs(mEnergyHatches);
+        List<MTEHatchEnergyMulti> energyMultis = filterValidMTEs(eEnergyMulti);
+        int hatchCount = energyHatches.size() + energyMultis.size();
+        if (hatchCount == 0) return;
+
+        // Rotate the hatch drained first each tick
+        int start = powerInputEMRotation % hatchCount;
+        powerInputEMRotation = (start + 1) % hatchCount;
+
+        for (int i = 0; i < hatchCount; i++) {
             if (getEUVar() > getMinimumStoredEU()) {
                 break;
             }
-            euVar = tHatch.maxEUInput();
-            if (tHatch.getBaseMetaTileEntity()
-                .decreaseStoredEnergyUnits(euVar, false)) {
-                setEUVar(getEUVar() + euVar);
-            }
-        }
-        for (MTEHatchEnergyMulti tHatch : validMTEList(eEnergyMulti)) {
-            if (getEUVar() > getMinimumStoredEU()) {
-                break;
-            }
-            euVar = tHatch.maxEUInput() * tHatch.Amperes;
-            if (tHatch.getBaseMetaTileEntity()
-                .decreaseStoredEnergyUnits(euVar, false)) {
-                setEUVar(getEUVar() + euVar);
+            int index = (start + i) % hatchCount;
+            long euVar;
+
+            if (index < energyHatches.size()) {
+                MTEHatchEnergy tHatch = energyHatches.get(index);
+                euVar = tHatch.maxEUInput();
+                if (tHatch.getBaseMetaTileEntity()
+                    .decreaseStoredEnergyUnits(euVar, false)) {
+                    setEUVar(getEUVar() + euVar);
+                }
+            } else {
+                MTEHatchEnergyMulti tHatch = energyMultis.get(index - energyHatches.size());
+                euVar = tHatch.maxEUInput() * tHatch.Amperes;
+                if (tHatch.getBaseMetaTileEntity()
+                    .decreaseStoredEnergyUnits(euVar, false)) {
+                    setEUVar(getEUVar() + euVar);
+                }
             }
         }
     }
