@@ -6,6 +6,7 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose
 import static gregtech.api.GregTechAPI.sBlockCasings1;
 import static gregtech.api.GregTechAPI.sBlockCasings2;
 import static gregtech.api.GregTechAPI.sBlockMetal6;
+import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.util.GTRecipeConstants.COMPRESSION_TIER;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
@@ -148,6 +149,7 @@ public class MTESteamCompressor extends MTESteamMultiBase<MTESteamCompressor> im
         for (MTEHatch h : mSteamInputs) h.updateTexture(getCasingTextureID());
         for (MTEHatch h : mSteamOutputs) h.updateTexture(getCasingTextureID());
         for (MTEHatch h : mSteamInputFluids) h.updateTexture(getCasingTextureID());
+        for (MTEHatch h : mInputHatches) h.updateTexture(getCasingTextureID());
     }
 
     private int getCasingTextureID() {
@@ -217,7 +219,7 @@ public class MTESteamCompressor extends MTESteamMultiBase<MTESteamCompressor> im
                             .dot(1)
                             .build(),
                         buildHatchAdder(MTESteamCompressor.class)
-                            .atLeast(SteamHatchElement.InputBus_Steam, SteamHatchElement.OutputBus_Steam)
+                            .atLeast(SteamHatchElement.InputBus_Steam, SteamHatchElement.OutputBus_Steam, InputHatch)
                             .casingIndex(10)
                             .dot(1)
                             .buildAndChain(),
@@ -376,6 +378,7 @@ public class MTESteamCompressor extends MTESteamMultiBase<MTESteamCompressor> im
             .addController("Front center")
             .addSteamInputBus(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + " Any casing", 1)
             .addSteamOutputBus(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + " Any casing", 1)
+            .addInputHatch(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + " Any casing", 1)
             .addStructureInfo(
                 EnumChatFormatting.WHITE + "Steam Input Hatch "
                     + EnumChatFormatting.GOLD
