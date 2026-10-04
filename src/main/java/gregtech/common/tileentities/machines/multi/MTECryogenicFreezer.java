@@ -52,6 +52,12 @@ public class MTECryogenicFreezer extends MTEExtendedPowerMultiBlockBase<MTECryog
     private static final int OFFSET_Y = 2;
     private static final int OFFSET_Z = 0;
     private static final String STRUCTURE_PIECE_MAIN = "main";
+
+    private static final int PARALLELS = 16;
+    private static final double SPEED_BONUS = 3.0D;
+    private static final double EU_MODIFIER = 0.9D;
+    private static final int CRYOTHEUM_PER_SECOND = 10;
+
     private static IStructureDefinition<MTECryogenicFreezer> STRUCTURE_DEFINITION = null;
 
     private int casingAmount;
@@ -194,14 +200,14 @@ public class MTECryogenicFreezer extends MTEExtendedPowerMultiBlockBase<MTECryog
     @Override
     protected ProcessingLogic createProcessingLogic() {
         return new ProcessingLogic().noRecipeCaching()
-            .setSpeedBonus(1F / 3F)
-            .setEuModifier(0.9F)
+            .setSpeedBonus(1F / SPEED_BONUS)
+            .setEuModifier(EU_MODIFIER)
             .setMaxParallelSupplier(this::getTrueParallel);
     }
 
     @Override
     public int getMaxParallelRecipes() {
-        return 16;
+        return PARALLELS;
     }
 
     @Override
@@ -220,10 +226,10 @@ public class MTECryogenicFreezer extends MTEExtendedPowerMultiBlockBase<MTECryog
                 if (aTick % 20 == 0 || this.getBaseMetaTileEntity()
                     .hasWorkJustBeenEnabled()) {
 
-                    if (!drainCryotheum(10)) {
+                    if (!drainCryotheum(CRYOTHEUM_PER_SECOND)) {
                         this.causeMaintenanceIssue();
                         this.stopMachine(
-                            ShutDownReasonRegistry.outOfFluid(new FluidStack(TFFluids.fluidCryotheum, 10)));
+                            ShutDownReasonRegistry.outOfFluid(new FluidStack(TFFluids.fluidCryotheum, CRYOTHEUM_PER_SECOND)));
                     }
 
                 }
