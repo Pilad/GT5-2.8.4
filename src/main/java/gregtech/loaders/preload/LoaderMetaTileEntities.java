@@ -3924,6 +3924,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -3936,6 +3937,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -3948,6 +3950,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -3960,6 +3963,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -3972,6 +3976,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -3984,6 +3989,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -3996,6 +4002,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -4008,6 +4015,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -4020,6 +4028,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -4032,6 +4041,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -4044,6 +4054,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
@@ -4056,6 +4067,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .setSlotsCount(1, 1)
                 .setSound(SoundResource.GTCEU_LOOP_COMPRESSOR)
                 .setOverlays("COMPRESSOR")
+                .setFluidSlots(true, false)
                 .build()
                 .getStackForm(1L));
 
