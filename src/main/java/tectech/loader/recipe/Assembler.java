@@ -1248,6 +1248,38 @@ public class Assembler implements Runnable {
             .eut(TierEU.RECIPE_UEV)
             .addTo(assemblerRecipes);
 
+        // Buck Converter UMV
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Transformer_UXV_UMV.get(1),
+                BaseRecipeLoader.getItemContainer("Display")
+                    .get(1),
+                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.UMV, 2),
+                GTOreDictUnificator.get(OrePrefixes.plate, MaterialsUEVplus.SpaceTime, 2),
+                GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.Quantium, 4),
+                new ItemStack(bw_realglas, 2, 9))
+            .itemOutputs(CustomItemList.Machine_BuckConverter_UMV.get(1))
+            .fluidInputs(MaterialsUEVplus.SpaceTime.getMolten(2 * INGOTS))
+            .duration(10 * SECONDS)
+            .eut(TierEU.RECIPE_UIV)
+            .addTo(assemblerRecipes);
+
+        // Buck Converter UXV
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Transformer_MAX_UXV.get(1),
+                BaseRecipeLoader.getItemContainer("Display")
+                    .get(1),
+                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.UXV, 2),
+                GTOreDictUnificator.get(OrePrefixes.plate, MaterialsUEVplus.MagMatter, 2),
+                GTOreDictUnificator.get(OrePrefixes.wireGt16, Materials.BlackPlutonium, 4),
+                new ItemStack(bw_realglas, 2, 10))
+            .itemOutputs(CustomItemList.Machine_BuckConverter_UXV.get(1))
+            .fluidInputs(MaterialsUEVplus.MagMatter.getMolten(2 * INGOTS))
+            .duration(10 * SECONDS)
+            .eut(TierEU.RECIPE_UMV)
+            .addTo(assemblerRecipes);
+
         // Laser Dynamo
         {
             // Laser Dynamo IV-UXV 256/t
