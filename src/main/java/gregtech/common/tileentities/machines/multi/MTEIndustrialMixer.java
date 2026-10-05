@@ -24,6 +24,8 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.casing.Casings;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.VoltageIndex;
@@ -293,8 +295,9 @@ public class MTEIndustrialMixer extends MTEExtendedPowerMultiBlockBase<MTEIndust
             inputSeparation ? "GT5U.machines.separatebus.true" : "GT5U.machines.separatebus.false");
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
-    protected SoundResource getProcessStartSound() {
+    protected SoundResource getActivitySoundLoop() {
         return SoundResource.GTCEU_LOOP_MIXER;
     }
 

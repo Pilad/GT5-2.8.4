@@ -62,6 +62,8 @@ import com.gtnewhorizons.modularui.common.widget.FakeSyncWidget;
 
 import bartworks.API.modularUI.BWUITextures;
 import bartworks.API.recipe.BartWorksRecipeMaps;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import bartworks.system.material.CircuitGeneration.BWMetaItems;
 import bartworks.system.material.CircuitGeneration.CircuitImprintLoader;
 import gregtech.GTMod;
@@ -396,8 +398,9 @@ public class MTECircuitAssemblyLine extends MTEEnhancedMultiBlockBase<MTECircuit
         logic.setSpecialSlotItem(this.imprintedStack);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
-    protected SoundResource getProcessStartSound() {
+    protected SoundResource getActivitySoundLoop() {
         return GTCEU_LOOP_ASSEMBLER;
     }
 
