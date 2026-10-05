@@ -2899,8 +2899,8 @@ public class MTERecipeLoader implements Runnable {
             ItemList.Transformer_MAX_UV.get(1L),
             GTModHandler.RecipeBits.BITSD,
             new Object[] { "KBB", "CM ", "KBB", 'M', ItemList.Hull_UV, 'C',
-                OrePrefixes.cableGt01.get(Materials.Bedrockium), 'B', OrePrefixes.cableGt01.get(Materials.NaquadahAlloy),
-                'K', ItemList.Circuit_Chip_NPIC });
+                OrePrefixes.cableGt01.get(Materials.Bedrockium), 'B',
+                OrePrefixes.cableGt01.get(Materials.NaquadahAlloy), 'K', ItemList.Circuit_Chip_NPIC });
 
         GTModHandler.addCraftingRecipe(
             ItemList.Hatch_Dynamo_ULV.get(1L),
