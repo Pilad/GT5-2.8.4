@@ -2788,7 +2788,7 @@ public class MTERecipeLoader implements Runnable {
             ItemList.Hull_UV.get(1L),
             NOT_REMOVABLE | BUFFERED,
             new Object[] { "PHP", aTextCableHull, 'M', ItemList.Casing_UV, 'C',
-                OrePrefixes.wireGt04.get(Materials.NaquadahAlloy), 'H', OrePrefixes.plate.get(Materials.Osmium), 'P',
+                OrePrefixes.cableGt04.get(Materials.NaquadahAlloy), 'H', OrePrefixes.plate.get(Materials.Osmium), 'P',
                 OrePrefixes.plate.get(Materials.Polybenzimidazole) });
         GTModHandler.addCraftingRecipe(
             ItemList.Hull_MAX.get(1L),
@@ -2899,7 +2899,7 @@ public class MTERecipeLoader implements Runnable {
             ItemList.Transformer_MAX_UV.get(1L),
             GTModHandler.RecipeBits.BITSD,
             new Object[] { "KBB", "CM ", "KBB", 'M', ItemList.Hull_UV, 'C',
-                OrePrefixes.wireGt01.get(Materials.Bedrockium), 'B', OrePrefixes.cableGt01.get(Materials.NaquadahAlloy),
+                OrePrefixes.cableGt01.get(Materials.Bedrockium), 'B', OrePrefixes.cableGt01.get(Materials.NaquadahAlloy),
                 'K', ItemList.Circuit_Chip_NPIC });
 
         GTModHandler.addCraftingRecipe(
