@@ -48,6 +48,7 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
 import gregtech.api.util.tooltip.TooltipHelper;
+import gregtech.common.misc.GTStructureChannels;
 import tectech.thing.metaTileEntity.multi.base.TTMultiblockBase;
 
 public class MTENaquadahFuelRefinery extends TTMultiblockBase implements ISurvivalConstructable {
@@ -158,12 +159,13 @@ public class MTENaquadahFuelRefinery extends TTMultiblockBase implements ISurviv
                 .addElement('C', Casings.FieldRestrictionGlass.asElement())
                 .addElement(
                     'B',
-                    ofBlocksTiered(
-                        fieldCoilTierConverter(),
-                        getAllFieldCoilTiers(),
-                        -1,
-                        MTENaquadahFuelRefinery::setCoilTier,
-                        MTENaquadahFuelRefinery::getCoilTier))
+                    GTStructureChannels.FIELD_RESTRICTION_COIL.use(
+                        ofBlocksTiered(
+                            fieldCoilTierConverter(),
+                            getAllFieldCoilTiers(),
+                            -1,
+                            MTENaquadahFuelRefinery::setCoilTier,
+                            MTENaquadahFuelRefinery::getCoilTier)))
                 .addElement('D', Casings.SuperconductingCoilBlock.asElement())
                 .addElement('E', Casings.EuropiumReinforcedRadiationProofMachineCasing.asElement())
                 .addElement('F', Casings.RadiantProofSteelFrameBox.asElement())
@@ -224,6 +226,7 @@ public class MTENaquadahFuelRefinery extends TTMultiblockBase implements ISurviv
             .addEnergyHatch("Any Naquadah Fuel Refinery Casing", 1)
             .addDynamoHatch("Any Naquadah Fuel Refinery Casing", 1)
             .addStructureInfo("")
+            .addSubChannel(GTStructureChannels.FIELD_RESTRICTION_COIL)
             .addStructureAuthors("GregTech Odyssey")
             .toolTipFinisher();
         return tt;
