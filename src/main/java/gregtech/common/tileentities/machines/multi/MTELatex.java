@@ -187,9 +187,9 @@ public class MTELatex extends MTEExtendedPowerMultiBlockBase<MTELatex> implement
 
                 return copy;
             }
-        }.setSpeedBonus(1F / 2F)
+        }.setSpeedBonus(1.0D / 2.0D)
             .setMaxParallelSupplier(this::getTrueParallel)
-            .setEuModifier(0.85F);
+            .setEuModifier(0.85D);
     }
 
     @Nullable

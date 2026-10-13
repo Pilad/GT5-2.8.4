@@ -380,12 +380,12 @@ public class MTELargeFluidExtractor extends MTEExtendedPowerMultiBlockBase<MTELa
         return Math.max(1, mSolenoidLevel == null ? 0 : (PARALLELS_PER_SOLENOID * mSolenoidLevel));
     }
 
-    public float getCoilSpeedBonus() {
-        return (float) ((mCoilLevel == null ? 0 : SPEED_PER_COIL * mCoilLevel.getTier()));
+    public double getCoilSpeedBonus() {
+        return ((mCoilLevel == null ? 0 : SPEED_PER_COIL * mCoilLevel.getTier()));
     }
 
     public double getSpeedBonus() {
-        return 1F / (BASE_SPEED_BONUS + getCoilSpeedBonus());
+        return 1.0D / (BASE_SPEED_BONUS + getCoilSpeedBonus());
     }
 
     public double getEUMultiplier() {

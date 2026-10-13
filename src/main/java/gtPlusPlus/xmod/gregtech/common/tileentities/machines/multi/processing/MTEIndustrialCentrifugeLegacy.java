@@ -209,8 +209,8 @@ public class MTEIndustrialCentrifugeLegacy extends GTPPMultiBlockBase<MTEIndustr
     @Override
     protected ProcessingLogic createProcessingLogic() {
         return new ProcessingLogic().noRecipeCaching()
-            .setEuModifier(0.9F)
-            .setSpeedBonus(1F / 2.25F)
+            .setEuModifier(0.9D)
+            .setSpeedBonus(1D / 2.25D)
             .setMaxParallelSupplier(this::getTrueParallel);
     }
 

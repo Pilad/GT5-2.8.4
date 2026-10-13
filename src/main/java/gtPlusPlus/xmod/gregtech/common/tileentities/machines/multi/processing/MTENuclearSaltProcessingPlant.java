@@ -49,6 +49,10 @@ public class MTENuclearSaltProcessingPlant extends GTPPMultiBlockBase<MTENuclear
     implements ISurvivalConstructable {
 
     protected GTRecipe lastRecipeToBuffer;
+    private static final int BASE_PARALLEL = 2;
+    private static final double DURATION_MULTIPLIER = 2.5D;
+    private static final double EU_MULTIPLIER = 1.0D;
+
     private int casing;
     private static IStructureDefinition<MTENuclearSaltProcessingPlant> STRUCTURE_DEFINITION = null;
 
@@ -202,13 +206,13 @@ public class MTENuclearSaltProcessingPlant extends GTPPMultiBlockBase<MTENuclear
 
     @Override
     protected ProcessingLogic createProcessingLogic() {
-        return new ProcessingLogic().setSpeedBonus(1F / 2.5F)
+        return new ProcessingLogic().setSpeedBonus(1.0D / DURATION_MULTIPLIER)
             .setMaxParallelSupplier(this::getTrueParallel);
     }
 
     @Override
     public int getMaxParallelRecipes() {
-        return 2 * (Math.max(1, GTUtility.getTier(getMaxInputVoltage())));
+        return BASE_PARALLEL * (Math.max(1, GTUtility.getTier(getMaxInputVoltage())));
     }
 
     @Override

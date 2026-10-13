@@ -105,7 +105,7 @@ public class MTEIndustrialFluidHeater extends GTPPMultiBlockBase<MTEIndustrialFl
                     buildHatchAdder(MTEIndustrialFluidHeater.class)
                         .atLeast(OutputBus, OutputHatch, Maintenance, Energy, Muffler)
                         .casingIndex(getCasingTextureIndex())
-                        .dot(1)
+                        .dot(2)
                         .buildAndChain(onElementPass(x -> ++x.mCasing1, ofBlock(getCasingBlock2(), getCasingMeta2()))))
                 .build();
         }
@@ -163,8 +163,8 @@ public class MTEIndustrialFluidHeater extends GTPPMultiBlockBase<MTEIndustrialFl
 
     @Override
     protected ProcessingLogic createProcessingLogic() {
-        return new ProcessingLogic().setSpeedBonus(1F / 2.2F)
-            .setEuModifier(0.9F)
+        return new ProcessingLogic().setSpeedBonus(1.0D / 2.2D)
+            .setEuModifier(0.9D)
             .setMaxParallelSupplier(this::getTrueParallel);
     }
 
