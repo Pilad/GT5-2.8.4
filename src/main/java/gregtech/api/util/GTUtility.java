@@ -140,6 +140,7 @@ import cofh.asmhooks.block.BlockTickingWater;
 import cofh.asmhooks.block.BlockWater;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
+import fox.spiteful.avaritia.items.ItemMatterCluster;
 import gregtech.GTMod;
 import gregtech.api.GregTechAPI;
 import gregtech.api.damagesources.GTDamageSources;
@@ -1644,6 +1645,42 @@ public class GTUtility {
         dropItemToBlockPos(world, x, y, z, stack, false, false);
     }
 
+    public static void dropItemsOrClusters(World world, float x, float y, float z, List<ItemStack> stacks) {
+        if (Mods.AvaritiaAddons.isModLoaded()) {
+            dropMatterClusters(world, x, y, z, stacks);
+        } else {
+            for (ItemStack stack : stacks) {
+                int maxStack = stack.getMaxStackSize();
+
+                while (stack.stackSize > 0) {
+                    int inStack = Math.min(stack.stackSize, maxStack);
+                    stack.stackSize -= inStack;
+
+                    EntityItem item = new EntityItem(world, x, y, z, GTUtility.copyAmountUnsafe(inStack, stack));
+
+                    item.motionX = 0;
+                    item.motionY = 0;
+                    item.motionZ = 0;
+
+                    world.spawnEntityInWorld(item);
+                }
+            }
+        }
+    }
+
+    @cpw.mods.fml.common.Optional.Method(modid = Mods.ModIDs.AVARITIA)
+    public static void dropMatterClusters(World world, float x, float y, float z, List<ItemStack> stacks) {
+        for (ItemStack cluster : ItemMatterCluster.makeClusters(stacks)) {
+            EntityItem item = new EntityItem(world, x, y, z, cluster);
+
+            item.motionX = 0;
+            item.motionY = 0;
+            item.motionZ = 0;
+
+            world.spawnEntityInWorld(item);
+        }
+    }
+
     /**
      * Moves Stack from Inv-Side to Inv-Slot.
      *
@@ -3096,14 +3133,14 @@ public class GTUtility {
         return t;
     }
 
-    public static NBTTagList saveItemList(List<ItemStack> stacks) {
+    public static NBTTagList saveItemList(Collection<ItemStack> stacks) {
         NBTTagList list = new NBTTagList();
 
         if (stacks != null) {
             for (ItemStack stack : stacks) {
                 if (isStackInvalid(stack)) continue;
 
-                list.appendTag(stack.writeToNBT(new NBTTagCompound()));
+                list.appendTag(GTUtility.saveItem(stack));
             }
         }
 
@@ -3115,7 +3152,7 @@ public class GTUtility {
         ArrayList<ItemStack> stacks = new ArrayList<>();
 
         for (NBTTagCompound tag : (List<NBTTagCompound>) list.tagList) {
-            ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
+            ItemStack stack = GTUtility.loadItem(tag);
 
             if (isStackInvalid(stack)) continue;
 
