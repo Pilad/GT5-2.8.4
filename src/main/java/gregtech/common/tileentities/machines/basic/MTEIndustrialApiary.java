@@ -700,8 +700,8 @@ public class MTEIndustrialApiary extends MTEBasicMachine
 
     private void doTransfer(IGregTechTileEntity tileEntity) {
         if (doesAutoOutput() && !isOutputEmpty() && tileEntity.getFrontFacing() != mMainFacing) {
-            short frontFacing = tileEntity.getFrontFacing();
-            short backFacing = tileEntity.getBackFacing();
+            ForgeDirection frontFacing = tileEntity.getFrontFacing();
+            ForgeDirection backFacing = tileEntity.getBackFacing();
             final TileEntity targetTile = tileEntity.getTileEntityAtSide(frontFacing);
             final long tStoredEnergy = tileEntity.getUniversalEnergyStored();
             int tMaxStacks = (int) (tStoredEnergy / 64L);
