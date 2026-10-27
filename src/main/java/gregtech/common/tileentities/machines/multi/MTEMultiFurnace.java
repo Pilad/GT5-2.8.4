@@ -410,6 +410,11 @@ public class MTEMultiFurnace extends MTEAbstractMultiFurnace<MTEMultiFurnace> im
     }
 
     @Override
+    public int getMaxParallelRecipes() {
+        return mLevel;
+    }
+
+    @Override
     public void construct(ItemStack stackSize, boolean hintsOnly) {
         buildPiece(STRUCTURE_PIECE_MAIN, stackSize, hintsOnly, 1, 2, 0);
     }
