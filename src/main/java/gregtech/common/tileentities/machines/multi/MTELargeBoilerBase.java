@@ -146,13 +146,14 @@ public abstract class MTELargeBoilerBase extends MTEExtendedPowerMultiBlockBase<
                     .atLeast(InputHatch, InputBus, OutputHatch, Maintenance, Muffler)
                     .casingIndex(casing.getTextureId())
                     .dot(1)
+                    .allowOnly(ForgeDirection.NORTH)
                     .buildAndChain(
                         onElementPass(
                             MTELargeBoilerBase::onCasingAdded,
                             ofBlock(casing.getBlock(), casing.getBlockMeta()))))
             .addElement(
                 'F',
-                buildHatchAdder(MTELargeBoilerBase.class)
+                buildHatchAdder(MTELargeBoilerBase.class).allowOnly(ForgeDirection.SOUTH)
                     .atLeast(InputHatch, InputBus, OutputHatch, Maintenance, Muffler)
                     .casingIndex(fireboxCasing.getTextureId())
                     .dot(1)

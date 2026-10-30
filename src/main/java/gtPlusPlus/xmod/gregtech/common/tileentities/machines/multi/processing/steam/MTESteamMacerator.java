@@ -201,6 +201,7 @@ public class MTESteamMacerator extends MTESteamMultiBase<MTESteamMacerator> impl
                             .atLeast(SteamHatchElement.InputBus_Steam, SteamHatchElement.OutputBus_Steam)
                             .casingIndex(10)
                             .dot(1)
+                            .allowOnly(ForgeDirection.NORTH)
                             .buildAndChain(),
                         ofBlocksTiered(
                             this::getTierMachineCasing,
