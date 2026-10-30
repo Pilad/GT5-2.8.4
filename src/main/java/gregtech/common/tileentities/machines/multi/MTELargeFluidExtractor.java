@@ -16,6 +16,7 @@ import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static gregtech.api.util.GTStructureUtility.ofCoil;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 import static gregtech.api.util.GTStructureUtility.ofSolenoidCoil;
+import static gregtech.api.util.NumberFormatUtil.formatNumber;
 import static net.minecraft.util.EnumChatFormatting.RESET;
 import static net.minecraft.util.EnumChatFormatting.YELLOW;
 
@@ -357,19 +358,19 @@ public class MTELargeFluidExtractor extends MTEExtendedPowerMultiBlockBase<MTELa
             StatCollector.translateToLocalFormatted(
                 "Heating Coil Speed Bonus: +%s%.0f%s %%",
                 YELLOW,
-                getCoilSpeedBonus() * 100,
+                formatNumber(getCoilSpeedBonus() * 100),
                 RESET));
         data.add(
             StatCollector.translateToLocalFormatted(
                 "Total Speed Multiplier: %s%.0f%s %%",
                 YELLOW,
-                (BASE_SPEED_BONUS + getCoilSpeedBonus()) * 100,
+                formatNumber((BASE_SPEED_BONUS + getCoilSpeedBonus()) * 100),
                 RESET));
         data.add(
             StatCollector.translateToLocalFormatted(
                 "Total EU/t Multiplier: %s%.0f%s %%",
                 YELLOW,
-                getEUMultiplier() * 100,
+                formatNumber(getEUMultiplier() * 100),
                 RESET));
 
         return data.toArray(new String[0]);

@@ -3845,9 +3845,9 @@ GT5U.infodata.extreme_diesel_engine=Extreme Diesel Engine
 GT5U.infodata.fusion_reactor_mk=Fusion Reactor MK
 
 GT5U.infodata.large_fluid_extractor.max_parallels=Max Parallels: %s%d%s
-GT5U.infodata.large_fluid_extractor.heating_coil_speed_bonus=Heating Coil Speed Bonus: +%s%.0f%s %%
-GT5U.infodata.large_fluid_extractor.total_speed_multiplier=Total Speed Multiplier: %s%.0f%s %%
-GT5U.infodata.large_fluid_extractor.total_eu_multiplier=Total EU/t Multiplier: %s%.0f%s %%
+GT5U.infodata.large_fluid_extractor.heating_coil_speed_bonus=Heating Coil Speed Bonus: +%s%s%s %%
+GT5U.infodata.large_fluid_extractor.total_speed_multiplier=Total Speed Multiplier: %s%s%s %%
+GT5U.infodata.large_fluid_extractor.total_eu_multiplier=Total EU/t Multiplier: %s%s%s %%
 
 GT5U.infodata.oil_drill.drilling_fluid=Drilling Fluid: %s
 GT5U.infodata.oil_drill.drilling_flow=Drilling flow: %s L/t

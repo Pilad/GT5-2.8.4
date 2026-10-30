@@ -3425,9 +3425,9 @@ GT5U.infodata.extreme_diesel_engine=Экстремальный дизельны�
 GT5U.infodata.fusion_reactor_mk=Термоядерный реактор MK
 
 GT5U.infodata.large_fluid_extractor.max_parallels=Макс. параллелей: %s%d%s
-GT5U.infodata.large_fluid_extractor.heating_coil_speed_bonus=Бонус нагревательной катушки к скорости: +%s%.0f%s %%
-GT5U.infodata.large_fluid_extractor.total_speed_multiplier=Множитель общей скорости: %s%.0f%s %%
-GT5U.infodata.large_fluid_extractor.total_eu_multiplier=Общий множитель EU/t: %s%.0f%s %%
+GT5U.infodata.large_fluid_extractor.heating_coil_speed_bonus=Бонус нагревательной катушки к скорости: +%s%s%s %%
+GT5U.infodata.large_fluid_extractor.total_speed_multiplier=Множитель общей скорости: %s%s%s %%
+GT5U.infodata.large_fluid_extractor.total_eu_multiplier=Общий множитель EU/t: %s%s%s %%
 
 GT5U.infodata.oil_drill.drilling_fluid=Буровой раствор: %s
 GT5U.infodata.oil_drill.drilling_flow=Поток бурения: %s Л/тик
